@@ -1,0 +1,255 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+@section backScripts
+{
+    <script type="text/javascript">
+        var currentID = "@ViewBag.CurrentID";
+        var rootPath = '@Url.Content("~/Admin/")';
+        var gridUrl = rootPath + 'CategoryProperty/GetPropertyForGrid/?ID=' + currentID;
+        var maingrid = $("#propertygrid");
+        //本地按钮
+        var toolbarOptions = [
+               { text: '保存', id: 'Save', handler: toolbarBtnItemClick, iconCls: 'icon-save' },
+               { text: '取消', id: 'Cancel', handler: toolbarBtnItemClick, iconCls: 'icon-undo' }
+        ];
+
+        //加载toolbar
+        LG.loadGridToolbar(maingrid, gridUrl, toolbarBtnItemClick, toolbarOptions);
+
+
+        function toolbarBtnItemClick(item) {
+            switch (this.id) {
+                case "Add": beginAdd(); break;
+                case "Update": beginEdit(); break;
+                case "Save": save(); break;
+                case "Cancel": cancel(); break;
+                case "Delete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作只是软删除)?', function (r) {
+                        if (r) {
+                            del();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+            }
+        }
+        //刷新数据
+        function reload() {
+            maingrid.datagrid('reload');
+        }
+        var editIndex; var isAdd = false;
+        //添加一行
+        function beginAdd() {
+            if (editIndex != undefined) {
+                maingrid.datagrid('selectRow', editIndex);
+                LG.tip('请先提交或取消修改');
+                return;
+            }
+
+            maingrid.datagrid('appendRow', { forderId: currentID });
+            editIndex = maingrid.datagrid('getRows').length - 1;
+            isAdd = true;
+            maingrid.datagrid('selectRow', editIndex)
+                    .datagrid('beginEdit', editIndex);
+            //editIndex = maingrid.datagrid('getRowIndex', node);
+            //maingrid.datagrid('select', editIndex);
+            //maingrid.datagrid('beginEdit', editIndex);
+
+        }
+        //编辑
+        function beginEdit() {
+
+            if (editIndex != undefined) {
+                maingrid.datagrid('selectRow', editIndex);
+                LG.tip('请先提交或取消修改');
+                return;
+            }
+            var row = maingrid.datagrid('getSelected');
+            if (row) {
+                editIndex = maingrid.datagrid('getRowIndex', row);
+                maingrid.datagrid('beginEdit', editIndex);
+            }
+            else {
+                LG.tip('请先选择行');
+            }
+        }
+
+        function del() {
+            var selected = maingrid.datagrid('getSelected');
+            if (selected) {
+                if (isAdd) {
+                    maingrid.datagrid('deleteRow', editIndex);
+                    editIndex = undefined;
+                    isAdd = false;
+                    return;
+                }
+                var data = selected;
+                // data.ModuleID = selected.ModuleID;
+                LG.ajax({
+                    url: rootPath + 'CategoryProperty/Delete',
+                    loading: '正在删除中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        $.messager.alert('提示', '删除成功', 'info');
+                    },
+                    error: function (message) {
+                        $.messager.alert('提示', message, 'error');
+                    }
+                });
+            }
+            else {
+                LG.tip('请选择行!');
+            }
+        }
+
+        function realdelete() {
+            var selected = maingrid.datagrid('getSelected');
+            if (selected) {
+                if (isAdd) {
+                    maingrid.datagrid('deleteRow', editIndex);
+                    editIndex = undefined;
+                    isAdd = false;
+                    return;
+                }
+                var data = selected;
+                // data.pId = selected.pId;
+                LG.ajax({
+                    url: rootPath + 'CategoryProperty/RealDelete',
+                    loading: '正在删除中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        $.messager.alert('提示', '删除成功', 'info');
+                    },
+                    error: function (message) {
+                        $.messager.alert('提示', message, 'error');
+                    }
+                });
+            }
+            else {
+                LG.tip('请选择行!');
+            }
+        }
+        //保存
+        function save() {
+            if (editIndex != undefined) {
+
+                if (maingrid.datagrid('validateRow', editIndex)) {
+
+                    maingrid.datagrid('endEdit', editIndex);
+                    editIndex = undefined;
+                    selectController = undefined;
+                }
+                else {
+                    $.messager.alert('错误', '填写的内容或格式有问题', 'error');
+                }
+            }
+            else {
+                LG.tip('现在不在编辑状态!');
+            }
+        }
+        //取消
+        function cancel() {
+            if (editIndex != undefined) {
+                if (isAdd)
+                { maingrid.datagrid('deleteRow', editIndex); }
+                else
+                {
+                    maingrid.datagrid('cancelEdit', editIndex);
+                }
+                editIndex = undefined;
+                isAdd = false;
+            }
+            else {
+                LG.tip('现在不在编辑状态!');
+            }
+        }
+        //提交保存
+        function finishEdit(index, rowData, changes) {
+
+            LG.ajax({
+                loading: '正在保存数据中...',
+                url: rootPath + 'CategoryProperty/' + (isAdd ? "Add" : "Update"),
+                data: rowData,
+                success: function () {
+
+                    LG.tip('保存成功!');
+                },
+                error: function (message) {
+                    LG.tip(message);
+                }
+            });
+            reload();
+        }
+    </script>
+
+
+}
+<ipnut type="hidden" id="MenuNo" value="Role" />
+<div style="margin: 0px 0; width: 100%; height: 100%">
+    
+    <table id="propertygrid" class="easyui-datagrid" data-options="rownumbers:true,fit:true,animate: true,pageSize: 20,pagination:true,singleSelect:true,idField:'Id',onEndEdit:finishEdit,onBeforeLoad:function(param){editIndex = undefined;isAdd = false;}">
+        <thead>
+            <tr>
+                <th data-options="field:'id',width:80, hidden: true">Id</th> 
+                 <th data-options="field:'forderId',width:80, hidden: true">ForderId</th> 
+                <th data-options="field:'orderNum',width:80" editor="{type:'numberbox',options:{required:true}}">顺序</th>
+                <th data-options="field:'key',width:130,align:'left',editor:'text'">属性名称</th>
+                <th data-options="field:'keyEn',width:150,align:'left',editor:'text'">属性英文名称</th>
+                <th data-options="field:'valueType',width:150,align:'left',formatter:function (item) {
+                            switch(item)
+                            {
+                                case 0:return '输入';
+                                case 1:return '单选';
+                                case 2:return '多选';
+                            }
+                          if (item)
+                              return 'YES';
+                          else
+                              return 'NO';
+                      },editor:{
+                            type:'combobox',
+                            
+                            options:{
+                                editable:false,
+                                valueField:'value',
+                                textField:'label',
+                                data: [{
+                                    label: '输入',
+                                    value: '0'
+                                  },{
+                                    label: '单选',
+                                    value: '1'
+                                  },{
+                                    label: '多选',
+                                    value: '2'
+                                  }]
+                                }
+                            
+                        }">类型</th>
+                <th data-options="field:'searchChoose',width:150,align:'left',editor:'checkbox',formatter:function (item) {
+                          if (item)
+                              return 'YES';
+                          else
+                              return 'NO';
+                      }">是否搜索</th>
+                <th data-options="field:'createdate',width:150,align:'left'">创建时间</th>
+                 <th data-options="field:'updatedate',width:150,align:'left'">修改时间</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+

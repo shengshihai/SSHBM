@@ -1,0 +1,693 @@
+﻿@model MODEL.ViewModel.ViewModelProduct
+@{
+    ViewBag.Title = "Suppliers";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+<link href="~/Content/back/dropzone/css/dropzone.css" rel="stylesheet" />
+
+<div class="block">
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+        </div>
+        <h2>Inbox <strong>(5)</strong></h2>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-10 col-sm-offset-0">
+            <div class="progress progress-striped active">
+                <div id="progress-bar-wizard" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+            </div>
+            <form id="progress-wizard" action="Add" method="post" class="form-horizontal">
+                <div id="progress-first" class="step" style="display:none">
+
+                    <div class="form-group well well-lg">
+                        <div class="col-md-3">
+                            <select size="4" id="category1" name="category" class="form-control" style="height: 220px;" onchange="changecategory(this,'category2')">
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select size="4" id="category2" name="category" class="form-control" style="height: 220px; display: none" onchange="changecategory(this,'category3')"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <select size="4" id="category3" name="category" class="form-control" style="height: 220px; display: none" onchange="changecategory(this,'category4')"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <select size="4" id="category4" name="category" class="form-control" style="height: 220px; display: none" onchange="changecategory(this)"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="validaddress col-md-6">
+                            <div id="categroyPath" class="category-path">
+                                <span class="category-selected-label">您当前选择的是：</span>
+                                <span id="catePathText"></span>
+                                <span id="catePathSucc" style="display: none">
+                                    <i class="fa fa-check fa-1x text-success"></i></span>
+                                <input type="hidden" id="Pid" name="Pid" value="@Model.Pid"  />
+                                <input type="hidden" id="PcId" name="PcId" value="@Model.PcId"  />
+                                <input type="hidden" id="PcidCode" name="PcidCode" value="@Model.PcidCode"  />
+                                <input type="hidden" id="IsPublish" name="IsPublish" value="1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="progress-second" class="step">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-7">
+                            <div>
+                                <div class="categroy-path">
+                                    <span class="category-selected-label">您当前选择的是：</span>
+                                    <span id="cate-path-text-copy" class="category-selected">@ViewBag.CategoryNav  </span><i class="fa fa-check fa-1x text-success"></i>
+                                    <a id="changeCategoryBtn" class="reselect-category" href="javascript:void(0);">重选类目</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <h4 class="ui-form-title">Basic Information<span style="margin-left: 10px; font-weight: normal; font-size: 12px; height: 30px; line-height: 30px; color: #999;">Besides helping buyers clearly understand your listing, this information will also influence your product ranking in search results.</span></h4>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-4 control-label">Your Company  <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-7">
+                            <input type="hidden"  id="SupplierId" name="SupplierId" value="1" />
+                            @*<select id="SupplierId" name="SupplierId" class="select-chosen select2-offscreen" data-placeholder="Choose a Company.." onchange="$(this).focus()">
+                                <option></option>
+                                @foreach (var item in (ViewBag.SupplierList as List<MODEL.ViewModel.EasyUISelect>))
+                                {
+                                    if (@Model.SupplierId == item.id)
+                                    {
+                                    <option value="@item.value" selected>@item.text</option>
+                                    }
+                                    else
+                                    {    
+                                    <option value="@item.value">@item.text</option>
+                                    }
+                                }
+                            </select>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Product Name  <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-8">
+                            <input type="text" id="ProductName" name="ProductName" class="form-control" placeholder="Product Name.." value="@Model.ProductName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">推荐首页  </label>
+                        <div class="col-md-3">
+                            <label class="switch switch-primary">
+                                <input type="checkbox" id="Hot" name="IsHot" value="1" @(Model.IsHot == 1 ? "checked" : "")><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-4 control-label">产品关键词  <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-4">
+                            <input type="text" id="KeyWord" name="KeyWord" class="form-control" placeholder="" value="@Model.KeyWord">
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-4 control-label">更多关键词  </label>
+                        <div class="validaddress col-md-4">
+                            <input type="text" name="KeyWord2" id="KeyWord2" class="form-control" placeholder="" value="@Model.KeyWord2">
+                        </div>
+                        <div class="validaddress col-md-4">
+                            <input type="text" name="KeyWord3" id="KeyWord3" class="form-control" placeholder="" value="@Model.KeyWord3">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">简要描述  <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-8">
+                            <textarea id="Description" name="Description" rows="6" placeholder="Tell us your story.." class="form-control" >@Model.Description</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">产品图片  <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-8">
+                            <input type="text" id="imgrequired" name="imgrequired" value="" class="select2-offscreen" />
+                            <div id="productimage" class="dropzone">
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <h4 class="ui-form-title">Product Details<span style="margin-left: 10px; font-weight: normal; font-size: 12px; height: 30px; line-height: 30px; color: #999;">Complete product details help your listing gain more exposure and visibility to potential buyers</span></h4>
+                        </div>
+                    </div>
+                    <div id="categorymainparas">
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-4 control-label">自定义属性</label>
+                        <div class="col-md-3">
+                            <p class="col-md-4 control-label" style="padding-left: 0; text-align: left;">属性名</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="col-md-4 control-label" style="padding-left: 0; text-align: left;">属性值</p>
+                        </div>
+                    </div>
+                    <div id="categoryparas">
+                        @if (@Model.ParameterList != null && @Model.ParameterList.Where(para => para.PType == 0).Count() > 0)
+                        {
+                            foreach (var item in @Model.ParameterList.Where(para => para.PType == 0))
+                            {
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="example-city"></label>
+                                <div class="validaddress col-md-3">
+                                    <input type="text" name="categoryparakey" id="categoryparakey_@item.Id" class="form-control"  value="@item.KeyName">
+                                </div>
+                                <div class="validaddress col-md-4">
+                                    <input type="text" name="categoryparavalue" id="categoryparavalue_@item.Id" class="form-control" value="@item.ValueName">
+                                    <input type="hidden" class="c_txt" name="parasType" value="0">
+                                    <input type="hidden" class="c_txt" name="keyId" value="0">
+                                    <input type="hidden" class="c_txt" name="valueId" value="0">
+                                </div>
+                                <div class="col-md-1">
+                                    <a class="col-md-1 control-label" style="padding-left: 0; text-align: left; color: black;" onclick="delcategorypara(this);" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="form-group" style="display:none">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="validaddress col-md-3">
+                                    <input type="text" id="categoryparakey_0" name="categoryparakey" class="form-control">
+                                </div>
+                                <div class="validaddress col-md-4">
+                                    <input type="text" name="categoryparavalue" id="categoryparavalue_0" class="form-control">
+                                    <input type="hidden" class="c_txt" name="parasType" value="0">
+                                    <input type="hidden" class="c_txt" name="keyId" value="0">
+                                    <input type="hidden" class="c_txt" name="valueId" value="0">
+                                </div>
+                                <div class="col-md-1">
+                                    <a class="col-md-1 control-label" style="padding-left: 0; text-align: left; color: black; display: none" onclick="delcategorypara(this);" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group" style="display:none">
+                        <label class="col-md-4 control-label" for="example-city"></label>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-alt btn-sm btn-default" onclick="addcategorypara(this)">点击添加</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+
+                    </div>
+                    <div id="isshow">
+
+                   
+                    <div class="form-group">
+                        <label class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+
+                            <h4 class="ui-form-title">Detailed Description<span style="margin-left: 10px; font-weight: normal; font-size: 12px; height: 30px; line-height: 30px; color: #999;">For the best visual effects, we recommend keeping the image within 750px(width)*800px(height) and table width within 750px.</span></h4>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-8">
+                            <textarea id="Detail" name="Detail" rows="6" style="height:500px" placeholder="Tell us your story.." class="select2-offscreen">@Model.Detail</textarea>
+                        </div>
+                    </div>
+
+                    </div>
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">审核状态  </label>
+                        <div class="col-md-3">
+                            <label class="switch switch-primary">
+                                <input type="checkbox" id="IsCheck" name="IsCheck" onchange="" value="1" @(Model.IsCheck == 1 ? "checked" : "")><span></span></label>
+                        </div>
+                    </div>
+                     <div class="form-group" id="divReason" style="display:none">
+                        <label class="col-md-4 control-label">原因  <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-8">
+                            <textarea id="Reason" name="Reason" rows="6" placeholder="Tell us your story.." class="" style="  font-size: 13px;
+  padding: 6px 8px;
+  max-width: 100%;
+  margin: 1px 0;
+  color: #394263;
+  border-color: #dbe1e8;" >@Model.Reason</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-md-8 col-md-offset-4">
+                        <input type="reset" class="btn btn-sm btn-warning" id="back3" value="Back">
+
+                        <input type="submit" class="btn btn-sm btn-primary" id="next3" data-loading-text="Loading..." value="Next">
+                        @*<input type="button" class="btn btn-sm btn-primary" id="Save" data-loading-text="Loading..." value="Save">
+                           <input type="button" class="btn btn-sm btn-primary" id="Check" data-loading-text="Loading..." value="审核不通过">*@
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section backScripts
+{
+      <style type="text/css">
+        .has-error .chosen-container > a {
+        border: 1px solid #E73037;
+        }
+    </style>
+    <script src="~/Scripts/back/js/jquery-form.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script src="~/Content/back/dropzone/dropzone.js"></script>
+    <script src="~/Content/back/tinymce/jscripts/tiny_mce/tiny_mce_src.js"></script>
+    <script id="productCategoryTemplate" type="text/x-jquery-tmpl">
+        <option value="${pcId}" isleaves="${isLeaves}" code="${code}">${categoryName}</option>
+    </script>
+
+    <script id="productMainParasTemplate" type="text/x-jquery-tmpl">
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="example-city">${key}</label>
+            <div class="validaddress col-md-3">
+                <input type="hidden" class="c_txt" name="categoryparakey" value="${keyEn}">
+                <input type="text" name="categoryparavalue" id="categorymainparavalue_${id}" class="form-control" placeholder="">
+                <input type="hidden" class="c_txt" name="parasType" value="1">
+                <input type="hidden" class="c_txt" name="keyId" value="${id}">
+                <input type="hidden" class="c_txt" name="valueId" value="0">
+            </div>
+        </div>
+    </script>
+
+    <script id="productParasTemplate" type="text/x-jquery-tmpl">
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="example-city"></label>
+            <div class="validaddress col-md-3">
+                <input type="text" id="newcategoryparakey_${id}" name="categoryparakey" value="${KeyName}" class="form-control" placeholder="">
+            </div>
+            <div class="validaddress col-md-4">
+                <input type="text" name="categoryparavalue" id="newcategoryparavalue_${id}" value="${ValueName}" class="form-control" placeholder="">
+                <input type="hidden" class="c_txt" name="parasType" value="0">
+                <input type="hidden" class="c_txt" name="keyId" value="0">
+                <input type="hidden" class="c_txt" name="valueId" value="0">
+            </div>
+            <div class="col-md-1">
+                <a class="col-md-4 control-label" style="padding-left: 0; text-align: left; color: black" onclick="delcategorypara(this);" onmouseover="this.style.color='red'" onmouseout="this.style.color='black'"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+    </script>
+
+
+    <script type="text/javascript">
+        //当前ID
+        var currentID = "@Model.Pid";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = false;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+        function dropzoneimg() {
+            var myDropzone = new Dropzone("#productimage", { 
+                url: "/Admin/Product/UploadProductImg/",
+                addRemoveLinks: true,
+                acceptedFiles: 'image/*',
+                maxFilesize: 4,
+                init: function () {
+                    this.on("addedfile", function(file) { 
+                        if(file.url)
+                        {
+                            $(file.previewElement).find(".dz-details").append("<input type='hidden' name='txtImg'  value='" + file.name + "'><input type='hidden' name='image'  value='" + file.url + "'>");
+                            $(file.previewElement).find(".dz-details").find("input[type=radio]").val(file.url);
+                            if(file.DefaultImage == 1)
+                                $(file.previewElement).find(".dz-details").find("input[type=radio]").attr("checked","checked");
+                            file.previewElement.classList.add("dz-success");
+                        }
+                        $("#imgrequired").val('1');
+                        $("#imgrequired").blur();
+                    });
+                    this.on("removedfile", function(file) { 
+                        if($("#productimage").children().length==1){$("#imgrequired").val('');}
+
+                    
+                    }),
+                    this.on("success", function (file, url) {
+                        $(file.previewElement).find(".dz-details").append("<input type='hidden' name='txtImg'  value='" + file.name + "'><input type='hidden' name='image'  value='" + url + "'>");
+                        $(file.previewElement).find(".dz-details").find("input[type=radio]").val(url);
+
+                    });
+                    
+                    // this._callbacks.addedfile[0](file);
+                },
+            });
+            var files = @(!string.IsNullOrEmpty(ViewBag.Images) ? Html.Raw(ViewBag.Images) : "{}");
+            for (var i = 0; i < files.length; i++) {
+                myDropzone.addInitFile(files[i]);
+            }
+            //var file={
+            //    lastModified: "1405316929000",
+            //    lastModifiedDate: "Mon Jul 14 2014 13:48:49 GMT+0800 (中国标准时间)",
+            //    name: "QQ图片20140714134847.jpg",
+            //    size: "33940",
+            //    status: "added",
+            //    type: "image/jpeg",
+            //    url:"http://image.exportimes.com/UploadFile/UploadImg/2014/11/26/201411260244217653.jpg",
+            //}
+            //myDropzone.addInitFile(file);
+        }
+        var FormsWizard = function () {
+            return {
+                init: function () {
+                    var wizard= $("#progress-wizard").formwizard({
+                        disableUIStyles: !0,
+                        validationEnabled: !0,
+                        formPluginEnabled:!0,
+                        loadingbtn:"next3",
+                        formOptions:{
+                            url: '/Admin/product/' + (isEdit ? 'Update' : 'Add'),
+                            success: function(data, n,r) {
+                                if (!data.IsError)// 如果提交成功则隐藏进度条
+                                {
+                                   
+                                    window.parent.frames["ifm_Product"].reload();
+                                    window.parent.LG.tipSuccess(data.Message);
+                                    window.parent.addTab('Product', '产品管理', '/Admin/Product/List');
+                                }
+                                else
+                                    window.parent.LG.tipError(data.Message);
+                            }
+                              
+
+                        },
+                        validationOptions: {
+                            ignore:"",
+                            errorClass: "help-block animation-slideDown",
+                            errorElement: "span",
+                            errorPlacement: function (r, s) {
+                                // s.parents(".form-group > div").append(r)
+                                s.parents(".validaddress ").append(r)
+                            },
+                            highlight: function (r) {
+                                $(r).closest(".validaddress ").removeClass("has-success has-error").addClass("has-error"),
+                                $(r).closest(".help-block").remove()
+                            },
+                            success: function (r) {
+                                r.closest(".validaddress ").removeClass("has-success has-error").removeClass(" has-error "), r.closest(".help-block").remove()
+                            },
+                            rules: {
+                                PcId: { required: !0 },
+                                SupplierId: { required: !0,english:!0 },
+                                ProductName: { required: !0 },
+                               // KeyWord: { required: !0 }, 
+                                Description: { required: !0 },
+                                imgrequired: { required: !0 },
+                                // Description: { required: !0 }
+                            },
+                            messages: {
+                                PcId: {
+                                    required: "Please select the last level product category",
+                                },
+                                SupplierId: {
+                                    required: "Please select a company",
+                                },
+                                ProductName: {
+                                    required: "Please provide a product name",
+                                },
+                                KeyWord: {
+                                    required: "Please provide at least one keyword",
+                                },
+                                Description: {
+                                    required: "Please enter the product description",
+                                },
+                                imgrequired: "Please add a product image",
+                                val_terms: "Please accept the terms to continue"
+                            }
+                        }, inDuration: 0, outDuration: 0,backButton:"changeCategoryBtn",
+                        @Html.Raw(Model.Pid == 0 ? "" : "currentStep: \"progress-second\"") 
+                    });
+                   
+                    var r = $("#progress-bar-wizard");
+                    @Html.Raw(Model.Pid == 0 ? " r.css('width', '50%').attr('aria-valuenow', '50')," : " r.css('width', '100%').attr('aria-valuenow', '100').removeClass('progress-bar-danger').addClass('progress-bar-success'),") 
+                    $("#progress-wizard").bind("step_shown", function (s, e) {
+                        $("#category1").focus();
+                        "progress-first" === e.currentStep ? r.css("width", "50%").attr("aria-valuenow", "50").removeClass("progress-bar-warning progress-bar-success").addClass("progress-bar-danger") : "progress-second" === e.currentStep && r.css("width", "100%").attr("aria-valuenow", "100").removeClass("progress-bar-danger progress-bar-warning").addClass("progress-bar-success")
+                        
+                    });
+                    //$("#progress-wizard").bind("before_step_shown", function (s, e) {
+                    //    Description.setReadOnly( false );
+                    //    Detail.setReadOnly( false );
+                    //})
+
+
+                    
+                }
+            }
+        }();
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            // var Description;
+            FormsWizard.init();
+            dropzoneimg();
+            loadtingmce();
+            LoadCategoryParas();
+            LoadCategory(0, 'category1',0);
+            @Html.Raw(Model.Pid == 0 ? "" : "selCategory();") 
+            //设置input的验证
+           // $("#progress-wizard").find(".form-control").each(function() {$(this).rules("add", { english: true});});
+            otherButton();
+        });
+        function addimg()
+        {
+            
+           
+        }
+        function setproductType(pcparentid)
+        {
+            if(pcparentid=="1,")
+            {
+                $("#isshow").hide();
+            }
+            else
+            {
+                $("#isshow").show();
+            }
+        }
+        function otherButton()
+        {
+            var n = $("#Save"), r = $("#top-loading-stop");
+            n.on("click", function () {
+                $("#IsPublish").val(0);
+                $("#imgrequired").val('1');
+                $("#next3").click();
+                $("#IsPublish").val(1);
+                if($("#productimage").children().length==1){$("#imgrequired").val('');}
+            })
+            var n = $("#Check"), r = $("#top-loading-stop");
+            n.on("click", function () {
+                $("#IsCheck").removeAttr("checked");
+                $("#imgrequired").val('1');
+                $("#next3").click();
+                $("#IsPublish").val(1);
+                if($("#productimage").children().length==1){$("#imgrequired").val('');}
+            })
+        }
+        //添加普通参数
+        var index = 1;
+        function addcategorypara() {
+            $("#categoryparas").children().first().find("a").show();
+            var length = $("#categoryparas").children().length;
+            if (length < 10) {
+                var data = {};
+                data.id = index;
+                //$("#firstparadelbutton").show();
+                $("#productParasTemplate").tmpl(data).appendTo("#categoryparas");
+                //设置新添加的input的验证
+              //  $("#categoryparas").find(".form-control").each(function() {$(this).rules("add", { english: true});});
+                index = index + 1;
+            }
+        }
+        //删除普通的参数
+        function delcategorypara(obj) {
+            var length = $("#categoryparas").children().length;
+            if (length > 1)
+                $(obj).parent().parent().remove();
+            if ($("#categoryparas").children().length == 1)
+                $("#categoryparas").children().first().find("a").hide();
+        }
+
+        //加载随着分类的动态参数
+        function LoadCategoryParas(id) {
+            var data = @(!string.IsNullOrEmpty(ViewBag.MainParas) ? Html.Raw(ViewBag.MainParas) : "{}");
+            if (id == undefined)
+                id = $("#PcId").val();
+            LG.ajax({
+                async: false,
+                url: '/Admin/Product/GetProductCategoryParas/' + id,
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    $("#categorymainparas").html('');
+                    $("#productMainParasTemplate").tmpl(result.rows).appendTo("#categorymainparas")
+                    if(data.length>0)
+                    {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].PType == 1) {
+                                $("#categorymainparavalue_" + data[i].KeyId).val(data[i].ValueName);
+                            }
+                        }
+                    }
+                    //设置新添加的input的验证
+                  //  $("#categorymainparas").find(".form-control").each(function() {$(this).rules("add", { english: true});});
+                }
+            });
+        }
+        function ajaxfilemanager(field_name, url, type, win) {
+            $(win.document.getElementById(field_name + "_file")).click();
+            return false;
+        }
+        function loadtingmce() {
+            tinyMCE.init({
+                // General options
+                mode: "exact",
+                elements: "Detail",
+                theme: "advanced",
+                language: "@Language.Resource.textarea_lang",
+                plugins: "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+                theme_advanced_buttons1: "code,preview,|,undo,redo,fontselect,fontsizeselect,bold,italic,underline,forecolor,backcolor,removeformat,image,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,|,outdent,indent,sub,sup,|,charmap,link,unlink,fullscreen",      
+                theme_advanced_toolbar_location: "top",
+                theme_advanced_toolbar_align: "left",
+                theme_advanced_statusbar_location: "bottom",
+                theme_advanced_resizing: true,
+                file_browser_callback: "ajaxfilemanager",
+                // plugins : "ankupload",   
+
+                // 上传附件的操作路径   
+                // plugin_ankupload_url:"/Content/ankupload_v1.2/upfile.htm",  
+
+
+                // Example content CSS (should be your site CSS)
+                content_css: "/Content/back/tinymce/examples/css/content.css",
+
+                // Drop lists for link/image/media/template dialogs
+                template_external_list_url: "/Content/back/tinymce/examples/lists/template_list.js",
+                external_link_list_url: "/Content/back/tinymce/examples/lists/link_list.js",
+                external_image_list_url: "/Content/back/tinymce/examples/lists/image_list.js",
+                media_external_list_url: "/Content/back/tinymce/examples/lists/media_list.js",
+
+                // Style formats
+                style_formats: [
+                    { title: 'Bold text', inline: 'b' },
+                    { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                    { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                    { title: 'Example 1', inline: 'span', classes: 'example1' },
+                    { title: 'Example 2', inline: 'span', classes: 'example2' },
+                    { title: 'Table styles' },
+                    { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                ],
+
+                // Replace values for the template plugin
+                template_replace_values: {
+                    username: "Some User",
+                    staffid: "991234"
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+        function selCategory()
+        {
+            var pcids = $("#PcidCode").val().split(',');
+
+            for (var i = 0; i < pcids.length; i++) {
+                if (pcids[i] != "") {
+                    var idstr = "#category" + (i + 1);
+                    $(idstr).val(pcids[i]);
+                    var isleaves = $(idstr).find("option:selected").attr("isLeaves");
+                    $(idstr).trigger("onchange");
+                }
+            }
+        }
+
+
+        function LoadCategory(parentid, contrlname, isLeaves,pcidCode) {
+            $.ajax({
+                async: false,
+                url: '/Admin/Product/GetProductCategoryByLanguage',
+                data: { parentId: parentid },
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    categoryData = result.rows;
+                    setProductCategoryTmpl(categoryData, parentid, contrlname, isLeaves, pcidCode);
+                    if (result.rows.length <= 0)
+                        $("#" + contrlname).hide();
+                }
+
+            });
+
+        }
+       
+        function setProductCategoryTmpl(datas, parentid, categoryid, isLeaves, pcidCode) {
+            var category = datas;
+            $("#catePathSucc").hide();
+            $("#PcId").val('');
+            $("#categoryParas").html('');
+            if (isLeaves == 1) {
+                $("#" + categoryid).hide();
+                $("#catePathSucc").show();
+                $("#PcId").val(parentid);
+                $("#categroyPath").parent().find("[for='PcId']").remove();
+                setproductType(pcidCode);
+                $("#PcidCode").val(pcidCode+parentid);
+               
+               // LoadCategoryParas(parentid);
+            }
+            showcategoryname();
+            $("#productCategoryTemplate").tmpl(category).appendTo("#" + categoryid);
+        }
+        function changecategory(obj, categoryid) {
+            if (categoryid == "category2") {
+                $("#category3").hide();
+                $("#category4").hide();
+                $("#category3").empty();
+                $("#category4").empty();
+            } else if (categoryid == "category3") {
+                $("#category4").hide();
+                $("#category4").empty();
+            }
+            $("#" + categoryid).empty();
+            $("#" + categoryid).show();
+            LoadCategory(obj.value, categoryid, $(obj).find("option:selected").attr("isLeaves"), $(obj).find("option:selected").attr("code"));
+            // showcategoryname();
+        }
+        function showcategoryname() {
+            var catePathText = '';
+            var cate1 = $("#category1");
+            var cate2 = $("#category2");
+            var cate3 = $("#category3");
+            var cate4 = $("#category4");
+
+            if (cate1.val() != null) {
+                catePathText = catePathText + cate1.find("[value=" + cate1.val() + "]").html();
+            }
+            if (cate2.val() != null) {
+                catePathText = catePathText + ' >> ' + cate2.find("[value=" + cate2.val() + "]").html();
+            }
+            if (cate3.val() != null) {
+                catePathText = catePathText + ' >> ' + cate3.find("[value=" + cate3.val() + "]").html();
+            }
+            if (cate4.val() != null) {
+                catePathText = catePathText + ' >> ' + cate4.find("[value=" + cate4.val() + "]").html();
+            }
+            $("#catePathText").html(catePathText);
+            $("#cate-path-text-copy").html(catePathText);
+        }
+    </script>
+}

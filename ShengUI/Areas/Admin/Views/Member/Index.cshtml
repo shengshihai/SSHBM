@@ -1,0 +1,288 @@
+﻿@{
+    ViewBag.Title = "Suppliers";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+
+<div class="">
+    <div class="block">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+            </div>
+            <h2>Inbox <strong>(5)</strong></h2>
+        </div>
+
+
+        <div class="block-section" id="tablebutton">
+            <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">反选</button>
+            <div style="float: right ;display:none">
+                <button type="button" id="uncheck" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">待审核</button>
+                <button type="button" id="checked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核通过</button>
+                <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>
+
+            </div>
+        </div>
+      
+            
+      
+        <div class="table-responsive">
+
+            <div>
+
+                <table id="suppliersatatable" class="display table table-vcenter table-striped table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+
+                            <th style="width:8%">编码</th>
+                            <th style="">姓名</th>
+                            <th style="width:5%">等级</th>
+                            <th style="width:23%">支付宝</th>
+                            <th style="width:13%">电话</th>
+                            <th style="width:13%">创建时间</th>
+                            <th style="width:13%">激活时间</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>  
+    </div>
+</div>
+
+@section scripts
+{
+
+    <link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+}
+@section backScripts
+{
+    <script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script type="text/javascript">
+        //相对路径
+        var rootPath = "@Url.Content("~/Admin/")";
+        var grid = $("#suppliersatatable");
+        var gridUrl = rootPath + 'Member/GetSupplierForGrid';
+        var toolbarOptions = [
+             //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            App.datatables();
+            var dt = $("#suppliersatatable").dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[5, "desc"]],
+                "ajax": {
+                    "url": rootPath + 'Member/GetSupplierForGrid',
+                    "type": "POST"
+
+                },
+                //"ajax": rootPath + 'Product/GetProductForGrid',
+
+                "columns": [
+                    { "data": "code", "name": "[Equal]{main}code", "orderable": "code" },
+                    { "data": "name", "name": "[Equal]{main}name", "orderable": "name" },
+                    { "data": "levelid", "name": "[Equal]{main}levelid", "orderable": "levelid" },
+                    { "data": "paybao", "name": "[Equal]{main}paybao", "orderable": "paybao" },
+                     { "data": "phone", "name": "[Equal]{main}phone", "orderable": "phone" },
+                      { "data": "createdate", "orderable": "createdate" },
+                    { "data": "activedate", "orderable": "activedate" }
+                ],
+                "columnDefs": [
+                 {
+                     "render": function (data, type, row) {
+                         if (!data)
+                             return "";
+                         return data;
+                     },
+                     "targets": 3
+                 },
+                  {
+                      "render": function (data, type, row) {
+                          if (!data)
+                              return "";
+                          return data;
+                      },
+                      "targets": 4
+                  },
+                  {
+                      "render": function (data, type, row) {
+                          return data.substring(0, data.indexOf("T"));
+                      },
+                      "targets": 5
+                  },
+                   {
+                       "render": function (data, type, row) {
+                           if (!data)
+                               return "";
+                           return data.substring(0, data.indexOf("T"));
+                       },
+                       "targets": 6
+                   }
+                ]
+
+            });
+            $('#suppliersatatable tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+
+            });
+            // $(".dataTables_filter input").addClass("form-control").attr("placeholder", "Search"), $(".dataTables_length select").addClass("form-control")
+        });
+
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            var table = $('#suppliersatatable').DataTable();
+            switch (id) {
+                case "Add":
+                    window.parent.addTab('Supplier_0', '增加供应商信息', rootPath + 'Supplier/Detail');
+                    break;
+                case "Detail":
+                    var selected = grid.datagrid('getSelected');
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+
+                    window.parent.addTab('Supplier_' + selected.Sid, '查看供应商信息', rootPath + 'Supplier/Detail?IsView=1&ID=' + selected.Sid);
+                    break;
+                case "Update":
+                    var selected = table.rows('.selected').data()[0];
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+                    $('#suppliersatatable tr').removeClass('selected');
+                    window.parent.addTab('Member_' + selected.Sid, '修改会员信息[' + selected.name + ']', rootPath + 'Member/Detail?ID=' + selected.code);
+                    break;
+                case "Delete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            f_delete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "ApprovedMore":
+                    ApprovedMore();
+                    break;
+                case "Search":
+                    //AdvancedSearch();
+                    break;
+                case "uncheck":
+                    if ($(item).hasClass("active")) {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).removeClass("active"); $(item).blur();
+                    }
+                    else {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "published=1&*&check=0" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "checked":
+                    if ($(item).hasClass("active")) {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "published=1&*&check=1" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "unchecked":
+                    if ($(item).hasClass("active")) {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "published=1&*&check=2" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+
+                    }
+                    break;
+                case "unpublish":
+                    if ($(item).hasClass("active")) {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#suppliersatatable').DataTable().ajax.params({ where: "published=0&*&" });
+                        $('#suppliersatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "selectall":
+                    $('#suppliersatatable  tr').toggleClass('selected');
+                    break;
+            }
+        }
+        function ApprovedMore() {
+            var table = $('#suppliersatatable').DataTable();
+            var selected = table.rows('.selected').data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Supplier/ApprovedMore',
+                    loading: '正在审核中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('审核成功通过!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function GetAllCheck() {
+            var table = $('#suppliersatatable').DataTable();
+            var Ids = "";
+            var rows = table.rows('.selected').data();
+            for (var i = 0, l = rows.length; i < l; i++) {
+
+                Ids += rows[i].code + ",";
+
+            }
+            return Ids;
+
+        }
+        //刷新数据
+        function reload() {
+            $('#suppliersatatable').DataTable().draw(false);
+        }
+    </script>
+
+}
+
+
+
+
+

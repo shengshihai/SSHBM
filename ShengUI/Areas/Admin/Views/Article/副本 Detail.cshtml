@@ -1,0 +1,354 @@
+﻿@{
+    ViewBag.Title = "文章明细";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+
+
+<style type="text/css">
+    #content_right tr {
+        width: 312px;
+        height: 46px;
+    }
+</style>
+@section Scripts
+{
+    <link href="~/Content/uploadify-v2.1.4/uploadify.css" rel="stylesheet" />
+    <script src="~/Content/uploadify-v2.1.4/jquery.uploadify.v2.1.4.js"></script>
+    <script src="~/Content/uploadify-v2.1.4/swfobject.js"></script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript"> 
+        $(function(){
+            loadupload();
+        });
+    </script>
+    <script id="ImageTemplate" type="text/x-jquery-tmpl">
+        <div>
+            <table cellpadding="5" cellspacing="0" border="0" class="attachment_table">
+                <tbody>
+                    <tr>
+                        <td style="padding-left: 30px">
+
+                            <input type="button" class="btn_del" value="&nbsp;" onclick="delImg(this);">
+                            <p class="thumbnail">
+                                <img src="${filepath}" title="${title}" onclick="setDefaultImg(this)">
+                            </p>
+                           <div class="thum_display" {{if isdefault}} style="" {{else}}style="display:none" {{/if}} >默认图片</div>
+                          <p style="margin-top: 5px;">
+                              <a style="display: none" href="#">100800050710homepage1[1]</a>
+                              <input type="hidden" name="aid" value="${aid}" />
+                              <input type="hidden" name="itemid" value="${itemid}" />
+                              <input type="hidden" name="atype" value="${atype}" />
+                              <input type="hidden" name="filepath" value="${filepath}" />
+                              <input type="hidden" name="isimage" value="${isimage}" />
+                              <input type="hidden" name="isdefault" value="${isdefault}" />
+                              <input type="text"   name="filename" style="width: 100px; font-size: 10px;" value="${filename}">
+                          </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </script>
+}
+@section backScripts
+{
+    <script type="text/javascript"> 
+        var myEditorWidth = $("#content_body").width() - 355;
+
+
+        //<![CDATA[
+  
+        var myEditor= CKEDITOR.replace("myEditor",
+        {
+            width: myEditorWidth, height: 770
+        });
+        //]]>
+
+
+
+        var rootPath='@Url.Content("~/Admin/")';
+        //当前ID
+        var currentID = "@ViewBag.CurrentID";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = @ViewBag.IsView ;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+        
+       
+        
+
+        //var catalogTree= $("#txtCatalog").ligerComboBox({
+        //    width: 180,
+        //    selectBoxWidth: 180,
+        //    selectBoxHeight: 200, valueField: 'text', treeLeafOnly: false,
+        //    tree: { url: rootPath+'/Catalog/GetCatalogTree', checkbox: false, ajaxType: 'get' }
+        //});
+        if(!isAddNew)
+        {
+            LG.ajax({
+                url: rootPath+'/Article/Get',
+                data: {ID:currentID},
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    if (!result) return;
+                    if (!result.IsError) {
+                        result.Data.saRemark=result.Data.saRemark.replace(new RegExp('/sigil/js/ueditor1_2_4_0-utf8-net/net/upload', 'g'),"http://image.exportimes.com/UploadFile/Ckeditor/old");
+                        $('#mainform').form('load', result.Data);
+                        $("#published").html(result.Data.saPublished==1?"已发布":"待发布");
+                    }
+                    else {
+                        if (p.error)
+                            LG.tip(result.Message);
+                    }
+                },
+                error: function (result, b) {
+                    LG.tip(result.Message+'发现系统错误 <BR>错误码：' + result.status);
+                }
+            });
+            LG.ajax({
+                url: rootPath+'/Article/GetAttachmentList',
+                data: {ID:currentID},
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    if (!result) return;
+                  
+                    $("#ImageTemplate").tmpl(result).prependTo("#filedetail");
+                    
+                   
+                },
+                error: function (result, b) {
+                    LG.tip(result.Message+'发现系统错误 <BR>错误码：' + result.status);
+                }
+            });
+        }
+        else
+        {
+            var result={};
+            result.scId=getQueryStringByName("scId");
+            $('#mainform').form('load', result);
+        }
+
+
+        function Save()
+        {
+            if($("#title").val()=="")
+            {
+                LG.tip('标题不能为空');
+                return;
+            }
+            $('#mainform').form('submit', {    
+                url:  rootPath + 'Article/'+(isAddNew ? "Add" : "Update"),
+                onSubmit: function(){    
+                    // do some check    
+                    // return false to prevent submit;    
+                },    
+                success:function (result) {
+                    var result = eval('(' + result + ')');
+                    if (!result) return;
+                    if (!result.IsError) {
+                        LG.tip(result.Message);
+                        currentID=result.Data.said;
+                        isAddNew=false;
+                        $("#saId").val(currentID);
+                        $("[name='itemid']").val(currentID);
+                    }
+                    else {
+                        alert(result.Message);
+                        LG.tip(result.Message);
+                    }
+                }
+            }); 
+        }
+
+        var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] == null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+        var ASPSESSID = "@Session.SessionID";
+        function loadupload() {
+            $("#file_upload_1").uploadify({
+                'uploader': '/Content/uploadify-v2.1.4/uploadify.swf',
+                'script': '/Admin/Article/UploadImgAttachment/',
+                'scriptData': { ASPSESSID: ASPSESSID, AUTHID: auth },
+                'cancelImg': '/Content/uploadify-v2.1.4/cancel.png',
+                'folder': '../../../UploadFile',
+                'queueID': 'file_upload_1-queue',
+                'auto': true,
+                'fileExt': '*.jpg;*.gif;*.png;',
+                'fileDesc': '请选择jpg,jpeg,gif,png格式',
+                'sizeLimit': 4194304,
+                'buttonImg': "/Content/images/upload.png",
+                'multi': false,
+                'onComplete': function (event, queueID, fileObj, response, data) {
+                    if (response == 'no') {
+                        $.messager.alert('提示', '上传失败请重新尝试', 'error');
+                    }
+                    else {
+                        $("[name='isdefault']").val("0");
+                        $(".thum_display").hide();
+                        var imagedata = [{"itemid":currentID, "atype":0,"isimage":"true","filepath": response, "isdefault": 1, "filename": "" }];
+                        $("#ImageTemplate").tmpl(imagedata).prependTo("#filedetail");
+                    }
+                },
+                'onSelect': function (e, queueId, fileObj) {
+                    if (fileObj.type.toLowerCase() == ".jpg" || fileObj.type.toLowerCase() == ".gif" || fileObj.type.toLowerCase() == ".png") {
+                        if (fileObj.size > 4194304) {
+                            LG.tip('图片大小超出范围');
+                            // $.messager.alert('提示', '文件大小超出范围', 'error');
+                        }
+                    }
+                    else 
+                    {
+                        LG.tip('请上传图片');
+                        // $.messager.alert('提示', '文件大小超出范围', 'error');
+                    }
+                       
+                },
+                'onError': function (event, queueId, fileObj, errorObj) {
+                    if (errorObj.type == "HTTP") {
+                        alert("http error");
+                    } else if (errorObj.type == "IO") {
+                        alert("IO error");
+                    } else if (errorObj.type == "Security") {
+                        alert("security error");
+                    }
+
+                       
+                }
+            });
+        }
+        function setDefaultImg(obj)
+        {
+            $("[name='isdefault']").val("0");
+            $(".thum_display").hide();
+            $(obj).parent().parent().find("[class='thum_display']").show();
+            $(obj).parent().parent().find("[name='isdefault']").val("1");
+        }
+        function delImg(obj) {
+            $(obj).parent().parent().parent().parent().parent().html('');
+        }
+    </script>
+
+
+
+}
+
+<div style="margin: 5px; width: 100%; height: 100%">
+    <div id="main-layout" class="easyui-layout" data-options="fit:true">
+     
+        <div region="center" title="新闻详细" style="padding: 5px">
+            
+
+<div>
+        <form id="mainform" method="post">
+            <div id="content_body">
+                <div id="content_left">
+                    <div id="content_left_control">
+
+                        <a href="#" class="icon_save" onclick="Save();">保存</a>
+                        @*    <a href="#" class="icon_view">预览</a>*@
+                    </div>
+
+
+                    <div>
+                        <textarea cols="80" id="myEditor" name="saRemark" rows="10" class="select2-offscreen"  ></textarea>
+                    </div>
+
+                </div>
+                <div id="content_right">
+                    <h2>文章属性</h2>
+                    <div>
+                        <table cellpadding="5" cellspacing="0" border="0">
+                            <tr>
+                                <th>分类</th>
+                                <td>
+                                    <input name="scId" class="easyui-combotree" data-options="url:rootPath+'Catalog/GetCatalogTree',method:'get',required:true" style="width: 139px; height: 25px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>标题</th>
+                                <td>
+                                    <input type="text" id="title" name="saTitle" style="width: 211px" class="txt03" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>副标题</th>
+                                <td>
+                                    <input type="text" id="subtitle" name="saSubTitle" style="width: 160px" class="txt03" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>作者</th>
+                                <td>
+                                    <input type="text" id="writer" name="saWriter" style="width: 90px" />
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <th>来源</th>
+                                <td>
+
+                                    <input type="text" id="resource" name="saResource" style="width: 200px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>关键字</th>
+                                <td>
+                                    <input type="text" id="keywords" name="saKeyWords" style="width: 200px" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th valign="top">简介</th>
+                                <td>
+                                    <textarea cols="80" id="intro" name="saIntro" rows="10" style="width: 220px"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>状态</th>
+                                <td>
+                                    <input type="hidden" name="saPublished" />
+                                    <input type="hidden" name="saId" id="saId" />
+                                    <span id="published"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+
+                        <table cellpadding="10" cellspacing="0" border="0">
+                            <tr>
+                                <td style="padding-left: 30px; width: 150px;">
+
+                                    <input type="file" name="uploadify" id="file_upload_1" style="width: 1px; height: 1px;" />
+
+
+                                </td>
+                                <th>图片附件<br />
+                                    <span class="c03"></span>
+                                </th>
+                            </tr>
+                        </table>
+
+
+                        <div class="uploadify-queue" id="file_upload_1-queue"></div>
+
+                        <div id="filedetail">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+      <br />
+</div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,638 @@
+﻿@model MODEL.ViewModel.VIEW_MST_PRD
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+<script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+
+@section scripts
+{
+    <link href="~/Content/html5uploader.css" rel="stylesheet" />
+    <script src="~/Scripts/Back/plugins/html5uploader/jquery.html5uploader.js"></script>
+    <style type="text/css">
+        .b2 {
+            width: 40px;
+            height: 13px;
+            border-left: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            margin: -2px 10px 0px 37px;
+            float: left;
+        }
+
+        .c2 a:hover {
+            color: #ff6600;
+        }
+
+        .c3 {
+            padding-left: 17px;
+            background: url(/content/back/images/icon_sec.gif) 0 1px no-repeat;
+            margin-left: 10px;
+            color: #ff6600;
+        }
+
+            .c3 a {
+                color: #ff6600;
+                text-decoration: none;
+            }
+
+                .c3 a:hover {
+                    text-decoration: underline;
+                }
+
+        .b3 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_fir.gif) no-repeat;
+        }
+
+        .b4 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_sec.gif) no-repeat;
+        }
+
+        .b5 {
+            width: 40px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/third.gif) no-repeat;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+        $('.wysihtml5').wysihtml5();
+        $(document).ready(function () {
+        
+            $('#upload').html5uploader({
+
+                auto: true,
+
+                multi: false,
+
+                removeTimeout: 1,
+
+                url: '/admin/product/UploadProductImg',
+
+                onUploadStart: function () {
+
+                    //    alert('开始上传');
+
+                },
+
+                onInit: function () {
+
+                    //alert('初始化');
+
+                },
+
+                onUploadComplete: function (data) {
+                    if (!data.IsError) {
+                        $("#imgPreview").attr("src", data.Data);
+                        $("#REMARK1").val(data.Data);
+                    }
+                }
+
+            });
+
+
+
+            $('#CATE_ID').select2({
+                debug: true,
+                width: '292px',
+                //ajax: {
+                //    url: "/admin/menus/GetMenusForSelect",
+                //    dataType: 'json',
+                //    type: 'POST',
+                //    data: function (term, page) {
+                //        return {
+                //            search: term,
+                //            page: page || 1
+                //        }
+                //    },
+                //    results: function (bond, page) {
+                //        return { results: bond}
+                //    },
+                //    cache: true
+                //},
+                //formatResult: formatResult,
+                // formatSelection: formatLevel2,
+                templateResult: formatLevel,
+                templateSelection: formatSelection
+            })
+            $('#MODULE_CONTROLLER').select2({
+                debug: true,
+                //ajax: {
+                //    url: "/admin/menus/GetAllController",
+                //    dataType: 'json',
+                //    type: 'POST',
+                //    data: function (term, page) {
+                //        return {
+                //            search: term,
+                //            page: page || 1
+                //        }
+                //    },
+                //    results: function (bond, page) {
+                //        return { results: bond}
+                //    },
+                //    cache: true
+                //},
+                //initSelection: function (element, callback) {//初始化函数
+                //    var id = $(element).val();//绑定的元素
+                //    if (id != "") {
+                //        $.ajax("admin/menus/GetAllController", {
+                //            data: { dynamicPageId: id },//ID
+                //            dataType: "json"
+                //        }).done(function (data) {
+                //            callback(data[0]);
+                //        });
+                //    }
+                //},
+                //formatResult: formatResult,
+                //formatSelection: formatSelection,
+                // templateResult: formatResult,
+                //templateSelection: formatResult
+            })
+            $("#ICON").select2({
+                templateResult: select2icon,
+                templateSelection: select2icon
+            });
+
+
+
+        });
+        function select2icon(state) {
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(
+              '<span><i class=' + state.text + '></i> .' + state.text + '</span>'
+            );
+            return $state;
+        };
+        function formatResult(state) {
+            //  alert(state.text);
+            if (!state.id) { return state.text; }
+            var $state = $(
+              '<div class="select2-user-result"><span  class="' + state.style + '"></span> ' + state.text + '</div>'
+            );
+            return $state;
+        };
+        function formatLevel(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text);
+            return $state;
+        };
+        function formatSelection(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text).text();
+            return $state;
+        };
+
+    </script>
+}
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+
+                        <h1 class='pull-left'>
+
+                            <i class='icon-ok'></i>
+
+                            <span>产品详细信息</span>
+
+                        </h1>
+
+                        <div class='pull-right'>
+
+                            <ul class='breadcrumb'>
+
+                                <li>
+
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+
+                                    </a>
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li>产品列表
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li class='active'>产品详细信息</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='row-fluid'>
+
+                <div class='span12 box'>
+
+                    <div class='box-header blue-background'>
+
+                        <div class='title'>Basic validations</div>
+
+                        <div class='actions'>
+
+                            <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                            </a>
+
+                            <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class='box-content'>
+
+                        @*                        <form class='form form-horizontal' style='margin-bottom: 0;' >*@
+                        @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url = ViewBag.TYPE == "Add" ? "/Admin/Product/Add" : "/Admin/Product/Update",
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg"
+
+                        }, new { id = "prdForm", @class = "form form-horizontal" }))
+                        {
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_name'>产品编号 </label>
+
+                                <div class='controls'>
+                                    @Html.HiddenFor(p => p.PRD_CD)
+                                    @Html.TextBoxFor(p => p.PRD_CD, new { @placeholder = "产品编号", @disabled = "" })
+                                    @Html.ValidationMessageFor(m => m.PRD_CD)
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_date'>产品分类</label>
+
+                                <div class='controls'>
+                                    <div class='row-fluid'>
+
+                                        <div class='span6'>
+
+                                            <div class='row-fluid'>
+                                                @Html.DropDownListFor(m => m.CATE_ID, ViewBag.CATE_IDS as List<SelectListItem>, new { @class = "" })
+                                                @Html.ValidationMessageFor(m => m.CATE_ID)
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_name'>产品名称 </label>
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.PRD_NAME, new { @placeholder = "产品名称", @class = "input-validation-error" })
+                                    @Html.ValidationMessageFor(m => m.PRD_NAME)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_email'>产品描述</label>
+
+                                <div class='controls'>
+
+                                    @Html.TextAreaFor(m => m.PRD_SHORT_DESC, new { @placeholder = "产品描述", @class = "input-validation-error" })
+                                    @Html.ValidationMessageFor(m => m.PRD_SHORT_DESC)
+
+                                </div>
+
+                            </div>
+                         
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_email'>产品详细描述</label>
+
+                                <div class='controls'>
+                                    @Html.TextAreaFor(m => m.PRD_DESC, new { @placeholder = "产品描述", @class = "input-validation-error span12 wysihtml5", @cols = "40", @rows = "10" })
+                                    @Html.ValidationMessageFor(m => m.PRD_DESC)
+                                    @*     <textarea class="span12 wysihtml5" cols="40" id="body_" name="body[]" placeholder="Some text here..." rows="10">
+
+                &lt;h1&gt;Hello from Flatty!&lt;/h1&gt;</textarea>*@
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_agree'>是否热门</label>
+
+                                <div class='controls'>
+
+                                    <label class=''>
+                                        @Html.CheckBoxFor(m => m.ISHOT, new { Value = "True" })
+
+
+                                    </label>
+                                    @Html.ValidationMessageFor(m => m.ISHOT)
+                                </div>
+
+                            </div>
+
+
+
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_agree'>显示</label>
+
+                                <div class='controls'>
+                                    <label class=' inline'>
+                                        @Html.CheckBoxFor(m => m.STATUS, new { Value = "True" })
+                                    </label>
+
+                                    @Html.ValidationMessageFor(m => m.STATUS)
+                                </div>
+
+                            </div>
+ 
+
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">顺序</label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.SEQ_NO, new { @placeholder = "顺序" })
+                                    @Html.ValidationMessageFor(m => m.SEQ_NO)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">原价</label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.ARKETPRICE, new { @placeholder = "原价" })
+                                    @Html.ValidationMessageFor(m => m.ARKETPRICE)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">现价</label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.PRICE, new { @placeholder = "现价" })
+                                    @Html.ValidationMessageFor(m => m.PRICE)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">预付价</label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.FRONTPRICE, new { @placeholder = "预付价" })
+                                    @Html.ValidationMessageFor(m => m.FRONTPRICE)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">产品图片</label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    <div id="upload"></div>
+                                    <input name="file" id="filedata" value="" type="hidden" />
+                                    @Html.HiddenFor(p => p.REMARK1)
+                                    @Html.ValidationMessageFor(m => m.REMARK1)
+                                </div>
+
+                            </div>
+                            
+                            <div class="control-group">
+
+                                <div class="control-label">
+
+                                    <label for="validation_url"></label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class="controls">
+                                    <div class="row-fluid">
+
+                                        <div class="span12">
+
+                                            <div class="gallery">
+
+                                                <ul class="unstyled inline">
+
+                                                    <li>
+
+                                                        <div class="picture">
+
+                                                            <div class="tags">
+
+                                                                <div class="label label-important">Stephany</div>
+
+                                                                <div class="label label-success">Bobbie</div>
+
+                                                                <div class="label label-info">Skyla</div>
+
+                                                            </div>
+
+                                                            <div class="actions">
+
+                                                                <div class="pull-left">
+
+                                                                    <a href="#" class="btn btn-link"><small>
+
+                                                                        <i class="icon-user"></i>
+
+                                                                        Andy
+
+                                                                    </small>
+
+                                                                    </a>
+
+                                                                </div>
+
+                                                                <div class="pull-right">
+
+                                                                    <a class="btn btn-link">
+
+                                                                        <i class="icon-share"></i>
+
+                                                                        6
+
+                                                                    </a>
+
+                                                                    <a class="btn btn-link">
+
+                                                                        <i class="icon-comment"></i>
+
+                                                                        19
+
+                                                                    </a>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <img id="imgPreview" style="width: 250px; height: 150px" src="@Model.REMARK1">
+                                                        </div>
+
+                                                    </li>
+
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class='form-actions' style='margin-bottom: 0'>
+
+                                <button class='btn' type='button' onclick="Jump('/admin/product/ProductIndex')">
+
+                                    <i class='icon-mail-reply '></i>
+
+                                    返回
+
+                                </button>
+                                <button class='btn btn-primary ' type='submit'>
+
+                                    <i class='icon-save '></i>
+
+                                    保存
+
+                                </button>
+
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='group-header'>
+
+                <div class='row-fluid'>
+
+                    <div class='span6 offset3'>
+
+                        <div class='text-center'>
+
+                            <h2>Custom methods</h2>
+
+                            <small class='muted'>You can easily add your own validation methods. These validations are pretty easy to extend.</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+

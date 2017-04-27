@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "选择动作";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+@section backScripts
+{
+    
+  
+
+}
+
+ <table id="tt" class="easyui-datagrid" style="width:1100px;"
+            url="/Admin/Permission/GetAllAction"
+            title="Load Data" iconCls="icon-save"
+            rownumbers="true" pagination="true">
+        <thead>
+            <tr>
+                <th field="ControllerName" width="200">ControllerName</th>
+                <th field="ActionName" width="200">ActionName</th>
+                <th field="LinkUrl" width="300" align="left">LinkUrl</th>
+                <th field="Description" width="300" align="left">Description</th>
+           
+            </tr>
+        </thead>
+    </table>
+    <script type="text/javascript">
+        $(function () {
+            changeP();
+        });
+        function changeP() {
+            var dg = $('#tt');
+            dg.datagrid('loadData', []);
+            dg.datagrid({ pagePosition: 'both' });
+            dg.datagrid('getPager').pagination({
+                layout: ['list', 'sep', 'first', 'prev', 'sep', 'links', 'sep', 'next', 'last', 'sep', 'refresh']
+            });
+        }
+    </script>

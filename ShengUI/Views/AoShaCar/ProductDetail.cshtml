@@ -1,0 +1,594 @@
+﻿@model MODEL.ViewModel.VIEW_MST_PRD
+@{
+    ViewBag.Title = "ProdcutDetail";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Model.PRD_NAME</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <link rel="stylesheet" type="text/css" href="/Content/AoShaCar/AmazeUI-2.3.0/css/amazeui.min.css">
+    <link type="text/css" rel="stylesheet" href="/Content/AoShaCar/icon-font-4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/Content/AoShaCar/kemeimei/order/carbeautyshop/css/style.css">
+    <style>
+        .box {
+            background: #4d4d4d;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+
+        .am-titlebar-default .am-titlebar-title::before {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header data-am-widget="header" class="am-header am-header-default t-header">
+        <div class="am-header-left am-header-nav">
+            <a href="/aoshacar/index" class="back">返回</a>
+        </div>
+        <h1 class="am-header-title">
+            <img src="/Content/AoShaCar/images/logo.png" />
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="/AoShaCar/Index?sid=@ViewBag.SupplierID" class="">首页</a>
+        </div>
+    </header>
+    <div class="project-album">
+        <ul class="project-list" data-am-widget="gallery" data-am-gallery="{pureview:1,weChatImagePreview:false}">
+            <li style="">
+                <img src="@Model.REMARK1"></li>
+            @*   @foreach (var item in ViewBag.ImgList)
+            {
+                  <li style="display:@(item.ISDEFAULT==1?"":"none")"><img src="@item.IMG_URL"></li>
+            }*@
+        </ul>
+    </div>
+    <div class="buy-price" data-am-sticky style="margin-bottom: 10px;">
+        <div class="new_buyprice">
+            <b class="c-org">@Model.PRICE</b><span class="c-org">¥</span><span class="c-org">(预付:@Model.FRONTPRICE¥)</span>
+            @if (Model.CATE_ID == "CATE001")
+            {
+                <a id="btn-actions" class="am-btn org-btn">立即预约</a>
+            }
+            else
+            {
+                <a href="tel:@ViewBag.Tel" class="am-btn org-btn">立即预约</a>
+            }
+        </div>
+    </div>
+    <div class="box">
+        <div class="bd" style="padding: 0;">
+            <div class="merchant">
+                <div class="biz-detail">
+                    <a href="#">
+                        <h3 class="single-line">
+                            <img src="/Content/AoShaCar/images/dian.png" style="width: 12px; height: 12px; float: left; margin: 14px 5px 0px 0px;" />@ViewBag.SupplierName</h3>
+                        <span class="address">地址：@ViewBag.Address</span>
+                    </a>
+                </div>
+                <div class="biz-call">
+                    <a href="tel:@ViewBag.Tel">
+                        <img src="/Content/AoShaCar/images/tel.png" height="45" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model.CATE_ID == "CATE001")
+    {
+        <div class="box">
+            <div class="hd">
+                <div class="am-titlebar am-titlebar-default">
+                    <h2 class="am-titlebar-title">
+                        <img src="/Content/AoShaCar/images/dian.png" style="width: 12px; height: 12px; float: left; margin: 14px 5px 0px 0px;" />预约时间
+                    </h2>
+                </div>
+            </div>
+            <div class="bd" style="padding-left: 0px; padding-right: 0px;">
+
+
+                <div id="J-calendar-slider" class="new_datelist">
+                    <ul>
+                        <li class="active selectdatebtn" data-date="@DateTime.Now.AddDays(1).ToString("MM-dd")"><b>明天</b>@(DateTime.Now.AddDays(1).Month)月@(DateTime.Now.AddDays(1).Day)日<i></i></li>
+                        <li class="selectdatebtn" data-date="@DateTime.Now.AddDays(2).ToString("MM-dd")"><b>后天</b>@(DateTime.Now.AddDays(2).Month)月@(DateTime.Now.AddDays(2).Day)日<i></i></li>
+                        <li class="selectdatebtn" data-date="@DateTime.Now.AddDays(3).ToString("MM-dd")"><b>大后天</b>@(DateTime.Now.AddDays(3).Month)月@(DateTime.Now.AddDays(3).Day)日<i></i></li>
+                        <div class="clear" style="clear: both;"></div>
+                    </ul>
+                </div>
+                <div class="appointment-panle">
+                    <div class="select-time">
+                        <div class="am-btn-group timelist am-cf" data-am-button>
+                            <h3></h3>
+                            @foreach (var item in ViewBag.AM)
+                            {
+                                <label class="am-btn  ">
+                                    <input type="radio" name="ordertime" value="@item.REF_VALUE" data-n="3">@item.REF_VALUE</label>
+                            }
+
+                            <h3></h3>
+                            @foreach (var item in ViewBag.PM)
+                            {
+                                <label class="am-btn  ">
+                                    <input type="radio" name="ordertime" value="@item.REF_VALUE" data-n="3">@item.REF_VALUE</label>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+
+    <div class="box">
+        <div class="hd">
+            <div class="am-titlebar am-titlebar-default">
+                <h2 class="am-titlebar-title c-org">
+                    <img src="/Content/AoShaCar/images/dian.png" style="width: 12px; height: 12px; float: left; margin: 14px 5px 0px 0px;" />项目说明
+                </h2>
+            </div>
+        </div>
+        <div class="bd">
+            <div class="text-content">
+                @Html.Raw(Model.PRD_DESC)
+
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="bd" style="margin-top: 20px;">
+            <div class="text-content new_content">
+                <tt>预约须知</tt>
+                <span style="white-space: normal;">我们工作人员会及时与您联系<br>
+                    每次预约仅保留15分钟<br>
+                    超时后订单作废</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-modal-actions" id="actions">
+        <div class="am-modal-actions-group">
+            <div class="am-tabs" data-am-tabs>
+                <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+                    <li class="am-active"><a href="javascript: void(0)">线上支付预约</a></li>
+                    @* <li><a href="javascript: void(0)">线下会员预约</a></li>*@
+                </ul>
+                <div class="am-tabs-bd">
+                    <div class="am-tab-panel am-active">
+                        <form id="docreateordercom" method="post" action="/AoShaCar/SubmitOrder" class="am-form">
+                            <input type="hidden" name="sid" value="@ViewBag.SupplierID">
+                            <input type="hidden" name="suppliername" value="@ViewBag.SupplierName">
+                            <input type="hidden" name="supplieraddress" value="@ViewBag.Address">
+                            <input type="hidden" name="thingNum" value="@Model.PRD_CD">
+                            <input type="hidden" name="thingName" value="@Model.PRD_NAME">
+                            <input type="hidden" name="thingPrice" value="@Model.PRICE">
+                            <input type="hidden" name="thingFrontPrice" value="@Model.FRONTPRICE">
+                            <div class="am-form-group am-form-icon">
+                                <i class="fa fa-user"></i>
+                                <input type="text" class="am-form-field" id="unname" name="uname" placeholder="请输入姓名" value="@ViewBag.userName">
+                            </div>
+                            <div class="am-form-group am-form-icon">
+                                <i class="fa fa-tablet"></i>
+                                <input type="Tel" class="am-form-field" id="mobile" name="mobile" placeholder="请输入手机号码" value="@ViewBag.userTel">
+                            </div>
+                            <input type="hidden" class="currentselecttime" value="" name="selecttime">
+                            <input type="hidden" class="currentselectdate" value="@DateTime.Now.AddDays(1).ToString("MM-dd")" name="selectdate">
+                            <div class="am-form-group">
+                                <button class="am-btn org-btn docreateorder" data-fid="com" type="button">立即预约</button>
+                                <button class="am-btn am-btn-default" data-am-modal-close>返回重选</button>
+                            </div>
+                        </form>
+                    </div>
+                    @*                    <div class="am-tab-panel">
+                        <form id="docreateordercode" method="post" action="http://vip.kemeimei.cn/vip/?a=preorder&m=order_shopindex&vip=Mw%3D%3D" class="am-form">
+                            <input type="hidden" name="sid" value="133">
+                            <div class="am-form-group am-form-icon">
+                                <i class="fa fa-user"></i>
+                                <input type="text" class="am-form-field" name="uname" placeholder="请输入姓名">
+                            </div>
+                            <div class="am-form-group am-form-icon">
+                                <i class="fa fa-tablet"></i>
+                                <input type="number" class="am-form-field" pattern="[0-9]*" name="mobile" id="phonecode" placeholder="请输入手机号码">
+                            </div>
+                            <div class="am-form-group am-form-icon qrd-group">
+                                <i class="fa fa-tablet"></i>
+                                <input type="number" class="am-form-field" name="code" placeholder="请输入短信验证码">
+                                <input type="button" value="点击免费获取" class="am-btn am-btn-default getqrd-btn" type="submit" id="getphonecode" data-url="http://vip.kemeimei.cn/vip/?a=getCardCode&m=order_shopindex&vip=Mw%3D%3D">
+                            </div>
+                            <input type="hidden" name="order_type" value="1">
+                            <input type="hidden" class="currentselecttime" value="" name="selecttime">
+                            <input type="hidden" class="currentselectdate" value="@DateTime.Now.AddDays(1).ToString("MM-dd")" name="selectdate">
+                            <div class="am-form-group">
+                                <button class="am-btn org-btn docreateorder" data-fid="code" type="button">立即预约</button>
+                                <button class="am-btn am-btn-default" data-am-modal-close>返回重选</button>
+                            </div>
+                        </form>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/amazeui.min.js"></script>
+    <script src="~/Content/AoShaCar/statics/vip/amui/js/Validform_v5.1_min.js"></script>
+    <script type="text/javascript">
+
+
+        var timeout = 60;
+        function countDown() {
+            --timeout;
+            if (timeout > 0) {
+                $("#getphonecode").val(timeout + "s获取验证码");
+                setTimeout("countDown();", 1000);
+            } else {
+                $("#getphonecode").removeAttr('disabled');
+                $("#getphonecode").val("获取验证码");
+                timeout = 60;
+            }
+        };
+
+
+
+
+
+        $(function () {
+            $("#J-calendar-slider").flexslider({
+                controlNav: false,
+                slideshow: false,
+                animationLoop: false,
+                directionNav: false,
+                move: 1
+            });
+            $("#J-calendar-slider").find(".selectdatebtn").click(function () {
+                $(this).addClass("active")
+				.siblings(".selectdatebtn").removeClass("active");
+            })
+
+            $("#btn-actions").on("click", function () {
+                window.scrollTo(0, document.body.scrollHeight);
+                $("#actions").modal({
+                    closeViaDimmer: false
+                });
+            });
+
+            //var $radios = $('[name="ordertime"]');
+
+            $('.timelist').on('change', '[name="ordertime"]', function () {
+                //$radios.on('change',function() {
+                //console.log('单选框当前选中的是：',  +$radios.filter(':checked').attr("data-n"));
+                $('.currentselecttime').val($(this).filter(':checked').val());
+
+            });
+
+
+
+
+            //选择时间
+            $('.selectdatebtn').click(function () {
+                //$(this).removeClass("active")
+
+                var v = $(this).attr('data-date');
+                $('.currentselecttime').val('');
+                $('.currentselectdate').val(v);
+
+                $('.timelist').html('');
+
+                $.post("/aoshacar/CheckTime",
+                           {
+                               "pid": "@Model.PRD_CD",
+                               "sid": "@ViewBag.SupplierID",
+                               "date": v
+                           },
+                          function (data) {
+
+                              if (data.IsError) {
+
+                                  return false;
+                              }
+                              var htmlstram='<h3></h3>';
+                              var htmlstrpm = '<h3></h3>';
+
+                              //渲染页面
+                              for (var item in data.Data) {
+                                  if (data.Data[item].REF_PARAM.indexOf("AM") >= 0)
+                                  {
+                                      htmlstram += ' <label class="am-btn  "><input type="radio" name="ordertime" value="' + data.Data[item].REF_VALUE + '" data-n="3">' + data.Data[item].REF_VALUE + '</label>'
+                                  }
+                                  if (data.Data[item].REF_PARAM.indexOf("PM") >=0) {
+                                      htmlstrpm += ' <label class="am-btn  "><input type="radio" name="ordertime" value="' + data.Data[item].REF_VALUE + '" data-n="3">' + data.Data[item].REF_VALUE + '</label>'
+                                  }
+                                  //$('.timelist').append(Html);
+
+                              }
+
+                              $('.timelist').append(htmlstram);
+                              $('.timelist').append(htmlstrpm);
+                              // }
+
+                              //if (data.info['pm']) {
+                              //    $('.timelist').append('<h3>下午</h3>');
+                              //    //渲染页面
+                              //    for (var item in data.info['pm']) {
+                              //        //console.log(data.info['pm'][item]);
+                              //        var Html = template.render('timelist-tpl', data.info.pm[item]);
+
+                              //        $('.timelist').append(Html);
+
+                              //    }
+                              //}
+
+                              return false;
+
+                          }, "json");
+
+
+            });
+
+
+
+
+            /***********************表单提交*******************************/
+            //一般性，表单提交
+            $('.docreateorder').click(function () {
+                var time = $(".currentselecttime").val();
+                //alert(tel);
+                if (time == '') {
+                    alert('请返回选择预约时间！');
+                    return false;
+                }
+                var unname = $("#unname").val();
+                //alert(tel);
+                if (unname == '') {
+                    alert('请输入真实姓名！');
+                    return false;
+                }
+                var mobile = $("#mobile").val();
+                //alert(tel);
+                if (mobile == '') {
+                    alert('请输入正确的手机号！');
+                    return false;
+                }
+                var btnobj = $(this);
+                var fid = btnobj.attr('data-fid');
+                var txt = btnobj.text();
+                btnobj.text('数据处理中...');
+
+                if (btnobj.attr('isdo') == 1) {
+                    return alert_warning('数据处理中...');
+                } else {
+                    btnobj.attr('isdo', 1);
+                }
+
+                //定义form回调
+                var form = $("#docreateorder" + fid).Validform({
+
+                    callback: function (data) {
+
+                        btnobj.text(txt);
+                        btnobj.attr('isdo', 0);
+                        if (data.IsError ==true) {
+
+                            alert(data.Message);
+                            return false;
+                        }
+                        //跳转？
+                        window.location.href = data.Message;
+
+                        $('#Validform_msg').remove();
+                    }
+                });
+                //点击后提交
+                form.ajaxPost(true);
+
+                $('#Validform_msg').remove();
+            });
+            $('#Validform_msg').remove();
+            /*****************************************************/
+
+
+            /***********************短信验证码？****************************/
+
+            /**********获取手机验证码**************/
+
+            $("#getphonecode").click(function () {
+                var tel = $("#phonecode").val();
+                //alert(tel);
+                if (tel == '') {
+                    alert('请输入正确的手机号！');
+                    return false;
+                }
+
+                var url = $(this).attr('data-url');
+
+                $("#getphonecode").attr('disabled', 'disabled');
+                $.post(url, { phone: tel },
+						function (data) {
+						    if (data.status != 1) {
+
+						        alert(data.info);
+
+						        $("#getphonecode").removeAttr('disabled');
+
+						        return false;
+						    }
+
+						    setTimeout("countDown();", 1000);
+
+						}, "json");
+
+                return false;
+            });
+
+            /*************************************/
+
+        });
+    </script>
+</body>
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    var weixintitle = '';
+    var weixindesc = 'ACEST（爱赛特）!';
+    var weixinlink = 'http://vip.kemeimei.cn/vip/?a=serve&m=order_shopindex&vip=Mw%3D%3D&id=133';
+    var weixinimgUrl = 'http://img4.wsb100.com/kemeimei/vip/3/images/2015/06/05/5571041d13bdb.png';
+    //
+    function updateC(ac) {
+
+        var url = 'http://vip.kemeimei.cn/vip/?a=visit_count&m=order_baseindex&vip=Mw%3D%3D&click=' + ac;
+        $.get(url, function (data) {
+
+
+            //alert(1);
+        });
+
+    }
+
+
+
+    wx.config({
+        //debug: true,
+        appId: '@ViewBag.Appid ',
+        timestamp: @ViewBag.timestamp,
+        nonceStr: '@ViewBag.noncestr',
+        signature: '@ViewBag.JssdkSignature',
+        jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo'
+        ]
+    });
+    wx.ready(function (res) {
+
+        // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+        wx.checkJsApi({
+            jsApiList: [
+              'onMenuShareAppMessage'
+            ],
+            success: function (res) {
+                //alert(JSON.stringify(res));
+                if (res.checkResult.onMenuShareAppMessage != true) {
+                    alert('亲！您的微信版本过低了！请升级吧！');
+                }
+            }
+        });
+
+        // 2. 分享接口
+        // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareAppMessage({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('点击发送给朋友');
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('sfriend');
+            },
+            cancel: function (res) {
+                // alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+
+        // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareTimeline({
+            title: weixintitle,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到朋友圈');
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('scfriend');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+        // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareQQ({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到QQ');
+            },
+            complete: function (res) {
+                //alert(JSON.stringify(res));
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('sqq');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+        // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareWeibo({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到微博');
+            },
+            complete: function (res) {
+                //alert(JSON.stringify(res));
+            },
+            success: function (res) {
+                //alert('已分享');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+
+    });
+
+    wx.error(function (res) {
+        //alert('分享发生错误：'+res.errMsg);
+    });
+
+</script>
+</html>

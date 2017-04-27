@@ -1,0 +1,474 @@
+﻿@model MODEL.ViewModel.VIEW_FW_USER
+@{
+    ViewBag.Title = "用户明细";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+@section backScripts
+{
+    <script src="~/Scripts/Back/plugins/fileinput/bootstrap-fileinput.js"></script>
+    <script type="text/javascript"> 
+        var rootPath='@Url.Content("~/Admin/")';
+        //当前ID
+        var currentID = "@ViewBag.CurrentID";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = @ViewBag.IsView ;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+
+        var ss=$("#tree3").dynatree({
+            dnd: {
+                preventVoidMoves: true,
+                onDragStart: function (node) {
+                    return true;
+                },
+                onDragEnter: function (node, sourceNode) {
+                    return ["before", "after"];
+                },
+                onDrop: function (node, sourceNode, hitMode, ui, draggable) {
+                    return sourceNode.move(node, hitMode);
+                }
+            }
+        });
+        $(function(){
+            $(".select2").select2({
+                //data:data,
+                multiple: true
+            });
+        })
+    </script>
+}
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='page-header'>
+
+                <h1 class='pull-left'>
+
+                    <i class='icon-user'></i>
+
+                    <span>User profile</span>
+
+                </h1>
+
+                <div class='pull-right'>
+
+                    <ul class='breadcrumb'>
+
+                        <li>
+
+                            <a href="index.html"><i class='icon-bar-chart'></i>
+
+                            </a>
+
+                        </li>
+
+                        <li class='separator'>
+
+                            <i class='icon-angle-right'></i>
+
+                        </li>
+
+                        <li>Example pages</li>
+
+                        <li class='separator'>
+
+                            <i class='icon-angle-right'></i>
+
+                        </li>
+
+                        <li class='active'>User profile</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class='row-fluid'>
+                @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url = ViewBag.TYPE == "Add" ? "/Admin/User/Add" : "/Admin/User/Update",
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg"
+
+                        }, new { id = "", @class = "form" }))
+                {
+                    <div class='span3 box'>
+
+                        <div class='box-content'>
+                            <img id="imgPreview" alt="230x230&amp;text=photo" style="width: 230px; height: 230px" src="/Content/Back/images/photo.png" />
+                            <br />
+                            <input type="file" name="file" style="width: 200px; height: 20px;" onchange="PreviewImage(this)" id="upload" />
+                        </div>
+                        <input  name="file" id="filedata" value="" type="hidden"/>
+                    </div>
+                    <div class='span9 box' id="divMsg">
+
+                        <div class='box-content box-double-padding'>
+
+                            <fieldset>
+
+                                <div class='span4'>
+
+                                    <div class='lead'>
+
+                                        <i class='icon-signin text-contrast'></i>
+
+                                        Login info
+
+                                    </div>
+
+                                    <small class='muted'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisl est, vulputate at porttitor non, interdum a mauris. Phasellus imperdiet gravida pulvinar.</small>
+
+                                </div>
+
+                                <div class='span7 offset1'>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>User_CD</label>
+
+                                        <div class='controls'>
+                                            @if (ViewBag.TYPE == "Update")
+                                            {
+                                                @Html.TextBoxFor(m => m.USER_ID, new { @placeholder = "USER_CD", @disabled = "", @class = "span12 input-validation-error" })
+                                                @Html.HiddenFor(m => m.USER_ID)
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(m => m.USER_ID, new { @placeholder = "USER_CD", @class = "span12 input-validation-error" })
+                                            }
+                                            @Html.ValidationMessageFor(m => m.USER_ID)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>Username</label>
+
+                                        <div class='controls'>
+                                            @Html.TextBoxFor(u => u.USER_NAME, new { @placeholder = "昵称", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.USER_NAME)
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>E-mail</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.EMAIL, new { @placeholder = "Email", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.EMAIL)
+
+                                        </div>
+
+                                    </div>
+
+                                    <hr class='hr-normal' />
+
+                                    <div class='control-group'>
+
+                                        <div class='controls'>
+
+                                            <label class='checkbox'>
+
+                                                <input data-target='#change-password' data-toggle='collapse' id='changepasswordcheck' type='checkbox' value='option1' />
+
+                                                Change password?
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class='collapse' id='change-password'>
+
+                                        <div class='control-group'>
+
+                                            <label class='control-label'>Password</label>
+
+                                            <div class='controls'>
+
+                                                <input class='span12' id='password' placeholder='Password' type='password' />
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class='control-group'>
+
+                                            <label class='control-label'>Password confirmation</label>
+
+                                            <div class='controls'>
+
+                                                <input class='span12' id='password-confirmation' placeholder='Password confirmation' type='password' />
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                            <hr class='hr-normal' />
+
+                            <fieldset>
+
+                                <div class='span4 box'>
+
+                                    <div class='lead'>
+
+                                        <i class='icon-user text-contrast'></i>
+
+                                        Personal info
+
+                                    </div>
+
+                                    <small class='muted'>Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.</small>
+
+                                </div>
+
+                                <div class='span7 offset1'>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>English Name</label>
+
+                                        <div class='controls'>
+                                            @Html.TextBoxFor(u => u.ENG_NAME, new { @placeholder = "English Name...", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.ENG_NAME)
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>PHONE</label>
+
+                                        <div class='controls'>
+                                            @Html.TextBoxFor(u => u.PHONE, new { @placeholder = "PHONE...", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.PHONE)
+
+                                        </div>
+
+                                    </div>
+
+                                    <hr />
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>Bio</label>
+
+                                        <div class='controls'>
+
+                                            <textarea class='autosize span12' id='bio' placeholder='Bio'></textarea>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+                            <fieldset>
+
+                                <div class='span4 box'>
+
+                                    <div class='lead'>
+
+                                        <i class='icon-user text-contrast'></i>
+
+                                        Permission info
+
+                                    </div>
+
+                                    <small class='muted'>Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.</small>
+
+                                </div>
+
+                                <div class='span7 offset1'>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>Role Name</label>
+
+                                        <div class='controls'>
+                                            <select class='select2 input-block-level' multiple="" placeholder='Try typing some USA country name'>
+
+
+                                                <option value='AK' />
+                                                超级管理员
+
+                                                 <option value='HI' />
+                                                管理员
+
+                            
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                   
+
+                                    <hr />
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>Bio</label>
+
+                                        <div class='controls'>
+
+                                          <div id="tree3">
+                            <ul id='tree3-treeData'>
+
+                                <li id='tree3id1' title='Look, a tool tip!'>item1 with key and tooltip
+
+                                </li>
+
+                                <li id='tree3id2'>item2
+
+                                </li>
+
+                                <li class='folder' id='tree3id3'>Folder with some children
+
+                    <ul>
+
+                        <li id='tree3id2.1'>Sub-item 3.1
+
+                            <ul>
+
+                                <li id='tree3id3.1.1'>Sub-item 3.1.1
+
+                                </li>
+
+                                <li id='tree3id3.1.2'>Sub-item 3.1.2
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <li id='tree3id3.2'>Sub-item 3.2
+
+                            <ul>
+
+                                <li id='tree3id3.2.1'>Sub-item 3.2.1
+
+                                </li>
+
+                                <li id='tree3id3.2.2'>Sub-item 3.2.2
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
+                                </li>
+
+                                <li class='expanded' id='tree3id4'>Document with some children (expanded on init)
+
+                    <ul>
+
+                        <li id='tree3id4.1'>Sub-item 4.1 (active and focus on init)
+
+                            <ul>
+
+                                <li id='tree3id4.1.1'>Sub-item 4.1.1
+
+                                </li>
+
+                                <li id='tree3id4.1.2'>Sub-item 4.1.2
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <li id='tree3id4.2'>Sub-item 4.2
+
+                            <ul>
+
+                                <li id='tree3id4.2.1'>Sub-item 4.2.1
+
+                                </li>
+
+                                <li id='tree3id4.2.2'>Sub-item 4.2.2
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                            <div class='form-actions' style='margin-bottom: 0;'>
+
+                                <div class='text-right'>
+                                    <button class='btn btn-large' type='button' onclick="Jump('/admin/user/index')">
+
+                                        <i class='icon-mail-reply '></i>
+
+                                        返回
+
+                                    </button>
+                                    <button class='btn btn-primary btn-large' type="submit">
+
+                                        <i class='icon-save '></i>
+
+                                        Save
+
+                                    </button>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+﻿@{
+   
+    Layout = null;
+}
+<ul class='nav nav-stacked'>
+
+    <li class='active'>
+
+        <a href='index'>
+
+            <i class='icon-dashboard'></i>
+
+            <span>Dashboard1</span>
+
+        </a>
+
+    </li>
+    @foreach (var parent in (ViewBag.ManageLeftMenu as List<MODEL.ViewModel.VIEW_FW_MODULE>).Where(m => m.MODULE_PID == "MAIN_FIRST"))
+{
+         if ((ViewBag.ManageLeftMenu as List<MODEL.ViewModel.VIEW_FW_MODULE>).Where(m => m.MODULE_PID == parent.MODULE_ID).Count()>0)
+     {
+        <li>
+
+            <a class='dropdown-collapse ' href='#'>
+
+                <i class='@parent.ICON'></i>
+
+                <span>@parent.MODULE_NAME</span>
+
+                <i class='icon-angle-down angle-down'></i>
+
+            </a>
+
+            <ul class='nav nav-stacked'>
+                @foreach (var child in (ViewBag.ManageLeftMenu as List<MODEL.ViewModel.VIEW_FW_MODULE>).Where(m=>m.MODULE_PID==parent.MODULE_ID))
+            {   
+                    <li class=''>
+
+                        <a href='javascript:void(0);' onclick="Jump('@child.MODULE_LINK')">
+
+                            <i class='@child.ICON'></i>
+
+                            <span>@child.MODULE_NAME</span>
+
+                        </a>
+
+                    </li>
+
+          
+            }
+            </ul>
+
+        </li>
+}
+}
+</ul>

@@ -1,0 +1,126 @@
+﻿@model MODEL.ViewModel.VIEW_YX_weiUser
+@{
+    ViewBag.Title = "userMain";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=375px, user-scalable=no, maximum-scale=5, minimum-scale=0.5" />
+
+    <link rel="stylesheet" type="text/css" href="/Content/AoShaCar/AmazeUI-2.3.0/css/amazeui.min.css">
+    <link type="text/css" rel="stylesheet" href="/Content/AoShaCar/icon-font-4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/Content/AoShaCar/kemeimei/order/carbeautyshop/css/style.css">
+    <title>傲鲨汽车生活馆个人中心</title>
+    <script src="~/Content/KeYanBao/js/jquery-1.11.1.min.js"></script>
+    @*<script src="~/Content/KeYanBao/js/calert.js"></script>*@
+    <script language="javascript" type="text/javascript">
+        function qiandao() {
+            var openid = $("#openid").val();
+            var userid = $("#userid").val();
+            var QD_JF2 = $("#QD_JF2").val();
+            var bat = { "openid": openid, "userid": userid };
+            $.post("userMain.aspx?action=qiandao&da=" + new Date(), bat, function (data) {
+                if (data == "OK") {
+                    alert("签到成功！");
+                    var jifen = $("#jifenspan").text();
+
+                    jifen = parseInt(jifen) + parseInt(QD_JF2);
+                    $("#jifenspan").text(jifen);
+
+                }
+                else if (data == "NOO") {
+                    alert("您今天已经签过到了！");
+                    return;
+                }
+                else {
+                    alert("系统正忙，请稍后重试！");
+                }
+            });
+        }
+    </script>
+</head>
+<body class="">
+    <input id="openid" name="openid" type="hidden" value="" />
+    <input id="userid" name="userid" type="hidden" value="" />
+    <input id="QD_JF2" name="QD_JF2" type="hidden" value="" />
+    <header data-am-widget="header" class="am-header am-header-default">
+        <div class="am-header-left am-header-nav">
+            <a href="/aoshacar/index" class="back">返回</a>
+        </div>
+        <h1 class="am-header-title">
+            <img src="/Content/AoShaCar/images/logo.png" />
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="/AoShaCar/Index" class="">首页</a>
+        </div>
+    </header>
+    <div class="user-center">
+
+        <div class="user-info ">
+            <img class="user-head " src="@ViewBag.headimgurl">
+            <p class="">ID: @Model.userNum</p>
+            <p>昵称:@ViewBag.nickname</p>
+        </div>
+        <div class="user-info" style="padding-left: 50px;">
+            <p>账户余额：￥@Model.userYongJin.Value.ToString("#0.00")</p>
+            <p>会员级别：@ViewBag.UserType</p>
+        </div>
+        <div class="box skin-b">
+            <div class="bd">
+                <div class="am-list-news am-list-news-default">
+                    <div class="am-list-news-bd">
+                        <ul class="usercenter-list">
+                 @*           <li class="am-g link">
+                                <a href="/AoShaCar/Consumption" class="am-cf" >
+                                    <span class="fa fa-gear"></span>
+                                    <div class="am-u-sm-8 am-list-main">
+                                        <h3 class="am-list-item-hd">消费记录</h3>
+
+
+                                    </div>
+                                </a>
+                            </li>*@
+                            <li class="am-g link">
+                                <a href="/AoShaCar/ReservationList" class="am-cf">
+                                    <span class="fa fa-gear"></span>
+                                    <div class="am-u-sm-8 am-list-main">
+                                        <h3 class="am-list-item-hd">我的预约</h3>
+
+
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="am-g link">
+                                <a href="/AoShaCar/orderlist" class="am-cf">
+                                    <span class="fa fa-gear"></span>
+                                    <div class="am-u-sm-8 am-list-main">
+                                        <h3 class="am-list-item-hd">我的订单</h3>
+
+
+                                    </div>
+                                </a>
+                            </li>
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+            <li class="@(ViewBag.PageFlag=="CATE001"?"active":"")"><a href="/AoShaCar/category?id=CATE001&&sid=@ViewBag.SupplierID"><span class="am-navbar-label">常规</span></a></li>
+            <li class="@(ViewBag.PageFlag=="CATE002"?"active":"")"><a href="/AoShaCar/category?id=CATE002&&sid=@ViewBag.SupplierID"><span class="am-navbar-label">养护</span></a></li>
+            <li class="@(ViewBag.PageFlag=="CATE003"?"active":"")"><a href="/AoShaCar/category?id=CATE003&&sid=@ViewBag.SupplierID"><span class="am-navbar-label">修复</span></a></li>
+            <li class="@(ViewBag.PageFlag=="UserMain"?"active":"")"><a href="/AoShaCar/userMain"><span class="am-navbar-label">会员</span></a></li>
+        </ul>
+    </div>
+
+    <script src="~/Content/KeYanBao/js/jquery-1.11.1.min.js"></script>
+</body>
+</html>
+

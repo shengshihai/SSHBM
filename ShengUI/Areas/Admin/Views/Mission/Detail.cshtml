@@ -1,0 +1,85 @@
+﻿@model MODEL.ViewModel.ViewModelMission
+@{
+    ViewBag.Title = "Mission";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+
+
+<div class="block">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-advanced">
+                    <div class="widget-header text-center themed-background-dark">
+                        <div class="widget-options">
+                            <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Love it!"><i class="fa fa-heart text-danger"></i></button>
+                        </div>
+                        <h3 class="widget-content-light">
+                            <a href="">@Model.suppliername</a><br>
+                            <small>@Model.username</small>
+                        </h3>
+                    </div>
+                    <div class="widget-main">
+                        <a href="javascript:void(0)" class="widget-image-container animation-fadeIn">
+                            <span class="widget-icon themed-background"><i class="fa fa-globe"></i></span>
+                        </a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-default pull-right" data-toggle="tooltip" >@Model.enddate </a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-default" data-toggle="tooltip" >@Model.createdate</a>
+                        <hr>
+                        <h3 class="sub-header">@Model.title</h3>
+                        <p>@Model.context</p>
+                      
+                    </div>
+                     <button type="button" class="btn btn-sm btn-primary" id="next3" data-loading-text="Loading... " onclick="UnCheck(@Model.id)"><i class="fa fa-share"></i>审核不通过</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section backScripts
+{
+
+    <script src="~/Scripts/back/js/jquery-form.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script id="productCategoryTemplate" type="text/x-jquery-tmpl">
+        <option value="${pcId}" isleaves="${isLeaves}" code="${code}">${categoryName}</option>
+    </script>
+
+    <script id="productMainParasTemplate" type="text/x-jquery-tmpl">
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="example-city">${key}</label>
+            <div class="validaddress col-md-3">
+                <input type="hidden" class="c_txt" name="categoryparakey" value="${keyEn}">
+                <input type="text" name="categoryparavalue" id="categorymainparavalue_${id}" class="form-control" placeholder="">
+                <input type="hidden" class="c_txt" name="parasType" value="1">
+                <input type="hidden" class="c_txt" name="keyId" value="${id}">
+                <input type="hidden" class="c_txt" name="valueId" value="0">
+            </div>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        $(function () { });
+        function UnCheck(id) {
+           
+            LG.ajax({
+                loading: '正在保存数据中...',
+                url: "/admin/mission/Uncheck",
+                data: { id: id },
+                success: function (data) {
+                    window.parent.LG.tipSuccess(data.Message);
+                },
+                error: function (message) {
+                    window.parent.LG.tipError(message);
+                }
+            });
+
+
+        }
+    </script>
+
+
+
+
+}

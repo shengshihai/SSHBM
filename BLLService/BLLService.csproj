@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A12610C-B5B3-4F72-8A0C-09457399F8A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BLLService</RootNamespace>
+    <AssemblyName>BLLService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\ShengUI\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseBLLService.cs" />
+    <Compile Include="BLLService.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLLService.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSession.cs" />
+    <Compile Include="BLLSessionExtension.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLLSessionExtension.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExtentionBLLService\TG_order_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\YX_weiUser_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\MST_PRD_MANAGER .cs" />
+    <Compile Include="ExtentionBLLService\FW_MODULE_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\FW_PERMISSION_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\MST_ARTICLE_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\MST_CATALOG_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\FW_ROLEPERMISSION_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\FW_USER_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\MST_POSITION_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\FW_MODULEPERMISSION_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\MST_CATEGORY_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\SYS_REF_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\TokenConfig_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\YX_sysConfigs_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\WeChat_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\YX_weiXinMenus_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\YX_news_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\YX_text_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\MST_CAR_MANAGER.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BLLService.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BLLService.cs</LastGenOutput>
+    </None>
+    <None Include="BLLSessionExtension.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BLLSessionExtension.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{866bb88c-223b-4fba-aa0a-8c32426b9cd3}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI\DI.csproj">
+      <Project>{11aa1363-1962-493a-ac4c-eeb2d7eaed01}</Project>
+      <Name>DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IBLLService\IBLLService.csproj">
+      <Project>{0d9533ad-dc88-4090-b43b-c73efe7e8f81}</Project>
+      <Name>IBLLService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IDALRepository\IDALRepository.csproj">
+      <Project>{9bfeff8d-687e-48df-a43f-5f6b710a5018}</Project>
+      <Name>IDALRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODEL\MODEL.csproj">
+      <Project>{9a0728d0-9151-4917-b0a2-3a91144c284b}</Project>
+      <Name>MODEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShengUI.Helper\ShengUI.Helper.csproj">
+      <Project>{26e66901-8d8c-495b-87a4-5d9206192cf4}</Project>
+      <Name>ShengUI.Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

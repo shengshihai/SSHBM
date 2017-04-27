@@ -1,0 +1,81 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate" media="handheld" />
+    <!-- end 云适配 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>拉勾网-最专业的互联网招聘平台</title>
+    <meta property="qc:admins" content="23635710066417756375" />
+    <meta content="拉勾网是3W旗下的互联网领域垂直招聘网站,互联网职业机会尽在拉勾网" name="description">
+    <meta content="拉勾,拉勾网,拉勾招聘,拉钩, 拉钩网 ,互联网招聘,拉勾互联网招聘, 移动互联网招聘, 垂直互联网招聘, 微信招聘, 微博招聘, 拉勾官网, 拉勾百科,跳槽, 高薪职位, 互联网圈子, IT招聘, 职场招聘, 猎头招聘,O2O招聘, LBS招聘, 社交招聘, 校园招聘, 校招,社会招聘,社招" name="keywords">
+    <meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
+
+    <!-- <div class="web_root"  style="display:none">h</div> -->
+    <script type="text/javascript">
+        var ctx = "h";
+        console.log(1);
+    </script>
+    <link rel="Shortcut Icon" href="h/images/favicon1.ico">
+    <link rel="stylesheet" type="text/css" href="/Content/jianzhi/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/jianzhi/css/external.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/jianzhi/css/popup.css" />
+    @*<script src="/Content/jianzhi/js/jquery.1.10.1.min.js" type="text/javascript"></script>*@
+       <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="/Content/jianzhi/js/jquery.lib.min.js"></script>
+    <script src="/Content/jianzhi/js/ajaxfileupload.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/Content/jianzhi/js/additional-methods.js"></script>
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="style/js/excanvas.js"></script>
+<![endif]-->
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div id="body">
+        <div id="header">
+            <div class="wrapper">
+                <a href="index.html" class="logo">
+                    <img src="/Content/jianzhi/images/logo.png" width="229" height="43" alt="拉勾招聘-专注互联网招聘" />
+                </a>
+                <ul class="reset" id="navheader">
+                    <li class="@(ViewBag.PageFlag == "Index"?"current":"")"><a href="index.html">首页</a></li>
+                    <li class="@(ViewBag.PageFlag == "Company"?"current":"")"><a href="companylist.html">公司</a></li>
+                    <li class="@(ViewBag.PageFlag == "toForum"?"current":"")"><a href="h/toForum.html" target="_blank">论坛</a></li>
+                    <li class="@(ViewBag.PageFlag == "JianLi"?"current":"")"><a href="jianli.html" rel="nofollow">我的简历</a></li>
+                    <li class="@(ViewBag.PageFlag == "Position"?"current":"")"><a href="create.html" rel="nofollow">发布职位</a></li>
+                </ul>
+                <ul class="loginTop">
+                    <li><a href="/home/login" rel="nofollow">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/home/register" rel="nofollow">注册</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- end #header -->
+        @RenderBody()
+    </div>
+    <!-- end #body -->
+    <div id="footer">
+        <div class="wrapper">
+            <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+            <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+            <a href="http://e.weibo.com/lagou720" target="_blank" rel="nofollow">拉勾微博</a>
+            <a class="footer_qr" href="javascript:void(0)" rel="nofollow">拉勾微信<i></i></a>
+            <div class="copyright">&copy;2013-2014 Lagou <a target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/Content/jianzhi/js/core.min.js"></script>
+    <script type="text/javascript" src="/Content/jianzhi/js/popup.min.js"></script>
+
+    <!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>
+ -->
+
+</body>
+@RenderSection("backScripts", required: false)
+</html>

@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "userMain";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=640px, user-scalable=no, maximum-scale=5, minimum-scale=0.5" />
+    <link href="~/Content/KeYanBao/css/common.css" rel="stylesheet" />
+    <link href="~/Content/KeYanBao/css/category.css" rel="stylesheet" />
+    <link href="~/Content/KeYanBao/css/usercenter1.css" rel="stylesheet" />
+    <title>个人中心</title>
+    <script src="~/Content/KeYanBao/js/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/KeYanBao/js/calert.js"></script>
+     <script language="javascript" type="text/javascript">
+         function qiandao() {
+             var openid = $("#openid").val();
+             var userid = $("#userid").val();
+             var QD_JF2 = $("#QD_JF2").val();
+             var bat = { "openid": openid, "userid": userid };
+             $.post("userMain.aspx?action=qiandao&da=" + new Date(), bat, function (data) {
+                 if (data == "OK") {
+                     alert("签到成功！");
+                     var jifen = $("#jifenspan").text();
+
+                     jifen = parseInt(jifen) + parseInt(QD_JF2);
+                     $("#jifenspan").text(jifen);
+
+                 }
+                 else if (data == "NOO") {
+                     alert("您今天已经签过到了！");
+                     return;
+                 }
+                 else {
+                     alert("系统正忙，请稍后重试！");
+                 }
+             });
+         }
+    </script>
+</head>
+<body>
+    <input id="openid" name="openid" type="hidden" value="<%=openid %>" />
+    <input id="userid" name="userid" type="hidden" value="<%=userid %>" />
+    <input id="QD_JF2" name="QD_JF2" type="hidden" value="<%=QD_JF %>" />
+    <div class="wrap">
+        <header>
+    <div class="thumb"><img src="@ViewBag.headimgurl"></div>
+	<div class="desc">
+		<p>ID:5345353245</p>
+		<p>分销商</p>
+		<p>账户余额：100.00</p>
+		<p>积分：<span id="jifenspan">122</span><a href="JavaScript:void(0)" onclick="qiandao()">马上签到</a></p>
+	</div>
+  </header>
+        <div class="ucenterBox">
+            <div class="head">
+                <ul class="clear-both">
+                       <li><a href="orderList.aspx?userid=<%=userid %>"><i>
+                           <img src="~/Content/KeYanBao/imgs/ico1.png" />
+                        <img src="/Content/KeYanBao/imgs/ico1.png" /></i> <strong>全部订单</strong> </a></li>
+                    <li><a href="orderList.aspx?userid=<%=userid %>"><i>
+                        <img src="/Content/KeYanBao/imgs/ico2.png" /></i> <strong>待付款</strong> </a></li>
+                    <li><a href="orderList.aspx?userid=<%=userid %>"><i>
+                        <img src="/Content/KeYanBao/imgs/ico3.png" /></i> <strong>待收货</strong> </a></li>
+                    <li><a href="orderList.aspx?userid=<%=userid %>"><i>
+                        <img src="/Content/KeYanBao/imgs/ico4.png" /></i> <strong>已退货</strong> </a></li>
+                </ul>
+            </div>
+            <div class="body">
+     <ul>
+                    <li class='ico1'><a href='FXcenter.aspx?userid=" + userid +"'>
+                        <p>
+                            分销中心</p>
+                    </a></li>
+                </ul>
+                <ul>
+                    <li class="ico8"><a href="Regist.aspx?userid=<%=userid %>">
+                        <p>
+                            成为分销商</p>
+                    </a></li>
+                    <li class="ico10"><a href="Member.aspx?userid=<%=userid %>">
+                        <p>
+                            会员等级与特权</p>
+                    </a></li>
+                </ul>
+                <ul>
+                    <li class="ico2"><a href="MyScore.aspx?userid=<%=userid %>">
+                        <p>
+                            我的积分</p>
+                    </a></li>
+                    <li class="ico4"><a href="chongzhi.aspx?userid=<%=userid %>">
+                        <p>
+                            账户充值</p>
+                    </a></li>
+                    <li class="ico5"><a href="YuETiXian.aspx?userid=<%=userid %>">
+                        <p>
+                            余额提现</p>
+                    </a></li>
+                </ul>
+                <ul>
+                    <li class="ico6"><a href="OrderList.aspx?userid=<%=userid %>">
+                        <p>
+                            已付款订单</p>
+                    </a></li>
+                    <li class="ico7"><a href="SC_product.aspx?userid=<%=userid %>">
+                        <p>
+                            已收藏商品</p>
+                    </a></li>
+                </ul>
+                <ul>
+                    <li class="ico9"><a href="AddressList.aspx?userid=<%=userid %>&url=UserHome/userMain.aspx">
+                        <p>
+                            地址管理</p>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <footer class="footer-menus fixed-bottom clear-both table-layout">
+       <ul>
+          <li>
+            <a href="/fenxiao/index.aspx?userid=<%=userid %>"><img class="index" src="/Content/KeYanBao/images/icon/foo.png" />商城首页</a>
+          </li>
+          <li>
+            <a href="/fenxiao/seach.aspx?userid=<%=userid %>"><img class="all" src="/Content/KeYanBao/images/icon/foo.png" />分类搜索</a>
+          </li>
+          <li>
+            <a href="/fenxiao/car.aspx?userid=<%=userid %>"><img class="cart" src="/Content/KeYanBao/images/icon/foo.png" />购物车</a>
+          </li>
+          <li>
+            <a class="current" href="/KeYanBao/usermain"><img class="user" src="/Content/KeYanBao/images/icon/foo.png" />个人中心</a>
+          </li>
+       </ul>
+   </footer>
+        <script src="~/Content/KeYanBao/js/jquery-1.11.1.min.js"></script>
+        <script src="~/Content/KeYanBao/js/menu.js"></script>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "Note";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+
+<div class="">
+    <div class="block">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+            </div>
+            <h2>Inbox <strong>(5)</strong></h2>
+        </div>
+
+
+        <div class="block-section" id="tablebutton">
+            <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">反选</button>
+            <div style="float: right">
+                <button type="button" id="uncheck" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">待审核</button>
+                <button type="button" id="checked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核通过</button>
+                <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>
+
+            </div>
+        </div>
+      
+            
+      
+        <div class="table-responsive">
+
+            <div>
+
+                <table id="suppliersatatable" class="display table table-vcenter table-striped table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+
+                            <th style="width:4%">ID</th>
+                            <th style="width:34%">标题</th>
+                            <th style="width:34%">供应商</th>
+                            <th style="width:7%">类型</th>
+                            <th style="width:13%">创建时间</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>  
+    </div>
+</div>
+
+@section scripts
+{
+
+    <link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+}
+@section backScripts
+{
+    <script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script type="text/javascript">
+        //相对路径
+        var rootPath = "@Url.Content("~/Admin/")";
+        var grid = $("#suppliersatatable");
+        var gridUrl = rootPath + 'Note/GetNoteForGrid';
+        var toolbarOptions = [
+             //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            App.datatables();
+            var dt = $("#suppliersatatable").dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "ajax": {
+                    "url": rootPath + 'Note/GetNoteForGrid',
+                    "type": "POST"
+
+                },
+                //"ajax": rootPath + 'Product/GetProductForGrid',
+
+                "columns": [
+                    { "data": "nid" },
+                    { "data": "title" },
+                    { "data": "suppliername" },
+                    { "data": "notetype" },
+                    { "data": "publishdate" }
+                ],
+                "columnDefs": [
+                 {
+                     "render": function (data, type, row) {
+                         if (data == 1)
+                             return '店铺通知';
+                         else if (data == 2)
+                             return '采购通知';
+                         else
+                             return '店铺通知';
+                     },
+                     "targets": 3
+                 },
+                  {
+                      "render": function (data, type, row) {
+                          return data.substring(0, data.indexOf("T"));
+                      },
+                      "targets": 4
+                  },
+                ]
+
+            });
+            $('#suppliersatatable tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+
+            });
+            // $(".dataTables_filter input").addClass("form-control").attr("placeholder", "Search"), $(".dataTables_length select").addClass("form-control")
+        });
+
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            var table = $('#suppliersatatable').DataTable();
+            switch (id) {
+                case "Add":
+                    window.parent.addTab('Note_0', '增加通知信息', rootPath + 'Note/Detail');
+                    break;
+                case "Update":
+                    var selected = table.rows('.selected').data()[0];
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+                    $('#suppliersatatable tr').removeClass('selected');
+                    window.parent.addTab('Note_' + selected.nid, '修改通知信息[' + selected.title + ']', rootPath + 'Note/Detail?ID=' + selected.nid);
+                    break;
+                case "Delete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            f_delete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "selectall":
+                    $('#suppliersatatable  tr').toggleClass('selected');
+                    break;
+                case "RealDelete":
+                    if(confirm('确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?'))
+                    {
+                        realdelete();
+                    };
+                    break;
+             
+            }
+        }
+        function realdelete() {
+            var table = $('#suppliersatatable').DataTable();
+            var selected = table.rows('.selected').data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Note/RealDelete',
+                    loading: '正在删除中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('成功删除!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function GetAllCheck() {
+            var table = $('#suppliersatatable').DataTable();
+            var Ids = "";
+            var rows = table.rows('.selected').data();
+            for (var i = 0, l = rows.length; i < l; i++) {
+
+                Ids += rows[i].nid + ",";
+
+            }
+            return Ids;
+
+        }
+        //刷新数据
+        function reload() {
+            $('#suppliersatatable').DataTable().draw(false);
+        }
+    </script>
+
+}
+
+
+
+
+

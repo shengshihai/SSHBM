@@ -1,0 +1,281 @@
+﻿@{
+    ViewBag.Title = "SiteNav";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<input type="hidden" id="MenuNo" value="WeChatCategory" />
+
+
+<style type="text/css">
+    .b1 {
+        width: 40px;
+        height: 13px;
+        border-left: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        margin: 5px 0px 0px 37px;
+        float: left;
+    }
+
+    .c2 a:hover {
+        color: #ff6600;
+    }
+
+    .c3 {
+        padding-left: 17px;
+        background: url(/content/back/img/icon_sec.gif) 0 1px no-repeat;
+        margin-left: 10px;
+        color: #ff6600;
+    }
+
+        .c3 a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+            .c3 a:hover {
+                text-decoration: underline;
+            }
+
+    .b2 {
+        width: 90px;
+        height: 21px;
+        float: left;
+        margin-right: 5px;
+        margin-left: 37px;
+        background: url(/content/back/img/sec_fir.gif) no-repeat;
+    }
+
+    .b3 {
+        width: 90px;
+        height: 21px;
+        float: left;
+        margin-right: 5px;
+        margin-left: 37px;
+        background: url(/content/back/img/sec_sec.gif) no-repeat;
+    }
+
+    .b4 {
+        width: 40px;
+        height: 21px;
+        float: left;
+        margin-right: 5px;
+        margin-left: 37px;
+        background: url(/content/back/img/third.gif) no-repeat;
+    }
+</style>
+
+
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.columnFilter.js' type='text/javascript'></script>
+<script src='/Scripts/Back/tables.js' type='text/javascript'></script>
+@section backScripts
+{
+
+    <script type="text/javascript">
+
+        //相对路径
+        var rootPath = "@Url.Content("~/Admin/")";
+        var table = "#categorytable";
+        var gridUrl = rootPath + 'Category/GetProductCategoryForGrid';
+        //加载toolbar
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick);
+        $(document).ready(function () {
+            //TablePage();
+            var dt = $(table).dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "order": [[0, "desc"]],
+                "ajax": {
+                    "url": gridUrl,
+                    "type": "POST"
+                },
+                "columns": [
+                    { "data": "CATE_CD", "name": "[Contains]{main}CATE_CD", "orderable": "CATE_CD" },
+                    { "data": "CATEGORY_NAME", "name": "[Contains]{main}CATEGORY_NAME", "orderable": "CATEGORY_NAME" },
+                    { "data": "ISSHOW" },
+                    { "data": "ACTIVE" },
+                    { "data": "CREATE_DT", "orderable": "CREATE_DT" },
+                         { "data": "SYNCVERSION", "orderable": "SYNCVERSION" }
+
+                ],
+                "columnDefs": [
+                      //{
+                      //    "targets": [0],
+                      //    "visible": true
+                      //},
+                      {
+                          "render": function (data, type, row) {
+                              return data;
+                          },
+                          "targets": 4
+                      },
+                ]
+
+            });
+            $(table + ' tbody').on('click', 'tr', function () {
+                $(this).toggleClass('info');
+
+            });
+
+        });
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            switch (id) {
+                case "Add":
+                    Jump("/admin/Category/PrdCateDetail")
+                    break;
+                case "Update":
+                    var selected = $(table).DataTable().rows('.info').data()[0];
+                    if (!selected) {
+                        window.parent.LG.tip('请选择行!');
+                        return
+                    }
+                    Jump("/admin/Category/PrdCateDetail?cd=" + selected.CATE_CD)
+                    break;
+                case "Delete":
+
+                    if (confirm('确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?')) {
+                        f_delete();
+                        // 退出操作;
+                    }
+
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "selectall":
+                    $(table + '  tr').toggleClass('info');
+                    break;
+            }
+        }
+
+    </script>
+}
+
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+                        <h1 class='pull-left'>
+                            <i class='icon-edit'></i>
+                            <span>产品分类管理</span>
+                        </h1>
+                        <div class='pull-right'>
+                            <ul class='breadcrumb'>
+                                <li>
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+                                    </a>
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li>Forms
+
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li class='active'>Form components</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class='row-fluid'>
+
+                        <div class='tab-content'>
+                            <div class='row-fluid'>
+                                <div class="box-content Lgloading" id="tablebutton">
+                                    <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">反选</button>
+                                    <div style="float: right">
+                                        <button type="button" id="uncheck" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">待审核</button>
+                                        <button type="button" id="checked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核通过</button>
+                                        @*   <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>*@
+                                        @*   <button type="button" id="unpublish" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)" >未提交</button>*@
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="hr-normal">
+                            <div class='row-fluid'>
+
+                                <div class='span12 box bordered-box orange-border' style='margin-bottom: 0;'>
+
+                                    <div class='box-header orange-background'>
+
+                                        <div class='title'>Sortable data table with pagination</div>
+
+                                        <div class='actions'>
+
+                                            <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                                            </a>
+
+                                            <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class='box-content box-no-padding'>
+
+                                        <div class='responsive-table'>
+
+                                            <div class='scrollable-area'>
+
+
+
+                                                <table id="categorytable" class='data-table table table-bordered table-striped  table-hover table-striped' style="width: 100%;">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>CATE_CD</th>
+                                                            <th>分类名称</th>
+                                                            <th>是否显示</th>
+                                                            <th>状态</th>
+                                                            <th>创建时间</th>
+                                                               <th>更新时间</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>

@@ -1,0 +1,473 @@
+﻿@model MODEL.ViewModel.VIEW_FW_MODULE
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+    <script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+    <script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+@section scripts
+{
+
+    <style type="text/css">
+        .b2 {
+            width: 40px;
+            height: 13px;
+            border-left: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            margin: -2px 10px 0px 37px;
+            float: left;
+        }
+
+        .c2 a:hover {
+            color: #ff6600;
+        }
+
+        .c3 {
+            padding-left: 17px;
+            background: url(/content/back/images/icon_sec.gif) 0 1px no-repeat;
+            margin-left: 10px;
+            color: #ff6600;
+        }
+
+            .c3 a {
+                color: #ff6600;
+                text-decoration: none;
+            }
+
+                .c3 a:hover {
+                    text-decoration: underline;
+                }
+
+        .b3 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_fir.gif) no-repeat;
+        }
+
+        .b4 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_sec.gif) no-repeat;
+        }
+
+        .b5 {
+            width: 40px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/third.gif) no-repeat;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+
+        $(document).ready(function () {
+
+
+            $('#MODULE_PID').select2({
+                debug: true,
+                width: '292px',
+                //ajax: {
+                //    url: "/admin/menus/GetMenusForSelect",
+                //    dataType: 'json',
+                //    type: 'POST',
+                //    data: function (term, page) {
+                //        return {
+                //            search: term,
+                //            page: page || 1
+                //        }
+                //    },
+                //    results: function (bond, page) {
+                //        return { results: bond}
+                //    },
+                //    cache: true
+                //},
+                //formatResult: formatResult,
+                // formatSelection: formatLevel2,
+                templateResult: formatLevel,
+                templateSelection: formatSelection
+            })
+            $('#MODULE_CONTROLLER').select2({
+                debug: true,
+                //ajax: {
+                //    url: "/admin/menus/GetAllController",
+                //    dataType: 'json',
+                //    type: 'POST',
+                //    data: function (term, page) {
+                //        return {
+                //            search: term,
+                //            page: page || 1
+                //        }
+                //    },
+                //    results: function (bond, page) {
+                //        return { results: bond}
+                //    },
+                //    cache: true
+                //},
+                //initSelection: function (element, callback) {//初始化函数
+                //    var id = $(element).val();//绑定的元素
+                //    if (id != "") {
+                //        $.ajax("admin/menus/GetAllController", {
+                //            data: { dynamicPageId: id },//ID
+                //            dataType: "json"
+                //        }).done(function (data) {
+                //            callback(data[0]);
+                //        });
+                //    }
+                //},
+                //formatResult: formatResult,
+                //formatSelection: formatSelection,
+                // templateResult: formatResult,
+                //templateSelection: formatResult
+            })
+            $("#ICON").select2({
+                templateResult: select2icon,
+                templateSelection: select2icon
+            });
+
+
+
+        });
+        function select2icon(state) {
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(
+              '<span><i class=' + state.text + '></i> .' + state.text + '</span>'
+            );
+            return $state;
+        };
+        function formatResult(state) {
+            //  alert(state.text);
+            if (!state.id) { return state.text; }
+            var $state = $(
+              '<div class="select2-user-result"><span  class="' + state.style + '"></span> ' + state.text + '</div>'
+            );
+            return $state;
+        };
+        function formatLevel(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text);
+            return $state;
+        };
+        function formatSelection(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text).text();
+            return $state;
+        };
+
+    </script>
+}
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+
+                        <h1 class='pull-left'>
+
+                            <i class='icon-ok'></i>
+
+                            <span>Validations</span>
+
+                        </h1>
+
+                        <div class='pull-right'>
+
+                            <ul class='breadcrumb'>
+
+                                <li>
+
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+
+                                    </a>
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li>Forms
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li class='active'>Validations</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='row-fluid'>
+
+                <div class='span12 box'>
+
+                    <div class='box-header blue-background'>
+
+                        <div class='title'>Basic validations</div>
+
+                        <div class='actions'>
+
+                            <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                            </a>
+
+                            <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class='box-content'>
+
+                        @*                        <form class='form form-horizontal' style='margin-bottom: 0;' >*@
+                        @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url = ViewBag.TYPE == "Add" ? "/Admin/Menus/Add" : "/Admin/Menus/Update",
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg"
+
+                        }, new { id = "loginForm", @class = "form form-horizontal" }))
+                        {
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_name'>菜单CD </label>
+
+                                <div class='controls'>
+                                    @if (ViewBag.TYPE == "Update")
+                                    {
+                                        @Html.TextBoxFor(m => m.MODULE_ID, new { @placeholder = "菜单CD", @disabled = "" })
+                                        @Html.HiddenFor(m => m.MODULE_ID )
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.MODULE_ID, new { @placeholder = "菜单CD" })
+                                    }
+                                    @Html.ValidationMessageFor(m => m.MODULE_ID)
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_date'>父菜单</label>
+
+                                <div class='controls'>
+                                    <div class='row-fluid'>
+
+                                        <div class='span6'>
+
+                                            <div class='row-fluid'>
+                                                @Html.DropDownListFor(m => m.MODULE_PID, ViewBag.PID as List<SelectListItem>, new { @class = "" })
+                                                @Html.ValidationMessageFor(m => m.MODULE_PID)
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_name'>菜单名称 </label>
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.MODULE_NAME, new { @placeholder = "菜单名称", @class = "input-validation-error" })
+                                    @Html.ValidationMessageFor(m => m.MODULE_NAME)
+
+                                </div>
+
+                            </div>
+
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_email'>控制器</label>
+
+                                <div class='controls'>
+
+                                    @Html.DropDownListFor(m => m.MODULE_CONTROLLER, ViewBag.MVCController as List<SelectListItem>, new { @class = "" })
+
+                                    @Html.ValidationMessageFor(m => m.MODULE_CONTROLLER)
+
+                                </div>
+
+                            </div>
+
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_agree'>是否菜单</label>
+
+                                <div class='controls'>
+
+                                    <label class=''>
+                                           @Html.CheckBoxFor(m => m.ISMENU, new { Value = "True" })  
+                                          
+
+                                    </label>
+                                    @Html.ValidationMessageFor(m => m.ISMENU)
+                                </div>
+
+                            </div>
+
+
+
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_agree'>显示</label>
+
+                                <div class='controls'>
+                                    <label class=' inline'>
+                                        @Html.CheckBoxFor(m => m.ISVISIBLE, new { Value = "True" })  
+                                    </label>
+
+                                    @Html.ValidationMessageFor(m => m.ISVISIBLE)
+                                </div>
+
+                            </div>
+ 
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_date'>图标</label>
+
+                                <div class='controls'>
+                                    <div class='row-fluid'>
+
+                                        <div class='span6'>
+
+                                            <div class='row-fluid'>
+
+
+
+                                                @*  <select class='input-block-level' id='select2-icon' name="ICON" style="width:50%">
+                            <option value='' ></option>
+                            <option value='icon-heart' >icon-heart</option>
+
+                            <option value='icon-home' >icon-home</option>
+
+                            <option value='icon-resize-full' >icon-resize-full</option>
+
+                        </select>*@
+
+                                                @Html.DropDownListFor(m => m.ICON, Common.Controls.GetIcons())
+                                                @Html.ValidationMessageFor(m => m.ICON)
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">菜单链接地址</label>
+
+                                    <small class="muted">http://</small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.MODULE_LINK, new { @placeholder = "URL" })
+                                    @Html.ValidationMessageFor(m => m.MODULE_LINK)
+
+                                </div>
+
+                            </div>
+
+                            <div class='form-actions' style='margin-bottom: 0'>
+
+                                <button class='btn btn-large' type='button' onclick="Jump('/admin/menus/MenuInfo')">
+
+                                    <i class='icon-mail-reply '></i>
+
+                                    返回
+
+                                </button>
+                                <button class='btn btn-primary btn-large' type='submit'>
+
+                                    <i class='icon-save '></i>
+
+                                    保存
+
+                                </button>
+
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='group-header'>
+
+                <div class='row-fluid'>
+
+                    <div class='span6 offset3'>
+
+                        <div class='text-center'>
+
+                            <h2>Custom methods</h2>
+
+                            <small class='muted'>You can easily add your own validation methods. These validations are pretty easy to extend.</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>

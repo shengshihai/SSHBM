@@ -1,0 +1,56 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#>
+<#@ output extension=".cs"#>
+ 
+ <#
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile = @"..\MODEL\Model.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>
+using IBLLService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace BLLService
+{
+	public partial class BLLSession
+    {
+<#
+
+// Emit Entity Types
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+    //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
+    //BeginNamespace(namespaceName, code);
+    
+#>
+		 I<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER i<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER;
+		public I<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER I<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER
+		 {
+            get
+            {
+               if( i<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER==null)
+					i<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER=new <#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER();
+			   	return i<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER;
+            }
+            set
+            {
+               i<#=entity.Name.Substring(0,1).ToUpper()#><#=entity.Name.Substring(1)#>_MANAGER=value;
+            }
+        }
+
+<#}#>
+   }
+}

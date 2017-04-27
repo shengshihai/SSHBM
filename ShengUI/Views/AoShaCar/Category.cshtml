@@ -1,0 +1,271 @@
+﻿@model MODEL.ViewModel.VIEW_MST_CATEGORY
+@{
+    ViewBag.Title = "Category";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>傲鲨汽车生活馆</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache,must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <link rel="stylesheet" type="text/css" href="/Content/AoShaCar/AmazeUI-2.3.0/css/amazeui.min.css">
+    <link type="text/css" rel="stylesheet" href="/Content/AoShaCar/icon-font-4.3.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/Content/AoShaCar/kemeimei/order/carbeautyshop/css/style.css">
+</head>
+<body>
+    <header data-am-widget="header" class="am-header am-header-default t-header">
+        <div class="am-header-left am-header-nav">
+            <a href="/AoShaCar/CompanyList" class="stores">@ViewBag.SupplierName</a>
+        </div>
+        <h1 class="am-header-title">
+             <img src="/Content/AoShaCar/images/logo.png" />
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="/AoShaCar/Index?sid=@ViewBag.SupplierID" class="">首页</a>
+        </div>
+    </header>
+    <div class="box skin-b">
+        <div class="hd">
+            <div class="am-titlebar am-titlebar-default" style="margin-top: 0px;"><h2 class="am-titlebar-title"><img src="/Content/AoShaCar/images/dian.png" style="width: 12px; height: 12px; float: left; margin: 14px 5px 0px 0px;" />@Model.CATEGORY_NAME</h2></div>
+        </div>
+        <div class="bd">
+            <div class="am-list-news am-list-news-default">
+                <div class="am-list-news-bd">
+                    <ul class="am-list">
+                        @foreach (var prditem in ViewBag.ProductList)
+                        {
+                            <li class="am-g">
+                                <a href="/AoShaCar/productdetail?id=@prditem.PRD_CD&&sid=@ViewBag.SupplierID" class="am-cf">
+                                    <div class="am-u-sm-4 am-list-thumb">
+                                        <img src="@prditem.REMARK1" alt="@prditem.PRD_NAME">
+                                    </div>
+                                    <div class="am-u-sm-8 am-list-main">
+                                        <h3 class="am-list-item-hd">@prditem.PRD_NAME</h3>
+
+                                        <div class="am-list-item-text">@prditem.PRD_SHORT_DESC</div>
+                                        <div class="info">
+                                            <span class="symbol c-org">¥</span><span class="price c-org">@prditem.PRICE</span><del class="o-price">¥@prditem.ARKETPRICE</del>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        
+                  
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default">
+        <ul class="am-navbar-nav am-cf am-avg-sm-4">
+             <li class="@(ViewBag.PageFlag=="CATE001"?"active":"")"><a href="/AoShaCar/category?id=CATE001&&sid=@ViewBag.SupplierID"><span class="am-navbar-label">常规</span></a></li>
+            <li class="@(ViewBag.PageFlag=="CATE002"?"active":"")"><a href="/AoShaCar/category?id=CATE002&&sid=@ViewBag.SupplierID"><span class="am-navbar-label">养护</span></a></li>
+            <li class="@(ViewBag.PageFlag=="CATE003"?"active":"")"><a href="/AoShaCar/category?id=CATE003&&sid=@ViewBag.SupplierID"><span class="am-navbar-label">修复</span></a></li>
+            <li class="@(ViewBag.PageFlag=="UserMain"?"active":"")"><a href="/AoShaCar/userMain"><span class="am-navbar-label">会员</span></a></li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#J-index-slider").flexslider({
+                directionNav: false
+            });
+            $("#J-item-slider").flexslider({
+                directionNav: false,
+                slideshow: false,
+                animationLoop: false
+            });
+        });
+    </script>
+</body>
+<div style="display:none;"></div>
+</html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    var dataForWeixin = {
+        appId: "@ViewBag.Appid",
+        MsgImg: "http://mmbiz.qpic.cn/mmbiz/aCEJh8QUibicnBtrSyjzJM7zKH9T9huibEwUoFhS3hsqiaZSe1LKgjy4h6SG9xeo5hcWc0fuzo3RsmKZCpBA7NJVIg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+        TLImg: "http://mmbiz.qpic.cn/mmbiz/aCEJh8QUibicnBtrSyjzJM7zKH9T9huibEwUoFhS3hsqiaZSe1LKgjy4h6SG9xeo5hcWc0fuzo3RsmKZCpBA7NJVIg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+        url: "/fenxiao/userHome/erweima.aspx?userid=2",
+        title: "小伙伴们，我为聚财久玖代言，我通过聚财久玖赚钱，小伙伴们，你还等什么呢？赶快关注，注册成老板吧~",
+        desc: "小伙伴们，我为聚财久玖代言，我通过聚财久玖赚钱，小伙伴们，你还等什么呢？赶快关注，注册成老板吧~",
+        timestamp: '@ViewBag.timestamp',
+        nonceStr: '@ViewBag.noncestr',
+        signature: '@ViewBag.JssdkSignature',
+        jsApiList: ['checkJsApi',
+    'onMenuShareTimeline',
+    'onMenuShareAppMessage',
+    'onMenuShareQQ',
+    'onMenuShareWeibo',
+    'hideMenuItems',
+    'showMenuItems',
+    'hideAllNonBaseMenuItem',
+    'showAllNonBaseMenuItem',
+    'translateVoice',
+    'startRecord',
+    'stopRecord',
+    'onRecordEnd',
+    'playVoice',
+    'pauseVoice',
+    'stopVoice',
+    'uploadVoice',
+    'downloadVoice',
+    'chooseImage',
+    'previewImage',
+    'uploadImage',
+    'downloadImage',
+    'getNetworkType',
+    'openLocation',
+    'getLocation',
+    'hideOptionMenu',
+    'showOptionMenu',
+    'closeWindow',
+    'scanQRCode',
+    'chooseWXPay',
+    'openProductSpecificView',
+    'addCard',
+    'chooseCard',
+    'openCard'],
+        fakeid: "",
+        callback: function () { }
+    };
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: dataForWeixin.appId, // 必填，公众号的唯一标识
+        timestamp: dataForWeixin.timestamp, // 必填，生成签名的时间戳
+        nonceStr: dataForWeixin.nonceStr, // 必填，生成签名的随机串
+        signature: dataForWeixin.signature, // 必填，签名，见附录1
+        jsApiList: dataForWeixin.jsApiList  // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+
+
+   
+    wx.ready(function (res) {
+
+        // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+        wx.checkJsApi({
+            jsApiList: [
+              'onMenuShareAppMessage'
+            ],
+            success: function (res) {
+                //alert(JSON.stringify(res));
+                if (res.checkResult.onMenuShareAppMessage != true) {
+                    alert('亲！您的微信版本过低了！请升级吧！');
+                }
+            }
+        });
+
+        // 2. 分享接口
+        // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareAppMessage({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('点击发送给朋友');
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('sfriend');
+            },
+            cancel: function (res) {
+                // alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+
+        // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareTimeline({
+            title: weixintitle,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到朋友圈');
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('scfriend');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+        // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareQQ({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到QQ');
+            },
+            complete: function (res) {
+                //alert(JSON.stringify(res));
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('sqq');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+        // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareWeibo({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到微博');
+            },
+            complete: function (res) {
+                //alert(JSON.stringify(res));
+            },
+            success: function (res) {
+                //alert('已分享');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+
+    });
+
+    wx.error(function (res) {
+        //alert('分享发生错误：'+res.errMsg);
+    });
+
+</script>

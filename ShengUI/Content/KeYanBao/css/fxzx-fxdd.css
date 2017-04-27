@@ -1,0 +1,73 @@
+.wrap{  margin:0 auto; position:relative; text-align:left; width:640px; font-size:24px;}
+body{ background:#f5f5f5; }
+header
+{
+	height:75px;
+	line-height:75px;
+	padding-left:20px;
+	font-size:28px;
+	color:#121212;	
+}
+.sellGood
+{
+	margin-bottom:90px;	
+}
+.sellGood ul li
+{
+	background:#fff;
+	margin-bottom:20px;
+}
+.sellGood ul li .hd
+{
+	padding:20px;
+	border-bottom:1px solid #f5f5f5;	
+}
+.sellGood ul li .hd .thumb
+{
+	width:140px;
+	height:140px;
+	float:left;
+}
+.sellGood ul li .hd .thumb a
+{
+	display:block;	
+}
+.sellGood ul li .hd .thumb img
+{
+	width:140px;
+	height:140px;	
+}
+.sellGood ul li .hd .desc
+{
+	margin-left:160px;	
+}
+.sellGood ul li span
+{
+	margin-right:20px;
+	font-size:22px;
+	color:#757575;
+}
+.sellGood ul li .hd .desc p
+{
+	margin-bottom:13px;
+	padding-bottom:10px;
+	line-height:35px;
+	font-size:24px;
+	color:#757575;
+	border-bottom:1px solid #f5f5f5;
+}
+
+.sellGood ul li .hd .desc strong
+{
+	font-size:30px;
+	font-weight:bold;
+	color:#db0005;
+	float:right;	
+}
+.sellGood .bd
+{
+	height:90px;
+	padding-left:20px;
+	line-height:90px;	
+}
+

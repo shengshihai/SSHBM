@@ -1,0 +1,30 @@
+﻿@{
+   
+    Layout = null;
+}
+<ul class="sidebar-nav">
+    <li class="sidebar-header">
+        <span class="sidebar-header-options clearfix"><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Quick Settings"><i class="gi gi-settings"></i></a><a href="javascript:void(0)" data-toggle="tooltip" title="" data-original-title="Create the most amazing pages with the widget kit!"><i class="gi gi-lightbulb"></i></a></span>
+        <span class="sidebar-header-title">Widget Kit</span>
+    </li>
+    @foreach (var menu in (ViewData["ManageLeftMenu"] as List<MODEL.ViewModel.ViewModelMenu>))
+    {
+        <li>
+            <a href="javascript:void(0)" class="sidebar-nav-menu" url="@menu.MenuUrl" menuno="@menu.Controller"><i class="fa fa-angle-left sidebar-nav-indicator"></i><i class="gi gi-show_big_thumbnails sidebar-nav-icon"></i>@menu.MenuName</a>
+            <ul>
+                @foreach (var child in menu.children)
+                {
+                    <li>
+                        <a href="javascript:void(0)"  url="@child.MenuUrl" menuno="@child.Controller" onclick="addContent(this)" >@child.MenuName</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+ @*   <li>
+        <a href="index.html"><i class="gi gi-stopwatch sidebar-nav-icon"></i>Dashboard</a>
+    </li>
+    <li>
+        <a href="../proui-frontend"><i class="fa fa-paper-plane-o sidebar-nav-icon"></i>Frontend Template</a>
+    </li>*@
+</ul>

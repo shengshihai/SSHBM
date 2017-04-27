@@ -1,0 +1,393 @@
+﻿@{
+    ViewBag.Title = "Mission";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+
+<div class="">
+    <div class="block">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+            </div>
+            <h2>Inbox <strong>(5)</strong></h2>
+        </div>
+        <div class="table-options clearfix">
+            <div class="btn-group btn-group-sm pull-left" id="tablebutton">
+                <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">反选</button>
+              @*  <div class="btn-group btn-group-sm pull-left" data-toggle="buttons">
+                    <button type="button" id="Search" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">高级搜索</button>
+
+                </div>*@
+            </div>
+            <div class="btn-group btn-group-sm pull-right" data-toggle="buttons">
+              @*  <button type="button" id="uncheck" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">待审核</button>
+                <button type="button" id="checked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核通过</button>
+                <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>
+                <button type="button" id="unpublish" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">未提交</button>*@
+            </div>
+        </div>
+
+        <div id="searchblock" class="row" style="display: none">
+            <div>
+                <div class="block">
+                    <div class="block-title">
+                        <h2>高级搜索 </h2>
+                    </div>
+                    <form id="searchfrom" action="page_forms_general.html" method="post" class="form-horizontal form-bordered " onsubmit="return false;">
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <div class="input-group input-daterange" data-date-format="yyyy-mm-dd">
+                                    <input type="text" id="startdate" name="[GreaterThanOrEqual]messagedate" class="form-control text-center" placeholder="起始日期">
+                                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                                    <input type="text" id="enddate" name="[LessThanOrEqual]messagedate" class="form-control text-center" placeholder="结束日期">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" name="[Contains]title" class="form-control" placeholder="询盘标题">
+                            </div>
+                            <div class="col-md-3">
+                                <select id="example-select" name="[Equal]{type}messagetype" class="form-control" size="1">
+                                    <option value="">请选择询盘类型</option>
+                                    <option value="1">会话</option>
+                                    <option value="2">针对产品询盘</option>
+                                    <option value="3">针对供应商询盘</option>
+                                </select>
+                               
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input type="text" name="[Contains]supplier.suppliername" class="form-control" placeholder="采购商">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="[Contains]user.firstname" class="form-control" placeholder="FirstName">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="[Contains]user.lastname" class="form-control" placeholder="LastName">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <input type="text" name="[Contains]forsupplier.suppliername" class="form-control" placeholder="供应商">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="[Contains]object_user.firstname"  class="form-control" placeholder="FirstName">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="[Contains]object_user.lastname"  class="form-control" placeholder="LastName">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <input type="text" name="[Contains]forproduct.productname" class="form-control" placeholder="询盘产品">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12">
+                                <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                                <button type="reset" class="btn btn-sm btn-danger">ReSet</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="table-responsive">
+
+            <div>
+
+                <table id="missiondatatable" class="display cell-border table table-vcenter table-striped table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            
+                            <th style="width: 6%">ID</th>
+                            <th style="width: 26%">标题</th>
+                            <th style="width: 18%">供应商</th>
+                            <th style="width: 18%">发起人</th>
+                            <th style="width: 8%">状态</th>
+                            <th style="width: 10%">发起时间</th>
+                        </tr>
+                    </thead>
+                    @*             <tfoot>
+            <tr>
+               <th style="width: 3%">ID</th>
+                            <th style="width: 38%">产品名称</th>
+                            <th style="width: 29%">供应商名称</th>
+                            <th style="width: 8%">提交</th>
+                            <th style="width: 8%">审核</th>
+                            <th style="width: 13%">修改时间</th>
+            </tr>
+        </tfoot>*@
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+
+    <link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+
+}
+@section backScripts
+{
+    <script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script type="text/javascript">
+      
+    </script>
+    <script type="text/javascript">
+        //相对路径
+        var rootPath = "@Url.Content("~/Admin/")";
+        var grid = "#missiondatatable";
+        var gridUrl = rootPath + 'Mission/GetMissionForGrid';
+        var toolbarOptions = [
+           //  { text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        var ss = "";
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            search();
+            App.datatables();
+            var dt = $(grid).dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[5, "desc"]],
+                "ajax": {
+                    "url": gridUrl,
+                    "type": "POST"
+
+                },
+                "columns": [
+
+                     { "data": "id", "name": "[Equal]{main}id", "orderable": "id" },
+                    { "data": "title", "name": "[Contains]{main}title", "orderable": "title" },
+                    { "data": "suppliername", "name": "[Contains]{main}supplier.suppliername", "orderable": "supplier.suppliername" },
+                    { "data": "username", "name": "[Contains]{main}supplier_user.fullname", "orderable": "supplier_user.fullname" },
+                    { "data": "status", "orderable": "status" },
+                    { "data": "createdate", "orderable": "createdate" }
+
+                ],
+                "columnDefs": [
+                 {
+                     "render": function (data, type, row) {
+                         return data.substring(0, data.indexOf("T"));
+                     },
+                     "targets": 5
+                 },
+                  {
+                      "render": function (data, type, row) {
+                          //询盘类型：1.会话 2.对产品询盘 3.对供应商询盘				
+                          if (data == 0)
+                              return '<span class="label label-warning">审核中</span>';
+                          if (data == 1)
+                              return '<span class="label label-success">审核通过</span>';
+                          else if (data == 2)
+                              return '<span class="label label-danger">审核未通过</span>';
+                          else if (data == 3)
+                              return '<span class="label label-success">完成</span>';
+                          else
+                              return '<span class="label label-warning">未审核</span>';
+                      },
+                      "targets": 4
+                  },
+                   {
+                       "render": function (data, type, row) {
+                           return data;
+
+                       },
+                       "targets": 3
+                   },
+                 {
+                     "render": function (data, type, row) {
+                         return data;
+                        // return "<div><strong>" + data + "</strong><br>用户:" + row.objectname + "</div>";
+                     },
+                     "targets": 2
+                 },
+                   {
+                       "render": function (data, type, row) {
+                           return data;
+                        //   return "<div><strong>" + data + "</strong><br>用户:" + row.username + "</div>";
+
+                       },
+                       "targets": 1
+                   },
+                 //{
+                 //    "render": function (data, type, row) {
+                 //        if (data == 1)
+                 //            return '<span class="label label-success">Checked</span>';
+                 //        else if (data == 2)
+                 //            return '<span class="label label-danger">UnChecked</span>';
+                 //        else
+                 //            return '<span class="label label-warning">UnChecked</span>';
+                 //    },
+                 //    "targets": 4
+                 //}
+                ]
+
+            });
+           
+            $(grid + ' tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+                //var table = $(grid).DataTable();
+                //var selected = table.rows().data()[this._DT_RowIndex];
+             //   window.parent.addTab('Message_' + selected.id, '查看询盘信息[' + selected.title + ']', rootPath + 'Message/Detail?IsView=1&ID=' + selected.messageid);
+
+            });
+
+        });
+        //刷新数据
+        function reload() {
+            $(grid).DataTable().draw(false);
+        }
+        function filterGlobal() {
+            $(grid).DataTable().ajax.params().where = "published=1&*&check=0";
+            var ss = ($(grid).DataTable().ajax.params());
+
+        }
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            var table = $(grid).DataTable();
+            switch (id) {
+                case "Add":
+                    window.parent.addTab('Product_0', '增加产品信息', rootPath + 'Product/Detail');
+                    break;
+                case "Detail":
+                    var selected = grid.datagrid('getSelected');
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+
+                    window.parent.addTab('Mission_' + selected.id, '查看供应商信息', rootPath + 'Supplier/Detail?IsView=1&ID=' + selected.Sid);
+                    break;
+                case "Update":
+                    var selected = table.rows('.selected').data()[0];
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+                    $(grid + ' tr').removeClass('selected');
+                    window.parent.addTab('Mission_' + selected.id, '查看任务信息[' + selected.title + ']', rootPath + 'Mission/Detail?ID=' + selected.id);
+                    break;
+                case "Delete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            f_delete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "CheckMission":
+                    ApprovedMore();
+                    break;
+                case "selectall":
+                    $(grid + ' tr').toggleClass('selected');
+                    break;
+                case "Search":
+                    if ($(item).hasClass("active")) {
+                        document.getElementById("searchfrom").reset() 
+                        $("#searchblock").hide();
+                        $("#messagedatatable_filter").find('[type="search"]').removeAttr("disabled");
+                        $(grid).DataTable().ajax.params();
+                        $(grid).DataTable().ajax.reload();
+                    }
+                    else {
+                        $("#messagedatatable_filter").find('[type="search"]').val('');
+                        $("#messagedatatable_filter").find('[type="search"]').keyup();
+                        $("#messagedatatable_filter").find('[type="search"]').attr("disabled", "true");
+                        $("#searchblock").fadeIn();
+                    }
+                    break;
+            }
+        }
+        function ApprovedMore() {
+            var table = $(grid).DataTable();
+            var selected = table.rows('.selected').data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Mission/CheckMission',
+                    loading: '正在审核中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('审核成功通过!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function GetAllCheck() {
+            var table = $(grid).DataTable();
+            var Ids = "";
+            var rows = table.rows('.selected').data();
+            for (var i = 0, l = rows.length; i < l; i++) {
+                Ids += rows[i].id + ",";
+            }
+            return Ids;
+
+        }
+        function getFormJson(frm) {
+            var o = {};
+            var a = $(frm).serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {// && this.name.indexOf("[")!=0
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        }
+
+        function search() {
+            $("#searchfrom").validate({
+                submitHandler: function (form) {
+                    var data = getFormJson(form);
+                    $("#messagedatatable_filter").find('[type="search"]').val('');
+                    $("#messagedatatable_filter").find('[type="search"]').keyup();
+                    
+                    $(grid).DataTable().ajax.params(data);
+                    $(grid).DataTable().ajax.reload();
+                }
+            })
+        }
+    </script>
+
+}
+
+
+
+

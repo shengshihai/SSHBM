@@ -1,0 +1,298 @@
+﻿@{
+    ViewBag.Title = "SiteNav";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+<link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+
+<style type="text/css">
+    .b1 {
+        width: 40px;
+        height: 13px;
+        border-left: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        margin: 5px 0px 0px 37px;
+        float: left;
+    }
+
+    .c2 a:hover {
+        color: #ff6600;
+    }
+
+    .c3 {
+        padding-left: 17px;
+        background: url(/content/back/img/icon_sec.gif) 0 1px no-repeat;
+        margin-left: 10px;
+        color: #ff6600;
+    }
+ 
+        .c3 a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+            .c3 a:hover {
+                text-decoration: underline;
+            }
+
+    .b2 {
+        width: 90px;
+        height: 21px;
+        float: left;
+        margin-right: 5px;
+        margin-left: 37px;
+        background: url(/content/back/img/sec_fir.gif) no-repeat;
+    }
+
+    .b3 {
+        width: 90px;
+        height: 21px;
+        float: left;
+        margin-right: 5px;
+        margin-left: 37px;
+        background: url(/content/back/img/sec_sec.gif) no-repeat;
+    }
+
+    .b4 {
+        width: 40px;
+        height: 21px;
+        float: left;
+        margin-right: 5px;
+        margin-left: 37px;
+        background: url(/content/back/img/third.gif) no-repeat;
+    }
+</style>
+
+
+<div class="block">
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+        </div>
+        <h2>Inbox <strong>(5)</strong></h2>
+    </div>
+    <table id="menunav" border="0" cellpadding="5" cellspacing="0" class="table table-vcenter table-borderless table-hover">
+        <thead>
+            <tr>
+                <th style="width: 150px;" class="text-center"><i class="gi gi-user"></i></th>
+                <th>标题</th>
+                <th>地址</th>
+                <th>显示</th>
+                <th style="width: 150px;" class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in (ViewData["MenuList"] as List<MODEL.Sample_Navigation_Item>).Where(m => m.parentid == 0).OrderBy(m=>m.ordering))
+            {
+                <tr>
+                    <td width="7%">
+                        <div>
+                               <input type="hidden" name="parentid" value="@item.parentid"  />
+                            <input type="hidden" name="id" value="@item.smiid">
+                            <input type="text" class="form-control" name="ordering" value="@item.ordering">
+                        </div>
+                    </td>
+                    <td width="30%">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="menuname" value="@item.menuname">
+                        </div>
+                    </td>
+                    <td width="30%">
+
+
+                        <div>
+                            <input type="text" class="form-control" name="url" value="@item.url">
+                        </div>
+
+                    </td>
+                    <td width="10%" class="text-center">
+                        <span title="1">
+                            <input id="Published" type="checkbox" name="Published" @(item.published == true ? "checked" : "")></span>
+                    </td>
+                    <td width="23%" class="text-center">
+                        <div class="btn-group btn-group-xs">
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-success"  onclick="EditRow(this)" data-original-title="Save"><i class="gi gi-disk_saved"></i></a>
+                             <a href="javascript:void(0)" data-toggle="tooltip" title="Edit" class="btn btn-info" onclick=" window.parent.addTab('SiteNav_@item.smiid', '编辑导航[@item.menuname]',  '/admin/SiteNav/Detail/@item.smiid');" ><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-danger"   onclick="DelRow(this)" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                foreach (var child in (ViewData["MenuList"] as List<MODEL.Sample_Navigation_Item>).Where(m => m.parentid == item.smiid).OrderBy(m => m.ordering))
+                {
+                <tr>
+                    <td>
+                        <div class="">
+                              <input type="hidden" name="id" value="@child.smiid">
+                             <input type="hidden" name="parentid" value="@child.parentid"  />
+                            <input type="text" class="form-control" name="ordering" value="@child.ordering">
+                        </div>
+                    </td>
+                    <td><span class="b1"></span>
+
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="menuname" value="@child.menuname">
+                        </div>
+                    </td>
+                    <td>
+
+
+                        <div class="">
+                            <input type="text" class="form-control" name="url" value="@child.url">
+                        </div>
+
+                    </td>
+                    <td class="text-center">
+                        <span title="1">
+                            <input id="" type="checkbox" name="published"  @(child.published == true ? "checked" : "")></span>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-xs">
+                             <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-success"  onclick="EditRow(this)" data-original-title="Save"><i class="gi gi-disk_saved"></i></a>
+                              <a href="javascript:void(0)" data-toggle="tooltip" title="Edit" class="btn btn-info" onclick=" window.parent.addTab('SiteNav_@child.smiid', '编辑导航[@child.menuname]',  '/admin/SiteNav/Detail/@child.smiid');" ><i class="fa fa-pencil"></i></a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" data-original-title="Delete" class="btn btn-danger"  onclick="DelRow(this)" ><i class="fa fa-times"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                }
+                <tr>
+                    <td width="7%">&nbsp;
+                    </td>
+                    <td width="30%">
+                        <span id=""></span>
+                        <span class="b4"></span>
+                        <span class="c3"><a href="###" onclick="AddRow(2,this,@item.smiid)">添加新导航</a></span>
+                    </td>
+                    <td width="30%">&nbsp;
+                    </td>
+                    <td width="10%">&nbsp;
+                    </td>
+                    <td width="23%">&nbsp;
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td width="7%">&nbsp;
+                </td>
+                <td width="30%">
+                    <span class="c3"><a href="###" onclick="AddRow(1,this)">添加新导航</a></span>
+                </td>
+                <td width="30%">&nbsp;
+                </td>
+                <td width="10%">&nbsp;
+                </td>
+                <td width="23%">&nbsp;
+                </td>
+            </tr>
+
+        </tbody>
+        
+    </table>
+
+
+</div>
+
+@section backScripts
+{<script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/LG.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script id="FirstTemplate" type="text/x-jquery-tmpl">
+        <<tr>
+            <td width="7%">
+                <input type="hidden" name="id" value="0" />
+                     <input type="hidden" name="parentid" value="0" />
+                <input type="text" class="form-control" name="ordering">
+            </td>
+            <td width="30%">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="menuname">
+                </div>
+            </td>
+            <td width="30%">
+                <input type="text" class="form-control" name="url">
+            </td>
+            <td width="10%" class="text-center">
+                <span title="1">
+                    <input id="" type="checkbox" name="published"></span>
+            </td>
+            <td width="23%" class="text-center">
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-default" onclick="EditRow(this)"  data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete" onclick="DelRow(this)"><i class="fa fa-times"></i></a>
+                </div>
+            </td>
+        </tr>
+    </script>
+    <script id="SecondTemplate" type="text/x-jquery-tmpl">
+        <tr>
+            <td>
+                <input type="hidden" name="id" value="0" />
+                 <input type="hidden" name="parentid" value="${parentid}" />
+                <input type="text" class="form-control" name="ordering" value="">
+            </td>
+            <td><span class="b1"></span>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="menuname">
+                </div>
+            </td>
+            <td>
+                <input type="text" class="form-control" name="url" value="">
+            </td>
+            <td class="text-center">
+                <span title="1">
+                    <input id="" type="checkbox" name="published"></span>
+            </td>
+            <td class="text-center">
+                <div class="btn-group btn-group-xs">
+                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-default" onclick="EditRow(this)"  data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete" onclick="DelRow(this)"><i class="fa fa-times"></i></a>
+                </div>
+            </td>
+        </tr>
+    </script>
+    <script type="text/javascript">
+
+
+        $(function () {
+           // $("#menunav").dataTable();
+        })
+        var flag = false;
+        function AddRow(type, obj, parentid)
+        {
+            var parent = $(obj).parent().parent().parent();
+            if (type == 1)
+                $("#FirstTemplate").tmpl({ parentid: 0 }).insertBefore(parent);
+            else
+                $("#SecondTemplate").tmpl({ parentid: parentid }).insertBefore(parent);
+        }
+        function DelRow(obj)
+        {
+            if (confirm('您确定要删除么')) {
+                $(obj).parent().parent().parent().remove();
+                window.parent.LG.tipSuccess("删除成功");
+            }
+        }
+        function EditRow(obj)
+        {
+            var parent = $(obj).parent().parent().parent();
+            var id = parent.find("[name='id']").val();
+            var parentid = parent.find("[name='parentid']").val();
+            var ordering = parent.find("[name='ordering']").val();
+            var name = parent.find("[name='menuname']").val();
+            var url = parent.find("[name='url']").val();
+            var isAddNew = id > 0 ? false : true;
+            LG.ajax({
+                loading: '正在保存数据中...',
+                url:  (isAddNew ? "Add" : "Update"),
+                data: { id: id, parentid: parentid, ordering: ordering, name: name, url: url,published:"true" },
+                success: function (data) {
+                    window.parent.LG.tipSuccess(data.Message);
+                },
+                error: function (message) {
+                    window.parent.LG.tipError(message);
+                }
+            });
+
+
+        }
+    </script>
+}

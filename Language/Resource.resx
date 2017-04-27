@@ -1,0 +1,804 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="accounts" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="accounts_acceptmail" xml:space="preserve">
+    <value>Send&amp;Receive Enquiry Email</value>
+  </data>
+  <data name="accounts_acceptmail_modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="accounts_acceptmail_save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="accounts_addfailure_prompt" xml:space="preserve">
+    <value>Add Failure.</value>
+  </data>
+  <data name="accounts_addsuccess_prompt" xml:space="preserve">
+    <value>Add Success.</value>
+  </data>
+  <data name="accounts_changepassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="accounts_chinesename" xml:space="preserve">
+    <value>Chinese Name</value>
+  </data>
+  <data name="accounts_comparepassword" xml:space="preserve">
+    <value>Password and confirmation password do not match.</value>
+  </data>
+  <data name="accounts_confirmpassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="accounts_currentaccounts" xml:space="preserve">
+    <value>Current Account</value>
+  </data>
+  <data name="accounts_email_regular" xml:space="preserve">
+    <value>Please enter a valid email address</value>
+  </data>
+  <data name="accounts_email_remote" xml:space="preserve">
+    <value>Email address already exists.</value>
+  </data>
+  <data name="accounts_email_required" xml:space="preserve">
+    <value>Please enter a email.</value>
+  </data>
+  <data name="accounts_englishname" xml:space="preserve">
+    <value>English Name</value>
+  </data>
+  <data name="accounts_fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="accounts_firstname_required" xml:space="preserve">
+    <value>Please enter a firstname.</value>
+  </data>
+  <data name="accounts_information" xml:space="preserve">
+    <value>Account Information</value>
+  </data>
+  <data name="accounts_lastname_required" xml:space="preserve">
+    <value>Please enter a lastname.</value>
+  </data>
+  <data name="accounts_mail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="accounts_manage" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="accounts_newpassword" xml:space="preserve">
+    <value>The new password</value>
+  </data>
+  <data name="accounts_oldpassword" xml:space="preserve">
+    <value>The original password</value>
+  </data>
+  <data name="accounts_password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="accounts_passwordreturn" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="accounts_password_required" xml:space="preserve">
+    <value>Please enter a password.</value>
+  </data>
+  <data name="accounts_permissions" xml:space="preserve">
+    <value>Limits of Authority</value>
+  </data>
+  <data name="accounts_permissions_chlidaccounts" xml:space="preserve">
+    <value>Sub Account</value>
+  </data>
+  <data name="accounts_permissions_parentaccounts" xml:space="preserve">
+    <value>Main Accounts</value>
+  </data>
+  <data name="accounts_phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="accounts_portrait" xml:space="preserve">
+    <value>Portrait</value>
+  </data>
+  <data name="accounts_portrait_del" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="accounts_portrait_imgurl" xml:space="preserve">
+    <value>/Content/center/images/file-upload-e.gif</value>
+  </data>
+  <data name="accounts_portrait_prompt" xml:space="preserve">
+    <value>Suggest to upload pictures size 200 * 200</value>
+  </data>
+  <data name="accounts_save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="accounts_tabs_addnewaccounts" xml:space="preserve">
+    <value>Add New Accounts</value>
+  </data>
+  <data name="accounts_tabs_otheraccounts" xml:space="preserve">
+    <value>Other Accounts</value>
+  </data>
+  <data name="accounts_telephone" xml:space="preserve">
+    <value>Tel</value>
+  </data>
+  <data name="accounts_updatefailure_prompt" xml:space="preserve">
+    <value>Modify Failure.</value>
+  </data>
+  <data name="accounts_updatesuccess_prompt" xml:space="preserve">
+    <value>Modify Success.</value>
+  </data>
+  <data name="accounts_userdisable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="accounts_userenable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="company_information" xml:space="preserve">
+    <value>Enterprise Information</value>
+  </data>
+  <data name="display_product" xml:space="preserve">
+    <value>Display a New Product</value>
+  </data>
+  <data name="interest_product" xml:space="preserve">
+    <value>Interested Products</value>
+  </data>
+  <data name="js_number_length" xml:space="preserve">
+    <value>Please enter {0} to {1} number.</value>
+  </data>
+  <data name="js_string_english" xml:space="preserve">
+    <value>Please enter a english,not like:{0}.</value>
+  </data>
+  <data name="js_string_length" xml:space="preserve">
+    <value>Please enter {0} to {1} characters.</value>
+  </data>
+  <data name="messages" xml:space="preserve">
+    <value>My Inquiry</value>
+  </data>
+  <data name="messages_announcement" xml:space="preserve">
+    <value>Announcement</value>
+  </data>
+  <data name="messages_contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="messages_mail" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="messages_settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="multilingual_station" xml:space="preserve">
+    <value>Multilanguage</value>
+  </data>
+  <data name="my_buying" xml:space="preserve">
+    <value>My Purchase</value>
+  </data>
+  <data name="my_buying_requests" xml:space="preserve">
+    <value>Manage Buying Request</value>
+  </data>
+  <data name="my_exportimes" xml:space="preserve">
+    <value>My Exportimes</value>
+  </data>
+  <data name="my_store" xml:space="preserve">
+    <value>My Shop</value>
+  </data>
+  <data name="number_length" xml:space="preserve">
+    <value>Please enter {2} to {1} number.</value>
+  </data>
+  <data name="number_regular" xml:space="preserve">
+    <value>Please enter a valid number.</value>
+  </data>
+  <data name="post_buying_request" xml:space="preserve">
+    <value>Post Buying Requests</value>
+  </data>
+  <data name="product_manage" xml:space="preserve">
+    <value>Product Management</value>
+  </data>
+  <data name="sayhello" xml:space="preserve">
+    <value>Hi,</value>
+  </data>
+  <data name="sign_out" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="string_english" xml:space="preserve">
+    <value>Please enter a english.</value>
+  </data>
+  <data name="string_length" xml:space="preserve">
+    <value>Please enter {2} to {1} characters.</value>
+  </data>
+  <data name="supplier_manage" xml:space="preserve">
+    <value>Supplier Management</value>
+  </data>
+  <data name="company_address" xml:space="preserve">
+    <value>Operational Address</value>
+  </data>
+  <data name="company_address_required" xml:space="preserve">
+    <value>Please enter a address.</value>
+  </data>
+  <data name="company_basicdetails" xml:space="preserve">
+    <value>Company Basic Details</value>
+  </data>
+  <data name="company_basicdetails_prompt" xml:space="preserve">
+    <value>This information will allow customers to contact you conveniently.</value>
+  </data>
+  <data name="company_businesstypes" xml:space="preserve">
+    <value>Business Type</value>
+  </data>
+  <data name="company_chinesename" xml:space="preserve">
+    <value>Company Chinese Name</value>
+  </data>
+  <data name="company_city_required" xml:space="preserve">
+    <value>Please select a city.</value>
+  </data>
+  <data name="company_companydetail_required" xml:space="preserve">
+    <value>Please enter a company details.</value>
+  </data>
+  <data name="company_companyimage_required" xml:space="preserve">
+    <value>Please upload a Introduction Image</value>
+  </data>
+  <data name="company_creditfiles" xml:space="preserve">
+    <value>TrustPass Profile</value>
+  </data>
+  <data name="company_creditfiles_certification" xml:space="preserve">
+    <value>Management Certification</value>
+  </data>
+  <data name="company_creditfiles_employees" xml:space="preserve">
+    <value>Number of Employees</value>
+  </data>
+  <data name="company_creditfiles_establishmentdate" xml:space="preserve">
+    <value>Year Established</value>
+  </data>
+  <data name="company_creditfiles_issuedate" xml:space="preserve">
+    <value>Date of Issue</value>
+  </data>
+  <data name="company_creditfiles_legal" xml:space="preserve">
+    <value>Legal Representative/CEO</value>
+  </data>
+  <data name="company_creditfiles_legalform" xml:space="preserve">
+    <value>Legal Form</value>
+  </data>
+  <data name="company_creditfiles_mainprompt" xml:space="preserve">
+    <value>The verified information can't be changed. For any updates, please contact your service team.</value>
+  </data>
+  <data name="company_creditfiles_office" xml:space="preserve">
+    <value>Issuing Authority</value>
+  </data>
+  <data name="company_creditfiles_prompt" xml:space="preserve">
+    <value>Upload Company Information</value>
+  </data>
+  <data name="company_creditfiles_qualitycontrol" xml:space="preserve">
+    <value>Number of QC Stuff</value>
+  </data>
+  <data name="company_creditfiles_registeraddress" xml:space="preserve">
+    <value>Registered Address</value>
+  </data>
+  <data name="company_creditfiles_registercapital" xml:space="preserve">
+    <value>Registered Capital</value>
+  </data>
+  <data name="company_creditfiles_registercode" xml:space="preserve">
+    <value>Registration Number</value>
+  </data>
+  <data name="company_creditfiles_twoprompt" xml:space="preserve">
+    <value>Please enter English to the following parts.</value>
+  </data>
+  <data name="company_englishname" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="company_fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="company_industrytype_required" xml:space="preserve">
+    <value>Please select a industry type.</value>
+  </data>
+  <data name="company_introduction" xml:space="preserve">
+    <value>Company Profile</value>
+  </data>
+  <data name="company_introduction_image" xml:space="preserve">
+    <value>Company Photo</value>
+  </data>
+  <data name="company_introduction_prompt" xml:space="preserve">
+    <value>Upload Company Information </value>
+  </data>
+  <data name="company_logo" xml:space="preserve">
+    <value>Company Logo</value>
+  </data>
+  <data name="company_logo_prompt" xml:space="preserve">
+    <value>Upload Company Logo</value>
+  </data>
+  <data name="company_logo_sizeprompt" xml:space="preserve">
+    <value>Suggested photo size is 300*300.</value>
+  </data>
+  <data name="company_mail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="company_mainproduct" xml:space="preserve">
+    <value>Main Products</value>
+  </data>
+  <data name="company_mainproduct_required" xml:space="preserve">
+    <value>Please enter a main product.</value>
+  </data>
+  <data name="company_phone" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="company_region" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="company_shufflingphoto" xml:space="preserve">
+    <value>Carousel Picture</value>
+  </data>
+  <data name="company_shufflingphoto_prompt" xml:space="preserve">
+    <value>Upload Home Page Advertising Chart</value>
+  </data>
+  <data name="company_shufflingphoto_sizeprompt" xml:space="preserve">
+    <value>Suggested photo size is 1000*400. No more than 4 pictures.</value>
+  </data>
+  <data name="company_suppliername_required" xml:space="preserve">
+    <value>Please enter a english company.</value>
+  </data>
+  <data name="company_telephone" xml:space="preserve">
+    <value>Telephone</value>
+  </data>
+  <data name="company_videodetail" xml:space="preserve">
+    <value>Video Profile</value>
+  </data>
+  <data name="company_videoinformation" xml:space="preserve">
+    <value>Video information</value>
+  </data>
+  <data name="company_videoinformation_prompt" xml:space="preserve">
+    <value>Upload Company Video</value>
+  </data>
+  <data name="company_videourl" xml:space="preserve">
+    <value>Vedio Link</value>
+  </data>
+  <data name="company_videourl_prompt" xml:space="preserve">
+    <value>Upload third-party website video link</value>
+  </data>
+  <data name="company_image_del" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="company_introduction_image_prompt" xml:space="preserve">
+    <value>Suggested photo size is 400*400.</value>
+  </data>
+  <data name="js_string_maxlength" xml:space="preserve">
+    <value>Please enter no more than {0} characters.</value>
+  </data>
+  <data name="string_maxlength" xml:space="preserve">
+    <value>Please enter no more than {1} characters.</value>
+  </data>
+  <data name="company_imgurl" xml:space="preserve">
+    <value>/Content/center/images/file-upload-e.gif</value>
+  </data>
+  <data name="company_save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="productcategory_keyword" xml:space="preserve">
+    <value>Enter Product Keywords</value>
+  </data>
+  <data name="productcategory_keyword_prompt" xml:space="preserve">
+    <value>If you have no idea about your product category, please enter the English keywords to inquire.</value>
+  </data>
+  <data name="productcategory_select" xml:space="preserve">
+    <value>Select Product Category</value>
+  </data>
+  <data name="productcategory_selected" xml:space="preserve">
+    <value>Categories Selected</value>
+  </data>
+  <data name="productcategory_selectedbtn" xml:space="preserve">
+    <value>I have read and agree to th following terms.</value>
+  </data>
+  <data name="productcategory_taboneprompt" xml:space="preserve">
+    <value>Not your desired categories? Through</value>
+  </data>
+  <data name="productcategory_tabthreeprompt" xml:space="preserve">
+    <value>to select category</value>
+  </data>
+  <data name="productcategory_tabtwoprompt" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="productlist_checked" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="productlist_checking" xml:space="preserve">
+    <value>Approval Pending</value>
+  </data>
+  <data name="productlist_deletebtn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="productlist_draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="productlist_editbtn" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="productlist_hot" xml:space="preserve">
+    <value>Hot Products</value>
+  </data>
+  <data name="productlist_pageinfo" xml:space="preserve">
+    <value>Showing_START_ to _END_ of _TOTAL_ entries</value>
+  </data>
+  <data name="productlist_previewbtn" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="productlist_setunhotbtn" xml:space="preserve">
+    <value>Set UnHot</value>
+  </data>
+  <data name="productlist_unchecked" xml:space="preserve">
+    <value>Editing Required</value>
+  </data>
+  <data name="producttable_action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="producttable_date" xml:space="preserve">
+    <value>Relase Date</value>
+  </data>
+  <data name="producttable_hot" xml:space="preserve">
+    <value>Hot Products</value>
+  </data>
+  <data name="producttable_name" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="producttable_owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="producttable_unhot" xml:space="preserve">
+    <value>UnHot</value>
+  </data>
+  <data name="product_basicinformation" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="product_basicinformation_prompt" xml:space="preserve">
+    <value>Display Basic Information of the Product.</value>
+  </data>
+  <data name="product_customparameters" xml:space="preserve">
+    <value>More Details</value>
+  </data>
+  <data name="product_customparameters_add" xml:space="preserve">
+    <value>Add more</value>
+  </data>
+  <data name="product_customparameters_name" xml:space="preserve">
+    <value>Attribute Name</value>
+  </data>
+  <data name="product_customparameters_value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="product_delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="product_description" xml:space="preserve">
+    <value>Product Description</value>
+  </data>
+  <data name="product_description_required" xml:space="preserve">
+    <value>Please enter a product description.</value>
+  </data>
+  <data name="product_details" xml:space="preserve">
+    <value>Detailed Information</value>
+  </data>
+  <data name="product_details_prompt" xml:space="preserve">
+    <value>Complete product parameter help your listing gain more exposure and visibility to potential buyers.</value>
+  </data>
+  <data name="product_detail_prompt" xml:space="preserve">
+    <value>We recommend keeping the image within 800px * 800px and table width within 800px.</value>
+  </data>
+  <data name="product_detail_required" xml:space="preserve">
+    <value>Please enter a product details.</value>
+  </data>
+  <data name="product_hot" xml:space="preserve">
+    <value>Hot Product</value>
+  </data>
+  <data name="product_hotno" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="product_hotyes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="product_hot_prompt" xml:space="preserve">
+    <value>Choose the product whether displayed in Hot Products.</value>
+  </data>
+  <data name="product_keyword" xml:space="preserve">
+    <value>More Keywords</value>
+  </data>
+  <data name="product_keywordmore" xml:space="preserve">
+    <value>More Keywords</value>
+  </data>
+  <data name="product_keyword_prompt" xml:space="preserve">
+    <value>Please enter one keyword at least to facilitate buyers to search for your  products accordingly.</value>
+  </data>
+  <data name="product_keyword_required" xml:space="preserve">
+    <value>Please enter one product keyword at least.</value>
+  </data>
+  <data name="product_mainparameterstemplate" xml:space="preserve">
+    <value>productEnMainParasTemplate</value>
+  </data>
+  <data name="product_name" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="product_name_required" xml:space="preserve">
+    <value>Please enter a product name.</value>
+  </data>
+  <data name="product_parameters" xml:space="preserve">
+    <value>Product Parameter</value>
+  </data>
+  <data name="product_photo" xml:space="preserve">
+    <value>Product Photo</value>
+  </data>
+  <data name="product_photo_imgurl" xml:space="preserve">
+    <value>/Content/center/images/file-upload-e.gif</value>
+  </data>
+  <data name="product_photo_prompt" xml:space="preserve">
+    <value>Suggested photo size is 359 * 359.</value>
+  </data>
+  <data name="product_photo_required" xml:space="preserve">
+    <value>Please upload a product photo. </value>
+  </data>
+  <data name="product_previewbtn" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="product_prompt" xml:space="preserve">
+    <value>You can edit the listing again once it is published onto the website or returned to you.</value>
+  </data>
+  <data name="product_publish" xml:space="preserve">
+    <value>Publish Product</value>
+  </data>
+  <data name="product_reselectcategory" xml:space="preserve">
+    <value>Select New Category</value>
+  </data>
+  <data name="product_reselectcategory_prompt" xml:space="preserve">
+    <value>Some of your Product Details may be lost if you select a new category. Are you sure you want to continue?</value>
+  </data>
+  <data name="product_savebtn" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="product_submitbtn" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="textarea_lang" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="productcategory_selected_required" xml:space="preserve">
+    <value>Please select a category.</value>
+  </data>
+  <data name="business_servie" xml:space="preserve">
+    <value>Business Servie</value>
+  </data>
+  <data name="manufacturer" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
+  <data name="manufacturer_trading" xml:space="preserve">
+    <value>Manufacturer,Trading Company</value>
+  </data>
+  <data name="other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="string_date" xml:space="preserve">
+    <value>Please enter a date.</value>
+  </data>
+  <data name="trading_company" xml:space="preserve">
+    <value>Trading Company</value>
+  </data>
+  <data name="customer_addcustomer" xml:space="preserve">
+    <value>Add to Customer</value>
+  </data>
+  <data name="customer_addtoblacklist" xml:space="preserve">
+    <value>Add to Blacklist</value>
+  </data>
+  <data name="customer_alllevels" xml:space="preserve">
+    <value>All Levels</value>
+  </data>
+  <data name="customer_assign" xml:space="preserve">
+    <value>Assign to Salesman</value>
+  </data>
+  <data name="customer_blacklist" xml:space="preserve">
+    <value>Blacklist</value>
+  </data>
+  <data name="customer_country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="customer_deletebtn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="customer_level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="customer_management" xml:space="preserve">
+    <value>Customer management</value>
+  </data>
+  <data name="customer_mycustomer" xml:space="preserve">
+    <value>My Customer</value>
+  </data>
+  <data name="customer_name" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
+  <data name="customer_permanentlydeleted" xml:space="preserve">
+    <value>Permanently deleted</value>
+  </data>
+  <data name="customer_principal" xml:space="preserve">
+    <value>Principal</value>
+  </data>
+  <data name="customer_removeblacklist" xml:space="preserve">
+    <value>Remove blacklist</value>
+  </data>
+  <data name="customer_searchsender" xml:space="preserve">
+    <value>Search Sender</value>
+  </data>
+  <data name="customer_whoaddedme" xml:space="preserve">
+    <value>Who added me</value>
+  </data>
+  <data name="messagetable_announcement" xml:space="preserve">
+    <value>Announcement</value>
+  </data>
+  <data name="messagetable_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="message_all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="message_allinquiry" xml:space="preserve">
+    <value>All Inquirles</value>
+  </data>
+  <data name="message_assigntosalesman" xml:space="preserve">
+    <value>Assign to Salesman</value>
+  </data>
+  <data name="message_backbtn" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="message_compose" xml:space="preserve">
+    <value>Compose</value>
+  </data>
+  <data name="message_date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="message_deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="message_flagged" xml:space="preserve">
+    <value>Flagged</value>
+  </data>
+  <data name="message_from" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="message_inquirymanagement" xml:space="preserve">
+    <value>Inquiry Management</value>
+  </data>
+  <data name="message_inquirytocompany" xml:space="preserve">
+    <value>Inquiry to Company</value>
+  </data>
+  <data name="message_inquirytoproduct" xml:space="preserve">
+    <value>Inquiry to Product</value>
+  </data>
+  <data name="message_inquirytype" xml:space="preserve">
+    <value>Inquiry Type</value>
+  </data>
+  <data name="message_mymailbox" xml:space="preserve">
+    <value>My Mailbox</value>
+  </data>
+  <data name="message_restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="message_sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="message_shiftdelete" xml:space="preserve">
+    <value>Shift Delete</value>
+  </data>
+  <data name="message_spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="message_title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="my_customer_management" xml:space="preserve">
+    <value>Customer Management</value>
+  </data>
+  <data name="my_message" xml:space="preserve">
+    <value>My Message</value>
+  </data>
+</root>

@@ -1,0 +1,59 @@
+﻿<form method="post">
+    <input type="hidden" name="OldEmail" /> 
+     <input type="hidden" name="SuId" /> 
+    <input type="hidden" name="Sid" value="@ViewBag.Sid" />
+    <table class="dv-table" style="width: 100%; border: 1px solid #ccc; padding: 5px; margin-top: 5px;">
+        <tr>
+            <td>Email</td>
+            <td>
+                <input name="Email" class="easyui-validatebox" required="true" validtype="email"></input></td>
+            <td>Password</td>
+            <td>
+                <input name="PassWord" class="easyui-validatebox" required="true"></input></td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td>
+                <input name="FirstName" class="easyui-validatebox" required="true"></input></td>
+            <td>Last Name</td>
+            <td>
+                <input name="LastName" class="easyui-validatebox" required="true"></input></td>
+        </tr>
+        <tr>
+            <td>UserName</td>
+            <td>
+                <input name="UserName" class="easyui-validatebox" required="true"></input></td>
+            <td>Moblie</td>
+            <td>
+                <input name="Mobile" class="easyui-validatebox"></input></td>
+        </tr>
+        <tr>
+
+            <td>Tel</td>
+            <td>
+                <input name="Tel"></input></td>
+            <td>Fax</td>
+            <td>
+                <input name="Fax"></input></td>
+            
+        </tr>
+        <tr>
+             <td>Address</td>
+            <td>
+                <input name="Address"></input></td>
+            <td>Status</td>
+            <td>
+               @* <select id="Status" class="easyui-combobox"  data-options="panelHeight:67,editable:false" name="Status" style="width:156px">
+                    <option value="0">冻结</option>
+                    <option value="1">正常</option>
+                </select>*@
+            </td>
+           
+        </tr>
+    </table>
+    <div style="padding: 5px 0; text-align: right; padding-right: 30px">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="saveItem(@ViewBag.CurrentID)">Save</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="cancelItem(@ViewBag.CurrentID)">Cancel</a>
+    </div>
+</form>
+

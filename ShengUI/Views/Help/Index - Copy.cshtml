@@ -1,0 +1,277 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--Declare page as mobile friendly -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+    <!-- Declare page as iDevice WebApp friendly -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- iDevice WebApp Splash Screen, Regular Icon, iPhone, iPad, iPod Retina Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/Content/H446/images/splash/splash-icon.png">
+    <!-- iPhone 3, 3Gs -->
+    <link rel="apple-touch-startup-image" href="/Content/H446/images/splash/splash-screen.png" media="screen and (max-device-width: 320px)" />
+    <!-- iPhone 4 -->
+    <link rel="apple-touch-startup-image" href="/Content/H446/images/splash/splash-screen_402x.png" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" />
+    <!-- iPhone 5 -->
+    <link rel="apple-touch-startup-image" sizes="640x1096" href="/Content/H446/images/splash/splash-screen_403x.png" />
+    <!-- Page Title -->
+    <title></title>
+    <!-- Stylesheet Load -->
+    <link href="/Content/H446/styles/style.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H446/styles/framework-style.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H446/styles/framework.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H446/styles/bxslider.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H446/styles/swipebox.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H446/styles/icons.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H446/styles/retina.css" rel="stylesheet" type="text/css" media="only screen and (-webkit-min-device-pixel-ratio: 2)" />
+
+    <!--Page Scripts Load -->
+    <script src="/Content/H446/scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/hammer.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/jquery-ui-min.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/subscribe.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/contact.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/jquery.swipebox.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/bxslider.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/colorbox.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/retina.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/custom.js" type="text/javascript"></script>
+    <script src="/Content/H446/scripts/framework.js" type="text/javascript"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    @*<script language="javascript" type="text/javascript">
+        var dataForWeixin = {
+            appId: "@(ViewBag.Appid)",
+            MsgImg: "http://mmbiz.qpic.cn/mmbiz/aCEJh8QUibicnBtrSyjzJM7zKH9T9huibEwUoFhS3hsqiaZSe1LKgjy4h6SG9xeo5hcWc0fuzo3RsmKZCpBA7NJVIg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            TLImg: "http://mmbiz.qpic.cn/mmbiz/aCEJh8QUibicnBtrSyjzJM7zKH9T9huibEwUoFhS3hsqiaZSe1LKgjy4h6SG9xeo5hcWc0fuzo3RsmKZCpBA7NJVIg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            url: "@(ViewBag.Uri)",
+            title: "小伙伴们，我为聚财久玖代言，我通过聚财久玖赚钱，小伙伴们，你还等什么呢？赶快关注，注册成老板吧~",
+            desc: "小伙伴们，我为聚财久玖代言，我通过聚财久玖赚钱，小伙伴们，你还等什么呢？赶快关注，注册成老板吧~",
+            timestamp: '@(ViewBag.timestamp)',
+            nonceStr: '@(ViewBag.noncestr)',
+            signature: '@(ViewBag.JssdkSignature)',
+            jsApiList: ['checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'],
+            fakeid: "",
+            callback: function () { }
+        };
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: dataForWeixin.appId, // 必填，公众号的唯一标识
+            timestamp: dataForWeixin.timestamp, // 必填，生成签名的时间戳
+            nonceStr: dataForWeixin.nonceStr, // 必填，生成签名的随机串
+            signature: dataForWeixin.signature, // 必填，签名，见附录1
+            jsApiList: dataForWeixin.jsApiList  // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            //在此输入各种API
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: dataForWeixin.title, // 分享标题
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.MsgImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //分享给朋友
+            wx.onMenuShareAppMessage({
+                title: dataForWeixin.title, // 分享标题
+                desc: dataForWeixin.desc, // 分享描述
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.TLImg, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //QQ
+            wx.onMenuShareQQ({
+                title: dataForWeixin.title, // 分享标题
+                desc: dataForWeixin.desc, // 分享描述
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.MsgImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //QQ微博
+            wx.onMenuShareWeibo({
+                title: dataForWeixin.title, // 分享标题
+                desc: dataForWeixin.desc, // 分享描述
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.TLImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，
+            //所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        });
+        wx.error(function (res) {
+            //alert(res);
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });
+
+    </script>
+    <script language="javascript" type="text/javascript">
+        function productInfo(o) {
+            var id = o.id;
+            var userid = $("#userid").val();
+            window.location.href = "prodctdetail.aspx?pid=" + id + "&userid=" + userid + "&da=" + new Date();
+        }
+
+        $(document).ready(function (data) {
+            var openid = document.getElementById("openid").value;
+            localStorage.setItem('openid', openid);
+            var userid = document.getElementById("userid").value;
+            localStorage.setItem('userid', userid);
+        });
+    </script>*@
+    <script src="http://s0.qhimg.com/!94c424ee/monoevent.js"></script>
+    <script type="text/javascript">
+        var ne = MonoEvent,
+    $box = ne('#box'),
+    $btn = ne('#count'),
+    log = document.getElementById('log');
+
+        $box.on('touchstart', function () {
+            log.innerHTML = (parseInt(log.innerHTML)+1);
+        });
+
+        $btn.one('click', function () {
+            $box.un('touchstart');
+        });
+        function Count()
+        {
+            var count = $("#count").html();
+            count = parseInt(count);
+            count = count+1;
+            $("#count").html(count);
+        }
+        function reset()
+        {
+            $("#count").html(0);
+        }
+
+    </script>
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">
+            <p class="center-text">
+                Loading the content...
+                <em>Loading depends on your connection speed!</em>
+            </p>
+        </div>
+    </div>
+    <div class="header">
+        <a class="logo-home" href="index.html"><img src="@ViewBag.headimgurl " alt="img" width="40"></a>
+        <div class="header-text">
+            <strong>FLATY</strong>
+            <em>@ViewBag.nickname </em>
+        </div>
+    </div>
+    <div class="header-clear"></div>
+    <div class="content">
+        <input id="openid" name="openid" type="hidden" value="@(ViewBag.openid)" />
+        <input id="userid" name="userid" type="hidden" value="@(ViewBag.userid)" />
+
+        <div id="tab-one">
+            <div class="column no-bottom">
+                <div class="one-third">
+                    <h3>计数</h3>
+                </div>
+                <div class="one-third">
+                    <strong id="count" class="dropcaps" style="text-align:center">0</strong>
+                </div>
+                <div class="one-third">
+                    <span class="icon icon-pencil" style="float:right" onclick="reset()"></span>
+                </div>
+            </div>
+
+
+            <div class="decoration"></div>
+            <div class="ads">
+                <img src="/Content/H446/images/ads/tf_125x125_v1.gif" alt="img" style='width: 68px;height: 68px;'>
+                <img src="/Content/H446/images/ads/tf_125x125_v1.gif" alt="img" style='width: 68px;height: 68px;'>
+                <img src="/Content/H446/images/ads/tf_125x125_v1.gif" alt="img" style='width: 68px;height: 68px;'>
+                <img src="/Content/H446/images/ads/tf_125x125_v1.gif" alt="img" style='width: 68px;height: 68px;'>
+                <img src="/Content/H446/images/ads/tf_125x125_v1.gif" alt="img" style='width: 68px;height: 68px;'>
+                <img src="/Content/H446/images/ads/tf_125x125_v1.gif" alt="img" style='width: 68px;height: 68px;'>
+            </div>
+            <div class="decoration"></div>
+            <div class="navigation-icons">
+                <a id="box" href="javascript:void(0)"class="nav-icon icon-green video-nav" style='border-radius: 300px;width: 225px;height: 225px;'></a>
+            </div>
+        </div>
+
+        <a href="#" class="content-tab tab-one">记录</a>
+
+        <a href="#" class="content-tab tab-three">下一步</a>
+
+        <div class="decoration"></div>
+
+        <div class="clear"></div>
+
+    </div>
+    <div class="footer">
+        <div class="small-navigation-icons">
+            <a href="#" class="small-nav-icon facebook-nav"></a>
+            <a href="#" class="small-nav-icon go-up up-nav"></a>
+            <a href="#" class="small-nav-icon twitter-nav"></a>
+            <div class="clear"></div>
+        </div>
+        <p class="copyright">COPYRIGHT 2013. ALL RIGHTS RESERVED</p>
+    </div>
+</body>
+</html>

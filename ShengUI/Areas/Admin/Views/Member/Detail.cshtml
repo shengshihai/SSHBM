@@ -1,0 +1,551 @@
+﻿@model MODEL.Member
+@{
+    ViewBag.Title = "供应商明细";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+<div class="row">
+    <div class="col-md-7">
+        <div class="block">
+            <div class="block-title">
+                <h2><strong>Basic</strong> Wizard</h2>
+            </div>
+            <form id="basic-supplier" action="add1" method="post" class="form-horizontal form-bordered">
+                <div id="first" class="step ui-formwizard-content" style="display: block;">
+
+                  
+                    
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="code">编号 <span class="text-danger">*</span></label>
+                        <div class="col-md-9 validaddress">
+                            <input type="text" id="code" name="code" class="form-control ui-wizard-content" style="width:95%" value="@Model.code" placeholder="Your SupplierName.."  readonly="true"><em class="loading-icon"></em>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="name">名称 <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-3">
+                            <input type="text" id="name" name="name" class="form-control ui-wizard-content" value="@Model.name" placeholder="ContactNum.." readonly="true">
+                        </div>
+
+                        <label class="col-sm-3 col-lg-2 control-label" for="password">密码 <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-3">
+                            <input type="text" id="password" name="password" class="form-control ui-wizard-content" value="@Model.password" placeholder="ProductNum..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="twopassword">二级密码 <span class="text-danger">*</span></label>
+                        <div class="col-md-9 validaddress">
+                            <input type="text" id="twopassword" name="twopassword" class="form-control ui-wizard-content" value="@Model.twopassword" placeholder="Your MainProduct..">
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="levelid">等级</label>
+                        <div class="col-md-9">
+                            <input type="text" id="levelid" name="levelid"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.levelid"></input>
+                        </div>
+                    </div>
+                    
+                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="phone">电话</label>
+                        <div class="col-md-9">
+                            <input type="text" id="phone" name="phone"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.phone"></input>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="email">邮箱</label>
+                        <div class="col-md-9">
+                            <input type="text" id="email" name="email"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.email"></input>
+                        </div>
+                    </div>
+
+
+
+
+                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="email">银行</label>
+                        <div class="col-md-9">
+                            <input type="text" id="paybank" name="paybank"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.paybank"></input>
+                        </div>
+                    </div>
+                         <div class="form-group">
+                        <label class="col-md-3 control-label" for="paycode">卡号</label>
+                        <div class="col-md-9">
+                            <input type="text" id="paycode" name="paycode"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.paycode"></input>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="payname">户名</label>
+                        <div class="col-md-9">
+                            <input type="text" id="payname" name="payname"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.payname"></input>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="paybao">支付宝</label>
+                        <div class="col-md-9">
+                            <input type="text" id="paybao" name="paybao"  readonly="true" class="form-control" placeholder="Enter intro.." value="@Model.paybao"></input>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-md-8 col-md-offset-4">
+                           @*   <input type="submit" class="btn btn-sm btn-primary ui-wizard-content ui-formwizard-button" id="savesupplier" name="savesupplier" value="Save">
+                          <input type="button" class="btn btn-sm btn-warning ui-wizard-content ui-formwizard-button" value="Next" onclick="bbb();">
+                             <input type="button" class="btn btn-sm btn-warning ui-wizard-content ui-formwizard-button" value="审核不通过" onclick="Unchecked();">*@
+                        </div>
+                    </div>
+
+                </div>
+                
+                
+
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+@section backScripts
+{
+    <style type="text/css">
+        .has-error .chosen-container > a {
+            border: 1px solid #E73037;
+        }
+        #third .form-control {
+          
+            width: 90%;
+        }
+    </style>
+        <link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/back/js/jquery-form.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script src="~/Content/back/dropzone/dropzone.js"></script>
+    <script src="~/Content/back/tinymce/jscripts/tiny_mce/tiny_mce_src.js"></script>
+    <link href="~/Content/uploadify-v2.1.4/uploadify.css" rel="stylesheet" />
+    <script src="~/Content/uploadify-v2.1.4/jquery.uploadify.v2.1.4.js"></script>
+    <script src="~/Content/uploadify-v2.1.4/swfobject.js"></script>
+ <script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/back/js/pages/supplier_user.js"></script>
+    <script type="text/javascript">
+        //当前ID
+        var currentID = "@Model.code";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = false;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+        $(function () { App.datatables();
+           // init(); loadtingmce();dropzoneimg();provincechange();loadupload();supplier_user.init();loaduser();
+        });
+        function aaa()
+        {
+            $("#first").show();
+            $("#second").hide();
+            $("#third").hide();
+        }
+        function bbb()
+        {
+            if($("#Sid").val()>0)
+            {
+                
+                $("#first").hide();
+                $("#second").show(); 
+                $("#third").hide();
+                return;
+            }
+            window.parent.LG.tip("请先添加供应商信息");
+        }
+        function ccc()
+        {
+            if($("#Sid").val()>0)
+            {
+                
+                $("#first").hide();
+                $("#second").hide();
+                $("#third").show();
+                BindAuthenticate();
+                BindIsCheckAuthenticate();
+                return;
+            }
+            window.parent.LG.tip("请先添加供应商信息");
+        }
+        function init() {
+            $("#basic-supplier").validate({
+                submitHandler:function(form){
+                 
+                    form.action=isAddNew?"Add":"Update";
+                    LG.submitForm(form,function(data, n,r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            if(isAddNew)
+                                isAddNew=false;
+                            // window.parent.frames["ifm_Product"].reload();
+                            $("#Sid").val(data.Data.FirstID);$("#Did").val(data.Data.SecondID);
+                            window.parent.LG.tipSuccess(data.Message);
+                            // window.parent.addTab('Product', '产品管理', '/Admin/Product/List');
+                        }
+                        else
+                            window.parent.LG.tipError(data.Message);
+                    },function(){
+            
+                    });
+                },    
+                errorClass: "help-block animation-slideDown", errorElement: "div", errorPlacement: function (e, a) {
+                    a.parents(".validaddress").append(e)
+                }, highlight: function (e) {
+                    $(e).closest(".validaddress").removeClass("has-success has-error").addClass("has-error"), $(e).closest(".help-block").remove()
+                }, success: function (e) {
+                    e.closest(".validaddress").removeClass("has-success has-error"), e.closest(".help-block").remove()
+                }, rules: { 
+                    SupplierName: { required: !0, english:!0,
+                        remote:{
+                            type:"POST",
+                            url:"IsExistsSupplierName",             //servlet
+                            data:{
+                                name:function(){return $("#SupplierName").val();},
+                                oldname:function(){return $("#SupplierOldName").val();}
+                            } 
+                        }
+                    }, 
+                    ContactNum: { required: !0, digits: !0 }, 
+                    ProductNum: { required: !0, digits: !0 }, 
+                    MainProduct: { required: !0, english: !0 },
+                    Industry: { required: !0 },
+                    Country: { required: !0 }, 
+                    Province: { required: !0 }, 
+                    City: { required: !0}, 
+                    val_credit_card: { required: !0, creditcard: !0 },
+                    val_number: { required: !0, number: !0 },
+                    val_range: { required: !0, range: [1, 1e3] },
+                    val_terms: { required: !0 } 
+                }, 
+                messages: { 
+                    SupplierName: { required: "Please enter a SupplierName",remote:"SupplierName already exists"},
+                    ContactNum: { required: "Please enter a digits", digits: "Please enter only digits!" }, 
+                    ProductNum: { required: "Please enter a digits", digits: "Please enter only digits!" }, 
+                    MainProduct: { required: "Please provide a MainProduct" }, 
+                    Industry: { required:"Please select a Industry"},
+                    Country: { required: "Please select a Country" }, 
+                    Province: { required: "Please select a Province" }, 
+                    City: { required: "Please select a City"}, 
+                    val_skill: "Please select a skill!",
+                    val_website: "Please enter your website!", 
+                    val_credit_card: "Please enter a valid credit card! Try 446-667-651!", 
+                    val_digits: "Please enter only digits!",
+                    val_number: "Please enter a number!", 
+                    val_range: "Please enter a number between 1 and 1000!",
+                    val_terms: "You must agree to the service terms!" }
+            }),
+
+            $("#masked_date").mask("99/99/9999"), $("#masked_date2").mask("99-99-9999"), $("#masked_phone").mask("(999) 999-9999"), $("#masked_phone_ext").mask("(999) 999-9999? x99999"), $("#masked_taxid").mask("99-9999999"), $("#masked_ssn").mask("999-99-9999"), $("#masked_pkey").mask("a*-999-a999");
+
+             
+          
+        }
+
+
+        //<![CDATA[
+        function loadtingmce() {
+            tinyMCE.init({
+                // General options
+                mode: "exact",
+                elements: "Detail",
+                theme: "advanced",
+                language: "@Language.Resource.textarea_lang",
+                plugins: "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+                theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+                theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",  
+                theme_advanced_toolbar_location: "top",
+                theme_advanced_toolbar_align: "left",
+                theme_advanced_statusbar_location: "bottom",
+                theme_advanced_resizing: true,
+                //file_browser_callback: "ajaxfilemanager",
+                // plugins : "ankupload",   
+
+                // 上传附件的操作路径   
+                // plugin_ankupload_url:"/Content/ankupload_v1.2/upfile.htm",  
+
+
+                // Example content CSS (should be your site CSS)
+                content_css: "/Content/back/tinymce/examples/css/content.css",
+
+                // Drop lists for link/image/media/template dialogs
+                template_external_list_url: "/Content/back/tinymce/examples/lists/template_list.js",
+                external_link_list_url: "/Content/back/tinymce/examples/lists/link_list.js",
+                external_image_list_url: "/Content/back/tinymce/examples/lists/image_list.js",
+                media_external_list_url: "/Content/back/tinymce/examples/lists/media_list.js",
+
+                // Style formats
+                style_formats: [
+                    { title: 'Bold text', inline: 'b' },
+                    { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                    { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                    { title: 'Example 1', inline: 'span', classes: 'example1' },
+                    { title: 'Example 2', inline: 'span', classes: 'example2' },
+                    { title: 'Table styles' },
+                    { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                ],
+
+                // Replace values for the template plugin
+                template_replace_values: {
+                    username: "Some User",
+                    staffid: "991234"
+                }
+            });
+        }
+        //]]>
+        var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] == null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+        var ASPSESSID = "@Session.SessionID";
+        function loadupload() {
+            $("#file_upload_1").uploadify({
+                'uploader': '/Content/uploadify-v2.1.4/uploadify.swf',
+                'script': '/Admin/Supplier/UploadImgAttachment/',
+                'scriptData': { ASPSESSID: ASPSESSID, AUTHID: auth },
+                'cancelImg': '/Content/uploadify-v2.1.4/cancel.png',
+                'folder': '../../../UploadFile',
+                'queueID': 'file_upload_1-queue',
+                'auto': true,
+                'fileExt': '*.jpg;*.gif;*.png;',
+                'fileDesc': '请选择jpg,jpeg,gif,png格式',
+                'sizeLimit': 4194304,
+                'buttonImg': "/Content/images/upload.png",
+                'multi': false,
+                'onComplete': function (event, queueID, fileObj, response, data) {
+                    if (response == 'no') {
+                        $.messager.alert('提示', '上传失败请重新尝试', 'error');
+                    }
+                    else {
+                        $("#adurl").attr("href", response);
+                        $("#adimage").attr("src", response);
+                        $("#BannerImg").val(response);
+                    }
+                },
+                'onSelect': function (e, queueId, fileObj) {
+                    if (fileObj.type.toLowerCase() == ".jpg" || fileObj.type.toLowerCase() == ".gif" || fileObj.type.toLowerCase() == ".png") {
+                        if (fileObj.size > 4194304) {
+                            window.parent.LG.tip('图片大小超出范围');
+                            // $.messager.alert('提示', '文件大小超出范围', 'error');
+                        }
+                    }
+                    else {
+                        window.parent.LG.tip('请上传图片');
+                        // $.messager.alert('提示', '文件大小超出范围', 'error');
+                    }
+
+                },
+                'onError': function (event, queueId, fileObj, errorObj) {
+                    if (errorObj.type == "HTTP") {
+                        alert("http error");
+                    } else if (errorObj.type == "IO") {
+                        alert("IO error");
+                    } else if (errorObj.type == "Security") {
+                        alert("security error");
+                    }
+
+
+                }
+            });
+        }
+        function dropzoneimg() {
+            var myDropzone = new Dropzone("#productimage", {
+                url: '/Admin/Article/UploadImgAttachment/',
+                addRemoveLinks: true,
+                acceptedFiles: 'image/*',
+                maxFilesize: 4,
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (file.url) {
+                            $(file.previewElement).find(".dz-details").append("<input type='hidden' name='id' value='"+file.id+"'><input type='hidden' name='image' value='"+file.url+"'><input type='hidden' name='txtImg'  value='" + file.name + "'>");
+                            $(file.previewElement).find(".dz-details").find("input[type=radio]").val(file.url);
+                            //if (file.DefaultImage == 1||file.DefaultImage==true)
+                            //    $(file.previewElement).find(".dz-details").find("input[type=radio]").attr("checked", "checked");
+                            file.previewElement.classList.add("dz-success");
+                        }
+                        $("#imgrequired").val('1');
+                        $("#imgrequired").blur();
+                    });
+                    this.on("removedfile", function (file) {
+                        if ($("#productimage").children().length == 1) { $("#imgrequired").val(''); }
+
+
+                    }),
+                    this.on("success", function (file, url) {
+                        // <input type="hidden" name="aid" value="338">
+                        //<input type="hidden" name="itemid" value="1210">
+                        //<input type="hidden" name="atype" value="0">
+                        //<input type="hidden" name="filepath" value="http://image.exportimes.com/UploadFile/Ckeditor/2014/11/24/201411240957061952.jpg">
+                        //<input type="hidden" name="isimage" value="true">
+                        //<input type="hidden" name="isdefault" value="true">
+                        //<input type="text" name="filename" style="width: 100px; font-size: 10px;" value="China, New Zealand announce upgrade of bilateral relations">     
+                        $(file.previewElement).find(".dz-details").append("<input type='hidden' name='id' value='0'><input type='hidden' name='image' value='"+url+"'><input type='hidden' name='txtImg'  value='" + file.name + "'>");
+                        $(file.previewElement).find(".dz-details").find("input[type=radio]").val(url);
+
+                    });
+
+                    // this._callbacks.addedfile[0](file);
+                },
+            });
+            var files = @(!string.IsNullOrEmpty(ViewBag.Images) ? Html.Raw(ViewBag.Images) : "{}");
+            for (var i = 0; i < files.length; i++) {
+                myDropzone.addInitFile(files[i]);
+            }
+            //var file={
+            //    lastModified: "1405316929000",
+            //    lastModifiedDate: "Mon Jul 14 2014 13:48:49 GMT+0800 (中国标准时间)",
+            //    name: "QQ图片20140714134847.jpg",
+            //    size: "33940",
+            //    status: "added",
+            //    type: "image/jpeg",
+            //    url:"http://image.exportimes.com/UploadFile/UploadImg/2014/11/26/201411260244217653.jpg",
+            //}
+            //myDropzone.addInitFile(file);
+        }
+        function BindAuthenticate()
+        { 
+            $("#third").find(".text-danger").bind("click", function (e){
+                CheckAuthenticate(e.currentTarget);
+            });
+            $("#third").find(".text-success").bind("click", function (e){
+                CheckAuthenticate(e.currentTarget);
+            });
+        }
+        function BindIsCheckAuthenticate()
+        {
+            var auths=$(".authenticate");
+
+            for (var i = 0; i < auths.length; i++) {
+                if($(auths[i]).val()=="1")
+                {
+                    $(auths[i]).parent().find(".text-success").show();
+                    $(auths[i]).parent().find(".text-danger").hide();
+                }
+                else
+                {
+                    
+                    $(auths[i]).parent().find(".text-success").hide();
+                    $(auths[i]).parent().find(".text-danger").show();
+                }
+            }
+        }
+        function CheckAuthenticate(obj)
+        {
+            var id=$("#aid").val();
+            if(id>0)
+            {
+                //alert($(obj).parent().find(".authenticate").val());
+                var i=1;
+                var name=$(obj).parent().find(".authenticate").attr("name");
+                if($(obj).parent().find(".authenticate").val()=="1")
+                    i=0;
+                LG.ajax({
+                    url: 'CheckSupplierAuthenticate',
+                    data: { ID: id ,name:name,ischeck:i},
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (result) {
+                        if (!result) return;
+                        if (!result.IsError) {
+                            if(i==1)
+                            {
+                                $(obj).parent().find(".authenticate").val('1');
+                            }
+                            else
+                            {
+                                $(obj).parent().find(".authenticate").val('0');
+                            }
+                            BindIsCheckAuthenticate();
+                        }
+                        else {
+                            window.parent.showMessage(result.Message + '发现系统错误 <BR>错误码：' + result.status);
+                        }
+                    }
+                });
+            }else
+            {
+
+            }
+        }
+        var where = {
+            op: 'and',
+            rules: [{ field: 'Sid', value: '@Model.code', op: 'equal' }]
+         };
+        function loaduser()
+        {
+            var dt = $("#usertable").dataTable({
+                "searching":false,
+                "lengthChange": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false, 
+                "language": {
+                    "info": ""
+                },
+                "ajax": {
+                    "url": '/Admin/SupplierUser/GetSupplierUserForGrid',
+                    "type": "POST",
+                    "data":{where:JSON.stringify(where),ParentId:"@Model.code" },
+                },
+                "columns": [
+                    //{ "data": "UserName" },
+                    { "data": "Email" },
+                    { "data": "PassWord" },
+                    { "data": "Status" }
+                ],
+                "columnDefs": [
+                 //{
+                 //    "render": function (data, type, row) {
+                 //        return ' <a href="javascript:void(0)"><input type="checkbox"  name="ck_article" value="' + data + '" onclick="selectedRow(this)"></a>';
+                 //    },
+                 //    "targets": 0
+                 //}, 
+                 {
+                     "render": function (data, type, row) {
+                         if (data == 1)
+                             return '<span class="label label-success">Checked</span>';
+                         else
+                             return '<span class="label label-danger">UnChecked</span>';
+                     },
+                     "targets": 2
+                 }
+                ]
+            });
+            $('#usertable tbody').on('click', 'tr', function () {
+                
+                $(this).toggleClass('active');
+               
+                if ($(this).hasClass("active")) {
+                    $(this).find('[name="ck_article"]').prop("checked", true)
+                } else {
+                    $(this).find('[name="ck_article"]').prop("checked", false)
+                }
+
+            });
+            
+        }
+        function savebasissupplier()
+        {
+            alert(1);
+            LG.submitForm($("#basic-supplier"),function(data, n,r) {
+                if (!data.IsError)// 如果提交成功则隐藏进度条
+                {
+                                   
+                    // window.parent.frames["ifm_Product"].reload();
+                    window.parent.LG.tipSuccess(data.Message);
+                    // window.parent.addTab('Product', '产品管理', '/Admin/Product/List');
+                }
+                else
+                    window.parent.LG.tipError(data.Message);
+            },function(){
+            
+            });
+        }
+       
+        function Unchecked()
+        {
+
+        }
+    </script>
+}

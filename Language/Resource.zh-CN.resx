@@ -1,0 +1,804 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="accounts" xml:space="preserve">
+    <value>账户设置</value>
+  </data>
+  <data name="accounts_acceptmail" xml:space="preserve">
+    <value>收发询盘邮箱</value>
+  </data>
+  <data name="accounts_acceptmail_modify" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="accounts_acceptmail_save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="accounts_addfailure_prompt" xml:space="preserve">
+    <value>添加失败。</value>
+  </data>
+  <data name="accounts_addsuccess_prompt" xml:space="preserve">
+    <value>添加成功。</value>
+  </data>
+  <data name="accounts_changepassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="accounts_chinesename" xml:space="preserve">
+    <value>中文名字</value>
+  </data>
+  <data name="accounts_comparepassword" xml:space="preserve">
+    <value>密码和确认密码不匹配。</value>
+  </data>
+  <data name="accounts_confirmpassword" xml:space="preserve">
+    <value>确认密码</value>
+  </data>
+  <data name="accounts_currentaccounts" xml:space="preserve">
+    <value>当前账户为</value>
+  </data>
+  <data name="accounts_email_regular" xml:space="preserve">
+    <value>请输入一个有效的邮箱地址。</value>
+  </data>
+  <data name="accounts_email_remote" xml:space="preserve">
+    <value>邮箱地址已经存在。</value>
+  </data>
+  <data name="accounts_email_required" xml:space="preserve">
+    <value>请输入一个邮箱地址。</value>
+  </data>
+  <data name="accounts_englishname" xml:space="preserve">
+    <value>英文名字</value>
+  </data>
+  <data name="accounts_fax" xml:space="preserve">
+    <value>传真</value>
+  </data>
+  <data name="accounts_firstname_required" xml:space="preserve">
+    <value>请输入一个主姓。</value>
+  </data>
+  <data name="accounts_information" xml:space="preserve">
+    <value>账户信息</value>
+  </data>
+  <data name="accounts_lastname_required" xml:space="preserve">
+    <value>请输入一个名字。</value>
+  </data>
+  <data name="accounts_mail" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="accounts_manage" xml:space="preserve">
+    <value>用户管理</value>
+  </data>
+  <data name="accounts_newpassword" xml:space="preserve">
+    <value>新密码</value>
+  </data>
+  <data name="accounts_oldpassword" xml:space="preserve">
+    <value>原密码</value>
+  </data>
+  <data name="accounts_password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="accounts_passwordreturn" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="accounts_password_required" xml:space="preserve">
+    <value>请输入一个至少6位的密码。</value>
+  </data>
+  <data name="accounts_permissions" xml:space="preserve">
+    <value>权限</value>
+  </data>
+  <data name="accounts_permissions_chlidaccounts" xml:space="preserve">
+    <value>子账号</value>
+  </data>
+  <data name="accounts_permissions_parentaccounts" xml:space="preserve">
+    <value>主账户</value>
+  </data>
+  <data name="accounts_phone" xml:space="preserve">
+    <value>手机号码</value>
+  </data>
+  <data name="accounts_portrait" xml:space="preserve">
+    <value>头像</value>
+  </data>
+  <data name="accounts_portrait_del" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="accounts_portrait_imgurl" xml:space="preserve">
+    <value>/Content/center/images/file-upload.gif</value>
+  </data>
+  <data name="accounts_portrait_prompt" xml:space="preserve">
+    <value>建议上传图片尺寸200*200</value>
+  </data>
+  <data name="accounts_save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="accounts_tabs_addnewaccounts" xml:space="preserve">
+    <value>添加新用户</value>
+  </data>
+  <data name="accounts_tabs_otheraccounts" xml:space="preserve">
+    <value>其他账户</value>
+  </data>
+  <data name="accounts_telephone" xml:space="preserve">
+    <value>电话号码</value>
+  </data>
+  <data name="accounts_updatefailure_prompt" xml:space="preserve">
+    <value>修改失败。</value>
+  </data>
+  <data name="accounts_updatesuccess_prompt" xml:space="preserve">
+    <value>修改成功。</value>
+  </data>
+  <data name="accounts_userdisable" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="accounts_userenable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="company_information" xml:space="preserve">
+    <value>企业信息</value>
+  </data>
+  <data name="display_product" xml:space="preserve">
+    <value>发布产品</value>
+  </data>
+  <data name="interest_product" xml:space="preserve">
+    <value>感兴趣的产品</value>
+  </data>
+  <data name="js_number_length" xml:space="preserve">
+    <value>请输入{0}-{1}位的数字。</value>
+  </data>
+  <data name="js_string_english" xml:space="preserve">
+    <value>请不要输入如下非英文字符：{0}.</value>
+  </data>
+  <data name="js_string_length" xml:space="preserve">
+    <value>请输入{0}-{1}个字符。</value>
+  </data>
+  <data name="messages" xml:space="preserve">
+    <value>收发询盘</value>
+  </data>
+  <data name="messages_announcement" xml:space="preserve">
+    <value>网站公告</value>
+  </data>
+  <data name="messages_contacts" xml:space="preserve">
+    <value>客户管理</value>
+  </data>
+  <data name="messages_mail" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="messages_settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="multilingual_station" xml:space="preserve">
+    <value>多语言站</value>
+  </data>
+  <data name="my_buying" xml:space="preserve">
+    <value>我的采购</value>
+  </data>
+  <data name="my_buying_requests" xml:space="preserve">
+    <value>采购需求管理</value>
+  </data>
+  <data name="my_exportimes" xml:space="preserve">
+    <value>管理中心</value>
+  </data>
+  <data name="my_store" xml:space="preserve">
+    <value>我的店铺</value>
+  </data>
+  <data name="number_length" xml:space="preserve">
+    <value>请输入{2}-{1}位的数字。</value>
+  </data>
+  <data name="number_regular" xml:space="preserve">
+    <value>请输入一个有效的数字。</value>
+  </data>
+  <data name="post_buying_request" xml:space="preserve">
+    <value>发布采购需求</value>
+  </data>
+  <data name="product_manage" xml:space="preserve">
+    <value>产品管理</value>
+  </data>
+  <data name="sayhello" xml:space="preserve">
+    <value>你好,</value>
+  </data>
+  <data name="sign_out" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="string_english" xml:space="preserve">
+    <value>请输入英文。</value>
+  </data>
+  <data name="string_length" xml:space="preserve">
+    <value>请输入{2}-{1}个字符。</value>
+  </data>
+  <data name="supplier_manage" xml:space="preserve">
+    <value>供应商管理</value>
+  </data>
+  <data name="company_address" xml:space="preserve">
+    <value>联系地址</value>
+  </data>
+  <data name="company_address_required" xml:space="preserve">
+    <value>请输入一个联系地址.</value>
+  </data>
+  <data name="company_basicdetails" xml:space="preserve">
+    <value>基本信息</value>
+  </data>
+  <data name="company_basicdetails_prompt" xml:space="preserve">
+    <value>输入企业联系方式,方便客户联系您</value>
+  </data>
+  <data name="company_businesstypes" xml:space="preserve">
+    <value>业务类型</value>
+  </data>
+  <data name="company_chinesename" xml:space="preserve">
+    <value>公司中文名称</value>
+  </data>
+  <data name="company_city_required" xml:space="preserve">
+    <value>请选择一个城市.</value>
+  </data>
+  <data name="company_companydetail_required" xml:space="preserve">
+    <value>请输入企业简介信息。</value>
+  </data>
+  <data name="company_companyimage_required" xml:space="preserve">
+    <value>请至少上传一张企业图片。</value>
+  </data>
+  <data name="company_creditfiles" xml:space="preserve">
+    <value>信用档案</value>
+  </data>
+  <data name="company_creditfiles_certification" xml:space="preserve">
+    <value>管理体系认证</value>
+  </data>
+  <data name="company_creditfiles_employees" xml:space="preserve">
+    <value>员工数量</value>
+  </data>
+  <data name="company_creditfiles_establishmentdate" xml:space="preserve">
+    <value>成立年份</value>
+  </data>
+  <data name="company_creditfiles_issuedate" xml:space="preserve">
+    <value>签发日期</value>
+  </data>
+  <data name="company_creditfiles_legal" xml:space="preserve">
+    <value>法人代表</value>
+  </data>
+  <data name="company_creditfiles_legalform" xml:space="preserve">
+    <value>法律形式</value>
+  </data>
+  <data name="company_creditfiles_mainprompt" xml:space="preserve">
+    <value>下有对勾标注的项目，已经过我司官方认证，担保真实性，若对其中某项进行修改，则该项需要重新认证，所以请依据事实慎重修改。</value>
+  </data>
+  <data name="company_creditfiles_office" xml:space="preserve">
+    <value>发证机关</value>
+  </data>
+  <data name="company_creditfiles_prompt" xml:space="preserve">
+    <value>上传信用档案信息</value>
+  </data>
+  <data name="company_creditfiles_qualitycontrol" xml:space="preserve">
+    <value>品质控制人员数量</value>
+  </data>
+  <data name="company_creditfiles_registeraddress" xml:space="preserve">
+    <value>注册地址</value>
+  </data>
+  <data name="company_creditfiles_registercapital" xml:space="preserve">
+    <value>注册资金</value>
+  </data>
+  <data name="company_creditfiles_registercode" xml:space="preserve">
+    <value>注册编号</value>
+  </data>
+  <data name="company_creditfiles_twoprompt" xml:space="preserve">
+    <value>以下信息请输入英文</value>
+  </data>
+  <data name="company_englishname" xml:space="preserve">
+    <value>公司英文名称</value>
+  </data>
+  <data name="company_fax" xml:space="preserve">
+    <value>传真号码</value>
+  </data>
+  <data name="company_image_del" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="company_industrytype_required" xml:space="preserve">
+    <value>请选择一个业务类型</value>
+  </data>
+  <data name="company_introduction" xml:space="preserve">
+    <value>企业简介</value>
+  </data>
+  <data name="company_introduction_image" xml:space="preserve">
+    <value>企业图片</value>
+  </data>
+  <data name="company_introduction_image_prompt" xml:space="preserve">
+    <value>建议上传图片尺寸400*400</value>
+  </data>
+  <data name="company_introduction_prompt" xml:space="preserve">
+    <value>上传公司的企业简介</value>
+  </data>
+  <data name="company_logo" xml:space="preserve">
+    <value>公司Logo</value>
+  </data>
+  <data name="company_logo_prompt" xml:space="preserve">
+    <value>上传公司Logo</value>
+  </data>
+  <data name="company_logo_sizeprompt" xml:space="preserve">
+    <value>建议上传图片尺寸300*300</value>
+  </data>
+  <data name="company_mail" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="company_mainproduct" xml:space="preserve">
+    <value>主要产品</value>
+  </data>
+  <data name="company_mainproduct_required" xml:space="preserve">
+    <value>请输入主要产品</value>
+  </data>
+  <data name="company_phone" xml:space="preserve">
+    <value>手机号码</value>
+  </data>
+  <data name="company_region" xml:space="preserve">
+    <value>所在地区</value>
+  </data>
+  <data name="company_shufflingphoto" xml:space="preserve">
+    <value>轮播图片</value>
+  </data>
+  <data name="company_shufflingphoto_prompt" xml:space="preserve">
+    <value>上传店铺首页广告图</value>
+  </data>
+  <data name="company_shufflingphoto_sizeprompt" xml:space="preserve">
+    <value>建议上传图片尺寸1200*400，最多上传4张。</value>
+  </data>
+  <data name="company_suppliername_required" xml:space="preserve">
+    <value>请输入一个英文的公司名称。</value>
+  </data>
+  <data name="company_telephone" xml:space="preserve">
+    <value>电话号码</value>
+  </data>
+  <data name="company_videodetail" xml:space="preserve">
+    <value>视频简介</value>
+  </data>
+  <data name="company_videoinformation" xml:space="preserve">
+    <value>视频信息</value>
+  </data>
+  <data name="company_videoinformation_prompt" xml:space="preserve">
+    <value>上传企业视频</value>
+  </data>
+  <data name="company_videourl" xml:space="preserve">
+    <value>视频链接</value>
+  </data>
+  <data name="company_videourl_prompt" xml:space="preserve">
+    <value>上传第三方网站视频链接</value>
+  </data>
+  <data name="js_string_maxlength" xml:space="preserve">
+    <value>请输入不超过{0}字符。</value>
+  </data>
+  <data name="string_maxlength" xml:space="preserve">
+    <value>请输入不超过{1}字符。</value>
+  </data>
+  <data name="company_imgurl" xml:space="preserve">
+    <value>/Content/center/images/file-upload.gif</value>
+  </data>
+  <data name="company_save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="productcategory_keyword" xml:space="preserve">
+    <value>输入产品关键字</value>
+  </data>
+  <data name="productcategory_keyword_prompt" xml:space="preserve">
+    <value>如果您不知道您产品的类别,请输入英文关键字查询类别。</value>
+  </data>
+  <data name="productcategory_select" xml:space="preserve">
+    <value>选择产品类别</value>
+  </data>
+  <data name="productcategory_selected" xml:space="preserve">
+    <value>您当前选择的是</value>
+  </data>
+  <data name="productcategory_selectedbtn" xml:space="preserve">
+    <value>我已同意以下规则，现在发布产品</value>
+  </data>
+  <data name="productcategory_taboneprompt" xml:space="preserve">
+    <value>不是您想要的类目？通过</value>
+  </data>
+  <data name="productcategory_tabthreeprompt" xml:space="preserve">
+    <value>自选类目。</value>
+  </data>
+  <data name="productcategory_tabtwoprompt" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="productlist_checked" xml:space="preserve">
+    <value>审核通过</value>
+  </data>
+  <data name="productlist_checking" xml:space="preserve">
+    <value>审核中</value>
+  </data>
+  <data name="productlist_deletebtn" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="productlist_draft" xml:space="preserve">
+    <value>草稿箱</value>
+  </data>
+  <data name="productlist_editbtn" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="productlist_hot" xml:space="preserve">
+    <value>热门产品</value>
+  </data>
+  <data name="productlist_pageinfo" xml:space="preserve">
+    <value>显示 _START_ 至 _END_ 条 共 _TOTAL_ 条</value>
+  </data>
+  <data name="productlist_previewbtn" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="productlist_setunhotbtn" xml:space="preserve">
+    <value>取消热门</value>
+  </data>
+  <data name="productlist_unchecked" xml:space="preserve">
+    <value>审核不通过</value>
+  </data>
+  <data name="producttable_action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="producttable_date" xml:space="preserve">
+    <value>发布时间</value>
+  </data>
+  <data name="producttable_hot" xml:space="preserve">
+    <value>热门产品</value>
+  </data>
+  <data name="producttable_name" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="producttable_owner" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="producttable_unhot" xml:space="preserve">
+    <value>未推荐</value>
+  </data>
+  <data name="product_basicinformation" xml:space="preserve">
+    <value>基本信息</value>
+  </data>
+  <data name="product_basicinformation_prompt" xml:space="preserve">
+    <value>发布产品的基本信息</value>
+  </data>
+  <data name="product_customparameters" xml:space="preserve">
+    <value>自定义参数</value>
+  </data>
+  <data name="product_customparameters_add" xml:space="preserve">
+    <value>添加参数</value>
+  </data>
+  <data name="product_customparameters_name" xml:space="preserve">
+    <value>属性名</value>
+  </data>
+  <data name="product_customparameters_value" xml:space="preserve">
+    <value>属性值</value>
+  </data>
+  <data name="product_delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="product_description" xml:space="preserve">
+    <value>简要描述</value>
+  </data>
+  <data name="product_description_required" xml:space="preserve">
+    <value>请填写产品的简要描述。</value>
+  </data>
+  <data name="product_details" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="product_details_prompt" xml:space="preserve">
+    <value>完整填写将有助于买家找到并了解您的产品。</value>
+  </data>
+  <data name="product_detail_prompt" xml:space="preserve">
+    <value>建议上传图片不大于800px * 800px；插入表格宽度不大于800px。</value>
+  </data>
+  <data name="product_detail_required" xml:space="preserve">
+    <value>请填写产品的详细描述。</value>
+  </data>
+  <data name="product_hot" xml:space="preserve">
+    <value>热门产品</value>
+  </data>
+  <data name="product_hotno" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="product_hotyes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="product_hot_prompt" xml:space="preserve">
+    <value>选择产品是否显示在店铺的热门产品中。</value>
+  </data>
+  <data name="product_keyword" xml:space="preserve">
+    <value>产品关键字</value>
+  </data>
+  <data name="product_keywordmore" xml:space="preserve">
+    <value>更多关键词</value>
+  </data>
+  <data name="product_keyword_prompt" xml:space="preserve">
+    <value>至少填写一个关键词，方便采购商据此搜索到您的产品。</value>
+  </data>
+  <data name="product_keyword_required" xml:space="preserve">
+    <value>请至少填写一个关键词</value>
+  </data>
+  <data name="product_mainparameterstemplate" xml:space="preserve">
+    <value>productMainParasTemplate</value>
+  </data>
+  <data name="product_name" xml:space="preserve">
+    <value>产品名称</value>
+  </data>
+  <data name="product_name_required" xml:space="preserve">
+    <value>请填写产品名称。</value>
+  </data>
+  <data name="product_parameters" xml:space="preserve">
+    <value>产品参数</value>
+  </data>
+  <data name="product_photo" xml:space="preserve">
+    <value>产品图片</value>
+  </data>
+  <data name="product_photo_imgurl" xml:space="preserve">
+    <value>/Content/center/images/file-upload.gif</value>
+  </data>
+  <data name="product_photo_prompt" xml:space="preserve">
+    <value>产品图片建议上传尺寸为：359*359。</value>
+  </data>
+  <data name="product_photo_required" xml:space="preserve">
+    <value>请至少上传一张产品图片。</value>
+  </data>
+  <data name="product_previewbtn" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="product_prompt" xml:space="preserve">
+    <value>信息发布上网或被退回后，您方可对此产品信息进行编辑</value>
+  </data>
+  <data name="product_publish" xml:space="preserve">
+    <value>发布产品</value>
+  </data>
+  <data name="product_reselectcategory" xml:space="preserve">
+    <value>重选类目</value>
+  </data>
+  <data name="product_reselectcategory_prompt" xml:space="preserve">
+    <value>返回重选类目会造成部份已填写的信息丢失！您确定要继续吗？</value>
+  </data>
+  <data name="product_savebtn" xml:space="preserve">
+    <value>保存到草稿箱</value>
+  </data>
+  <data name="product_submitbtn" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="textarea_lang" xml:space="preserve">
+    <value>ch</value>
+  </data>
+  <data name="productcategory_selected_required" xml:space="preserve">
+    <value>请选择产品分类。</value>
+  </data>
+  <data name="business_servie" xml:space="preserve">
+    <value>商务服务</value>
+  </data>
+  <data name="manufacturer" xml:space="preserve">
+    <value>制造商</value>
+  </data>
+  <data name="manufacturer_trading" xml:space="preserve">
+    <value>制造商和贸易商</value>
+  </data>
+  <data name="other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="string_date" xml:space="preserve">
+    <value>请输入时间格式</value>
+  </data>
+  <data name="trading_company" xml:space="preserve">
+    <value>贸易商</value>
+  </data>
+  <data name="customer_addcustomer" xml:space="preserve">
+    <value>添加客户</value>
+  </data>
+  <data name="customer_addtoblacklist" xml:space="preserve">
+    <value>添加黑名单</value>
+  </data>
+  <data name="customer_alllevels" xml:space="preserve">
+    <value>全部等级</value>
+  </data>
+  <data name="customer_assign" xml:space="preserve">
+    <value>分配业务员</value>
+  </data>
+  <data name="customer_blacklist" xml:space="preserve">
+    <value>黑名单</value>
+  </data>
+  <data name="customer_country" xml:space="preserve">
+    <value>国家</value>
+  </data>
+  <data name="customer_deletebtn" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="customer_level" xml:space="preserve">
+    <value>等级</value>
+  </data>
+  <data name="customer_management" xml:space="preserve">
+    <value>客户管理</value>
+  </data>
+  <data name="customer_mycustomer" xml:space="preserve">
+    <value>我的客户</value>
+  </data>
+  <data name="customer_name" xml:space="preserve">
+    <value>客户名称</value>
+  </data>
+  <data name="customer_permanentlydeleted" xml:space="preserve">
+    <value>永久删除</value>
+  </data>
+  <data name="customer_principal" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="customer_removeblacklist" xml:space="preserve">
+    <value>移除黑名单</value>
+  </data>
+  <data name="customer_searchsender" xml:space="preserve">
+    <value>搜索发件人</value>
+  </data>
+  <data name="customer_whoaddedme" xml:space="preserve">
+    <value>谁添加了我</value>
+  </data>
+  <data name="messagetable_announcement" xml:space="preserve">
+    <value>店铺通知</value>
+  </data>
+  <data name="messagetable_date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="message_all" xml:space="preserve">
+    <value>所有询盘</value>
+  </data>
+  <data name="message_allinquiry" xml:space="preserve">
+    <value>全部询盘</value>
+  </data>
+  <data name="message_assigntosalesman" xml:space="preserve">
+    <value>分配业务员</value>
+  </data>
+  <data name="message_backbtn" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="message_compose" xml:space="preserve">
+    <value>写信</value>
+  </data>
+  <data name="message_date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="message_deleted" xml:space="preserve">
+    <value>已删除</value>
+  </data>
+  <data name="message_flagged" xml:space="preserve">
+    <value>已标记</value>
+  </data>
+  <data name="message_from" xml:space="preserve">
+    <value>发件人</value>
+  </data>
+  <data name="message_inquirymanagement" xml:space="preserve">
+    <value>询盘管理</value>
+  </data>
+  <data name="message_inquirytocompany" xml:space="preserve">
+    <value>对企业的询盘</value>
+  </data>
+  <data name="message_inquirytoproduct" xml:space="preserve">
+    <value>对产品的询盘</value>
+  </data>
+  <data name="message_inquirytype" xml:space="preserve">
+    <value>询盘类型</value>
+  </data>
+  <data name="message_mymailbox" xml:space="preserve">
+    <value>我的信箱</value>
+  </data>
+  <data name="message_restore" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="message_sent" xml:space="preserve">
+    <value>已发送</value>
+  </data>
+  <data name="message_shiftdelete" xml:space="preserve">
+    <value>彻底删除</value>
+  </data>
+  <data name="message_spam" xml:space="preserve">
+    <value>垃圾询盘</value>
+  </data>
+  <data name="message_title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="my_customer_management" xml:space="preserve">
+    <value>客户管理</value>
+  </data>
+  <data name="my_message" xml:space="preserve">
+    <value>我的消息</value>
+  </data>
+</root>

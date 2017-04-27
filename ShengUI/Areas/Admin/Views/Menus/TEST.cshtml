@@ -1,0 +1,262 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+
+@section scripts
+{
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+        var table = 'menustable';
+        var toolbarOptions = [
+           //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        var ss = "";
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            //TablePage();
+            var dt = $("#" + table).dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[5, "desc"]],
+                "ajax": {
+                    "url": '/Admin/Menus/GetMenusForGrid',
+                    "type": "POST",
+                    "data": { "[Equal]MODULE_PID": "MAIN_FIRST" }
+                },
+                "columns": [
+                    { "data": "MODULE_ID", "name": "[Equal]{main}MODULE_ID", "orderable": false },
+                    { "data": "MODULE_NAME", "name": "[Contains]{main}MODULE_NAME", "orderable": "MODULE_NAME" },
+                    { "data": "MODULE_CONTROLLER", "name": "[Contains]{main}MODULE_CONTROLLER", "orderable": "MODULE_CONTROLLER" },
+                    { "data": "ISMENU", "orderable": "ISMENU" },
+                    { "data": "ICON", "orderable": "ICON" },
+                    { "data": "MODULE_LINK", "orderable": "MODULE_LINK" }
+
+                ],
+                "columnDefs": [
+                      {
+                          "targets": [0],
+                          "visible": true
+                      },
+                             {
+                                 "render": function (data, type, row) {
+                                     return '<i class="' + data + '"></i>'
+                                 },
+                                 "targets": 4
+                             },
+                ]
+
+            });
+            $('#' + table + ' tbody').on('click', 'tr', function () {
+                $(this).toggleClass('success');
+
+            });
+
+            $(".nav-tabs li a").click(function () {
+                // $(this).attr("data-val");
+                $('#' + table).DataTable().ajax.params({ "[Equal]MODULE_PID": $(this).attr("data-val") });
+                $('#' + table).DataTable().ajax.reload();
+            });
+
+        });
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            var table = $('#' + table).DataTable();
+            switch (id) {
+                case "Add":
+                    window.parent.addTab('Product_0', '增加产品信息', rootPath + 'Product/Detail');
+                    break;
+                case "Detail":
+                    var selected = grid.datagrid('getSelected');
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+
+                    window.parent.addTab('Supplier_' + selected.Sid, '查看供应商信息', rootPath + 'Supplier/Detail?IsView=1&ID=' + selected.Sid);
+                    break;
+                case "Update":
+                    var selected = table.rows('.selected').data()[0];
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+                    $('#productdatatable tr').removeClass('selected');
+                    window.parent.addTab('Product_' + selected.Pid, '修改产品信息[' + selected.ProductName + ']', rootPath + 'Product/Detail?ID=' + selected.Pid);
+                    break;
+                case "Delete":
+
+                    if (confirm('确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?')) {
+                        f_delete();
+                        // 退出操作;
+                    }
+
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "ApprovedMore":
+                    ApprovedMore();
+                    break;
+                case "UnApprovedMore":
+                    UnApprovedMore();
+                    break;
+                case "Search":
+                    //AdvancedSearch();
+                    break;
+                case "uncheck":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).removeClass("active"); $(item).blur();
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]ischeck": "0", "[Equal]ispublish": "1" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "checked":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]ischeck": "1", "[Equal]ispublish": "1" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "unchecked":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]ischeck": "2", "[Equal]ispublish": "1" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+
+                    }
+                    break;
+                case "unpublish":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]ispublish": "0" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "selectall":
+                    $('#' + table + '  tr').toggleClass('selected');
+                    break;
+            }
+        }
+    </script>
+}
+<input type="hidden" id="MenuNo" value="Manage" />
+
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div id='faq'>
+
+                    <div class='row-fluid'>
+<div class='tabbable tabs-left'>
+
+                            <div class=''>
+                                
+                                <div class='row-fluid'>
+
+                                    <div class='span12 box bordered-box orange-border' style='margin-bottom: 0;'>
+
+                                        <div class='box-header orange-background'>
+
+                                            <div class='title'>Sortable data table with pagination</div>
+
+                                            <div class='actions'>
+
+                                                <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                                                </a>
+
+                                                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class='box-content box-no-padding'>
+
+                                            <div class='responsive-table'>
+
+                                                <div class='scrollable-area'>
+
+
+
+                                                    <table id="menustable" class='data-table table table-bordered table-striped  table-hover table-striped' style="width: 100%;">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th>CD</th>
+                                                                <th>菜单名称</th>
+                                                                <th>控制器</th>
+                                                                <th>是否为菜单</th>
+                                                                <th>图标</th>
+                                                                <th>菜单链接</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                    </table>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+

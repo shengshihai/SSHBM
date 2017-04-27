@@ -1,0 +1,27 @@
+#stats-chart1, #stats-chart2, #stats-chart3, #stats-chart7, #stats-chart8 {
+    height: 200px;
+}
+
+.color-settings .color-title {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.box-nomargin {
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width:768px) {
+    .box-nomargin {
+        margin-bottom: 0;
+    }
+}
+
+.wysihtml5-sandbox {
+    box-sizing: border-box;
+}
+span.field-validation-error{display:block; margin:5px 0 10px 0; font-size:14px; color:#ff6a6a;text-align:left; background:url(../images/error.png) 0 3px no-repeat; padding-left:20px; line-height:22px;}
+
+.jloading {
+float:inherit;
+}

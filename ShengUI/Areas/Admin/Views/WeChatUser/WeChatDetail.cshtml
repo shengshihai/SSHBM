@@ -1,0 +1,409 @@
+﻿@model MODEL.ViewModel.VIEW_YX_weiUser
+@{
+    ViewBag.Title = "微信用户明细";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<style>
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+</style>
+@section backScripts
+{
+    <script src="~/Scripts/Back/plugins/fileinput/bootstrap-fileinput.js"></script>
+    <script type="text/javascript"> 
+        var rootPath='@Url.Content("~/Admin/")';
+        //当前ID
+        var currentID = "@ViewBag.CurrentID";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = @ViewBag.IsView ;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+
+        var ss=$("#tree3").dynatree({
+            dnd: {
+                preventVoidMoves: true,
+                onDragStart: function (node) {
+                    return true;
+                },
+                onDragEnter: function (node, sourceNode) {
+                    return ["before", "after"];
+                },
+                onDrop: function (node, sourceNode, hitMode, ui, draggable) {
+                    return sourceNode.move(node, hitMode);
+                }
+            }
+        });
+        $(function(){
+            $(".select2").select2({
+                //data:data,
+                multiple: true
+            });
+        })
+    </script>
+}
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='page-header'>
+
+                <h1 class='pull-left'>
+
+                    <i class='icon-user'></i>
+
+                    <span>@Model.nickname</span>
+
+                </h1>
+
+                <div class='pull-right'>
+
+                    <ul class='breadcrumb'>
+
+                        <li>
+
+                            <a href="index.html"><i class='icon-bar-chart'></i>
+
+                            </a>
+
+                        </li>
+
+                        <li class='separator'>
+
+                            <i class='icon-angle-right'></i>
+
+                        </li>
+
+                        <li><a href="javascript:void(0)" onclick="Jump(@ViewBag.ReturnUrl)">返回
+                        </a></li>
+
+                        <li class='separator'>
+
+                            <i class='icon-angle-right'></i>
+
+                        </li>
+
+                        <li class='active'>User profile</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class='row-fluid'>
+                @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url = ViewBag.TYPE == "Add" ? "/Admin/WeChatUser/Add" : "/Admin/WeChatUser/Update",
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg",
+                            OnBegin = "OnBeginSubmit"
+
+                        }, new { id = "", @class = "form" }))
+                {
+                    <div class='span3 box'>
+
+                        <div class='box-content'>
+                            <img id="imgPreview" alt="230x230&amp;text=photo" style="width: 230px; height: 230px" src="@(string.IsNullOrEmpty(Model.headimgurl) ? "/Content/Back/images/photo.png" : Model.headimgurl)" />
+                            <br />
+
+                        </div>
+                    </div>
+                    <div class='span9 box' id="divMsg">
+
+                        <div class='box-content box-double-padding'>
+
+                            <fieldset>
+
+                                <div class='span4'>
+
+                                    <div class='lead'>
+
+                                        <i class='icon-user text-contrast'></i>
+
+                                        会员信息
+
+                                    </div>
+
+                                    <small class='muted'></small>
+
+                                </div>
+
+                                <div class='span7 offset1'>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>用户ID</label>
+
+                                        <div class='controls'>
+                                            @Html.HiddenFor(u => u.Id)
+                                            @Html.HiddenFor(u => u.userNum)
+                                            @Html.TextBoxFor(m => m.userNum, new { @placeholder = "用户ID", @disabled = "", @class = "span12 input-validation-error" })
+
+                                            @Html.ValidationMessageFor(m => m.userNum)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>用户昵称</label>
+
+                                        <div class='controls'>
+                                            @Html.TextBoxFor(u => u.nickname, new { @placeholder = "昵称", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.nickname)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>真实姓名</label>
+
+                                        <div class='controls'>
+                                            @Html.TextBoxFor(u => u.userRelname, new { @placeholder = "真实姓名", @class = "span12 input-validation-error " })
+                                            @Html.ValidationMessageFor(u => u.userRelname)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>移动电话</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.userTel, new { @placeholder = "移动电话", @class = "span12 input-validation-error input-block-level", @data_mask = "99999999999" })
+                                            @Html.ValidationMessageFor(u => u.userTel)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>微信号</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.userWXnum, new { @placeholder = "微信号", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.userWXnum)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>QQ</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.userQQ, new { @placeholder = "QQ", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.userQQ)
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </fieldset>
+
+                            <hr class='hr-normal' />
+
+                            <fieldset>
+
+                                <div class='span4 box'>
+
+                                    <div class='lead'>
+
+                                        <i class='icon-user text-contrast'></i>
+
+                                        Personal info
+
+                                    </div>
+
+                                    <small class='muted'>Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.</small>
+
+                                </div>
+
+                                <div class='span7 offset1'>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>微信用户备注信息</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextAreaFor(u => u.remark1, new { @placeholder = "微信用户备注信息", @class = "autosize input-block-level input-validation-error", @style = "height: 150px;" })
+                                            @Html.ValidationMessageFor(m => m.remark1)
+
+                                        </div>
+
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>车辆信息备注</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextAreaFor(u => u.remark2, new { @placeholder = "车辆信息备注", @class = "autosize input-block-level input-validation-error", @style = "height: 150px;" })
+                                            @Html.ValidationMessageFor(m => m.remark2)
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                            <hr class='hr-normal' />
+                            <fieldset>
+
+                                <div class='span4 box'>
+
+                                    <div class='lead'>
+
+                                        <i class='icon-user text-contrast'></i>
+
+                                        Permission info
+
+                                    </div>
+
+                                    <small class='muted'>Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.</small>
+
+                                </div>
+
+                                <div class='span7 offset1'>
+
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>会员类型</label>
+
+                                        <div class='controls'>
+
+                                            @Html.DropDownListFor(u => u.isfenxiao, ViewBag.UserType as List<SelectListItem>, new { @class = "" })
+                                        
+                                            @Html.ValidationMessageFor(u => u.isfenxiao)
+
+                                        </div>
+                                    </div>
+                                    <div class='control-group'>
+
+                                        <label class='control-label'>会员余额</label>
+
+                                        <div class="controls">
+
+                                            <div class="input-prepend input-append">
+
+                                                <span class="add-on">￥</span>
+                                                <input type="number" disabled class="span6 text-right" value="@Model.userYongJin" min="0" style="min-height:30px;"  />
+
+                                                <span class="add-on">.00</span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    @if(ViewBag.TYPE == "Update" )
+                                    {
+                                    <div class="control-group">
+
+                                        <div class="controls">
+
+                                            <label class="checkbox">
+
+                                                <input data-target="#change-password" data-toggle="collapse" id="changepasswordcheck" type="checkbox" value="true" name="IsReCharge" class="collapsed">
+                                                是否充值
+
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="collapse" id="change-password" style="height: 0px;">
+
+
+
+                                        <div class="control-group" style="margin-left: 1px;">
+
+                                            <label class="control-label">充值金额</label>
+
+                                            <div class="controls">
+
+                                                <div class="input-prepend input-append">
+
+                                                    <span class="add-on">￥</span>
+
+                                                    <input type="number" class="span6 text-right "  style="min-height:30px;"   name="ReChargeMoney" value="" min="0" />
+
+                                                    <span class="add-on">.00</span>
+
+                                                </div>
+                                                <div class="input-prepend input-append">
+
+                                                    <button class="btn btn-success" name="btnChargeMoney" value="1" style="margin-bottom:5px" type="submit">充值</button>
+
+                                                </div>
+                                                
+                                            </div>
+                                             <input type="hidden" id="ReChargeMoney_Msg" />
+
+                                        </div>
+
+                                    </div>
+
+                                    }
+                                </div>
+
+
+                                <hr />
+
+
+
+
+                            </fieldset>
+
+                            <div class='form-actions' style='margin-bottom: 0;'>
+
+                                <div class='text-right'>
+                                    <button class='btn btn-large' type='button' onclick="Jump(@ViewBag.ReturnUrl)">
+
+                                        <i class='icon-mail-reply '></i>
+
+                                        返回
+
+                                    </button>
+                                    <button class='btn btn-primary btn-large' type="submit">
+
+                                        <i class='icon-save '></i>
+
+                                        Save
+
+                                    </button>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

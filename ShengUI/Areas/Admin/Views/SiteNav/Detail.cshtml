@@ -1,0 +1,176 @@
+﻿@model MODEL.Sample_Navigation_Item
+@{
+    ViewBag.Title = "公司信息管理";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+@section scripts
+{
+
+        <link href="~/Content/back/uploadify-v2.1.4/uploadify.css" rel="stylesheet" />
+<script src="~/Content/back/uploadify-v2.1.4/jquery.uploadify.v2.1.4.js"></script>
+<script src="~/Content/back/uploadify-v2.1.4/swfobject.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+            loadupload();
+        
+            //GetConfigList();
+            init()
+        });
+        var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] == null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+        var ASPSESSID = "@Session.SessionID";
+        function loadupload() {
+            $("#file_upload_1").uploadify({
+                'uploader': '/Content/back/uploadify-v2.1.4/uploadify.swf',
+                'script': '/Admin/Article/UploadImgAttachment/',
+                'scriptData': { ASPSESSID: ASPSESSID, AUTHID: auth },
+                'cancelImg': '/Content/back/uploadify-v2.1.4/cancel.png',
+                'folder': '../../../UploadFile',
+                'queueID': 'file_upload_1-queue',
+                'auto': true,
+                'fileExt': '*.jpg;*.gif;*.png;',
+                'fileDesc': '请选择jpg,jpeg,gif,png格式',
+                'sizeLimit': 4194304,
+                'buttonImg': "/Content/back/img/upload.png",
+                'multi': false,
+                'onComplete': function (event, queueID, fileObj, response, data) {
+                    if (response == 'no') {
+                        window.parent.LG.tipError('上传失败请重新尝试');
+                    }
+                    else {
+                        var imagedata = [{ "image": response, "defaultimage": 1, "description": "" }];
+                        $("#imageurl").val(response);
+                        $("#adimage").attr("src", response);
+                        //$("#supplierImageTemplate").tmpl(imagedata).prependTo("#divImg");
+                    }
+                },
+                'onSelect': function (e, queueId, fileObj) {
+                    if (fileObj.type.toLowerCase() == ".jpg" || fileObj.type.toLowerCase() == ".gif" || fileObj.type.toLowerCase() == ".png") {
+                        if (fileObj.size > 4194304) {
+                            window.parent.LG.tip('图片大小超出范围');
+                            // $.messager.alert('提示', '文件大小超出范围', 'error');
+                        }
+                    }
+                    else {
+                        window.parent.LG.tip('请上传图片');
+                        // $.messager.alert('提示', '文件大小超出范围', 'error');
+                    }
+
+                },
+                'onError': function (event, queueId, fileObj, errorObj) {
+                    if (errorObj.type == "HTTP") {
+                        alert("http error");
+                    } else if (errorObj.type == "IO") {
+                        alert("IO error");
+                    } else if (errorObj.type == "Security") {
+                        alert("security error");
+                    }
+
+
+                }
+            });
+        }
+        function GetConfigList()
+        {
+            for (var i = 0; i < configList.length; i++) {
+                $("#"+configList[i].configName).val(configList[i].configValue);
+            }
+        }
+        function init() {
+            $("#companybasicform").validate({
+                submitHandler: function (form) {
+
+                    form.action = "/admin/SiteNav/UpdateDetail";
+                    LG.submitForm(form, function (data, n, r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            window.parent.LG.tipSuccess("保存成功");
+                            
+                        }
+                        else {
+                            window.parent.LG.tipError("保存成功");
+                        }
+                    }, function () {
+
+                    });
+                }
+            });
+           
+        }
+    </script>
+    <style type="text/css">
+    </style>
+}
+<div class="block">
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+        </div>
+        <h2>Inbox <strong></strong></h2>
+    </div>
+    
+    <div>
+        <div class="row">
+            <div class="col-md-8">
+                <form id="companybasicform" action="Update" method="post"  class="form-horizontal" >
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Name">导航名称</label>
+                        <div class="col-md-9">
+                            <input type="hidden" name="id" value="@Model.smiid" />
+                            <input type="text" id="name" name="name" class="form-control" placeholder="" value="@Model.menuname">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-md-3 control-label" for="Title">标题</label>
+                        <div class="col-md-9">
+                            <input type="text" id="title" name="title" class="form-control" placeholder="" value="@Model.menutitle">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="url">地址</label>
+                        <div class="col-md-9">
+                            <input type="text" id="url" name="url" class="form-control"  value="@Model.url">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Industry">是否显示</label>
+                        <div class="col-md-9">
+                            <label class="switch switch-primary">
+                                <input type="checkbox" id="Published" name="Published" value="1" @(Model.published == true ? "checked" : "")><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Image">图片</label>
+                        <div class="col-md-9">
+                            <input type="file" name="uploadify" id="file_upload_1" style="width: 1px; height: 1px;" />
+                                        <div class="uploadify-queue" id="file_upload_1-queue"></div>
+                                        <div id="divImg"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Postcode"></label>
+                        <div class="col-md-9">
+                             <input type="hidden" name="imageurl" id="imageurl" value="@Model.bindname" />
+                <img id="adimage" src="@Model.bindname" alt="image"  style="width:189px" class="img-thumbnail">
+
+                                </div>
+                        </div>
+                   
+                   
+                    <div class="form-group form-actions">
+                        <div class="col-md-9 col-md-offset-3">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>保存</button>
+                         
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>

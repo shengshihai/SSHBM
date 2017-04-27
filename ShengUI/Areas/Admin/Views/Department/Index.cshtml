@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "部门管理";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+
+   <ipnut type="hidden" id="MenuNo" value="Department" />
+<div style="margin: 0px 0; width: 100%; height: 100%">
+
+    <table id="TreeGridDepartment" class="easyui-treegrid"
+        data-options="url: rootPath + 'Department/GetDeptGridTree',idField:'DeptID',treeField:'DeptName',fitColumns: true,fit:true,animate: true,collapsible: true">
+        <thead>
+            <tr>
+                <th data-options="field:'DeptName',width:260"}">部门名称</th>
+                <th data-options="field:'DeptDesc',width:480">部门描述</th>
+                <th data-options="field:'DeptID',width:60,hidden:true">ID</th>
+                   <th data-options="field:'_parentId',width:60,hidden:true">parentId</th>
+              @*  <th data-options="field:'id',width:60,hidden:true">id</th>
+                <th data-options="field:'pScript',width:80,editor:'text'">执行脚本</th>
+                <th data-options="field:'pIco',width:50,align:'center',formatter:getIco,editor:{
+                    type:'combobox',
+                    options:{
+                            url:'/Admin/Manage/GetIcons',
+                            valueField:'id',    
+                            textField:'text',
+                            formatter:getButtonIco ,onSelect: function(rec){},
+
+                        }
+                    }">图标</th>
+                <th data-options="field:'pIsButton',width:80,editor:'checkbox',formatter:function (item) {
+                          if (item)
+                              return '按钮';
+                          else
+                              return '普通请求';
+                      }">是否为按钮</th>
+                <th data-options="field:'pIsShow',width:80,editor:'checkbox',formatter: function (item) {
+                                  if (item)
+                                      return '显示';
+                                  else
+                                      return '隐藏';
+                              }">是否显示</th>
+                <th data-options="field:'pRemark',width:480,editor:'text',required:true">描述</th>
+                <th data-options="field:'createDate',width:150">创建时间</th>*@
+
+            </tr>
+        </thead>
+    </table>
+</div>
+
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+            closed="true" >
+       
+        <form id="fm" method="post" novalidate style="margin: 0 auto;">
+            <div class="fitem" >
+                <label>所属部门:</label>
+               
+             <input name="_parentId" class="easyui-combotree" data-options="url:rootPath+'Department/GetDeptSelect',method:'get',required:true" style="width:139px;height:25px">
+
+
+            </div>
+            <div class="fitem" >
+                <label>部门名称:</label>
+                <input name="DeptName" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem" >
+                <label>详细描述:</label>
+                <input name="DeptDesc" class="easyui-validatebox" required="true">
+            </div>
+           
+                <input type="hidden" name="DeptID">
+
+        </form>
+    </div>
+
+@section backScripts
+{
+    <style type="text/css">
+        #fm{
+            margin:0;
+            padding:10px 30px;
+        }
+        .ftitle{
+            font-size:14px;
+            font-weight:bold;
+            padding:5px 0;
+            margin-bottom:10px;
+            border-bottom:1px solid #ccc;
+        }
+        .fitem{
+            margin-bottom:5px;
+        }
+        .fitem label{
+            display:inline-block;
+            width:80px;
+        }
+    </style>
+  <script type="text/javascript">
+      //相对路径
+      var rootPath = "@Url.Content("~/Admin/")";
+
+      var grid = $('#TreeGridDepartment');
+
+      //加载toolbar
+      LG.loadToolbar(grid, toolbarBtnItemClick);
+
+
+      var dlg = $('#dlg');
+      
+      dlg.dialog({
+          buttons: [
+             //{ text: '保存', id: 'Save', handler: toolbarBtnItemClick, iconCls: 'icon-save' },
+             { text: '取消', id: 'Cancel', handler:function () {  dlg.dialog('close');}, iconCls: 'icon-undo' }
+          ]
+        
+      });
+      var editingId;
+      //工具选择方法
+      function toolbarBtnItemClick(item) {
+          switch (this.id) {
+              case "Add": beginAdd(); break;
+              case "Update":
+                  var row = grid.treegrid('getSelected');
+                  if (row) {
+                      beginEdit();
+                  }
+                  else {
+                      LG.tip('请先选择行');
+                  }
+                   break;
+              case "Save": save(); break;
+              case "Cancel": cancel(); break;
+              case "Delete":
+                  $.messager.confirm('删除', '确定删除吗(该删除操作只是软删除)?', function (r) {
+                      if (r) {
+                          //del();
+                          // 退出操作;
+                      }
+                  });
+                  break;
+              case "RealDelete":
+                  $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                      if (r) {
+                          realdelete();
+                          // 退出操作;
+                      }
+                  });
+                  break;
+          }
+      }
+
+
+      function beginAdd() {
+          $('#dlg').dialog('open').dialog('setTitle', '添加部门');
+          $('#fm').form('clear');
+          var row = grid.treegrid('getSelected');
+          var newrow={};
+          if (row) 
+              newrow = { _parentId: row.DeptID };
+          else
+              newrow = { _parentId: 0 };
+          $('#fm').form('load', newrow);
+         // url = 'save_user.php';
+      }
+
+      function beginEdit() {
+          var row = grid.treegrid('getSelected');
+          if (row) {
+              $('#dlg').dialog('open').dialog('setTitle', '修改部门');
+              $('#fm').form('load', row);
+            //  url = 'update_user.php?id=' + row.id;
+          }
+      }
+  </script>
+}

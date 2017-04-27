@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{25DFA71A-D6E1-48E6-B359-245A4AC4F18B}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShengUI</RootNamespace>
+    <AssemblyName>ShengUI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Libs\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Filters\CultureInfoAttribute.cs" />
+    <Compile Include="Filters\ErrorHandlerAttribute.cs" />
+    <Compile Include="Filters\LoginValidateAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeChat.ashx.cs">
+      <DependentUpon>WeChat.ashx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AoShaCar\AmazeUI-2.3.0\css\amazeui.min.css" />
+    <Content Include="Content\AoShaCar\AmazeUI-2.3.0\js\amazeui.min.js" />
+    <Content Include="Content\AoShaCar\AmazeUI-2.3.0\js\jquery.min.js" />
+    <Content Include="Content\AoShaCar\icon-font-4.3.0\css\font-awesome.css" />
+    <Content Include="Content\AoShaCar\images\1.png" />
+    <Content Include="Content\AoShaCar\images\2.png" />
+    <Content Include="Content\AoShaCar\images\3.png" />
+    <Content Include="Content\AoShaCar\images\4.png" />
+    <Content Include="Content\AoShaCar\images\5.png" />
+    <Content Include="Content\AoShaCar\images\6.png" />
+    <Content Include="Content\AoShaCar\images\car1.jpg" />
+    <Content Include="Content\AoShaCar\images\car2.jpg" />
+    <Content Include="Content\AoShaCar\images\dian.png" />
+    <Content Include="Content\AoShaCar\images\logo.png" />
+    <Content Include="Content\AoShaCar\images\tel.png" />
+    <Content Include="Content\AoShaCar\kemeimei\order\carbeautyshop\css\style.css" />
+    <Content Include="Content\AoShaCar\kemeimei\order\carbeautyshop\css\style1.css" />
+    <Content Include="Content\AoShaCar\statics\vip\amui\artTemplate\artTemplate.js" />
+    <Content Include="Content\AoShaCar\statics\vip\amui\js\Validform_v5.1_min.js" />
+    <Content Include="Content\Back\css\bootstrap\bootstrap-responsive.css" />
+    <Content Include="Content\Back\css\bootstrap\bootstrap.css" />
+    <Content Include="Content\Back\css\demo.css" />
+    <Content Include="Content\Back\css\jquery.loadmask.css" />
+    <Content Include="Content\Back\css\light-theme.css" />
+    <Content Include="Content\Back\css\plugins\bootstrap_colorpicker\bootstrap-colorpicker.css" />
+    <Content Include="Content\Back\css\plugins\bootstrap_daterangepicker\bootstrap-daterangepicker.css" />
+    <Content Include="Content\Back\css\plugins\bootstrap_datetimepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\Back\css\plugins\bootstrap_switch\bootstrap-switch.css" />
+    <Content Include="Content\Back\css\plugins\common\bootstrap-wysihtml5.css" />
+    <Content Include="Content\Back\css\plugins\datatables\bootstrap-datatable.css" />
+    <Content Include="Content\Back\css\plugins\datatables\jquery.dataTables.css" />
+    <Content Include="Content\Back\css\plugins\datatables\jquery.dataTables.min.css" />
+    <Content Include="Content\Back\css\plugins\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\Back\css\plugins\datatables\select.dataTables.min.css" />
+    <Content Include="Content\Back\css\plugins\dynatree\ui.dynatree.css" />
+    <Content Include="Content\Back\css\plugins\flags\flags.css" />
+    <Content Include="Content\Back\css\plugins\fuelux\wizard.css" />
+    <Content Include="Content\Back\css\plugins\fullcalendar\fullcalendar.css" />
+    <Content Include="Content\Back\css\plugins\jgrowl\jquery.jgrowl.css" />
+    <Content Include="Content\Back\css\plugins\jgrowl\jquery.jgrowl.min.css" />
+    <Content Include="Content\Back\css\plugins\jquery_fileupload\jquery.fileupload-ui.css" />
+    <Content Include="Content\Back\css\plugins\mention\mention.css" />
+    <Content Include="Content\Back\css\plugins\select2\select2.css" />
+    <Content Include="Content\Back\css\plugins\slider_nav\slidernav.css" />
+    <Content Include="Content\Back\css\plugins\tabdrop\tabdrop.css" />
+    <Content Include="Content\Back\css\plugins\xeditable\bootstrap-editable.css" />
+    <Content Include="Content\Back\fonts\montserrat-bold-webfont.svg" />
+    <Content Include="Content\Back\fonts\montserrat-regular-webfont.svg" />
+    <Content Include="Content\Back\images\ajax-loaders\1.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\10.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\11.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\12.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\13.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\14.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\15.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\16.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\17.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\18.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\2.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\3.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\4.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\5.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\6.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\7.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\8.gif" />
+    <Content Include="Content\Back\images\ajax-loaders\9.gif" />
+    <Content Include="Content\Back\images\avatar.jpg" />
+    <Content Include="Content\Back\images\bootstrap\glyphicons-halflings-white.png" />
+    <Content Include="Content\Back\images\bootstrap\glyphicons-halflings.png" />
+    <Content Include="Content\Back\images\error.png" />
+    <Content Include="Content\Back\images\icon_sec.gif" />
+    <Content Include="Content\Back\images\jquery_ui\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\Back\images\jquery_ui\ui-bg_glass_75_ffffff_1x400.png" />
+    <Content Include="Content\Back\images\jquery_ui\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Back\images\jquery_ui\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Back\images\jquery_ui\ui-icons_454545_256x240.png" />
+    <Content Include="Content\Back\images\jquery_ui\ui-icons_888888_256x240.png" />
+    <Content Include="Content\Back\images\jquery_ui\ui-icons_f6cf3b_256x240.png" />
+    <Content Include="Content\Back\images\lb_error.png" />
+    <Content Include="Content\Back\images\photo.png" />
+    <Content Include="Content\Back\images\plugins\bootstrap_colorpicker\alpha.png" />
+    <Content Include="Content\Back\images\plugins\bootstrap_colorpicker\hue.png" />
+    <Content Include="Content\Back\images\plugins\bootstrap_colorpicker\saturation.png" />
+    <Content Include="Content\Back\images\plugins\dynatree\icons.gif" />
+    <Content Include="Content\Back\images\plugins\dynatree\loading.gif" />
+    <Content Include="Content\Back\images\plugins\flags\flags.png" />
+    <Content Include="Content\Back\images\plugins\select2\select2.png" />
+    <Content Include="Content\Back\images\plugins\select2\select2x2.png" />
+    <Content Include="Content\Back\images\plugins\select2\spinner.gif" />
+    <Content Include="Content\Back\images\plugins\xeditable\clear.png" />
+    <Content Include="Content\Back\images\plugins\xeditable\loading.gif" />
+    <Content Include="Content\Back\images\sec_fir.GIF" />
+    <Content Include="Content\Back\images\sec_sec.GIF" />
+    <Content Include="Content\Back\images\third.gif" />
+    <Content Include="Content\html5uploader.css" />
+    <Content Include="Content\images\btnbg.png" />
+    <Content Include="Content\images\jdt.png" />
+    <Content Include="Content\KeYanBao\css\allorder.css" />
+    <Content Include="Content\KeYanBao\css\allProduct.css" />
+    <Content Include="Content\KeYanBao\css\category.css" />
+    <Content Include="Content\KeYanBao\css\common.css" />
+    <Content Include="Content\KeYanBao\css\detail.css" />
+    <Content Include="Content\KeYanBao\css\ewm.css" />
+    <Content Include="Content\KeYanBao\css\fxzx-fxdd.css" />
+    <Content Include="Content\KeYanBao\css\fxzx-wdfxs.css" />
+    <Content Include="Content\KeYanBao\css\fxzx-wdyj.css" />
+    <Content Include="Content\KeYanBao\css\index.css" />
+    <Content Include="Content\KeYanBao\css\order.css" />
+    <Content Include="Content\KeYanBao\css\orderpay.css" />
+    <Content Include="Content\KeYanBao\css\products.css" />
+    <Content Include="Content\KeYanBao\css\sortSearch.css" />
+    <Content Include="Content\KeYanBao\css\StyleSheet1.css" />
+    <Content Include="Content\KeYanBao\css\usercenter1.css" />
+    <Content Include="Content\KeYanBao\css\usercenter10.css" />
+    <Content Include="Content\KeYanBao\css\usercenter11.css" />
+    <Content Include="Content\KeYanBao\css\usercenter12.css" />
+    <Content Include="Content\KeYanBao\css\usercenter13.css" />
+    <Content Include="Content\KeYanBao\css\usercenter14.css" />
+    <Content Include="Content\KeYanBao\css\usercenter15.css" />
+    <Content Include="Content\KeYanBao\css\usercenter16.css" />
+    <Content Include="Content\KeYanBao\css\usercenter17.css" />
+    <Content Include="Content\KeYanBao\css\usercenter2.css" />
+    <Content Include="Content\KeYanBao\css\usercenter3.css" />
+    <Content Include="Content\KeYanBao\css\usercenter4.css" />
+    <Content Include="Content\KeYanBao\css\usercenter5.css" />
+    <Content Include="Content\KeYanBao\css\usercenter6.css" />
+    <Content Include="Content\KeYanBao\css\usercenter7.css" />
+    <Content Include="Content\KeYanBao\css\usercenter8.css" />
+    <Content Include="Content\KeYanBao\css\usercenter9.css" />
+    <Content Include="Content\KeYanBao\images\banner.jpg" />
+    <Content Include="Content\KeYanBao\images\defaultback.png" />
+    <Content Include="Content\KeYanBao\images\ewm.png" />
+    <Content Include="Content\KeYanBao\images\icons_w.png" />
+    <Content Include="Content\KeYanBao\images\icon\arrow.png" />
+    <Content Include="Content\KeYanBao\images\icon\arrow1.png" />
+    <Content Include="Content\KeYanBao\images\icon\arrow2.png" />
+    <Content Include="Content\KeYanBao\images\icon\bb.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot1.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot11.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot12.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot13.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot2.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot3.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot4.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot5.png" />
+    <Content Include="Content\KeYanBao\images\icon\dot6.png" />
+    <Content Include="Content\KeYanBao\images\icon\foo.png" />
+    <Content Include="Content\KeYanBao\images\icon\home.png" />
+    <Content Include="Content\KeYanBao\images\icon\ico1.png" />
+    <Content Include="Content\KeYanBao\images\icon\icons2.png" />
+    <Content Include="Content\KeYanBao\images\icon\icons3.png" />
+    <Content Include="Content\KeYanBao\images\icon\icons4.png" />
+    <Content Include="Content\KeYanBao\images\icon\icons6.png" />
+    <Content Include="Content\KeYanBao\images\icon\icons_w.png" />
+    <Content Include="Content\KeYanBao\images\icon\line1.png" />
+    <Content Include="Content\KeYanBao\images\icon\line2.png" />
+    <Content Include="Content\KeYanBao\images\icon\line3.png" />
+    <Content Include="Content\KeYanBao\images\img1.jpg" />
+    <Content Include="Content\KeYanBao\images\img2.jpg" />
+    <Content Include="Content\KeYanBao\images\img3.jpg" />
+    <Content Include="Content\KeYanBao\images\img4.jpg" />
+    <Content Include="Content\KeYanBao\images\img5.jpg" />
+    <Content Include="Content\KeYanBao\images\img6.jpg" />
+    <Content Include="Content\KeYanBao\images\img7.jpg" />
+    <Content Include="Content\KeYanBao\images\img8.jpg" />
+    <Content Include="Content\KeYanBao\images\img9.jpg" />
+    <Content Include="Content\KeYanBao\images\logo.png" />
+    <Content Include="Content\KeYanBao\images\wx-zhifu.png" />
+    <Content Include="Content\KeYanBao\images\爱真丝LOGO.png" />
+    <Content Include="Content\KeYanBao\images\聚财久玖2.jpg" />
+    <Content Include="Content\KeYanBao\imgs\arrow.png" />
+    <Content Include="Content\KeYanBao\imgs\arrow1.png" />
+    <Content Include="Content\KeYanBao\imgs\arrow2.png" />
+    <Content Include="Content\KeYanBao\imgs\bank.png" />
+    <Content Include="Content\KeYanBao\imgs\clothes1.jpg" />
+    <Content Include="Content\KeYanBao\imgs\clothes2.jpg" />
+    <Content Include="Content\KeYanBao\imgs\clothes3.jpg" />
+    <Content Include="Content\KeYanBao\imgs\cs.png" />
+    <Content Include="Content\KeYanBao\imgs\dot1.png" />
+    <Content Include="Content\KeYanBao\imgs\dot10.png" />
+    <Content Include="Content\KeYanBao\imgs\dot11.png" />
+    <Content Include="Content\KeYanBao\imgs\dot12.png" />
+    <Content Include="Content\KeYanBao\imgs\dot13.png" />
+    <Content Include="Content\KeYanBao\imgs\dot2.png" />
+    <Content Include="Content\KeYanBao\imgs\dot3.png" />
+    <Content Include="Content\KeYanBao\imgs\dot4.png" />
+    <Content Include="Content\KeYanBao\imgs\dot5.png" />
+    <Content Include="Content\KeYanBao\imgs\dot6.png" />
+    <Content Include="Content\KeYanBao\imgs\dot7.png" />
+    <Content Include="Content\KeYanBao\imgs\dot8.png" />
+    <Content Include="Content\KeYanBao\imgs\dot9.png" />
+    <Content Include="Content\KeYanBao\imgs\foo.png" />
+    <Content Include="Content\KeYanBao\imgs\home.png" />
+    <Content Include="Content\KeYanBao\imgs\ico1.png" />
+    <Content Include="Content\KeYanBao\imgs\ico2.png" />
+    <Content Include="Content\KeYanBao\imgs\ico3.png" />
+    <Content Include="Content\KeYanBao\imgs\ico4.png" />
+    <Content Include="Content\KeYanBao\imgs\icons.png" />
+    <Content Include="Content\KeYanBao\imgs\icons2.png" />
+    <Content Include="Content\KeYanBao\imgs\icons3.png" />
+    <Content Include="Content\KeYanBao\imgs\icons4.png" />
+    <Content Include="Content\KeYanBao\imgs\icons5.png" />
+    <Content Include="Content\KeYanBao\imgs\icons6.png" />
+    <Content Include="Content\KeYanBao\imgs\icons_w.png" />
+    <Content Include="Content\KeYanBao\imgs\img1.jpg" />
+    <Content Include="Content\KeYanBao\imgs\img2.jpg" />
+    <Content Include="Content\KeYanBao\imgs\img7.jpg" />
+    <Content Include="Content\KeYanBao\imgs\img8.jpg" />
+    <Content Include="Content\KeYanBao\imgs\line1.png" />
+    <Content Include="Content\KeYanBao\imgs\line2.png" />
+    <Content Include="Content\KeYanBao\imgs\menu.png" />
+    <Content Include="Content\KeYanBao\imgs\menu_bg.png" />
+    <Content Include="Content\KeYanBao\imgs\mrtx.jpg" />
+    <Content Include="Content\KeYanBao\imgs\photo.jpg" />
+    <Content Include="Content\KeYanBao\imgs\wx-zhifu.png" />
+    <Content Include="Content\KeYanBao\js\Address.js" />
+    <Content Include="Content\KeYanBao\js\calert.js" />
+    <Content Include="Content\KeYanBao\js\common.js" />
+    <Content Include="Content\KeYanBao\js\detail.js" />
+    <Content Include="Content\KeYanBao\js\index.js" />
+    <Content Include="Content\KeYanBao\js\jquery-1.11.1.min.js" />
+    <Content Include="Content\KeYanBao\js\jquery.inputbox.js" />
+    <Content Include="Content\KeYanBao\js\jquery.Slide.js" />
+    <Content Include="Content\KeYanBao\js\jquery.sslide.js" />
+    <Content Include="Content\KeYanBao\js\lib.js" />
+    <Content Include="Content\KeYanBao\js\menu.js" />
+    <Content Include="Content\KeYanBao\js\scroll_ads.js" />
+    <Content Include="Content\KeYanBao\js\TouchSlide.1.1.js" />
+    <Content Include="Content\KeYanBao\mycss\category.css" />
+    <Content Include="Content\KeYanBao\mycss\common.css" />
+    <Content Include="Content\KeYanBao\mycss\common.js" />
+    <Content Include="Content\KeYanBao\mycss\detail.css" />
+    <Content Include="Content\KeYanBao\mycss\detail.js" />
+    <Content Include="Content\KeYanBao\mycss\jquery-1.7.2.js" />
+    <Content Include="Content\KeYanBao\mycss\jquery.inputbox.js" />
+    <Content Include="Content\KeYanBao\mycss\lib.js" />
+    <Content Include="Content\KeYanBao\mycss\menu.js" />
+    <Content Include="Content\KeYanBao\mycss\order.css" />
+    <Content Include="Content\KeYanBao\mycss\orderpay.css" />
+    <Content Include="Content\KeYanBao\mycss\products.css" />
+    <Content Include="Content\KeYanBao\mycss\scroll_ads.js" />
+    <Content Include="Content\KeYanBao\mycss\usercenter13.css" />
+    <Content Include="Content\KeYanBao\mycss\usercenter8.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Areas\Admin\Views\Admin\Logon.cshtml" />
+    <Content Include="Areas\Admin\Views\Ad\AdInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\ArticleLeftMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\ArticleInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\副本 Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Article\副本 Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Catalog\CatalogInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryProperty\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\PrdCateIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Property.cshtml" />
+    <Content Include="Areas\Admin\Views\Config\WebsiteInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Department\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Department\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Financial\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Financial\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\ManageLeftMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Manage\ManageNavigation.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MenusButtons\MenusButtonInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\MenuInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Message\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Message\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Mission\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Mission\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Note\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Note\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OperateLog\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\OperateLog\OperateLogInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Permission\PermissionInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Permission\SelectAction.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ProductDetail1.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ProductIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\RolePermission\Index1.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\RoleInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Seo\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_head.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_main.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_menu.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_right.cshtml" />
+    <Content Include="Areas\Admin\Views\SiteNav\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\SiteNav\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SupplierUser\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\SupplierUser\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Supplier\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Sys\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UpgradeRecord\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\UpgradeRecord\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Back\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Back\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Back\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Back\fonts\fontawesome-webfont_2d2816fe.eot" />
+    <Content Include="Content\Back\fonts\montserrat-bold-webfont.eot" />
+    <Content Include="Content\Back\fonts\montserrat-bold-webfont.ttf" />
+    <Content Include="Content\Back\fonts\montserrat-bold-webfont.woff" />
+    <Content Include="Content\Back\fonts\montserrat-bold-webfont_2d2816fe.eot" />
+    <Content Include="Content\Back\fonts\montserrat-regular-webfont.eot" />
+    <Content Include="Content\Back\fonts\montserrat-regular-webfont.ttf" />
+    <Content Include="Content\Back\fonts\montserrat-regular-webfont.woff" />
+    <Content Include="Content\Back\fonts\montserrat-regular-webfont_2d2816fe.eot" />
+    <Content Include="Areas\Admin\Views\Manage\WelCome.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\TEST.cshtml" />
+    <Content Include="Areas\Admin\Views\Menus\MenusDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_right2.cshtml" />
+    <Content Include="Areas\Admin\Views\RolePermission\RolePermissionInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatConfig\WeChatConfigInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\OrderInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Logistical\LogisticalIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatConfig\WeChatMsgSet.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatConfig\WeChatMenus.cshtml" />
+    <Content Include="Areas\Admin\Views\Logistical\SeeLogisticalInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Logistical\SayLogistical.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatConfig\WeChatMenusDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatConfig\WeChatMenuSetDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Catalog\CatalogDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\PrdCateDetail.cshtml" />
+    <Content Include="Content\AoShaCar\icon-font-4.3.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\AoShaCar\AmazeUI-2.3.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Areas\Admin\Views\Product\ProductDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatUser\WeChatDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\WeChatUser\WeChatUserInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Car\CarDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Car\CarInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\ReservationOrderInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\ReservationOrderDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\OrderDetail1.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\OrderDetail.cshtml" />
+    <None Include="Content\AoShaCar\AmazeUI-2.3.0\fonts\fontawesome-webfont.woff" />
+    <None Include="Properties\PublishProfiles\ssh.pubxml" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\Back\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Back\Common\common.js" />
+    <Content Include="Scripts\Back\Common\html5shiv.js" />
+    <Content Include="Scripts\Back\Common\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\Back\Common\jquery-1.7.1.js" />
+    <Content Include="Scripts\Back\Common\jquery-form.js" />
+    <Content Include="Scripts\Back\Common\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\Back\Common\jquery.loadmask.js" />
+    <Content Include="Scripts\Back\Common\jquery.tmpl.js" />
+    <Content Include="Scripts\Back\Common\jquery.tmpl.min.js" />
+    <Content Include="Scripts\Back\Common\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Back\Common\json2.js" />
+    <Content Include="Scripts\Back\Common\LG.js" />
+    <Content Include="Scripts\Back\demo\charts.js" />
+    <Content Include="Scripts\Back\demo\demo.js" />
+    <Content Include="Scripts\Back\demo\inplace_editing.js" />
+    <Content Include="Scripts\Back\demo\jquery.mockjax.js" />
+    <Content Include="Scripts\Back\html5shiv.js" />
+    <Content Include="Scripts\Back\jquery-2.1.4.js" />
+    <Content Include="Scripts\Back\jquery\jquery-migrate.min.js" />
+    <Content Include="Scripts\Back\jquery\jquery.min.js" />
+    <Content Include="Scripts\Back\jquery_ui\jquery-ui.min.js" />
+    <Content Include="Scripts\Back\nav.js" />
+    <Content Include="Scripts\Back\plugins\autosize\jquery.autosize-min.js" />
+    <Content Include="Scripts\Back\plugins\bootbox\bootbox.min.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_colorpicker\bootstrap-colorpicker.min.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_daterangepicker\bootstrap-daterangepicker.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_daterangepicker\moment.min.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_datetimepicker\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_hover_dropdown\twitter-bootstrap-hover-dropdown.min.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_maxlength\bootstrap-maxlength.min.js" />
+    <Content Include="Scripts\Back\plugins\bootstrap_switch\bootstrapSwitch.min.js" />
+    <Content Include="Scripts\Back\plugins\charCount\charCount.js" />
+    <Content Include="Scripts\Back\plugins\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\Back\plugins\ckeditor\config.js" />
+    <Content Include="Scripts\Back\plugins\ckeditor\plugins\icons.png" />
+    <Content Include="Scripts\Back\plugins\ckeditor\plugins\templates\templates\default.js" />
+    <Content Include="Scripts\Back\plugins\ckeditor\styles.js" />
+    <Content Include="Scripts\Back\plugins\common\bootstrap-wysihtml5.js" />
+    <Content Include="Scripts\Back\plugins\common\wysihtml5.min.js" />
+    <Content Include="Scripts\Back\plugins\datatables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\Back\plugins\datatables\jquery.dataTables.columnFilter.js" />
+    <Content Include="Scripts\Back\plugins\datatables\jquery.dataTables.js" />
+    <Content Include="Scripts\Back\plugins\datatables\jquery.dataTables1.js" />
+    <Content Include="Scripts\Back\plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Back\plugins\datatables\jquery.dataTables1.min.js" />
+    <Content Include="Scripts\Back\plugins\dynatree\jquery.dynatree.min.js" />
+    <Content Include="Scripts\Back\plugins\fileinput\bootstrap-fileinput.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\canvas-to-blob.min.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\jquery.fileupload-fp.min.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\jquery.fileupload-init.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\jquery.fileupload-ui.min.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\jquery.fileupload.min.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\jquery.iframe-transport.min.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\load-image.min.js" />
+    <Content Include="Scripts\Back\plugins\fileupload\tmpl.min.js" />
+    <Content Include="Scripts\Back\plugins\flot\excanvas.js" />
+    <Content Include="Scripts\Back\plugins\flot\flot.min.js" />
+    <Content Include="Scripts\Back\plugins\flot\flot.pie.js" />
+    <Content Include="Scripts\Back\plugins\flot\flot.resize.js" />
+    <Content Include="Scripts\Back\plugins\fuelux\wizard.js" />
+    <Content Include="Scripts\Back\plugins\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Scripts\Back\plugins\html5uploader\jquery.html5uploader.js" />
+    <Content Include="Scripts\Back\plugins\input_mask\bootstrap-inputmask.min.js" />
+    <Content Include="Scripts\Back\plugins\jgrowl\jquery.jgrowl.js" />
+    <Content Include="Scripts\Back\plugins\jgrowl\jquery.jgrowl.min.js" />
+    <Content Include="Scripts\Back\plugins\mention\mention.min.js" />
+    <Content Include="Scripts\Back\plugins\mobile_events\jquery.mobile-events.min.js" />
+    <Content Include="Scripts\Back\plugins\modernizr\modernizr.min.js" />
+    <Content Include="Scripts\Back\plugins\naked_password\naked_password-0.2.4.min.js" />
+    <Content Include="Scripts\Back\plugins\nestable\jquery.nestable.js" />
+    <Content Include="Scripts\Back\plugins\retina\retina.js" />
+    <Content Include="Scripts\Back\plugins\select2\select2.full.js" />
+    <Content Include="Scripts\Back\plugins\select2\select2.js" />
+    <Content Include="Scripts\Back\plugins\slider_nav\slidernav-min.js" />
+    <Content Include="Scripts\Back\plugins\slimscroll\jquery.slimscroll.min.js" />
+    <Content Include="Scripts\Back\plugins\sparklines\jquery.sparkline.min.js" />
+    <Content Include="Scripts\Back\plugins\tabdrop\bootstrap-tabdrop.js" />
+    <Content Include="Scripts\Back\plugins\timeago\jquery.timeago.js" />
+    <Content Include="Scripts\Back\plugins\validate\additional-methods.js" />
+    <Content Include="Scripts\Back\plugins\validate\jquery.validate.js" />
+    <Content Include="Scripts\Back\plugins\validate\jquery.validate.min.js" />
+    <Content Include="Scripts\Back\plugins\validate\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Back\plugins\xeditable\bootstrap-editable.js" />
+    <Content Include="Scripts\Back\plugins\xeditable\bootstrap-editable.min.js" />
+    <Content Include="Scripts\Back\plugins\xeditable\wysihtml5.js" />
+    <Content Include="Scripts\Back\tables.js" />
+    <Content Include="Scripts\Back\theme.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\MainHead.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Resume\ResumeIndex.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="WeChat.ashx" />
+    <Content Include="Views\Help\About.cshtml" />
+    <Content Include="Views\Help\Index - Copy.cshtml" />
+    <Content Include="Views\Help\Index.cshtml" />
+    <Content Include="Views\Help\Login.cshtml" />
+    <Content Include="Views\Help\Register.cshtml" />
+    <Content Include="Views\KeYanBao\About.cshtml" />
+    <Content Include="Views\KeYanBao\UserMain.cshtml" />
+    <Content Include="Views\KeYanBao\Index.cshtml" />
+    <Content Include="Views\KeYanBao\Login.cshtml" />
+    <Content Include="Views\KeYanBao\Register.cshtml" />
+    <Content Include="Views\KeYanBao\ProductDetail.cshtml" />
+    <Content Include="Views\AoShaCar\Index.cshtml" />
+    <Content Include="Views\AoShaCar\ProductDetail1.cshtml" />
+    <Content Include="Views\AoShaCar\CompanyList.cshtml" />
+    <Content Include="Views\AoShaCar\Category.cshtml" />
+    <Content Include="Views\AoShaCar\UserMain.cshtml" />
+    <Content Include="Views\AoShaCar\OrderList.cshtml" />
+    <Content Include="Views\AoShaCar\PayOrder.cshtml" />
+    <Content Include="Views\AoShaCar\OrderDetail.cshtml" />
+    <Content Include="Views\AoShaCar\ProductDetail.cshtml" />
+    <Content Include="Views\AoShaCar\ReservationList.cshtml" />
+    <Content Include="Views\AoShaCar\ROrderDetail.cshtml" />
+    <Content Include="Views\AoShaCar\Consumption.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\AoShaCar\css\" />
+    <Folder Include="Content\AoShaCar\imgs\" />
+    <Folder Include="Content\AoShaCar\js\" />
+    <Folder Include="Content\AoShaCar\mycss\" />
+    <Folder Include="Content\KeYanBao\images\background\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{866bb88c-223b-4fba-aa0a-8c32426b9cd3}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IBLLService\IBLLService.csproj">
+      <Project>{0d9533ad-dc88-4090-b43b-c73efe7e8f81}</Project>
+      <Name>IBLLService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Language\Language.csproj">
+      <Project>{a7a34804-b114-40d9-a477-5c56752ce65a}</Project>
+      <Name>Language</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODEL\MODEL.csproj">
+      <Project>{1f39d615-feeb-433e-872b-e818ac96d639}</Project>
+      <Name>MODEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+      <Project>{639c2339-6808-445a-b857-5f862274dea1}</Project>
+      <Name>Senparc.Weixin.MP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{732093f4-c335-4cf9-b7fa-827291bb2b3e}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShengUI.Helper\ShengUI.Helper.csproj">
+      <Project>{26e66901-8d8c-495b-87a4-5d9206192cf4}</Project>
+      <Name>ShengUI.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShengUI.Logic.Admin\ShengUI.Logic.Admin.csproj">
+      <Project>{979e1b3f-fc84-407e-83ad-722032319be7}</Project>
+      <Name>ShengUI.Logic.Admin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShengUI.Logic\ShengUI.Logic.csproj">
+      <Project>{08bb6c61-ed9f-41b3-903c-d48aee706f9b}</Project>
+      <Name>ShengUI.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1119</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3186/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

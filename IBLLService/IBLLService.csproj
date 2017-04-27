@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D9533AD-DC88-4090-B43B-C73EFE7E8F81}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IBLLService</RootNamespace>
+    <AssemblyName>IBLLService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\ShengUI\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="ExtentionIBLLService\IMST_PRD_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IFW_PERMISSION_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IMST_ARTICLE_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IMST_CATALOG_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IFW_ROLEPERMISSION_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IFW_USER_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IMST_POSITION_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IFW_MODULE_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IFW_MODULEPERMISSION_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\ISYS_REF_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\ITokenConfig_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IYX_sysConfigs_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IWeChat_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\ITG_order_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IYX_weiUser_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IYX_weiXinMenus_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IYX_text_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IYX_news_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IMST_CATEGORY_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IMST_CAR_MANAGER.cs" />
+    <Compile Include="IBaseBLLService.cs" />
+    <Compile Include="IBLLService.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IBLLService.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSession.cs" />
+    <Compile Include="IBLLSessionExtension.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IBLLSessionExtension.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IBLLService.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IBLLService.cs</LastGenOutput>
+    </None>
+    <None Include="IBLLSessionExtension.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IBLLSessionExtension.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{866bb88c-223b-4fba-aa0a-8c32426b9cd3}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODEL\MODEL.csproj">
+      <Project>{1f39d615-feeb-433e-872b-e818ac96d639}</Project>
+      <Name>MODEL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

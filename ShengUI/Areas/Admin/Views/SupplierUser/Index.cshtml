@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "Suppliers";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+   <ipnut type="hidden" id="MenuNo" value="SupplierManage" />
+ <div style="margin: 0px 0; width: 100%; height: 100%">
+    
+    <table id="suppliergrid" class="easyui-datagrid" data-options="rownumbers:true,fit:true,animate: true,pageSize: 20,pagination:true,singleSelect:true,idField:'Sid',onDblClickRow:DblClickRow">
+        <thead>
+            <tr>
+                    <th data-options="field:'Sid',width:80, hidden: true">ID</th>
+                    <th data-options="field:'SupplierName',width:730,align:'left'">供应商名称</th>
+                    <th data-options="field:'CreateDate',width:150,align:'left',sortable:true">注册时间</th>
+                    <th data-options="field:'Status',width:150,align:'left',sortable:true,formatter:function (item) {
+                          if (item==2)
+                              return '正常';
+                          else
+                              return '冻结';
+                      }">状态</th>
+
+
+            </tr>
+        </thead>
+    </table>
+
+</div>
+ 
+@section backScripts
+{
+    <script type="text/javascript">
+
+        //相对路径
+        var rootPath = "@Url.Content("~/Admin/")";
+        var grid = $("#suppliergrid");
+        var gridUrl = rootPath + 'Supplier/GetSupplierForGrid';
+        //加载toolbar
+        LG.loadGridToolbar(grid, gridUrl, toolbarBtnItemClick);
+
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            switch (this.id) {
+                case "Add":
+                    window.parent.addTab('Supplier_0', '增加供应商信息', rootPath + 'Supplier/Detail');
+                    break;
+                case "Detail":
+                    var selected = grid.datagrid('getSelected');
+                    if (!selected) { LG.tip('请选择行!'); return }
+                    window.parent.addTab('Supplier_' + selected.Sid, '查看供应商信息', rootPath + 'Supplier/Detail?IsView=1&ID=' + selected.Sid);
+                    break;
+                case "Update":
+                    var selected = grid.datagrid('getSelected');
+                    if (!selected) { LG.tip('请选择行!'); return }
+                    window.parent.addTab('Supplier_' + selected.Sid, '修改供应商信息[' + selected.SupplierName + ']', rootPath + 'Supplier/Detail?ID=' + selected.Sid);
+                    break;
+                case "Delete":
+                    jQuery.ligerDialog.confirm('确定删除吗?', function (confirm) {
+                        if (confirm)
+                            f_delete();
+                    });
+
+                    break;
+            }
+        }
+        function DblClickRow(rowIndex, rowData)
+        {
+            
+            if ($(".datagrid-toolbar").find("[id=Update]").html() != undefined)
+            window.parent.addTab('Supplier_' + rowData.Sid, '修改供应商信息[' + rowData.SupplierName + ']', rootPath + 'Supplier/Detail?ID=' + rowData.Sid);
+        }
+  </script>
+   
+     <script type="text/javascript">
+
+         //相对路径
+      
+         //var columns = [
+         //    { display: "ID", name: "Sid", hide: true, width: '5%', type: "text", align: "left",hide:true },
+         //    { display: "供应商名称", name: "SupplierName", width: '50%', type: "text", align: "left" },
+         //    { display: "注册时间", name: "CreateDate", width: '15%', type: "text", align: "left" },
+           
+         //   {
+         //       display: "状态", name: "Status", width: '10%', type: "text", align: "left", render:
+         //        function (item) {
+         //            if (item.Status==2)
+         //                return "正常";
+         //            else
+         //                return "冻结";
+         //        }
+         //   },
+         //    //{ display: "电话", name: "Phone", width: 180, type: "text", align: "left" },
+         //    //{ display: "传真", name: "Fax", width: 180, type: "text", align: "left" },
+         //    //{ display: "电子邮件", name: "Email", width: 180, type: "text", align: "left" },
+         //    //{ display: "QQ", name: "QQ", width: 180, type: "text", align: "left" },
+         //    //{ display: "昵称", name: "NickName", width: 180, type: "text", align: "left" },
+         //    //{ display: "地址", name: "Address", width: 180, type: "textarea", align: "left" }
+         //];
+
+         ////列表结构
+         //var grid = $("#maingrid").ligerGrid({
+         //    columns: columns, dataAction: 'server', pageSize: 20, toolbar: {},  frozen: false,
+         //    url: rootPath + 'Supplier/GetSupplierForGrid', sortName: 'CreateDate', rowHeight: 25,
+         //    width: '100%', height: '100%', checkbox: true
+         //});
+
+         ////双击事件
+         //LG.setGridDoubleClick(grid, 'Update');
+
+         ////搜索表单应用ligerui样式
+         //$("#formsearch").ligerForm({
+         //    fields: [],
+         //    appendID: false,
+         //    toJSON: JSON2.stringify
+         //});
+
+         ////增加搜索按钮,并创建事件
+         //LG.appendSearchButtons("#formsearch", grid);
+
+         ////加载toolbar
+         //LG.loadToolbar(grid, toolbarBtnItemClick);
+
+         ////工具条事件
+         //function toolbarBtnItemClick(item) {
+         //    switch (item.id) {
+         //        case "Add":
+         //            top.f_addTab(null, '增加供应商信息', rootPath + 'Supplier/Detail');
+         //            break;
+         //        case "Detail":
+         //            var selected = grid.getSelected();
+         //            if (!selected) { LG.tip('请选择行!'); return }
+         //            top.f_addTab(null, '查看供应商信息', rootPath + 'Supplier/Detail?IsView=1&ID=' + selected.Sid);
+         //            break;
+         //        case "Update":
+         //            var selected = grid.getSelected();
+         //            if (!selected) { LG.tip('请选择行!'); return }
+         //            top.f_addTab(null, '修改供应商信息[' + selected.UserName + ']', rootPath + 'Supplier/Detail?ID=' + selected.Sid);
+         //            break;
+         //        case "Delete":
+         //            jQuery.ligerDialog.confirm('确定删除吗?', function (confirm) {
+         //                if (confirm)
+         //                    f_delete();
+         //            });
+
+         //            break;
+         //    }
+         //}
+         //function f_reload() {
+         //    grid.loadData();
+         //}
+         //function f_delete() {
+         //    var selected = grid.getSelected();
+         //    if (selected) {
+         //        LG.ajax({
+         //            url: rootPath + 'Supplier/Delete',
+         //            loading: '正在删除中...',
+         //            data: { ID: selected.Sid },
+         //            success: function () {
+         //                LG.showSuccess('删除成功');
+         //                f_reload();
+         //            },
+         //            error: function (message) {
+         //                LG.showError(message);
+         //            }
+         //        });
+         //    }
+         //    else {
+         //        LG.tip('请选择行!');
+         //    }
+         //}
+  </script>
+}
+   @*  <!--主框架颜色-->
+      <link href=" @Url.Content("~/Content/ligerUI/skins/Aqua/css/ligerui-all.css")" rel="stylesheet" type="text/css" />
+            <link href="@Url.Content("~/Content/ligerUI/skins/Gray/css/all.css")" rel="stylesheet" />
+     <!--当前后台(首页)的样式-->
+     <link href="@Url.Content("~/Content/css/common.css")" rel="stylesheet" type="text/css" />
+       <!--主框架js-->
+    <script src="@Url.Content("~/Scripts/jquery/jquery-1.5.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/ligerUI/js/ligerui.min.js")" type="text/javascript"></script>
+    <!--封装的后台LigerUI友好的各种ajax请求函数-->
+       <script src="@Url.Content("~/Scripts/js/LG.js")" type="text/javascript"></script>
+      <script src="@Url.Content("~/Scripts/js/common.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/js/ligerui.expand.js")" type="text/javascript"></script> 
+    <script src="@Url.Content("~/Content/json2.js")" type="text/javascript"></script>*@
+
+
+ 
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d24b34bc121048049a40a88549b069e3" Name="关系图1" ZoomLevel="58">
+        <EntityTypeShape EntityType="MODEL.FW_AUDIT_RECORD" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_MODULE" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_MODULEPERMISSION" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_OPERATELOG" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_PERMISSION" Width="2" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_ROLE" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_ROLEPERMISSION" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_USER" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.FW_USER_ROLE" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_ARTICLE" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_ATTACHMENTS" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="MODEL.MST_CATALOG" Width="1.5" PointX="11.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_PRD" Width="1.5" PointX="0.75" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_PRD_CATE" Width="1.5" PointX="4.75" PointY="41.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_PRD_IMG" Width="1.5" PointX="15.375" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_SUPPLIER" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.SET_COUNTRY" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.SET_NAVIGATION_ITEM" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.SET_REGION" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.SYS_REF" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_COMPANY" Width="1.5" PointX="3.75" PointY="9.125" />
+        <EntityTypeShape EntityType="MODEL.MST_COMPANY_MEM" Width="1.5" PointX="11.765526512528549" PointY="7.4165395532811713" />
+        <EntityTypeShape EntityType="MODEL.MST_MEMBER" Width="1.5" PointX="2.6343006503927988" PointY="24.915487718263403" />
+        <EntityTypeShape EntityType="MODEL.MST_POSITION" Width="1.5" PointX="6.125" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MODEL.MST_RESUME" Width="1.5" PointX="8.28861873424082" PointY="27.098972482187197" />
+        <EntityTypeShape EntityType="MODEL.MST_RESUME_DTL" Width="2" PointX="5.125" PointY="14.25" />
+        <EntityTypeShape EntityType="MODEL.MST_CATEGORY" Width="1.5" PointX="3" PointY="35.625" />
+        <AssociationConnector Association="MODEL.MST_POSITIONMST_COMPANY" />
+        <AssociationConnector Association="MODEL.FW_MODULEFW_MODULEPERMISSION" />
+        <AssociationConnector Association="MODEL.FW_PERMISSIONFW_MODULEPERMISSION" />
+        <EntityTypeShape EntityType="MODEL.JF_Order" Width="1.5" PointX="10.649694475647852" PointY="21.53048163164895" />
+        <EntityTypeShape EntityType="MODEL.JF_Product" Width="1.5" PointX="1.4696881666172708" PointY="3.3935447649068875" />
+        <EntityTypeShape EntityType="MODEL.TG_Address" Width="1.5" PointX="3.0118129584061974" PointY="11.527504687908806" />
+        <EntityTypeShape EntityType="MODEL.TG_BankCrad" Width="1.5" PointX="7.5" PointY="2.5" />
+        <EntityTypeShape EntityType="MODEL.TG_Car" Width="1.5" PointX="4.68267535636326" PointY="17.424617432721245" />
+        <EntityTypeShape EntityType="MODEL.TG_fenxiaoConfig" Width="1.5" PointX="5.8424455867346587" PointY="27.581347329347089" />
+        <EntityTypeShape EntityType="MODEL.TG_jifenLog" Width="1.5" PointX="11.23454664239406" PointY="7.6066192870990461" />
+        <EntityTypeShape EntityType="MODEL.TG_pic" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MODEL.TG_product" Width="1.5" PointX="1.2200464574713477" PointY="6.0444853035940254" />
+        <EntityTypeShape EntityType="MODEL.TG_productBrand" Width="1.5" PointX="5.5285745046700239" PointY="13.30974154794111" />
+        <EntityTypeShape EntityType="MODEL.TG_productCate" Width="1.5" PointX="6.0983091770197779" PointY="9.2714989675541872" />
+        <EntityTypeShape EntityType="MODEL.TG_productColor" Width="1.5" PointX="14.875" PointY="7.75" />
+        <EntityTypeShape EntityType="MODEL.TG_QD" Width="1.5" PointX="0.015524519614653905" PointY="10.000204359181321" />
+        <EntityTypeShape EntityType="MODEL.TG_redPaperLog" Width="1.5" PointX="4.4832749536648739" PointY="29.307653992114428" />
+        <EntityTypeShape EntityType="MODEL.TG_review" Width="1.5" PointX="8.1980142557052957" PointY="7.0570201012571436" IsExpanded="false" />
+        <EntityTypeShape EntityType="MODEL.TG_SCproduct" Width="1.5" PointX="3.9711235649749286" PointY="8.9790126127093153" />
+        <EntityTypeShape EntityType="MODEL.TG_Thing" Width="1.5" PointX="0.90983051103997525" PointY="21.750719974632709" />
+        <EntityTypeShape EntityType="MODEL.TG_transactionLog" Width="1.5" PointX="10.065215219773918" PointY="26.584853035670172" />
+        <EntityTypeShape EntityType="MODEL.TG_tuihuo" Width="1.5" PointX="4.64518947370592" PointY="8.9977088612493628" />
+        <EntityTypeShape EntityType="MODEL.TG_TXmoney" Width="1.5" PointX="15.375" PointY="16.75" />
+        <EntityTypeShape EntityType="MODEL.TG_wuliu" Width="1.5" PointX="4.4473464900848212" PointY="29.890382870049393" />
+        <EntityTypeShape EntityType="MODEL.YX_Event" Width="1.5" PointX="4.9676903956419274" PointY="12.843325650712162" />
+        <EntityTypeShape EntityType="MODEL.YX_image" Width="1.5" PointX="7.9551953598648284" PointY="26.4946129892462" />
+        <EntityTypeShape EntityType="MODEL.YX_music" Width="1.5" PointX="6.9432694907036012" PointY="14.941421977682701" />
+        <EntityTypeShape EntityType="MODEL.YX_news" Width="1.5" PointX="7.108941338541424" PointY="23.073826442972678" />
+        <EntityTypeShape EntityType="MODEL.YX_sysConfigs" Width="1.5" PointX="1.9756214348485792" PointY="26.647669476758534" />
+        <EntityTypeShape EntityType="MODEL.YX_sysLog" Width="1.5" PointX="1.5955864310244037" PointY="0.24330906581287695" />
+        <EntityTypeShape EntityType="MODEL.YX_sysNews" Width="1.5" PointX="12.125" PointY="27.625" />
+        <EntityTypeShape EntityType="MODEL.YX_text" Width="1.5" PointX="8.2736151163809062" PointY="15.179480291520935" />
+        <EntityTypeShape EntityType="MODEL.YX_video" Width="1.5" PointX="6.3718816835302308" PointY="20.979778433674845" />
+        <EntityTypeShape EntityType="MODEL.YX_voice" Width="1.5" PointX="1.942651721622167" PointY="16.322090841979762" />
+        <EntityTypeShape EntityType="MODEL.YX_weiUser" Width="1.5" PointX="13.25" PointY="26.5" />
+        <EntityTypeShape EntityType="MODEL.YX_weiXinMenus" Width="1.5" PointX="7.4652982370300673" PointY="26.255748358674229" />
+        <EntityTypeShape EntityType="MODEL.TokenConfig" Width="1.5" PointX="0.58133452226469973" PointY="13.669604322719204" />
+        <AssociationConnector Association="MODEL.MST_PRDMST_CATEGORY" />
+        <EntityTypeShape EntityType="MODEL.TG_order" Width="1.5" PointX="6.125" PointY="0.75" />
+        <EntityTypeShape EntityType="MODEL.MST_CAR" Width="1.5" PointX="7.3071358144782188" PointY="30.66298890051571" />
+        <AssociationConnector Association="MODEL.YX_weiUserMST_CAR" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

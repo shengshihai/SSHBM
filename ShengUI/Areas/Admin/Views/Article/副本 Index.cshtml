@@ -1,0 +1,360 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<ipnut type="hidden" id="MenuNo" value="Article" />
+<div id="cc" class="easyui-layout" style="width: 100%; height: 100%;">
+
+    <div data-options="region:'west',title:'文章分类',split:true" style="width: 180px;">
+
+        <div style="padding: 5px;">
+            <ul id="catalogtree"  class="easyui-tree" data-options="fit:true,onClick:menuOnclick,
+                url: rootPath + 'Catalog/GetCatalogTree?' +
+      $.param({
+
+          root: '主菜单',
+          rooticon: '@Url.Content("~/Content/icons/32X32/category.gif")',
+        view: 'Sys_Menu',
+        idfield: '0',
+        pidfield: 'MenuParentNo',
+        textfield: 'text',
+        iconfield: 'MenuIcon',
+        iconroot: '/',
+       
+    }),
+                   
+                   method:'get',
+                   animate:true,
+                   formatter:function(node){
+                   var s = node.text;
+                   if (node.children){
+                       s += '&nbsp;<span style=\'color:blue\'>(' + node.children.length + ')</span>';}return s;}
+                   ">
+            </ul>
+        </div>
+    </div>
+    <div data-options="region:'center',title:'文章信息'" style="">
+
+        <table id="maingrid" class="easyui-datagrid" data-options="rownumbers:true,fit:true,animate: true,pageSize: 20,pagination:true,selectOnCheck:true,checkOnSelect:true,singleSelect:false,onDblClickRow:DblClickRow,idField:'saId',onEndEdit:finishEdit,onBeforeLoad:function(param){editIndex = undefined;isAdd = false;}">
+            <thead>
+                <tr>
+                    <th data-options="field:'ck',checkbox:true"></th>
+                    <th data-options="field:'saId',width:80,hidden:true ">ID</th>
+                    <th data-options="field:'scId',width:80,hidden:true ">scID</th>
+                    <th data-options="field:'saTitle',width:530,align:'left',editor:{type:'validatebox',options:{required:true  }}">文章标题</th>
+                       <th data-options="field:'saPublished',width:180,formatter:function(value){if(value == 1)return '已发布';else return '未发布';}">发布</th>
+                       <th data-options="field:'saCreateDate',width:180">创建时间</th>
+                  
+
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+
+@*    <div id="layout">
+        <div position="left" title="主菜单模块" id="mainmenu">
+            <ul id="maintree">
+            </ul>
+        </div>
+        <div position="center" title="子菜单列表">
+            <form id="mainform">
+            <div id="maingrid" style="margin: 2px;">
+            </div>
+            </form>
+        </div>
+    </div>*@
+
+
+@section backScripts
+{
+    @* <style type="text/css">
+        .l-panel td.l-grid-row-cell-editing
+        {
+            padding-bottom: 2px;
+            padding-top: 2px;
+        }
+    </style>*@
+    <script type="text/javascript">
+
+        var rootPath = '@Url.Content("~/Admin/")';
+        var grid = $("#maingrid");
+        var catalogtree = $("#catalogtree");
+        var SelectCatalogID;
+        function menuOnclick(node) {
+            if (!node || !node.id) return;
+            SelectCatalogID = node.id;
+            //              if (!node.data||!node.data.MenuNo) return;
+            var where = {
+                op: 'and',
+                rules: [{ field: 'scId', value: SelectCatalogID, op: 'equal' }]
+            };
+            currentMenuParentNo = node.MenuNo;
+            grid.datagrid({
+                url: rootPath + 'Article/GetArticleGrid',
+                queryParams: { where: JSON2.stringify(where), ParentId: SelectCatalogID }
+            });
+            //grid.datagrid('reload');
+            //grid.set('parms', { where: JSON2.stringify(where), sortname: 'sort' });
+            //grid.set('url', rootPath + 'Menus/GetMenusGrid');
+
+            editIndex = undefined;
+        }
+
+        //加载toolbar
+        LG.loadToolbar(grid, toolbarBtnItemClick);
+
+        function toolbarBtnItemClick(item) {
+            switch (this.id) {
+                case "Add": beginAdd(); break;
+                case "Update": beginEdit(); break;
+                case "Save": save(); break;
+                case "Cancel": cancel(); break;
+                case "Delete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作只是软删除)?', function (r) {
+                        if (r) {
+                            del();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "MenuButtonConfig":
+                    MenuButtonManage();
+                    break;
+                case "ApprovedMore":
+                    ApprovedMore();
+                    break;
+            }
+        }
+
+
+        //刷新数据
+        function reload() {
+            grid.datagrid('reload');
+        }
+        var editIndex; var isAdd = false;
+        //添加一行
+        function beginAdd() {
+            if(SelectCatalogID==undefined)
+            window.parent.addTab('Article_0', '添加文章信息', rootPath + 'Article/Detail');
+            else
+             window.parent.addTab('Article_0', '添加文章信息', rootPath + 'Article/Detail?scId='+SelectCatalogID);
+
+        }
+        //编辑
+        function beginEdit() {
+
+           
+            var row = grid.datagrid('getSelected');
+            if (row) {
+                editIndex = grid.datagrid('getRowIndex', row);
+                window.parent.addTab('Article_' + row.saId, '修改文章信息[' + row.saTitle + ']', rootPath + 'Article/Detail?ID=' + row.saId);
+            }
+            else {
+                LG.tip('请先选择行');
+            }
+        }
+
+        function del() {
+            var selected = grid.datagrid('getSelected');
+            if (selected) {
+                if (isAdd)
+                {
+                    grid.datagrid('deleteRow', editIndex);
+                    editIndex = undefined;
+                    isAdd = false;
+                    return;
+                }
+                var data = selected;
+               // data.ModuleID = selected.ModuleID;
+                LG.ajax({
+                    url: rootPath + 'Article/Delete',
+                    loading: '正在删除中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        $.messager.alert('提示', '删除成功', 'info');
+                    },
+                    error: function (message) {
+                        $.messager.alert('提示', message, 'error');
+                    }
+                });
+            }
+            else {
+                LG.tip('请选择行!');
+            }
+        }
+        function GetAllCheck() {
+            var Ids = "";
+            var rows = grid.datagrid("getSelections");
+            for (var i = 0, l = rows.length; i < l; i++) {
+
+                Ids += rows[i].saId + ",";
+
+            }
+            return Ids;
+
+        }
+        function ApprovedMore() {
+            var selected = grid.datagrid('getSelections');
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Article/ApprovedMore',
+                    loading: '正在审核中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        grid.datagrid('uncheckAll');
+                        LG.tip('审核成功通过!');
+                    },
+                    error: function (message) {
+                        LG.tip(message);
+                    }
+                });
+            }
+            else {
+                LG.tip('请选择行!');
+            }
+        }
+        function realdelete() {
+            var selected = grid.datagrid('getSelected');
+            if (selected) {
+                if (isAdd) {
+                    grid.datagrid('deleteRow', editIndex);
+                    editIndex = undefined;
+                    isAdd = false;
+                    return;
+                }
+                var data = selected;
+               // data.pId = selected.pId;
+                LG.ajax({
+                    url: rootPath + 'Article/RealDelete',
+                    loading: '正在删除中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        $.messager.alert('提示', '删除成功', 'info');
+                    },
+                    error: function (message) {
+                        $.messager.alert('提示', message, 'error');
+                    }
+                });
+            }
+            else {
+                LG.tip('请选择行!');
+            }
+        }
+        //保存
+        function save() {
+            if (editIndex != undefined) {
+
+                if (grid.datagrid('validateRow', editIndex)) {
+
+                    grid.datagrid('endEdit', editIndex);
+                    editIndex = undefined;
+                    selectController = undefined;
+                }
+                else {
+                    $.messager.alert('错误', '填写的内容或格式有问题', 'error');
+                }
+            }
+            else {
+                LG.tip('现在不在编辑状态!');
+            }
+        }
+        //取消
+        function cancel() {
+            if (editIndex != undefined) {
+                if (isAdd)
+                { grid.datagrid('deleteRow', editIndex); }
+                else
+                {
+                    grid.datagrid('cancelEdit', editIndex);
+                }
+                editIndex = undefined;
+                isAdd = false;
+            }
+            else {
+                LG.tip('现在不在编辑状态!');
+            }
+        }
+        function MenuButtonManage() {
+            if (editIndex != undefined) {
+                grid.datagrid('selectRow', editIndex);
+                LG.tip('请先提交或取消修改');
+                return;
+            }
+            var selected = grid.datagrid('getSelected');
+            if (selected) {
+                if (!selected.MenuNo)
+                    return;
+                else {
+                    LG.ajax({
+
+                        url: rootPath + 'Menus/MenuButtonConfig',
+                        data: { ControllerName: 'MenusButtons', MenuID: selected.ModuleID },
+                        loading: '获取选中菜单权限...',
+                        success: function (data) {
+                            var params = 'controllerName=' + selected.Controller + '&MenuNo=' + data + '&MenuID=' + selected.ModuleID;
+                            window.parent.addTab('MenusButtons_' + selected.ModuleID, '[' + selected.MenuName + ']菜单按钮管理', rootPath + 'MenusButtons/Index?' + params);
+                        },
+                        error: function (message) {
+                            $.messager.alert('提示', message, 'error');
+                        }
+                    });
+
+                }
+            }
+            else
+                LG.tip('请选择行!');
+        }
+        //添加或编辑时需要添加控制器
+        function selectController(rowIndex, rowData) {
+            var ed = grid.datagrid('getEditor', { index: editIndex, field: 'Controller' });
+            $(ed.target).val(rowData.ControllerName);
+            //selectController = rowData.ControllerName;
+
+        }
+        //提交保存
+        function finishEdit(index, rowData, changes) {
+            //if (!selectController)
+            //    selectController = rowData.pControllerName;
+            //if (!rowData.pAreaName)
+            //    rowData.pAreaName = AreaName;
+            //rowData.pControllerName = selectController;
+            LG.ajax({
+                loading: '正在保存数据中...',
+                url: rootPath + 'Menus/' + (isAdd ? "Add" : "Update"),
+                data: rowData,
+                success: function () {
+              
+                    LG.tip('保存成功!');
+                },
+                error: function (message) {
+                    LG.tip(message);
+                }
+            });
+            reload();
+        }
+        function DblClickRow(rowIndex, rowData) {
+
+            if ($(".datagrid-toolbar").find("[id=Update]").html() != undefined)
+            window.parent.addTab('Article_' + rowData.saId, '修改文章信息[' + rowData.saTitle + ']', rootPath + 'Article/Detail?ID=' + rowData.saId);
+        }
+    
+    </script>
+
+}
+

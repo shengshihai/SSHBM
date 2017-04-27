@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{866BB88C-223B-4FBA-AA0A-8C32426B9CD3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\Libs\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AjaxRequestAttribute.cs" />
+    <Compile Include="Attributes\DefaultPageAttribute.cs" />
+    <Compile Include="Attributes\ControllerDescAttribute.cs" />
+    <Compile Include="Attributes\SkipAttribute.cs" />
+    <Compile Include="Attributes\SkipLoginAttribute.cs" />
+    <Compile Include="Attributes\SkipPemissionAttribute.cs" />
+    <Compile Include="Attributes\ViewPageAttribute.cs" />
+    <Compile Include="Attributes\ActionDescAttribute.cs" />
+    <Compile Include="Attributes\ActionParentAttribute.cs" />
+    <Compile Include="ConfigurationHelper.cs" />
+    <Compile Include="Controls\Controls.cs" />
+    <Compile Include="DataHelper.cs" />
+    <Compile Include="DynamicLibrary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EfSearchModel\Binders\SearchModelBinder.cs" />
+    <Compile Include="EfSearchModel\Common\MvcHtmlWrapper.cs" />
+    <Compile Include="EfSearchModel\Extensions\MvcHtmlStringExtension.cs" />
+    <Compile Include="EfSearchModel\Model\ConditionItem.cs" />
+    <Compile Include="EfSearchModel\Model\QueryMethod.cs" />
+    <Compile Include="EfSearchModel\Model\QueryModel.cs" />
+    <Compile Include="EfSearchModel\QueryableSearcher.cs" />
+    <Compile Include="EfSearchModel\TransformProviders\DateBlockTransformProvider.cs" />
+    <Compile Include="EfSearchModel\TransformProviders\InTransformProvider.cs" />
+    <Compile Include="EfSearchModel\TransformProviders\ITransformProvider.cs" />
+    <Compile Include="EfSearchModel\TransformProviders\LikeTransformProvider.cs" />
+    <Compile Include="EfSearchModel\TransformProviders\UnixTimeTransformProvider.cs" />
+    <Compile Include="EfSearchModel\TypeUtil.cs" />
+    <Compile Include="EfSearchModel\UnixTime.cs" />
+    <Compile Include="FileHelper\DirFile.cs" />
+    <Compile Include="FileHelper\DownFile.cs" />
+    <Compile Include="FileHelper\FileOperate.cs" />
+    <Compile Include="FileHelper\FileUpload.cs" />
+    <Compile Include="FileHelper\ImageThumbnailMake.cs" />
+    <Compile Include="FilterHelper\FilterGroup.cs" />
+    <Compile Include="FilterHelper\FilterHelper.cs" />
+    <Compile Include="FilterHelper\FilterParam.cs" />
+    <Compile Include="FilterHelper\FilterRule.cs" />
+    <Compile Include="FilterHelper\FilterTranslator.cs" />
+    <Compile Include="Helper\LogHelper.cs" />
+    <Compile Include="Helper\TypeParser.cs" />
+    <Compile Include="JsonHelper\AjaxResult.cs" />
+    <Compile Include="JsonHelper\FormatToJson.cs" />
+    <Compile Include="JsonHelper\JsonHelper.cs" />
+    <Compile Include="LINQHelper\CommonEqualityComparer.cs" />
+    <Compile Include="LINQHelper\FastPropertyComparer.cs" />
+    <Compile Include="LINQHelper\LINQHelper.cs" />
+    <Compile Include="MessageHelper\FriendlyMessage.cs" />
+    <Compile Include="MVCHelper\FormatJsonExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolsHelper\Base64Provider.cs" />
+    <Compile Include="ToolsHelper\ConvertHelper.cs" />
+    <Compile Include="ToolsHelper\ConvertHtmlPage.cs" />
+    <Compile Include="ToolsHelper\DESProvider.cs" />
+    <Compile Include="ToolsHelper\LogHelper.cs" />
+    <Compile Include="ToolsHelper\MD5Provider.cs" />
+    <Compile Include="ToolsHelper\PageValidate.cs" />
+    <Compile Include="ToolsHelper\PaginationHelper.cs" />
+    <Compile Include="ToolsHelper\RegexHelper.cs" />
+    <Compile Include="ToolsHelper\RegexNormal.cs" />
+    <Compile Include="ToolsHelper\SMTP.cs" />
+    <Compile Include="ToolsHelper\Tools.cs" />
+    <Compile Include="ToolsHelper\TypeHelper.cs" />
+    <Compile Include="ToolsHelper\XMlHelper.cs" />
+    <Compile Include="ToolsHelper\YZMHelper.cs" />
+    <Compile Include="ValidateCode.cs" />
+    <Compile Include="WebHelper\ApplicationCache.cs" />
+    <Compile Include="WebHelper\BindDataControl.cs" />
+    <Compile Include="WebHelper\CacheHelper.cs" />
+    <Compile Include="WebHelper\CookieHelper.cs" />
+    <Compile Include="WebHelper\JScript.cs" />
+    <Compile Include="WebHelper\QueryString.cs" />
+    <Compile Include="WebHelper\RupengPager.cs" />
+    <Compile Include="WebHelper\SecurityCheck.cs" />
+    <Compile Include="WebHelper\SessionHelper.cs" />
+    <Compile Include="WeChatCommon.cs" />
+    <Compile Include="WeChatHelper\CommonMethod.cs" />
+    <Compile Include="WeChatHelper\Js_sdk_Signature.cs" />
+    <Compile Include="WeChatHelper\WeChatTools.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,217 @@
+.wrap{  margin:0 auto; position:relative; text-align:left; width:640px; font-size:24px;}
+body{ background:#f5f5f5; }
+header
+{
+	height:171px;
+	width:640px;
+	background:url(../imgs/img1.jpg) no-repeat;
+	padding-top:37px;
+        padding-bottom: 10px;
+}
+header .thumb
+{
+	float:left;
+	width:80px;
+	height:80px;
+	margin:0px 25px 50px 25px;
+	border:3px solid #90a3ac;
+	border-radius:50%;
+	overflow:hidden;
+}
+header .thumb img
+{
+	width:130px;
+	height:130px;
+}
+header .desc p
+{
+	margin-bottom:10px;
+	font-size:14px;
+	color:#fff;	
+}
+header .desc p span
+{
+	margin-right:10px;
+	color:#f27501;
+}
+header .desc p a
+{
+	display:inline-block;
+	*display:inline;
+	zoom:1;
+	width:115px;
+	height:40px;
+	background:#0076a4;
+	border-radius:20px;
+	text-align:center;
+	line-height:40px;
+	font-size:24px;
+	color:#fff;
+}
+.ucenterBox
+{
+	background:#373a48;
+    margin-top: 20px;
+}
+.ucenterBox .head
+{
+	background:#fff;
+	border-bottom:1px solid #eaeaea;
+	padding:10px 0px;
+	margin-bottom:17px;
+}
+.ucenterBox .head ul li
+{
+	float:left;
+	width:159px;
+	background:url(../imgs/line1.png) no-repeat right center;
+	text-align:center;
+}
+.ucenterBox .head ul li:last-child
+{
+	background:none;
+}
+.ucenterBox .head ul li a
+{
+	display:block;	
+}
+.ucenterBox .head ul li i
+{
+	display:block; height:44px; margin-bottom:10px;
+}
+.ucenterBox .head ul li i.n1
+{
+	width:38px;
+	margin-left:62px;
+	background:url(../imgs/icons3.png) no-repeat 0px 0px;	
+}
+.ucenterBox .head ul li i.n2
+{
+	width:36px;
+	margin-left:62px;
+	background:url(../imgs/icons3.png) no-repeat -40px 0px;	
+}
+.ucenterBox .head ul li i.n3
+{
+	width:44px;
+	margin-left:56px;
+	background:url(../imgs/icons3.png) no-repeat -77px 0px;	
+}
+.ucenterBox .head ul li i.n4
+{
+	width:44px;
+	margin-left:55px;
+	background:url(../imgs/icons3.png) no-repeat -124px 0px;	
+}
+.ucenterBox .head ul li strong
+{
+	display:block;
+	font-size:22px;
+	color:#757575;	
+}
+.ucenterBox .head ul li a:hover i.n1
+{
+	width:38px;
+	background:url(../imgs/icons3.png) no-repeat 0px -46px;	
+}
+.ucenterBox .head ul li a:hover i.n2
+{
+	width:36px;
+	background:url(../imgs/icons3.png) no-repeat -40px -46px;	
+}
+.ucenterBox .head ul li a:hover i.n3
+{
+	width:44px;
+	background:url(../imgs/icons3.png) no-repeat -77px -44px;	
+}
+.ucenterBox .head ul li a:hover i.n4
+{
+	width:44px;
+	background:url(../imgs/icons3.png) no-repeat -124px -46px;	
+}
+.ucenterBox .head ul li a:hover strong
+{
+	color:#f27501;	
+}
+.ucenterBox .body
+{
+	padding:0px 1px;
+}
+.ucenterBox .body ul
+{
+	margin-bottom:17px;
+	background:#373a48;
+}
+.ucenterBox .body ul li
+{
+
+	border-radius:5px;
+	background:url(../imgs/arrow.png) no-repeat 342px center;
+	padding:8px 0px;
+	margin-top:-1px;
+}
+.ucenterBox .body ul li a
+{
+	display:block;	
+}
+.ucenterBox .body ul li p
+{
+	padding-left:65px;
+	font-size:18px;
+	color:#e3e3e3;
+}
+.ucenterBox .body ul li.ico1 p
+{
+	height:32px;
+	background:url(../imgs/icons4.png) no-repeat 20px 0px;
+}
+.ucenterBox .body ul li.ico2 p
+{
+	height:36px;
+	background:url(../imgs/icons4.png) no-repeat 20px -32px;
+}
+.ucenterBox .body ul li.ico3 p
+{
+	height:33px;
+	background:url(../imgs/icons4.png) no-repeat 20px -68px;
+}
+.ucenterBox .body ul li.ico4 p
+{
+	height:27px;
+	background:url(../imgs/icons4.png) no-repeat 20px -101px;
+}
+.ucenterBox .body ul li.ico5 p
+{
+	height:32px;
+	background:url(../imgs/icons4.png) no-repeat 20px -129px;
+}
+.ucenterBox .body ul li.ico6 p
+{
+	height:35px;
+	background:url(../imgs/icons4.png) no-repeat 20px -161px;
+}
+.ucenterBox .body ul li.ico7 p
+{
+	height:33px;
+	background:url(../imgs/icons4.png) no-repeat 20px -194px;
+}
+.ucenterBox .body ul li.ico8 p
+{
+	height:33px;
+	background:url(../imgs/icons4.png) no-repeat 20px -228px;
+}
+.ucenterBox .body ul li.ico9 p
+{
+	height:34px;
+	background:url(../imgs/icons4.png) no-repeat 20px -261px;
+}
+.ucenterBox .body ul li.ico10 p
+{
+	height:32px;
+	background:url(../imgs/icons4.png) no-repeat 20px -294px;
+}
+.ucenterBox .body ul li.ico11 p
+{
+	height:32px;
+	background:url(../imgs/icons4.png) no-repeat 20px -327px;
+}

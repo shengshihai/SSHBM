@@ -1,0 +1,462 @@
+﻿@model MODEL.ViewModel.VIEW_TG_order
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+<script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+@section scripts
+{
+
+    <style type="text/css">
+        .b2 {
+            width: 40px;
+            height: 13px;
+            border-left: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            margin: -2px 10px 0px 37px;
+            float: left;
+        }
+
+        .c2 a:hover {
+            color: #ff6600;
+        }
+
+        .c3 {
+            padding-left: 17px;
+            background: url(/content/back/images/icon_sec.gif) 0 1px no-repeat;
+            margin-left: 10px;
+            color: #ff6600;
+        }
+
+            .c3 a {
+                color: #ff6600;
+                text-decoration: none;
+            }
+
+                .c3 a:hover {
+                    text-decoration: underline;
+                }
+
+        .b3 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_fir.gif) no-repeat;
+        }
+
+        .b4 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_sec.gif) no-repeat;
+        }
+
+        .b5 {
+            width: 40px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/third.gif) no-repeat;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+
+        $(document).ready(function () {
+
+
+            $('#CATE_ID').select2({
+                debug: true,
+                width: '292px',
+                //ajax: {
+                //    url: "/admin/menus/GetMenusForSelect",
+                //    dataType: 'json',
+                //    type: 'POST',
+                //    data: function (term, page) {
+                //        return {
+                //            search: term,
+                //            page: page || 1
+                //        }
+                //    },
+                //    results: function (bond, page) {
+                //        return { results: bond}
+                //    },
+                //    cache: true
+                //},
+                //formatResult: formatResult,
+                // formatSelection: formatLevel2,
+                templateResult: formatLevel,
+                templateSelection: formatSelection
+            })
+            $('#MODULE_CONTROLLER').select2({
+                debug: true,
+                //ajax: {
+                //    url: "/admin/menus/GetAllController",
+                //    dataType: 'json',
+                //    type: 'POST',
+                //    data: function (term, page) {
+                //        return {
+                //            search: term,
+                //            page: page || 1
+                //        }
+                //    },
+                //    results: function (bond, page) {
+                //        return { results: bond}
+                //    },
+                //    cache: true
+                //},
+                //initSelection: function (element, callback) {//初始化函数
+                //    var id = $(element).val();//绑定的元素
+                //    if (id != "") {
+                //        $.ajax("admin/menus/GetAllController", {
+                //            data: { dynamicPageId: id },//ID
+                //            dataType: "json"
+                //        }).done(function (data) {
+                //            callback(data[0]);
+                //        });
+                //    }
+                //},
+                //formatResult: formatResult,
+                //formatSelection: formatSelection,
+                // templateResult: formatResult,
+                //templateSelection: formatResult
+            })
+            $("#ICON").select2({
+                templateResult: select2icon,
+                templateSelection: select2icon
+            });
+
+
+
+        });
+        function select2icon(state) {
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(
+              '<span><i class=' + state.text + '></i> .' + state.text + '</span>'
+            );
+            return $state;
+        };
+        function formatResult(state) {
+            //  alert(state.text);
+            if (!state.id) { return state.text; }
+            var $state = $(
+              '<div class="select2-user-result"><span  class="' + state.style + '"></span> ' + state.text + '</div>'
+            );
+            return $state;
+        };
+        function formatLevel(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text);
+            return $state;
+        };
+        function formatSelection(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text).text();
+            return $state;
+        };
+
+    </script>
+}
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='page-header'>
+
+                <h1 class='pull-left'>
+
+                    <i class='icon-money'></i>
+
+                    <span>订单详细</span>
+
+                    <span class='muted'></span>
+
+                </h1>
+
+                @*<div class='pull-right'>
+
+                    <div class='btn-group'>
+
+                        <a href="#" class="btn"><i class='icon-print'></i>
+
+                            
+
+                        </a>
+
+                        <a href="#" class="btn btn-success"><i class='icon-ok'></i>
+
+                            Mark as paid
+
+                        </a>
+
+                    </div>
+
+                </div>*@
+
+            </div>
+
+            <div class='row-fluid invoice'>
+
+                <div class='span12 box'>
+
+                    <div class='box-content box-double-padding'>
+
+                        <div class='row-fluid'>
+
+                            <div class='invoice-header'>
+
+                                <div class='invoice-title'>
+                                    @Model.orderNum
+
+                                    <span class='muted'>.</span>
+
+                                </div>
+
+                                <div class='invoice-number'>
+
+                                    <div class="pull-right">
+                                        @if (Model.ispay == 0)
+                                        {
+                                            <a class="btn btn-warning" href="#">待支付</a>
+                                        }
+                                        else if (Model.ispay == 1)
+                                        {
+                                            <a class="btn btn-warning" href="#">处理中</a>
+                                        }
+                                        else if (Model.ispay == 2)
+                                        {
+                                            <a class="btn btn-danger" href="#">作废</a>
+                                        }
+                                        else if (Model.ispay == 3)
+                                        {
+                                            <a class="btn btn-success" href="#">已支付</a>
+                                        }
+
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class='row-fluid'>
+
+                            <div class='span4 seller'>
+
+                                <div class='lead text-contrast'>客户</div>
+
+                                <i class='icon-globe'></i>
+
+                                <address>
+
+                                    <strong>@Model.userName
+
+                                    </strong>
+
+                                    <br />
+                                    <br />
+
+                                    <small>@Model.UserTel</small>
+
+                                </address>
+
+                            </div>
+
+                            <div class='span4 buyer'>
+
+                                <div class='lead text-contrast'>公司</div>
+
+                                <i class='icon-globe'></i>
+
+                                <address>
+
+                                    <strong>@Model.remark2</strong>
+
+                                    <br />
+
+                                    <br />
+                                    <small>
+                                        @Model.UserAddress  </small>
+
+                                    <br />
+                                </address>
+
+
+                                <br />
+
+                                <br />
+
+
+                            </div>
+
+                            <div class='span4 info'>
+
+                                <div class='lead muted'>信息</div>
+
+                                下单时间:
+
+                    <strong>@Model.orderTime</strong>
+
+                                <br />
+
+                                预约时间:
+
+                    <strong>@(Model.years)-@(Model.remark4 + "  " + Model.remark5)</strong>
+
+
+                                <br />
+
+                                支付时间:
+
+                    <strong>@(Model.payTime)</strong>
+                            </div>
+
+                        </div>
+
+                        <div class='row-fluid'>
+
+                            <div class='span12'>
+
+                                <div class='responsive-table'>
+
+                                    <div class='scrollable-area'>
+
+                                        <table class='table table-striped table-hover table-bordered'>
+
+                                            <thead>
+
+                                                <tr>
+
+                                                    <th>项目ID</th>
+
+                                                    <th>项目名称</th>
+
+                                                    <th>
+
+                                                        <div class='text-center'>数量</div>
+
+                                                    </th>
+                                                    <th>
+
+                                                        <div class='text-right'>预付</div>
+
+                                                    </th>
+                                                    <th>
+
+                                                        <div class='text-right'>单价</div>
+
+                                                    </th>
+
+                                                    <th>
+
+                                                        <div class='text-right'>总价格</div>
+
+                                                    </th>
+
+                                                </tr>
+
+                                            </thead>
+
+                                            <tbody>
+
+                                                <tr>
+
+                                                    <td>@Model.ThingNum</td>
+
+                                                    <td>@Model.remark1</td>
+
+                                                    <td>
+
+                                                        <div class='text-center'>1</div>
+
+                                                    </td>
+
+                                                    <td>
+
+                                                        <div class='text-right'>￥@Model.yunPrice</div>
+
+                                                    </td>
+
+                                                    <td>
+
+                                                        <div class='text-right'>￥@Model.total_fee</div>
+
+                                                    </td>
+                                                    <td>
+
+                                                        <div class='text-right'>￥@Model.total_fee</div>
+
+                                                    </td>
+                                                </tr>
+
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <hr class='hr-normal' />
+
+                        <div class='row-fluid'>
+
+                            <div class='span12'>
+
+                                <div class='text-right text-contrast subtotal'>
+
+
+                                    <h3 class="subtotal contrast">(预付: ￥@Model.yunPrice)</h3>
+                                    ￥@Model.total_fee
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class='row-fluid'>
+
+                            <div class='span12'>
+
+                                <div class='well comment'>
+                                    Aspernatur quas voluptatem nostrum beatae tenetur maiores.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

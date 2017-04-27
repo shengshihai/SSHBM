@@ -1,0 +1,465 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>科技宝</title>
+    <link href="/Content/H444/styles/style.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H444/styles/framework.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H444/styles/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H444/styles/owl.theme.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H444/styles/swipebox.css" rel="stylesheet" type="text/css">
+    <link href="/Content/H444/styles/colorbox.css" rel="stylesheet" type="text/css">
+    @*    <link href="~/Content/H444/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />*@
+    <!--<link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">-->
+    <script src="/Content/H444/scripts/jquery-1.7.1.js"></script>
+    <script src="~/Content/H444/scripts/jquery-ui-1.8.20.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/jquery.swipebox.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/colorbox.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/snap.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/contact.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/custom.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/framework.js"></script>
+    <script type="text/javascript" src="/Content/H444/scripts/framework.launcher.js"></script>
+
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        /***** Coming Soon *****/
+
+        .coming-soon {
+            margin: 0 auto;
+            text-align: center;
+            color: #fff;
+        }
+
+        .inner-bg {
+            padding: 55px 0 60px 0;
+            background: url(../img/pattern-3.png);
+            -moz-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3) inset;
+            -webkit-box-shadow: 0 1px 5px 0 rgba(0,0,0,.3) inset;
+            box-shadow: 0 1px 5px 0 rgba(0,0,0,.3) inset;
+        }
+
+        .coming-soon h2 {
+            font-size: 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0 1px 7px rgba(0,0,0,.2);
+        }
+
+        .coming-soon p {
+            margin-top: 20px;
+            font-size: 18px;
+            line-height: 36px;
+            text-shadow: 0 1px 7px rgba(0,0,0,.2);
+        }
+
+        .timer {
+            /*margin-top: 40px;*/
+            text-shadow: 0 1px 5px rgba(0,0,0,.1);
+        }
+
+            .timer .days-wrapper,
+            .timer .hours-wrapper,
+            .timer .minutes-wrapper,
+            .timer .seconds-wrapper {
+                display: inline-block;
+                width: 160px;
+                height: 140px;
+                margin: 0 10px;
+                padding-top: 20px;
+                background: #2d2d2d; /* browsers that don't support rgba */
+                background: rgba(45,45,45,.7);
+                font-size: 18px;
+                -moz-border-radius: 80px;
+                -webkit-border-radius: 80px;
+                border-radius: 80px;
+            }
+
+                .timer .days-wrapper:hover,
+                .timer .hours-wrapper:hover,
+                .timer .minutes-wrapper:hover,
+                .timer .seconds-wrapper:hover {
+                    background: #e75967 url(../img/pattern-2.png);
+                    text-shadow: none;
+                }
+
+            .timer .days,
+            .timer .hours,
+            .timer .minutes,
+            .timer .seconds {
+                font-size: 80px;
+                line-height: 90px;
+            }
+
+        /***** Media Queries *****/
+
+        @@media (min-width: 768px) and (max-width: 979px) {
+
+            .logo h1 {
+                padding-left: 0;
+            }
+
+            .call-us p {
+                padding-right: 0;
+            }
+
+            .timer .days-wrapper,
+            .timer .hours-wrapper,
+            .timer .minutes-wrapper,
+            .timer .seconds-wrapper {
+                width: 140px;
+                height: 120px;
+                margin: 0 7px;
+                padding-top: 20px;
+                -moz-border-radius: 70px;
+                -webkit-border-radius: 70px;
+                border-radius: 70px;
+            }
+
+            .timer .days,
+            .timer .hours,
+            .timer .minutes,
+            .timer .seconds {
+                font-size: 60px;
+                line-height: 70px;
+            }
+        }
+
+        @@media (max-width: 767px) {
+
+            body {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .logo h1 {
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .call-us {
+                padding-bottom: 7px;
+                text-align: center;
+            }
+
+                .call-us p {
+                    padding-right: 0;
+                }
+
+            .inner-bg {
+                padding: 45px 0 50px 0;
+            }
+
+            .coming-soon h2 {
+                font-size: 36px;
+                padding: 0 20px;
+            }
+
+            .coming-soon p {
+                padding: 0 20px;
+            }
+
+            .timer .days-wrapper,
+            .timer .hours-wrapper,
+            .timer .minutes-wrapper,
+            .timer .seconds-wrapper {
+                width: 100px;
+                height: 100px;
+                margin: 7px;
+                padding-top: 20px;
+                -moz-border-radius: 70px;
+                -webkit-border-radius: 70px;
+                border-radius: 70px;
+            }
+
+            .timer .days,
+            .timer .hours,
+            .timer .minutes,
+            .timer .seconds {
+                font-size: 30px;
+                line-height: 44px;
+                padding-left: 30px;
+            }
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <div id="preloader">
+        <div id="status">
+            <p class="center-text">
+                Loading the content...
+            <em>Loading depends on your connection speed!</em>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="all-elements">
+        <div id="sidebar" class="page-sidebar">
+            <div class="page-sidebar-scroll">
+                <div class="sidebar-section">
+                    <p>科技宝</p>
+                    <a href="#" class="sidebar-close"></a>
+                </div>
+                <div class="sidebar-header">
+                    <a href="index.html" class="sidebar-logo"></a>
+                    <a href="" class="facebook-sidebar"></a>
+                    <a href="" class="twitter-sidebar"></a>
+                </div>
+
+                <div class="navigation-items">
+                    <div class="nav-item">
+                        <a href="index.html" class="home-nav">Home<em class="selected-nav"></em></a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="features-nav submenu-deploy">Features<em class="dropdown-nav"></em></a>
+                        <div class="nav-item-submenu">
+                            <a href="intro.html">Introduction	 <em class="unselected-sub-nav"></em></a>
+                            <a href="type.html">Typography		  <em class="unselected-sub-nav"></em></a>
+                            <a href="jquery.html">jQuery			<em class="unselected-sub-nav"></em></a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="media-nav submenu-deploy">Media<em class="dropdown-nav"></em></a>
+                        <div class="nav-item-submenu">
+                            <a href="widefolio.html">Wide Portfolio	 		  <em class="unselected-sub-nav"></em></a>
+                            <a href="onefolio.html">1 Column folio	  	  	   <em class="unselected-sub-nav"></em></a>
+                            <a href="twofolio.html">2 columns folio			   <em class="unselected-sub-nav"></em></a>
+                            <a href="threefolio.html">3 columns folio			 <em class="unselected-sub-nav"></em></a>
+                            <a href="gallery.html">Thumbnail Gallery			<em class="unselected-sub-nav"></em></a>
+                            <a href="videos.html">Responsive Video			 <em class="unselected-sub-nav"></em></a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <img style="width: 80px" />
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="close-nav">Close<em class="unselected-nav"></em></a>
+                    </div>
+                    <div class="sidebar-decoration"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <p>Get social</p>
+                    <a href="#" class="sidebar-social"></a>
+                </div>
+                <div class="navigation-items">
+                    <div class="nav-item">
+                        <a href="../../../../www.facebook.com/enabled.labs" class="facebook-nav">Facebook<em class="link-nav"></em></a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="../../../../https@twitter.com/iEnabled" class="twitter-nav">Twitter<em class="link-nav"></em></a>
+                    </div>
+                    <div class="sidebar-decoration"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <p>Page Updates</p>
+                    <a href="#" class="sidebar-updates"></a>
+                </div>
+                <div class="sidebar-notifications">
+                    <div class="sidebar-red">
+                        <h3>Update title one</h3>
+                        <p>Something interesting you'd like to say?</p>
+                    </div>
+                    <div class="sidebar-decoration"></div>
+                    <div class="sidebar-green">
+                        <h3>Update title one</h3>
+                        <p>Something interesting you'd like to say?</p>
+                    </div>
+                    <div class="sidebar-decoration"></div>
+                    <div class="sidebar-blue">
+                        <h3>Update title one</h3>
+                        <p>Something interesting you'd like to say?</p>
+                    </div>
+                    <div class="sidebar-decoration"></div>
+                    <div class="sidebar-yellow">
+                        <h3>Update title one</h3>
+                        <p>Something interesting you'd like to say?</p>
+                    </div>
+                    <div class="sidebar-decoration"></div>
+                </div>
+
+                <div class="sidebar-section copyright-sidebar">
+                    <p>Copyright 2013. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="content" class="page-content">
+            <div class="page-header">
+                <a href="#" class="deploy-sidebar"></a>
+                <p class="bread-crumb">welcome</p>
+                <img src="@ViewBag.headimgurl" style="    position: relative;
+    right: 0px;
+    top: 0px;
+    z-index: 999;
+    background-size: 18px 12px;
+    background-repeat: no-repeat;
+    background-position: 12px 18px;
+    width: 50px;
+    height: 50px;
+    float: right;
+    margin-top: -50px;" />
+            </div>
+            <div class="content-header">
+                <div class="formFieldWrap row-fluid">
+                    <div class="span1">
+                        <input type="number" id="log" name="number" value="0" style="font-size: 24px;" pattern="[0-9]*" class="contactField requiredField requiredEmailField">
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+
+                <div class="container no-bottom">
+                    <table cellspacing="0" class="table">
+                        <tbody>
+                            <tr>
+                                <td class="table-sub-title">ONE</td>
+                                <td id="td_1" class="table-sub-title">0</td>
+
+                            </tr>
+                            <tr class="even">
+                                <td class="table-sub-title">TWO</td>
+                                <td id="td_2" class="table-sub-title">0</td>
+
+                            </tr>
+                            <tr>
+                                <td class="table-sub-title">THREE</td>
+                                <td id="td_3" class="table-sub-title">0</td>
+
+                            </tr>
+                            <tr class="even">
+                                <td class="table-sub-title">FOUR</td>
+                                <td id="td_4" class="table-sub-title">0</td>
+
+                            </tr>
+                            <tr>
+                                <td class="table-sub-title">AVG</td>
+                                <td id="td_5" class="table-sub-title">0</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container no-bottom">
+                    <div style="margin: auto; width: 225px;">
+                        <button type="button" id="box" class=" box button button-red" style="width: 222px; height: 222px; border-radius: 220px;"></button>
+                    </div>
+                </div>
+                <div class="container">
+                    <a href="#" class="next-quote"></a>
+                    <a href="#" class="prev-quote"></a>
+                    <div class="quote-slider" data-snap-ignore="true">
+                        <div>
+                            <div class="services-item">
+
+                                <a href="javascript:void(0)" class="button button-blue center-button" onclick="save()">记录</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="services-item">
+
+                                <a href="javascript:void(0)" class="button button-dark center-button" onclick="count()">计算</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="services-item">
+
+                                <a href="#" class="button button-orange center-button">下一步</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="decoration"></div>
+
+                <div class="content-footer">
+                    <p class="copyright-content">
+                        Copyright 2013.<br>
+                        All rights reserved
+                    </p>
+                    <a href="#" class="go-up-footer"></a>
+                    <a href="#" class="facebook-footer"></a>
+                    <a href="#" class="twitter-footer"></a>
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="http://s0.qhimg.com/!94c424ee/monoevent.js"></script>
+    <script>
+        var j = 1;
+        (function () {
+
+            var ne = MonoEvent,
+                $box = ne('#box'),
+                $btn = ne('#btn'),
+                log = document.getElementById('log');
+
+            $box.on('touchstart', function () {
+                if (j == 1) {
+                    for (var i = 1; i < 5; i++) {
+                        document.getElementById('td_' + i).innerHTML = parseInt(0);
+                    }
+                    document.getElementById('td_5').innerHTML = 0;
+                }
+                log.value = (parseInt(log.value) + 1);
+            });
+
+            $btn.one('click', function () {
+                $box.un('touchstart');
+            });
+
+        })();
+        function save() {
+            if (log.value == 0)
+                return;
+            if (j > 5)
+                j = 1;
+            document.getElementById('td_' + j).innerHTML = parseInt(log.value);
+            j++;
+            log.value = 0;
+        }
+        function count() {
+            var n = 0;
+            var count = 0;
+            for (var i = 1; i < 5; i++) {
+                var m = parseInt(document.getElementById('td_' + i).innerHTML);
+                if (m > 0) {
+                    count += m;
+                    n++;
+                }
+            }
+            document.getElementById('td_5').innerHTML = (count / n).toFixed(2);
+            j = 1;
+        }
+    </script>
+</body>
+</html>

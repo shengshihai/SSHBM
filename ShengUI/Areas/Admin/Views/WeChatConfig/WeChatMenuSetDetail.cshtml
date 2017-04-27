@@ -1,0 +1,457 @@
+﻿@model MODEL.ViewModel.VIEW_YX_MenusMsg
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+<script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+@section scripts
+{
+
+    <style type="text/css">
+        .b2 {
+            width: 40px;
+            height: 13px;
+            border-left: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            margin: -2px 10px 0px 37px;
+            float: left;
+        }
+
+        .c2 a:hover {
+            color: #ff6600;
+        }
+
+        .c3 {
+            padding-left: 17px;
+            background: url(/content/back/images/icon_sec.gif) 0 1px no-repeat;
+            margin-left: 10px;
+            color: #ff6600;
+        }
+
+            .c3 a {
+                color: #ff6600;
+                text-decoration: none;
+            }
+
+                .c3 a:hover {
+                    text-decoration: underline;
+                }
+
+        .b3 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_fir.gif) no-repeat;
+        }
+
+        .b4 {
+            width: 90px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/sec_sec.gif) no-repeat;
+        }
+
+        .b5 {
+            width: 40px;
+            height: 21px;
+            float: left;
+            margin-right: 5px;
+            margin-left: 37px;
+            background: url(/content/back/images/third.gif) no-repeat;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+        var msgType = "@ViewBag.TYPE";
+        $(document).ready(function () {
+
+            
+            $(".Event_Type").change(function () {
+                var Event_Type = $(".Event_Type  option:selected").val();
+                if (Event_Type == 1) {
+                    $("#NewsForm").hide();
+                    $("#MsgForm").show();
+                } else if (Event_Type == 2) {
+                    $("#NewsForm").show();
+                    $("#MsgForm").hide();
+                }
+                $(".Event_Type2").get(0).selectedIndex = 1;
+            });
+            $(".Event_Type2").change(function () {
+                var Event_Type = $(".Event_Type2  option:selected").val();
+                if (Event_Type == 1) {
+                    $("#NewsForm").hide();
+                    $("#MsgForm").show();
+                } else if (Event_Type == 2) {
+                    $("#NewsForm").show();
+                    $("#MsgForm").hide();
+                }
+                $(".Event_Type").get(0).selectedIndex = 2;
+            });
+            if (msgType == 1) {
+                $("#NewsForm").hide();
+                $("#MsgForm").show();
+            } else if (msgType == 2) {
+               $("#NewsForm").show();
+               $("#MsgForm").hide();
+            }
+        });
+        function select2icon(state) {
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(
+              '<span><i class=' + state.text + '></i> .' + state.text + '</span>'
+            );
+            return $state;
+        };
+        function formatResult(state) {
+            //  alert(state.text);
+            if (!state.id) { return state.text; }
+            var $state = $(
+              '<div class="select2-user-result"><span  class="' + state.style + '"></span> ' + state.text + '</div>'
+            );
+            return $state;
+        };
+        function formatLevel(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text);
+            return $state;
+        };
+        function formatSelection(state) {
+            //  alert(state.text);
+            if (state.id == undefined) { return state.id; }
+            if (state.id == "") { return state.text; }
+            var $state = $(state.text).text();
+            return $state;
+        };
+
+    </script>
+}
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+
+                        <h1 class='pull-left'>
+
+                            <i class='icon-ok'></i>
+
+                            <span>Validations</span>
+
+                        </h1>
+
+                        <div class='pull-right'>
+
+                            <ul class='breadcrumb'>
+
+                                <li>
+
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+
+                                    </a>
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li>Forms
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li class='active'>Validations</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='row-fluid'>
+
+                <div class='span12 box'>
+
+                    <div class='box-header blue-background'>
+
+                        <div class='title'>Basic validations</div>
+
+                        <div class='actions'>
+
+                            <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                            </a>
+
+                            <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class='box-content'>
+
+                        @*                        <form class='form form-horizontal' style='margin-bottom: 0;' >*@
+                        @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url =  "/Admin/WeChatConfig/WeChatMenuSet" ,
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg",
+                            OnBegin = "OnBeginSubmit"
+
+                        }, new { id = "NewsForm", @class = "form form-horizontal" }))
+                        {
+                            
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_date'>消息类型 </label>
+
+                                <div class='controls'>
+                                    <div class='row-fluid'>
+
+                                        <div class='span6'>
+
+                                            <div class='row-fluid'>
+                                                 @Html.HiddenFor(m=>m.MID)
+                                                @Html.HiddenFor(m=>m.Event_ID)
+                                                @Html.HiddenFor(m=>m.EventCate)
+                                                @Html.DropDownListFor(m => m.Event_Type, ViewBag.WX_NewsTypes as List<SelectListItem>, new { @class = "Event_Type" })
+                                                @Html.ValidationMessageFor(m => m.Event_Type)
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            
+                            
+
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">图文标题</label>
+
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.NewsTitle, new { @placeholder = "图文标题" })
+                                    @Html.ValidationMessageFor(m => m.NewsTitle)
+
+                                </div>
+
+                            </div>
+                                <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">图文描述</label>
+
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextAreaFor(m => m.NewsDescription, new { @placeholder = "图文描述" })
+                                    @Html.ValidationMessageFor(m => m.NewsDescription)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">图片地址</label>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.NewsPicUrl, new { @placeholder = "图片地址" })
+                                    @Html.ValidationMessageFor(m => m.NewsPicUrl)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">图文链接</label>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.NewsUrl, new { @placeholder = "图文链接" })
+                                    @Html.ValidationMessageFor(m => m.NewsUrl)
+
+                                </div>
+
+                            </div>
+                            <div class='form-actions' style='margin-bottom: 0'>
+
+                                <button class='btn btn-large' type='button' onclick="Jump('/admin/WeChatConfig/WeChatMenus')">
+
+                                    <i class='icon-mail-reply '></i>
+
+                                    返回
+
+                                </button>
+                                <button class='btn btn-primary btn-large' type='submit'>
+
+                                    <i class='icon-save '></i>
+
+                                    保存
+
+                                </button>
+
+                            </div>
+
+                        }
+                           @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url = "/Admin/WeChatConfig/WeChatMenuSet",
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg",
+                            OnBegin = "OnBeginSubmit"
+
+                        }, new { id = "MsgForm", @class = "form form-horizontal" }))
+                        {
+                            
+                            <div class='control-group'>
+
+                                <label class='control-label' for='validation_date'>消息类型</label>
+
+                                <div class='controls'>
+                                    <div class='row-fluid'>
+
+                                        <div class='span6'>
+
+                                            <div class='row-fluid'>
+                                                    @Html.HiddenFor(m=>m.MID)
+                                                @Html.HiddenFor(m=>m.Event_ID)
+                                                @Html.HiddenFor(m=>m.EventCate)
+                                                @Html.DropDownListFor(m => m.Event_Type, ViewBag.WX_NewsTypes as List<SelectListItem>, new { @class = "Event_Type2" })
+                                                @Html.ValidationMessageFor(m => m.Event_Type)
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            
+                            
+
+                            
+                                <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">文本内容</label>
+
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextAreaFor(m => m.MsgContent, new { @placeholder = "文本内容" })
+                                    @Html.ValidationMessageFor(m => m.MsgContent)
+
+                                </div>
+
+                            </div>
+                            
+                            
+                            <div class='form-actions' style='margin-bottom: 0'>
+
+                                <button class='btn btn-large' type='button' onclick="Jump('/admin/WeChatConfig/WeChatMenus')">
+
+                                    <i class='icon-mail-reply '></i>
+
+                                    返回
+
+                                </button>
+                                <button class='btn btn-primary btn-large' type='submit'>
+
+                                    <i class='icon-save '></i>
+
+                                    保存
+
+                                </button>
+
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='group-header'>
+
+                <div class='row-fluid'>
+
+                    <div class='span6 offset3'>
+
+                        <div class='text-center'>
+
+                            <h2>Custom methods</h2>
+
+                            <small class='muted'>You can easily add your own validation methods. These validations are pretty easy to extend.</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+      
+
+        </div>
+
+    </div>
+
+</div>

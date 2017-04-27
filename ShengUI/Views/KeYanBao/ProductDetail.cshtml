@@ -1,0 +1,342 @@
+﻿@model MODEL.ViewModel.VIEW_TG_product
+@{
+    ViewBag.Title = "ProductDetail";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1.0" />
+    <link href="~/Content/KeYanBao/mycss/common.css" rel="stylesheet" />
+    <link href="~/Content/KeYanBao/mycss/category.css" rel="stylesheet" />
+    <link href="~/Content/KeYanBao/mycss/products.css" rel="stylesheet" />
+    <link href="~/Content/KeYanBao/mycss/detail.css" rel="stylesheet" />
+    <script src="~/Content/KeYanBao/js/jquery-1.11.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <title>聚财久玖</title>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        var dataForWeixin = {
+            appId: "<%=Appid %>",
+            MsgImg: "http://mmbiz.qpic.cn/mmbiz/aCEJh8QUibicnBtrSyjzJM7zKH9T9huibEwUoFhS3hsqiaZSe1LKgjy4h6SG9xeo5hcWc0fuzo3RsmKZCpBA7NJVIg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            TLImg: "http://mmbiz.qpic.cn/mmbiz/aCEJh8QUibicnBtrSyjzJM7zKH9T9huibEwUoFhS3hsqiaZSe1LKgjy4h6SG9xeo5hcWc0fuzo3RsmKZCpBA7NJVIg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1",
+            url: "<%=Uri %>fenxiao/userHome/erweima.aspx?userid=<%=userid %>",
+            title: "小伙伴们，我为聚财久玖旗舰店代言，我通过聚财久玖赚钱，小伙伴们，你还等什么呢？赶快关注，注册成老板吧~",
+            desc: "小伙伴们，我为聚财久玖旗舰店代言，我通过聚财久玖赚钱，小伙伴们，你还等什么呢？赶快关注，注册成老板吧~",
+            timestamp: '<%=timestamp%>',
+            nonceStr: '<%=noncestr%>',
+            signature: '<%=JssdkSignature%>',
+            jsApiList: ['checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'],
+            fakeid: "",
+            callback: function () { }
+        };
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: dataForWeixin.appId, // 必填，公众号的唯一标识
+            timestamp: dataForWeixin.timestamp, // 必填，生成签名的时间戳
+            nonceStr: dataForWeixin.nonceStr, // 必填，生成签名的随机串
+            signature: dataForWeixin.signature, // 必填，签名，见附录1
+            jsApiList: dataForWeixin.jsApiList  // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            //在此输入各种API
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: dataForWeixin.title, // 分享标题
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.MsgImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //分享给朋友
+            wx.onMenuShareAppMessage({
+                title: dataForWeixin.title, // 分享标题
+                desc: dataForWeixin.desc, // 分享描述
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.TLImg, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //QQ
+            wx.onMenuShareQQ({
+                title: dataForWeixin.title, // 分享标题
+                desc: dataForWeixin.desc, // 分享描述
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.MsgImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            //QQ微博
+            wx.onMenuShareWeibo({
+                title: dataForWeixin.title, // 分享标题
+                desc: dataForWeixin.desc, // 分享描述
+                link: dataForWeixin.url, // 分享链接
+                imgUrl: dataForWeixin.TLImg, // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，
+            //所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        });
+        wx.error(function (res) {
+            //alert(res);
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });
+
+    </script>
+    <script language="javascript" type="text/javascript">
+        function buy_go() {
+            var openid = $("#openid").val();
+            var userid = $("#userid").val();
+            var pid = $("#hidpid").val();
+            var pidList = $("#hidpid").val() + "_";
+            var color = $("#Procolor").val();
+            var num2 = $("#num").val(); //����
+            var bat = { "openid": openid, "userid": userid, "num": num2, "hidpid": pid, "Procolor": color };
+            $.post("prodctDetail.aspx?action=fullCar&da=" + new Date(), bat, function (data) {
+                if (data == "OK") {
+                    window.location.href = "submitOrder.aspx?userid=" + userid + "&idlist=" + pidList + "&da=" + new Date();
+                }
+                else if (data == "overCount") {
+                    alert("购买数量超出商品上架数量！");
+                    return;
+                }
+                else {
+                    alert(data+"系统正忙，请与管理员联系！");
+                }
+            });
+
+
+        }
+
+        function shoucang() {
+            var openid = $("#openid").val();
+            var userid = $("#userid").val();
+            var hidpid = $("#hidpid").val();
+            var bat = { "openid": openid, "userid": userid, "hidpid": hidpid };
+            $.post("prodctDetail.aspx?action=SC&da=" + new Date(), bat, function (data) {
+                if (data == "OK") {
+                    alert("收藏商品成功！");
+                    return;
+                }
+                else if (data == "NOO") {
+                    alert("您已经收藏了本商品！");
+                    return;
+                }
+                else {
+                    alert("系统正忙，请稍后重试！");
+                }
+            });
+        }
+
+        function licolors(o) {
+            $("#licolor a").attr("class", "");
+            $(o).attr("class", "selected");
+            var tle = o.title;
+            $("#Procolor").val(tle);
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <input id="userid" name="userid" type="hidden" value="<%=userid %>" />
+    <input id="openid" name="openid" type="hidden" value="<%=openid %>" />
+    <!--商品ID-->
+    <input id="Procolor" name="Procolor" type="hidden" value="<%=nowColor %>" />
+    <input id="hidpid" name="hidpid" type="hidden" value="<%=mol.Id %>" />
+    <section class="products">
+    <div class="preview">
+      <div class="preview-container">
+        <ul>
+      @*    <li style="background-image:url(/Content/KeYanBao/imgs/clothes2.jpg); background-size:cover; background-position:50% 50%; background-repeat:no-repeat;"></li>
+          <li><img src="/Content/KeYanBao/imgs/clothes2.jpg" /></li>
+          <li><img src="/Content/KeYanBao/imgs/clothes3.jpg" /></li>*@
+      @Html.Raw( ViewBag.ImgList)
+        </ul>
+      </div>
+    </div>
+    <div class="prices table-layout">
+      <div>
+        <div class="brief">
+          <div>@Model.productName</div>
+          <div class="clear-both">
+            <span class="price">￥@Convert.ToDouble(Model.shopprice).ToString("0.00")</span><span>原价：</span><span class="ori-price">￥@Convert.ToDouble(Model.marketprice).ToString("0.00") </span>
+            <span class="sold">已售：<span>@Model.salecount</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="options">
+      <div class="type clear-both">
+	      <div>颜色分类：</div>
+	      <ul>
+          
+	        <li id="licolor">
+            @{
+                //System.Text.StringBuilder sbcolor = new System.Text.StringBuilder(); sbcolor.Append("");
+                //if (pcolor.Contains(","))
+                //{
+
+                //    string[] colorAry = pcolor.Split(',');
+                //    for (int i = 0; i < colorAry.Length - 1; i++)
+                //    {
+                //        if (colorAry.Length - 1 == 1)
+                //        {
+                //            sbcolor.Append("<a  title='" + pcolor + "' class=\"selected\" style=\"display:inline-block;\" href=\"JavaScript:void(0)\"  onclick=\"licolors(this)\">" + colorAry[i] + "</a>&nbsp; ");
+                //        }
+                //        else
+                //        {
+                //            if (i == 0)
+                //            {
+                //                sbcolor.Append("<a title='" + colorAry[i] + "' class=\"selected\" style=\"display:inline-block;\" href=\"JavaScript:void(0)\" onclick=\"licolors(this)\">" + colorAry[i] + "</a>&nbsp; ");
+                //            }
+                //            else
+                //            {
+                //                sbcolor.Append("<a title='" + colorAry[i] + "' style=\"display:inline-block;\" href=\"JavaScript:void(0)\" onclick=\"licolors(this)\">" + colorAry[i] + "</a>&nbsp; ");
+                //            }
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    sbcolor.Append("<a  title='" + pcolor + "' class=\"selected\" style=\"display:inline-block;\" href=\"JavaScript:void(0)\"  onclick=\"licolors(this)\">" + pcolor + "</a>&nbsp; ");
+                //}
+                //Response.Write(sbcolor.ToString());
+                }
+            
+            
+            </li>
+	      </ul>
+      </div>
+      <div>
+        <div>购买数量：</div>
+        <div>
+          <input type="button" class="button-flat-gray" value="-" disabled />
+          <input id="num" name="num" value="1" disabled="disabled" />
+          <input type="button" class="button-flat-gray" value="+" />
+	        <span>库存<span>@Model.sjcount</span>件</span>
+        </div>
+      </div>
+    </div>
+    
+    <a name="PageTab"></a>
+    <div class="page-tab table-layout">
+      <div>
+        <a class="selected" href="JavaScript:void(0)"><div>产品介绍</div></a>
+        <a href="JavaScript:void(0)"><div>评价（3）</div></a>
+      </div>
+    </div>
+    <div class="product-detail">
+     <p>@Html.Raw( ViewBag.DescriblePicNum)</p>
+    </div>
+    <div class="comment">
+      <ul>
+     @Html.Raw( ViewBag.revInfo)
+        <li>
+          <div class="clear-both">
+            <img src="/Content/KeYanBao/imgs/foo.png" style="background-image: url('/Content/KeYanBao/imgs/photo.jpg');" />
+            <div>namenamenamename</div>
+            <div>2014-7-3</div>
+          </div>
+          <div class="clear-both">
+            <span>颜色很正，衣服宝宝穿的很漂亮很合身。</span>
+          </div>
+        </li>
+        <li>
+          <div class="clear-both">
+            <img src="/Content/KeYanBao/imgs/foo.png" style="background-image: url('/Content/KeYanBao/imgs/photo.jpg');" />
+            <div>namenamenamename</div>
+            <div>2014-7-3</div>
+          </div>
+          <div class="clear-both">
+            <span>颜色很正，衣服宝宝穿的很漂亮很合身。</span>
+          </div>
+        </li>
+        <li>
+          <div class="clear-both">
+            <img src="/Content/KeYanBao/imgs/foo.png" style="background-image: url('/Content/KeYanBao/imgs/photo.jpg');" />
+            <div>namenamenamename</div>
+            <div>2014-7-3</div>
+          </div>
+          <div class="clear-both">
+            <span>颜色很正，衣服宝宝穿的很漂亮很合身。</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+    <footer class="footer-menus fixed-bottom clear-both table-layout">
+    <ul>
+      <li style="display:none">
+        <a href="JavaScript:void(0)" onclick="shoucang()"><img class="favorite" src="/Content/KeYanBao/imgs/foo.png" />收藏</a>
+      </li>
+      <li class="operator" style="display:none">
+        <input type="button" class="button-flat-blue" value="加入购物车" />
+      </li>
+      <li class="operator">
+        <input type="button" class="button-flat-orange" value=" 立即购买 " onclick="buy_go()" />
+      </li>
+      <li style="display:none">
+        <a href="car.aspx?userid=<%=userid %>"><img class="cart" src="/Content/KeYanBao/imgs/foo.png" />购物车<span class="num"><%=GetcarCount(userid, mol.Id.ToString())%></span></a>
+      </li>
+    </ul>
+  </footer>
+        <script src="~/Content/KeYanBao/js/detail.js"></script>
+        <script src="~/Content/KeYanBao/js/lib.js"></script>
+        <script src="~/Content/KeYanBao/js/scroll_ads.js"></script>
+</body>
+</html>
+

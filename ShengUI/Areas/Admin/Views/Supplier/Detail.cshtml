@@ -1,0 +1,956 @@
+﻿@model MODEL.ViewModel.ViewModelSupplier
+@{
+    ViewBag.Title = "供应商明细";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+<div class="row">
+    <div class="col-md-7">
+        <div class="block">
+            <div class="block-title">
+                <h2><strong>Basic</strong> Wizard</h2>
+            </div>
+            <form id="basic-supplier" action="add1" method="post" class="form-horizontal form-bordered">
+                <div id="first" class="step ui-formwizard-content" style="display: block;">
+
+                    <input type="hidden" name="Sid" id="Sid" value="@Model.Sid" />
+                    <input type="hidden" name="Status" value="2">
+                    <div class="wizard-steps">
+                        <div class="row">
+                            <div class="col-xs-4 active">
+                                <a href="javascript:void(0)" onclick="aaa()"><span>1. Info</span></a>
+                            </div>
+                            <div class="col-xs-4 done">
+                                <a href="javascript:void(0)" onclick="bbb()"><span>2. Detail</span></a>
+                            </div>
+                            <div class="col-xs-4 done">
+                               <a href="javascript:void(0)" onclick="ccc()"> <span>3. Extras</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="SupplierName">SupplierName <span class="text-danger">*</span></label>
+                        <div class="col-md-9 validaddress">
+                            <input type="hidden" id="SupplierOldName" name="SupplierOldName"  value="@Model.SupplierName"/>
+                            <input type="text" id="SupplierName" name="SupplierName" class="form-control ui-wizard-content" style="width:95%" value="@Model.SupplierName" placeholder="Your SupplierName.." ><em class="loading-icon"></em>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="ContactNum">ContactNum <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-3">
+                            <input type="text" id="ContactNum" name="ContactNum" class="form-control ui-wizard-content" value="@Model.ContactNum" placeholder="ContactNum..">
+                        </div>
+
+                        <label class="col-sm-3 col-lg-2 control-label" for="ProductNum">ProductNum <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-3">
+                            <input type="text" id="ProductNum" name="ProductNum" class="form-control ui-wizard-content" value="@Model.ProductNum" placeholder="ProductNum..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="MainProduct">MainProduct <span class="text-danger">*</span></label>
+                        <div class="col-md-9 validaddress">
+                            <input type="text" id="MainProduct" name="MainProduct" class="form-control ui-wizard-content" value="@Model.MainProduct" placeholder="Your MainProduct..">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Industry">Industry <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-6">
+                            <select id="Industry" name="Industry" class="select-chosen select2-offscreen" data-placeholder="Choose a Industry.." onchange="$(this).focus()">
+                                <option></option>
+                                @foreach (var item in (ViewBag.IndustryList as List<MODEL.ViewModel.EasyUISelect>))
+                                {
+                                    if (@Model.Industry == item.id)
+                                    {
+                                    <option value="@item.value" selected>@item.text</option>
+                                    }
+                                    else
+                                    {    
+                                    <option value="@item.value">@item.text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Country">Country <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-6">
+                            <select id="Country" name="Country" class="select-chosen select2-offscreen" data-placeholder="Choose a Country.." onchange="$(this).focus()">
+                                <option></option>
+                                @foreach (var item in (ViewBag.CountryList as List<MODEL.ViewModel.EasyUISelect>))
+                                {
+                                    if (@Model.Country == item.id)
+                                    {
+                                    <option value="@item.value" selected>@item.text</option>
+                                    }
+                                    else
+                                    {    
+                                    <option value="@item.value">@item.text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Province">Province-City <span class="text-danger">*</span></label>
+                        <div class="validaddress col-md-3">
+                            <select id="Province" name="Province" class="select2-offscreen" data-placeholder="Choose a Province.." onchange="$(this).focus()">
+                                <option></option>
+                                @foreach (var item in (ViewBag.ProvinceList as List<MODEL.ViewModel.EasyUISelect>))
+                                {
+                                    if (@ViewBag.Province == item.id)
+                                    {
+                                    <option value="@item.value" selected>@item.text</option>
+                                    }
+                                    else
+                                    {    
+                                    <option value="@item.value">@item.text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="validaddress col-md-4">
+                            <select id="City" name="City" class="select-chosen select2-offscreen" data-placeholder="Choose a City.." onchange="$(this).focus()">
+                                <option></option>
+                                @if (ViewBag.CityList != null)
+                                {
+                                    foreach (var item in (ViewBag.CityList as List<MODEL.ViewModel.EasyUISelect>))
+                                    {
+                                        if (@Model.City == item.id)
+                                        {
+                                    <option value="@item.value" selected>@item.text</option>
+                                        }
+                                        else
+                                        {    
+                                    <option value="@item.value">@item.text</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="IndexOrder">IndexHot</label>
+                        <div class="col-md-6">
+                            <label class="switch switch-primary">
+                                <input type="checkbox" id="IndexOrder" name="IndexOrder" value="1"  @(Model.IndexOrder == 1 ? "checked" : "") /><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Address">Address</label>
+                        <div class="col-md-9">
+                            <textarea cols="80" id="Address" name="Address" rows="7" class="form-control" placeholder="Enter intro..">@Model.Address</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="Footer">Footer</label>
+                        <div class="col-md-9">
+                            <textarea cols="80" id="Footer" name="Footer" rows="7" class="form-control" placeholder="Enter Footer..">@Model.Footer</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="file_upload_1">BannerImg </label>
+                        <div class="col-md-9">
+                            <input type="file" name="uploadify" id="file_upload_1" style="width: 1px; height: 1px;" />
+                            <div class="uploadify-queue" id="file_upload_1-queue"></div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="file_upload_1"></label>
+                        <div class="col-md-9">
+                            <div id="divImg">
+                                <a id="adurl" href="@Model.BannerImg" data-toggle="lightbox-image">
+                                    <img id="adimage" src="@Model.BannerImg" alt="image" style="width: 98px; height: 98px" class="img-thumbnail">
+                                </a>
+                                <input type="hidden" name="BannerImg" value="@Model.BannerImg" id="BannerImg" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                        <label class="col-md-3 control-label" for="IndexOrder">是否审核通过</label>
+                        <div class="col-md-6">
+                            <label class="switch switch-primary">
+                                <input type="checkbox" id="Checked" name="Checked" value="1"  @(Model.Checked == 1 ? "checked" : "") /><span></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-md-8 col-md-offset-4">
+                            <input type="submit" class="btn btn-sm btn-primary ui-wizard-content ui-formwizard-button" id="savesupplier" name="savesupplier" value="Save">
+                            <input type="button" class="btn btn-sm btn-warning ui-wizard-content ui-formwizard-button" value="Next" onclick="bbb();">
+                             <input type="button" class="btn btn-sm btn-warning ui-wizard-content ui-formwizard-button" value="审核不通过" onclick="Unchecked();">
+                        </div>
+                    </div>
+
+                </div>
+                <div id="second" class="step ui-formwizard-content" style="display: none;">
+                    <div class="wizard-steps">
+                         <div class="row">
+                            <div class="col-xs-4 done">
+                                <a href="javascript:void(0)" onclick="aaa()"><span>1. Info</span></a>
+                            </div>
+                            <div class="col-xs-4 active">
+                                <a href="javascript:void(0)" onclick="bbb()"><span>2. Detail</span></a>
+                            </div>
+                            <div class="col-xs-4 done">
+                               <a href="javascript:void(0)" onclick="ccc()"> <span>3. Extras</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-firstname">Description</label>
+                        <div class="col-md-9">
+                            <input type="hidden" name="Did" id="Did" value="@(ViewBag.SupplierDescription == null ? "" : ViewBag.SupplierDescription.did)" />
+                            <textarea  id="Detail" name="Detail" style="width:95%;height:480px" class="select2-offscreen">@(ViewBag.SupplierDescription == null ? "" : ViewBag.SupplierDescription.detail)</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-lastname">Enterprise image</label>
+                        <div class="col-md-9">
+                            <input type="text" id="imgrequired" name="imgrequired" value="" class="select2-offscreen" />
+                            <div id="productimage" class="dropzone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-md-8 col-md-offset-4">
+                            <input type="button" class="btn btn-sm btn-warning ui-wizard-content ui-formwizard-button" value="Back" onclick="aaa();">
+                            <input type="submit" class="btn btn-sm btn-primary ui-wizard-content ui-formwizard-button" id="savedetail" name="savesupplier" value="SaveDetail">
+                        </div>
+                    </div>
+
+                </div>
+                <div id="third" class="step ui-formwizard-content" style="display: none;">
+                    
+                    <div class="wizard-steps">
+                        <div class="row">
+                            <div class="col-xs-4 done">
+                                <a href="javascript:void(0)" onclick="aaa()"><span>1. Info</span></a>
+                            </div>
+                            <div class="col-xs-4 done">
+                                <a href="javascript:void(0)" onclick="bbb()"><span>2. Detail</span></a>
+                            </div>
+                            <div class="col-xs-4 active">
+                               <a href="javascript:void(0)" onclick="ccc()"> <span>3. Extras</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="aid" value="@ViewBag.Authenticate.aid" />
+                      <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">公司名称：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="CompanyName" name="CompanyName" class="form-control ui-wizard-content" value="@Model.SupplierName" placeholder="Your CompanyName.." >
+                              <input type="hidden" name="issupplier"  class="authenticate" value="@ViewBag.Authenticate.issupplier"/>
+                            <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+             <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">业务类型：</label>
+                        <div class="col-md-7">
+                            <select name="industry1" class="select-chosen select2-offscreen" data-placeholder="Choose a Industry.." onchange="$(this).focus()">
+                                                <option value="Business Service">Business Service</option>
+                                                <option value="Manufacturer">Manufacturer</option>
+                                                <option value="Manufacturer, Trading Company">Manufacturer, Trading Company</option>
+                                                <option value="Trading Company">Trading Company</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                              <input type="hidden" name="isindustry"  class="authenticate" value="@ViewBag.Authenticate.isindustry"/>
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">主要产品：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="MainProduct1" name="MainProduct1" class="form-control ui-wizard-content" value="@Model.MainProduct" placeholder="Your MainProduct.." >
+                             <input type="hidden" name="isproduct"  class="authenticate" value="@ViewBag.Authenticate.isproduct"/>
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div><div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">经营地址：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="OperateAddress" name="OperateAddress" class="form-control ui-wizard-content" value="@Model.Address" placeholder="Your Address.." >
+                                 <input type="hidden" name="isoperateaddress"  class="authenticate" value="@ViewBag.Authenticate.isoperateaddress" />
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">员工数量：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="employees" name="employees" class="form-control ui-wizard-content" value="@ViewBag.Authenticate.employees" placeholder="Your employees.." >
+                               <input type="hidden" name="isemployees"  class="authenticate" value="@ViewBag.Authenticate.isemployees"  />
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">品质控制人员数量：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="qualitycontrol" name="qualitycontrol" class="form-control ui-wizard-content" value="@ViewBag.Authenticate.qualitycontrol" placeholder="Your qualitycontrol.." >
+                              <input type="hidden" name="isqualitycontrol"  class="authenticate" value="@ViewBag.Authenticate.isqualitycontrol"  />
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+             <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">管理体系认证：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="certification" name="certification" class="form-control ui-wizard-content" value="@ViewBag.Authenticate.certification" placeholder="Your certification.." >
+                              <input type="hidden" name="iscertification"  class="authenticate" value="@ViewBag.Authenticate.iscertification"  /> 
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">注册地址：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="registeraddress" name="registeraddress" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.registeraddress"  placeholder="Your registeraddress.." >
+                                <input type="hidden" name="isregisteraddress"  class="authenticate"  value="@ViewBag.Authenticate.isregisteraddress" /> 
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div><div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">成立年份：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="establishmentdate" name="establishmentdate" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.establishmentdate"  placeholder="Your establishmentdate.." >
+                               <input type="hidden" name="isestablishmentdate"  class="authenticate" value="@ViewBag.Authenticate.isestablishmentdate"  /> 
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">法人代表：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="legal" name="legal" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.legal"  placeholder="Your legal.." >
+                             <input type="hidden" name="islegal"  class="authenticate" value="@ViewBag.Authenticate.islegal"  /> 
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">法律形式：</label>
+                        <div class="col-md-8">
+                             <input type="hidden" name="isform"  class="authenticate"  value="@ViewBag.Authenticate.isform" /> 
+                            <input type="text" id="Property" name="form" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.form"  placeholder="Your Legal form.." >
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+             <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">注册编号：</label>
+                        <div class="col-md-8">
+                              <input type="hidden" name="isregistercode"  class="authenticate" value="@ViewBag.Authenticate.isregistercode"  /> 
+                            <input type="text" id="registercode" name="registercode" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.registercode"  placeholder="Your registercode.." >
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">发证机关：</label>
+                        <div class="col-md-8">
+                              <input type="hidden" name="isoffice"  class="authenticate" value="@ViewBag.Authenticate.isoffice"  /> 
+                            <input type="text" id="office" name="office" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.office"  placeholder="Your office.." >
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div><div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">签发日期：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="issueddate" name="issueddate" class="form-control ui-wizard-content" value="@ViewBag.Authenticate.issueddate"  placeholder="Your issueddate.." >
+                              <input type="hidden" name="isissueddate"  class="authenticate"  value="@ViewBag.Authenticate.isissueddate" /> 
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="example-bio">注册资金：</label>
+                        <div class="col-md-8">
+                            <input type="text" id="registercapital" name="registercapital" class="form-control ui-wizard-content"  value="@ViewBag.Authenticate.registercapital"  placeholder="Your registercapital.." >
+                              <input type="hidden" name="isregistercapital" class="authenticate"  value="@ViewBag.Authenticate.isregistercapital" /> 
+                              <a  href="javascript:void(0)" class="h4 text-success" style="display:none">   <i class="fa fa-check"></i></a><a  href="javascript:void(0)" class="h4 text-danger" style="display:none">   <i class="gi gi-remove_2"></i></a>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-md-8 col-md-offset-4">
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="block" style="padding-right: 2px;">
+            <div class="block-title" style="margin-right: -2px;">
+                <h2><strong>Validation</strong> Wizard</h2>
+            </div>
+             <div class="">
+    <div id="form-login" class="form-horizontal  form-control-borderless">
+  <div class="table-responsive dataTables_wrapper form-inline no-footer">
+      <div id="tablebutton" class="btn-group btn-group-sm">
+                                 <a href="javascript:void(0)" id="link-register-login" class="btn btn-default" data-toggle="tooltip" title="Archive Selected"><i class="fa fa-plus "></i></a>
+            <a href="javascript:void(0)" id="link-list" class="btn btn-default" data-toggle="tooltip" title="Archive Selected"><i class="fa fa-pencil "></i></a>
+                                @*       <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Star Selected"><i class="fa fa-star"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-default" data-toggle="tooltip" title="Delete Selected"><i class="fa fa-times"></i></a>*@
+                                </div>
+                <table id="usertable" class="table table-hover table-vcenter  " >
+                    <thead>
+                        <tr>
+                          @*  <th style="width:5%">
+                                <a href="javascript:void(0)">
+                                    <input type="checkbox" id="checkbox-all" name="checkbox-all" style="margin-left: -8px;"></a>
+                            </th>*@
+                            <th>
+                                Username
+                            </th>
+                            <th>Password</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+               
+                </table>
+            </div>
+      
+    </div>
+    <form action="login.html#reminder" method="post" id="form-reminder" class="form-horizontal form-bordered form-control-borderless display-none">
+      <div class="form-group">
+        <div class="col-xs-12">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+            <input type="text" id="reminder-email" name="reminder-email" class="form-control input-lg" placeholder="Email">
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-actions">
+        <div class="col-xs-12 text-right">
+          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Reset Password</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12 text-center"> <small>Did you remember your password?</small> <a href="javascript:void(0)" id="link-reminder"><small>Login</small></a> </div>
+      </div>
+    </form>
+    <form action="login.html#register" method="post" id="form-register" style="margin-right: -2px;" class="form-horizontal form-bordered form-control-borderless display-none">
+         <input type="hidden" name="OldEmail" id="user_OldEmail" /> 
+         <input type="hidden" name="SuId" id="suid" /> 
+        <input type="hidden" name="Sid" value="@Model.Sid" />
+      <div class="form-group">
+        <div class="col-xs-6">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-user"></i></span>
+            <input type="text" id="user_FirstName" name="FirstName" class="form-control input-lg" placeholder="FirstName">
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <input type="text" id="user_LastName" name="LastName" class="form-control input-lg" placeholder="LastName">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+            <input type="text" id="user_Email" name="Email" class="form-control input-lg" placeholder="Email" style="width:95%" ><em class="loading-icon"></em>
+          </div>
+        </div>
+      </div>
+        <div class="form-group">
+        <div class="col-xs-12">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+            <input type="text" id="user_UserName" name="UserName" class="form-control input-lg" placeholder="UserName">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+            <input type="text" id="user_PassWord" name="PassWord" class="form-control input-lg" placeholder="Password">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-6">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-phone_alt"></i></span>
+            <input type="text" id="user_Tel" name="Tel" class="form-control input-lg" placeholder="Tel">
+          </div>
+        </div>
+           <div class="col-xs-6">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-earphone"></i></span>
+            <input type="text" id="user_Mobile" name="Mobile" class="form-control input-lg" placeholder="Moblie">
+          </div>
+        </div>
+      </div>
+         <div class="form-group">
+        <div class="col-xs-6">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-fax"></i></span>
+            <input type="text" id="user_Fax" name="Fax" class="form-control input-lg" placeholder="Fax">
+          </div>
+        </div>
+           <div class="col-xs-6">
+          <div class="input-group"> <span class="input-group-addon"><i class="gi gi-home"></i></span>
+            <input type="text" id="user_Address" name="Address" class="form-control input-lg" placeholder="Address">
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-actions">
+        <div class="col-sm-6 col-lg-5"> <label class="col-sm-5 col-lg-4 control-label" for="Country">Status </label>
+          <label class="switch switch-primary" data-toggle="tooltip" title="Agree to the terms">
+            <input type="checkbox" id="user_Competence" name="Status" value="1" checked>
+            <span></span> </label>
+        </div>
+        <div class="col-xs-6 text-right">
+            <button type="reset" id="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Reset</button>
+          <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add Or Save</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12 text-center"> <small>Do you have an account?</small> <a href="javascript:void(0)" id="link-register"><small>Return UserList</small></a> </div>
+      </div>
+    </form>
+  </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+@section backScripts
+{
+    <style type="text/css">
+        .has-error .chosen-container > a {
+            border: 1px solid #E73037;
+        }
+        #third .form-control {
+          
+            width: 90%;
+        }
+    </style>
+        <link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/back/js/jquery-form.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script src="~/Content/back/dropzone/dropzone.js"></script>
+    <script src="~/Content/back/tinymce/jscripts/tiny_mce/tiny_mce_src.js"></script>
+    <link href="~/Content/uploadify-v2.1.4/uploadify.css" rel="stylesheet" />
+    <script src="~/Content/uploadify-v2.1.4/jquery.uploadify.v2.1.4.js"></script>
+    <script src="~/Content/uploadify-v2.1.4/swfobject.js"></script>
+ <script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/back/js/pages/supplier_user.js"></script>
+    <script type="text/javascript">
+        //当前ID
+        var currentID = "@Model.Sid";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = false;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+        $(function () { App.datatables();
+            init(); loadtingmce();dropzoneimg();provincechange();loadupload();supplier_user.init();loaduser();
+        });
+        function aaa()
+        {
+            $("#first").show();
+            $("#second").hide();
+            $("#third").hide();
+        }
+        function bbb()
+        {
+            if($("#Sid").val()>0)
+            {
+                
+                $("#first").hide();
+                $("#second").show(); 
+                $("#third").hide();
+                return;
+            }
+            window.parent.LG.tip("请先添加供应商信息");
+        }
+        function ccc()
+        {
+            if($("#Sid").val()>0)
+            {
+                
+                $("#first").hide();
+                $("#second").hide();
+                $("#third").show();
+                BindAuthenticate();
+                BindIsCheckAuthenticate();
+                return;
+            }
+            window.parent.LG.tip("请先添加供应商信息");
+        }
+        function init() {
+            $("#basic-supplier").validate({
+                submitHandler:function(form){
+                 
+                    form.action=isAddNew?"Add":"Update";
+                    LG.submitForm(form,function(data, n,r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            if(isAddNew)
+                                isAddNew=false;
+                            // window.parent.frames["ifm_Product"].reload();
+                            $("#Sid").val(data.Data.FirstID);$("#Did").val(data.Data.SecondID);
+                            window.parent.LG.tipSuccess(data.Message);
+                            // window.parent.addTab('Product', '产品管理', '/Admin/Product/List');
+                        }
+                        else
+                            window.parent.LG.tipError(data.Message);
+                    },function(){
+            
+                    });
+                },    
+                errorClass: "help-block animation-slideDown", errorElement: "div", errorPlacement: function (e, a) {
+                    a.parents(".validaddress").append(e)
+                }, highlight: function (e) {
+                    $(e).closest(".validaddress").removeClass("has-success has-error").addClass("has-error"), $(e).closest(".help-block").remove()
+                }, success: function (e) {
+                    e.closest(".validaddress").removeClass("has-success has-error"), e.closest(".help-block").remove()
+                }, rules: { 
+                    SupplierName: { required: !0, english:!0,
+                        remote:{
+                            type:"POST",
+                            url:"IsExistsSupplierName",             //servlet
+                            data:{
+                                name:function(){return $("#SupplierName").val();},
+                                oldname:function(){return $("#SupplierOldName").val();}
+                            } 
+                        }
+                    }, 
+                    ContactNum: { required: !0, digits: !0 }, 
+                    ProductNum: { required: !0, digits: !0 }, 
+                    MainProduct: { required: !0, english: !0 },
+                    Industry: { required: !0 },
+                    Country: { required: !0 }, 
+                    Province: { required: !0 }, 
+                    City: { required: !0}, 
+                    val_credit_card: { required: !0, creditcard: !0 },
+                    val_number: { required: !0, number: !0 },
+                    val_range: { required: !0, range: [1, 1e3] },
+                    val_terms: { required: !0 } 
+                }, 
+                messages: { 
+                    SupplierName: { required: "Please enter a SupplierName",remote:"SupplierName already exists"},
+                    ContactNum: { required: "Please enter a digits", digits: "Please enter only digits!" }, 
+                    ProductNum: { required: "Please enter a digits", digits: "Please enter only digits!" }, 
+                    MainProduct: { required: "Please provide a MainProduct" }, 
+                    Industry: { required:"Please select a Industry"},
+                    Country: { required: "Please select a Country" }, 
+                    Province: { required: "Please select a Province" }, 
+                    City: { required: "Please select a City"}, 
+                    val_skill: "Please select a skill!",
+                    val_website: "Please enter your website!", 
+                    val_credit_card: "Please enter a valid credit card! Try 446-667-651!", 
+                    val_digits: "Please enter only digits!",
+                    val_number: "Please enter a number!", 
+                    val_range: "Please enter a number between 1 and 1000!",
+                    val_terms: "You must agree to the service terms!" }
+            }),
+
+            $("#masked_date").mask("99/99/9999"), $("#masked_date2").mask("99-99-9999"), $("#masked_phone").mask("(999) 999-9999"), $("#masked_phone_ext").mask("(999) 999-9999? x99999"), $("#masked_taxid").mask("99-9999999"), $("#masked_ssn").mask("999-99-9999"), $("#masked_pkey").mask("a*-999-a999");
+
+             
+          
+        }
+
+
+        //<![CDATA[
+        function loadtingmce() {
+            tinyMCE.init({
+                // General options
+                mode: "exact",
+                elements: "Detail",
+                theme: "advanced",
+                language: "@Language.Resource.textarea_lang",
+                plugins: "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+                theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+                theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",  
+                theme_advanced_toolbar_location: "top",
+                theme_advanced_toolbar_align: "left",
+                theme_advanced_statusbar_location: "bottom",
+                theme_advanced_resizing: true,
+                //file_browser_callback: "ajaxfilemanager",
+                // plugins : "ankupload",   
+
+                // 上传附件的操作路径   
+                // plugin_ankupload_url:"/Content/ankupload_v1.2/upfile.htm",  
+
+
+                // Example content CSS (should be your site CSS)
+                content_css: "/Content/back/tinymce/examples/css/content.css",
+
+                // Drop lists for link/image/media/template dialogs
+                template_external_list_url: "/Content/back/tinymce/examples/lists/template_list.js",
+                external_link_list_url: "/Content/back/tinymce/examples/lists/link_list.js",
+                external_image_list_url: "/Content/back/tinymce/examples/lists/image_list.js",
+                media_external_list_url: "/Content/back/tinymce/examples/lists/media_list.js",
+
+                // Style formats
+                style_formats: [
+                    { title: 'Bold text', inline: 'b' },
+                    { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                    { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                    { title: 'Example 1', inline: 'span', classes: 'example1' },
+                    { title: 'Example 2', inline: 'span', classes: 'example2' },
+                    { title: 'Table styles' },
+                    { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                ],
+
+                // Replace values for the template plugin
+                template_replace_values: {
+                    username: "Some User",
+                    staffid: "991234"
+                }
+            });
+        }
+        //]]>
+        var auth = "@(Request.Cookies[FormsAuthentication.FormsCookieName] == null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value)";
+        var ASPSESSID = "@Session.SessionID";
+        function loadupload() {
+            $("#file_upload_1").uploadify({
+                'uploader': '/Content/uploadify-v2.1.4/uploadify.swf',
+                'script': '/Admin/Supplier/UploadImgAttachment/',
+                'scriptData': { ASPSESSID: ASPSESSID, AUTHID: auth },
+                'cancelImg': '/Content/uploadify-v2.1.4/cancel.png',
+                'folder': '../../../UploadFile',
+                'queueID': 'file_upload_1-queue',
+                'auto': true,
+                'fileExt': '*.jpg;*.gif;*.png;',
+                'fileDesc': '请选择jpg,jpeg,gif,png格式',
+                'sizeLimit': 4194304,
+                'buttonImg': "/Content/images/upload.png",
+                'multi': false,
+                'onComplete': function (event, queueID, fileObj, response, data) {
+                    if (response == 'no') {
+                        $.messager.alert('提示', '上传失败请重新尝试', 'error');
+                    }
+                    else {
+                        $("#adurl").attr("href", response);
+                        $("#adimage").attr("src", response);
+                        $("#BannerImg").val(response);
+                    }
+                },
+                'onSelect': function (e, queueId, fileObj) {
+                    if (fileObj.type.toLowerCase() == ".jpg" || fileObj.type.toLowerCase() == ".gif" || fileObj.type.toLowerCase() == ".png") {
+                        if (fileObj.size > 4194304) {
+                            window.parent.LG.tip('图片大小超出范围');
+                            // $.messager.alert('提示', '文件大小超出范围', 'error');
+                        }
+                    }
+                    else {
+                        window.parent.LG.tip('请上传图片');
+                        // $.messager.alert('提示', '文件大小超出范围', 'error');
+                    }
+
+                },
+                'onError': function (event, queueId, fileObj, errorObj) {
+                    if (errorObj.type == "HTTP") {
+                        alert("http error");
+                    } else if (errorObj.type == "IO") {
+                        alert("IO error");
+                    } else if (errorObj.type == "Security") {
+                        alert("security error");
+                    }
+
+
+                }
+            });
+        }
+        function dropzoneimg() {
+            var myDropzone = new Dropzone("#productimage", {
+                url: '/Admin/Article/UploadImgAttachment/',
+                addRemoveLinks: true,
+                acceptedFiles: 'image/*',
+                maxFilesize: 4,
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (file.url) {
+                            $(file.previewElement).find(".dz-details").append("<input type='hidden' name='id' value='"+file.id+"'><input type='hidden' name='image' value='"+file.url+"'><input type='hidden' name='txtImg'  value='" + file.name + "'>");
+                            $(file.previewElement).find(".dz-details").find("input[type=radio]").val(file.url);
+                            //if (file.DefaultImage == 1||file.DefaultImage==true)
+                            //    $(file.previewElement).find(".dz-details").find("input[type=radio]").attr("checked", "checked");
+                            file.previewElement.classList.add("dz-success");
+                        }
+                        $("#imgrequired").val('1');
+                        $("#imgrequired").blur();
+                    });
+                    this.on("removedfile", function (file) {
+                        if ($("#productimage").children().length == 1) { $("#imgrequired").val(''); }
+
+
+                    }),
+                    this.on("success", function (file, url) {
+                        // <input type="hidden" name="aid" value="338">
+                        //<input type="hidden" name="itemid" value="1210">
+                        //<input type="hidden" name="atype" value="0">
+                        //<input type="hidden" name="filepath" value="http://image.exportimes.com/UploadFile/Ckeditor/2014/11/24/201411240957061952.jpg">
+                        //<input type="hidden" name="isimage" value="true">
+                        //<input type="hidden" name="isdefault" value="true">
+                        //<input type="text" name="filename" style="width: 100px; font-size: 10px;" value="China, New Zealand announce upgrade of bilateral relations">     
+                        $(file.previewElement).find(".dz-details").append("<input type='hidden' name='id' value='0'><input type='hidden' name='image' value='"+url+"'><input type='hidden' name='txtImg'  value='" + file.name + "'>");
+                        $(file.previewElement).find(".dz-details").find("input[type=radio]").val(url);
+
+                    });
+
+                    // this._callbacks.addedfile[0](file);
+                },
+            });
+            var files = @(!string.IsNullOrEmpty(ViewBag.Images) ? Html.Raw(ViewBag.Images) : "{}");
+            for (var i = 0; i < files.length; i++) {
+                myDropzone.addInitFile(files[i]);
+            }
+            //var file={
+            //    lastModified: "1405316929000",
+            //    lastModifiedDate: "Mon Jul 14 2014 13:48:49 GMT+0800 (中国标准时间)",
+            //    name: "QQ图片20140714134847.jpg",
+            //    size: "33940",
+            //    status: "added",
+            //    type: "image/jpeg",
+            //    url:"http://image.exportimes.com/UploadFile/UploadImg/2014/11/26/201411260244217653.jpg",
+            //}
+            //myDropzone.addInitFile(file);
+        }
+        function BindAuthenticate()
+        { 
+            $("#third").find(".text-danger").bind("click", function (e){
+                CheckAuthenticate(e.currentTarget);
+            });
+            $("#third").find(".text-success").bind("click", function (e){
+                CheckAuthenticate(e.currentTarget);
+            });
+        }
+        function BindIsCheckAuthenticate()
+        {
+            var auths=$(".authenticate");
+
+            for (var i = 0; i < auths.length; i++) {
+                if($(auths[i]).val()=="1")
+                {
+                    $(auths[i]).parent().find(".text-success").show();
+                    $(auths[i]).parent().find(".text-danger").hide();
+                }
+                else
+                {
+                    
+                    $(auths[i]).parent().find(".text-success").hide();
+                    $(auths[i]).parent().find(".text-danger").show();
+                }
+            }
+        }
+        function CheckAuthenticate(obj)
+        {
+            var id=$("#aid").val();
+            if(id>0)
+            {
+                //alert($(obj).parent().find(".authenticate").val());
+                var i=1;
+                var name=$(obj).parent().find(".authenticate").attr("name");
+                if($(obj).parent().find(".authenticate").val()=="1")
+                    i=0;
+                LG.ajax({
+                    url: 'CheckSupplierAuthenticate',
+                    data: { ID: id ,name:name,ischeck:i},
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (result) {
+                        if (!result) return;
+                        if (!result.IsError) {
+                            if(i==1)
+                            {
+                                $(obj).parent().find(".authenticate").val('1');
+                            }
+                            else
+                            {
+                                $(obj).parent().find(".authenticate").val('0');
+                            }
+                            BindIsCheckAuthenticate();
+                        }
+                        else {
+                            window.parent.showMessage(result.Message + '发现系统错误 <BR>错误码：' + result.status);
+                        }
+                    }
+                });
+            }else
+            {
+
+            }
+        }
+        var where = {
+            op: 'and',
+            rules: [{ field: 'Sid', value: '@Model.Sid', op: 'equal' }]
+         };
+        function loaduser()
+        {
+            var dt = $("#usertable").dataTable({
+                "searching":false,
+                "lengthChange": false,
+                "processing": true,
+                "serverSide": true,
+                "ordering": false, 
+                "language": {
+                    "info": ""
+                },
+                "ajax": {
+                    "url": '/Admin/SupplierUser/GetSupplierUserForGrid',
+                    "type": "POST",
+                    "data":{where:JSON.stringify(where),ParentId:"@Model.Sid" },
+                },
+                "columns": [
+                    //{ "data": "UserName" },
+                    { "data": "Email" },
+                    { "data": "PassWord" },
+                    { "data": "Status" }
+                ],
+                "columnDefs": [
+                 //{
+                 //    "render": function (data, type, row) {
+                 //        return ' <a href="javascript:void(0)"><input type="checkbox"  name="ck_article" value="' + data + '" onclick="selectedRow(this)"></a>';
+                 //    },
+                 //    "targets": 0
+                 //}, 
+                 {
+                     "render": function (data, type, row) {
+                         if (data == 1)
+                             return '<span class="label label-success">Checked</span>';
+                         else
+                             return '<span class="label label-danger">UnChecked</span>';
+                     },
+                     "targets": 2
+                 }
+                ]
+            });
+            $('#usertable tbody').on('click', 'tr', function () {
+                
+                $(this).toggleClass('active');
+               
+                if ($(this).hasClass("active")) {
+                    $(this).find('[name="ck_article"]').prop("checked", true)
+                } else {
+                    $(this).find('[name="ck_article"]').prop("checked", false)
+                }
+
+            });
+            
+        }
+        function savebasissupplier()
+        {
+            alert(1);
+            LG.submitForm($("#basic-supplier"),function(data, n,r) {
+                if (!data.IsError)// 如果提交成功则隐藏进度条
+                {
+                                   
+                    // window.parent.frames["ifm_Product"].reload();
+                    window.parent.LG.tipSuccess(data.Message);
+                    // window.parent.addTab('Product', '产品管理', '/Admin/Product/List');
+                }
+                else
+                    window.parent.LG.tipError(data.Message);
+            },function(){
+            
+            });
+        }
+        var citys = @(!string.IsNullOrEmpty(ViewBag.CityLists) ? Html.Raw(ViewBag.CityLists) : "{}");
+        function provincechange(){
+            $("#Province").chosen({width: "100%"}).change(function(){
+                var parentid=$("#Province  option:selected").val();
+                var options='<option></option>';
+                for (var i = 0; i < citys.length; i++) {
+                    if(citys[i].parentid==parentid)
+                        options +=  '<option value='+citys[i].id+'>'+citys[i].text+'</option>';
+                }
+                $("#City").html(options);
+                $("#City").trigger("chosen:updated.chosen");
+            });
+        }
+        function Unchecked()
+        {
+
+        }
+    </script>
+}

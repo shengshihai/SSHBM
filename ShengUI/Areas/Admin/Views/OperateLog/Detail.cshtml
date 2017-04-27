@@ -1,0 +1,94 @@
+﻿@model MODEL.ViewModel.ViewDetailPage
+@{
+    ViewBag.Title = "客户 明细";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+@section backScripts
+{
+    <script type="text/javascript"> 
+        var rootPath='@Url.Content("~/Admin/")';
+        //当前ID
+        var currentID = '@ViewBag.CurrentID';
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = @ViewBag.IsView;
+            //是否编辑状态
+            var isEdit = !isAddNew && !isView;
+
+            //覆盖本页面grid的loading效果
+            LG.overrideGridLoading(); 
+
+            //表单底部按钮 
+            LG.setFormDefaultBtn(f_cancel,isView ? null : f_save);
+
+            //创建表单结构
+            var mainform = $("#mainform");  
+            mainform.ligerForm({ 
+                inputWidth: 280,
+                fields : [{display:"日志ID",name:"id",labelWidth:100,width:220,space:30,newline:true,hide:true,group:"操作人信息",groupicon:"@Url.Content("~/Content/icons/32X32/user.gif")"}
+                    ,{display:"IP地址",name:"ipAddress",newline:false,labelWidth:100,width:220,space:30,type:"text",groupicon:"@Url.Content("~/Content/icons/32X32/user.gif")"}
+                    ,{display:"用户ID",name:"userId",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:30},groupicon:"@Url.Content("~/Content/icons/32X32/user.gif")"}
+                    ,{display:"用户名称",name:"userName",newline:false,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:30},groupicon:"@Url.Content("~/Content/icons/32X32/user.gif")"}
+                    ,{display:"控制器",name:"processName",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:60},group:"系统信息",groupicon:"@Url.Content("~/Content/icons/32X32/communication.gif")"}
+                    ,{display:"动作",name:"methodName",newline:false,labelWidth:100,width:220,space:30,type:"text",groupicon:"@Url.Content("~/Content/icons/32X32/communication.gif")"}
+                    ,{display:"控制器信息",name:"processDesc",newline:true,labelWidth:100,width:220,space:30,type:"text",groupicon:"@Url.Content("~/Content/icons/32X32/communication.gif")"}
+                    ,{display:"动作信息",name:"methodDesc",newline:false,labelWidth:100,width:220,space:30,type:"text",groupicon:"@Url.Content("~/Content/icons/32X32/communication.gif")"}
+                    ,{display:"备注",name:"description",newline:true,labelWidth:100,width:520,space:30,type:"textarea",groupicon:"@Url.Content("~/Content/icons/32X32/communication.gif")"}], 
+            toJSON:JSON2.stringify
+        });
+
+        var actionRoot =rootPath+"OperateLog/";
+       
+
+        LG.loadForm(mainform, { url:actionRoot+'Get', data: { ID: currentID} },f_loaded);
+
+        
+          
+        if(!isView) 
+        {
+            //验证
+            jQuery.metadata.setType("attr", "validate"); 
+            LG.validate(mainform);
+        } 
+
+        function f_loaded()
+        {
+            if(!isView) return; 
+            //查看状态，控制不能编辑
+            $("input,select,textarea",mainform).attr("readonly", "readonly");
+        }
+        function f_save()
+        {
+            LG.submitForm(mainform, function (data) {
+                var win = parent || window;
+                if (data.IsError) {  
+                    win.LG.showError('错误:' + data.Message);
+                }
+                else { 
+                    win.LG.showSuccess('保存成功', function () { 
+                        win.LG.closeAndReloadParent(null, "OperateLogManage");
+                    });
+                }
+            });
+        }
+        function f_cancel()
+        {
+            var win = parent || window;
+            win.LG.closeCurrentTab(null);
+        }
+
+		 
+    </script>
+
+}
+
+<div id="tabcontainer" style="margin: 3px;">
+    <div title="操作人信息">
+        <form id="mainform" method="post"></form>
+    </div>
+    <div title="系统信息" tabid="operate">
+        <div id="OperateInfo" style="margin: 2px auto;"></div>
+    </div>
+</div>
+

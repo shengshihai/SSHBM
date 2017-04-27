@@ -1,0 +1,299 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<input type="hidden" id="MenuNo" value="MenusButtonInfo" />
+<input type="hidden" id="MenuID" value="@ViewBag.MenuID " />
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+    <script src='/Scripts/Back/plugins/datatables/jquery.dataTables.columnFilter.js' type='text/javascript'></script>
+    <script src='/Scripts/Back/tables.js' type='text/javascript'></script>
+
+
+@section backScripts
+{
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+        var table = '#menusbuttonstable';
+        var toolbarOptions = [
+           //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            var MenuID = $("#MenuID").val();
+            //TablePage();
+            var dt = $(table).dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[5, "desc"]],
+                "ajax": {
+                    "url": '/Admin/MenusButtons/GetMenuButtons',
+                    "type": "POST",
+                    "data": { "[Equal]MODULE_ID": MenuID }
+                },
+                "columns": [
+                    { "data": "ModulePermissionID", "orderable": "MP_ID" },
+                    { "data": "MenuID", "orderable": false },
+                    { "data": "ButtonName", "name": "[Contains]{main}FW_PERMISSION.NAME", "orderable": "FW_PERMISSION.NAME" },
+                    { "data": "ButtonAction", "orderable": "FW_PERMISSION.ACTIONNAME" },
+                    { "data": "MenuName", "orderable": "FW_MODULE.MODULE_NAME" },
+                    { "data": "ButtonIcon", "orderable": "FW_PERMISSION.ICON" },
+                    { "data": "MenuUrl", "orderable": "FW_PERMISSION.LINKURL" }
+
+                ],
+                "columnDefs": [
+                      {
+                          "targets": [0],
+                          "visible": true
+                      },
+                       {
+                           "render": function (data, type, row) {
+                               if (data == "" || data == undefined)
+                                   return '<i class="icon-key"></i>'
+                               return '<i class="' + data + '"></i>'
+                           },
+                           "targets": 5
+                       },
+                ]
+
+            });
+            $(table + ' tbody').on('click', 'tr', function () {
+                $(this).toggleClass('success');
+
+            });
+
+            $(".nav-tabs li a").click(function () {
+                // $(this).attr("data-val");
+                $(table).DataTable().ajax.params({ "[Equal]MODULE_PID": $(this).attr("data-val") });
+                $(table).DataTable().ajax.reload();
+            });
+
+        });
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            switch (id) {
+                case "SetPermission":
+                    //Jump("/admin/menus/menusdetail")
+                    if (confirm('确定要重新设置权限吗?')) {
+                        setpermission();
+                        // 退出操作;
+                    }
+                    break;
+                case "back":
+                    Jump("/admin/menus/menuinfo")
+                    break;
+                case "Update":
+                    var selected = $(table).DataTable().rows('.success').data()[0];
+                    if (!selected) {
+                        window.parent.LG.tip('请选择行!');
+                        return
+                    }
+                    Jump("/admin/menus/menusdetail?id=" + selected.MODULE_ID)
+                    break;
+                case "Delete":
+
+                    if (confirm('确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?')) {
+                        f_delete();
+                        // 退出操作;
+                    }
+
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "selectall":
+                    $(table + '  tr').toggleClass('success');
+                    break;
+            }
+        }
+        function GetAllCheck() {
+            var table = $('#productdatatable').DataTable();
+            var Ids = "";
+            var rows = table.rows('.selected').data();
+            for (var i = 0, l = rows.length; i < l; i++) {
+
+                Ids += rows[i].Pid + ",";
+
+            }
+            return Ids;
+
+        }
+        function setpermission() {
+                var data = {};
+                data.menu_cd = '@ViewBag.MenuID';
+                LG.ajax({
+                    url: rootPath + 'MenusButtons/SetPermission',
+                    loading: '正在设置中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        LG.tipSuccess('设置成功!');
+                    },
+                    error: function (message) {
+                       LG.tipError(message);
+                    }
+                });
+        }
+        //刷新数据
+        function reload() {
+            $(table).DataTable().draw(false);
+        }
+    </script>
+}
+
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+
+                        <h1 class='pull-left'>
+
+                            <i class='icon-edit'></i>
+
+                            <span>Forms styles and features</span>
+
+                        </h1>
+
+                        <div class='pull-right'>
+
+                            <ul class='breadcrumb'>
+
+                                <li>
+
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+
+                                    </a>
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li>Forms
+
+                                </li>
+
+                                <li class='separator'>
+
+                                    <i class='icon-angle-right'></i>
+
+                                </li>
+
+                                <li class='active'>Form styles and features</li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+             <div class='row-fluid'>
+            <div class="box-content Lgloading" id="tablebutton">
+                <button type="button" id="back" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">返回</button>
+         
+            </div>
+                 </div>
+            <hr class="hr-normal">
+            <div class='row-fluid'>
+
+                <div class='span12 box bordered-box blue-border' style='margin-bottom: 0;'>
+
+                    <div class='box-header blue-background'>
+
+                        <div class='title'>Responsive table</div>
+
+                        <div class='actions'>
+
+                            <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                            </a>
+
+                            <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class='box-content box-no-padding'>
+
+                        <div class='responsive-table'>
+
+                            <div class='scrollable-area'>
+
+                                <table id="menusbuttonstable" class='data-table table table-bordered table-striped  table-hover table-striped' style="width: 100%;">
+                                    <thead>
+                                        <tr>                                            
+                                            <th>ModulePermissionID</th>
+                                            <th>MenuNo</th>
+                                            <th>按钮名称</th>
+                                            <th>按钮动作</th>
+                                            <th>菜单名称</th>
+                                            <th>按钮图标</th>
+                                            <th>按钮Ajax路径</th>
+
+                                        </tr>
+                                    </thead>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class='group-header'>
+
+                <div class='row-fluid'>
+
+                    <div class='span6 offset3'>
+
+                        <div class='text-center'>
+
+                            <h2>Additional form styles</h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+

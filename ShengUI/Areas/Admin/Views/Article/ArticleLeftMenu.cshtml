@@ -1,0 +1,39 @@
+﻿@{
+   
+    Layout = null;
+}
+<style type="text/css">
+    .b1 {
+        width: 30px;
+        height: 13px;
+        border-left: 1px solid #CCC;
+        border-bottom: 1px solid #CCC;
+        margin: 9px 10px 0px 37px;
+        float: left;
+    }
+        .nav > li > a {
+            position: static; 
+        }
+</style>
+  <ul class="nav nav-pills nav-stacked">
+    @foreach (var menu in (ViewData["ArticleLeftMenu"] as List<MODEL.ViewModel.EasyUITree>))
+    {
+        <li>
+                <a href="javascript:void(0)" category="@menu.id">
+                        <i class="fa fa-angle-right fa-fw"></i><strong>@menu.text</strong>
+                    </a>
+            @if (menu.children!=null)
+            {
+           <ul class="nav nav-pills nav-stacked">
+                @foreach (var child in menu.children)
+                {
+                    <li>
+                         <span class="b1"></span><a href="javascript:void(0)" category="@child.id">@child.text</a>
+                    </li>
+                }
+            </ul>
+            }
+        </li>
+    }
+
+</ul>

@@ -1,0 +1,282 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<input type="hidden" id="MenuNo" value="RolePermissionInfo" />
+<input type="hidden" id="Role_CD" value="Administrator" />
+
+@section backScripts
+{
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+
+        var toolbarOptions = [
+           //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+
+            var calendarDate, d, m, select2icon, y;
+
+            $("#tree1").dynatree({
+                checkbox: true,
+                selectMode: 2,
+                // children: treeData,
+                onSelect: function (select, node) {
+                    // Display list of selected nodes
+                    var selNodes = node.tree.getSelectedNodes();
+                    // convert to title/key array
+                    var selKeys = $.map(selNodes, function (node) {
+                        return "[" + node.data.key + "]: '" + node.data.title + "'";
+                    });
+                },
+                onClick: function (node, event) {
+                    // We should not toggle, if target was "checkbox", because this
+                    // would result in double-toggle (i.e. no toggle)
+                    if (node.getEventTargetType(event) == "title")
+                        node.toggleSelect();
+                },
+                onKeydown: function (node, event) {
+                    if (event.which == 32) {
+                        node.toggleSelect();
+                        return false;
+                    }
+                },
+                // The following options are only required, if we have more than one tree on one page:
+                cookieId: "dynatree-Cb2",
+                idPrefix: "dynatree-Cb2-"
+            });
+            $("#tree11").dynatree({
+                checkbox: true,
+                selectMode: 2,
+                onSelect: function (select, node) {
+                    var selKeys, selNodes;
+
+                    selNodes = node.tree.getSelectedNodes();
+                    selKeys = $.map(selNodes, function (node) {
+                        return "[" + node.data.key + "]: '" + node.data.title + "'";
+                    });
+                    return $("#echoSelection2").text(selKeys.join(", "));
+                },
+                onClick: function (node, event) {
+                    if (node.getEventTargetType(event) === "title") {
+                        return node.toggleSelect();
+                    }
+                },
+                onKeydown: function (node, event) {
+                    if (event.which === 32) {
+                        node.toggleSelect();
+                        return false;
+                    }
+                },
+                idPrefix: "dynatree-Cb2-"
+            });
+            $(".nav-tabs li a").click(function () {
+                // $(this).attr("data-val");
+                $("#Role_CD").val($(this).attr("data-val"));
+                f_LoadPermission($(this).attr("data-val"));
+            });
+
+
+
+        });
+        function f_LoadPermission(role_cd) {
+            LG.ajax({
+                loading: '正在加载角色权限中...',
+                loadingclass: 'Lgloadingdiv',
+                url: rootPath + 'RolePermission/GetRolePermissionForData',
+                data: { RoleID: role_cd },
+                success: function (data) {
+                    $.each($("#tree1").dynatree("getSelectedNodes"), function (index, item) {
+                        item.select(false);
+                    });
+                    $.each(data.Data, function (index, item) {
+                        $("#tree1").dynatree("getTree").getNodeByKey(item.ModulePermissionID).select(true);
+                    });
+                    LG.tip('加载成功!');
+                },
+                error: function (message) {
+                    LG.tipError(message);
+                }
+            });
+        }
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            switch (id) {
+                case "GrantRolePermission":
+                    f_GrantRolePermission($("#Role_CD").val());
+                    break;
+                case "selectall":
+                    selectAll();
+                    break;
+            }
+        }
+        function selectAll() {
+            $("#tree1").dynatree("getRoot").visit(function (node) {
+                node.toggleSelect();
+            });
+            return false;
+        }
+        function GetAllCheck() {
+
+            var modulePermissionIDs = "";
+            var rows = $("#tree1").dynatree("getSelectedNodes")
+            for (var i = 0, l = rows.length; i < l; i++) {
+                modulePermissionIDs += rows[i].data.key + ",";
+            }
+            return modulePermissionIDs;
+
+        }
+        //授予角色权限
+        function f_GrantRolePermission(SelectRoleID) {
+            var SelectData = GetAllCheck();
+            if (SelectRoleID == "") {
+                LG.tipWarning("未选择角色,请选择!");
+                return;
+            }
+            if (SelectData == "") {
+                LG.tipWarning("未选择权限,请选择!");
+                return;
+            }
+            else {
+                LG.ajax({
+                    loading: '正在授予角色权限中...',
+                    url: rootPath + 'RolePermission/GrantRolePermission',
+                    data: { ModulePermissions: SelectData, RoleID: SelectRoleID },
+                    success: function () {
+                        LG.tipSuccess('授予角色权限成功!');
+                    },
+                    error: function (message) {
+                        LG.tipError(message);
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+                        <h1 class='pull-left'>
+                            <i class='icon-edit'></i>
+                            <span>菜单管理</span>
+                        </h1>
+                        <div class='pull-right'>
+                            <ul class='breadcrumb'>
+                                <li>
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+                                    </a>
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li>Forms
+
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li class='active'>Form components</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+         
+            </div>
+                   <div class='row-fluid'>
+                    <div class='span12 '>
+                           <div class='box-content'>
+                        <div id='faq'>
+
+                            <div class='row-fluid'>
+
+                                <div class='tabbable tabs-left'>
+
+                                    <ul class='nav nav-tabs'>
+
+                                        @foreach (var item in ViewBag.RoleList)
+                                        {
+                                            <li class='@(item.ROLE_ID == "Administrator" ? "active" : "")'>
+                                                <a data-toggle='tab' href='#@item.ROLE_ID' data-val="@item.ROLE_ID">
+                                                    <i class=' text-contrast'></i>
+                                                    @item.ROLE_NAME
+                                                </a>
+                                            </li>
+                                        }
+
+
+                                    </ul>
+
+                                    <div class='tab-content'>
+                                        <div class='row-fluid'>
+                                            <div class="box-content Lgloading" id="tablebutton">
+                                                <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">全选</button>
+                                            </div>
+                                        </div>
+                                        <hr class="hr-normal">
+                                        <div class='row-fluid Lgloadingdiv'>
+
+                                            <div id="tree1">
+                                                <ul id='tree1-treeData'>
+                                                    @foreach (var item in ViewBag.PermissionList)
+                                                    {
+                                                        <li class='expanded'  id='@(item.MP_ID)' title='@item.REMARK' data="" >@item.MODULE_NAME
+                                                            @if (item.children != null && item.children.Count > 0)
+                                                            {
+                                                                <ul>
+
+                                                                    @foreach (var itemChild in item.children)
+                                                                    {
+                                                                        <li id='@(itemChild.MP_ID)' title='@itemChild.REMARK' data="">@itemChild.NAME
+                                                                            @if (itemChild.children != null && itemChild.children.Count > 0)
+                                                                            {
+                                                                                <ul>
+
+                                                                                    @foreach (var itemChildThree in itemChild.children)
+                                                                                    {
+                                                                                        <li id='@(itemChildThree.MP_ID)' title='@itemChildThree.REMARK'>@itemChildThree.NAME
+
+                                                                                        </li>
+                                                                                    }
+
+                                                                                </ul>
+                                                                            }
+                                                                        </li>
+                                                                    }
+
+                                                                </ul>
+                                                            }
+                                                        </li>
+                                                    }
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>   </div>
+                </div>
+        </div>
+
+    </div>

@@ -1,0 +1,262 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<input type="hidden" id="MenuNo" value="ArticleInfo" />
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.columnFilter.js' type='text/javascript'></script>
+<script src='/Scripts/Back/tables.js' type='text/javascript'></script>
+
+@section backScripts
+{
+
+    <script type="text/javascript">
+        var rootPath = "@Url.Content("~/Admin/")";
+        var table = '#articletable';
+        var toolbarOptions = [
+           //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            //TablePage();
+            var dt = $(table).dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "order": [[6, "desc"]],
+                "ajax": {
+                    "url": '/Admin/Article/GetArticleGrid',
+                    "type": "POST",
+                    "data": {  }
+                },
+                "columns": [
+                     { "data": "SEQ_NO", "orderable": "SEQ_NO" },
+                    { "data": "ARTICLE_ID", "name": "[Equal]{main}ARTICLE_ID", "orderable": false },
+                    { "data": "CODE", "name": "[Contains]{main}CODE", "orderable": "CODE" },
+                    { "data": "SUBTITLE", "name": "[Contains]{main}SUBTITLE", "orderable": "SUBTITLE" },
+                    { "data": "WRITER", "name": "[Contains]{main}WRITER", "orderable": "WRITER" },
+                    { "data": "KEYWORDS", "name": "[Contains]{main}KEYWORDS", "orderable": "KEYWORDS" },
+                    { "data": "SYNCVERSION", "orderable": "SYNCVERSION" }
+                  
+
+                ]
+                ,"columnDefs": [
+                      {
+                          "targets": [1],
+                          "visible": false
+                      }//,
+                             //{
+                             //    "render": function (data, type, row) {
+                             //        return '<i class="' + data + '"></i>'
+                             //    },
+                             //    "targets": 4
+                             //},
+                ]
+
+            });
+            $(table + ' tbody').on('click', 'tr', function () {
+                $(this).toggleClass('success');
+
+            });
+
+            $(".nav-tabs li a").click(function () {
+                // $(this).attr("data-val");
+                $(table).DataTable().ajax.params({ "[Equal]CATALOG_CD": $(this).attr("data-val") });
+                $(table).DataTable().ajax.reload();
+            });
+
+        });
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            switch (id) {
+                case "Add":
+                    Jump("/admin/article/detail?id=0")
+                    break;
+                case "Update":
+                    var selected = $(table).DataTable().rows('.success').data()[0];
+                    if (!selected) {
+                        window.parent.LG.tip('请选择行!');
+                        return
+                    }
+                    Jump("/admin/article/detail?id=" + selected.ARTICLE_ID)
+                    break;
+                case "Delete":
+
+                    if (confirm('确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?')) {
+                        f_delete();
+                        // 退出操作;
+                    }
+
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "MenuButtonConfig":
+                    var selected = $(table).DataTable().rows('.success').data()[0];
+                    if (!selected) {
+                        window.parent.LG.tip('请选择行!');
+                        return
+                    }
+                    Jump("/admin/menusbuttons/index?MenuID=" + selected.MODULE_ID)
+                    break;
+                case "selectall":
+                    $(table + '  tr').toggleClass('success');
+                    break;
+            }
+        }
+    </script>
+}
+
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+                        <h1 class='pull-left'>
+                            <i class='icon-edit'></i>
+                            <span>企业门户管理</span>
+                        </h1>
+                        <div class='pull-right'>
+                            <ul class='breadcrumb'>
+                                <li>
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+                                    </a>
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li>Forms
+
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li class='active'>Form components</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id='faq'>
+
+                    <div class='row-fluid'>
+
+                        <div class='tabbable tabs-left'>
+
+                            <ul class='nav nav-tabs'>
+                                  <li class='active'>
+                                        <a data-toggle='tab' href='#' data-val="">
+                                            <i class=' text-contrast'></i>
+                                          全部
+                                        </a>
+                                    </li>
+                                @foreach (var item in ViewBag.ModuleLeftMenus)
+                                {
+                                    <li class=''>
+                                        <a data-toggle='tab' href='#@item.CATALOG_CD' data-val="@item.CATALOG_CD">
+                                            <i class=' text-contrast'></i>
+                                            @item.NAME
+                                        </a>
+                                    </li>
+                                }
+
+
+                            </ul>
+
+                            <div class='tab-content'>
+                                <div class='row-fluid'>
+                                    <div class="box-content Lgloading" id="tablebutton">
+                                        <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">反选</button>
+                                        <div style="float: right">
+                                          
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="hr-normal">
+                                <div class='row-fluid'>
+
+                                    <div class='span12 box bordered-box orange-border' style='margin-bottom: 0;'>
+
+                                        <div class='box-header orange-background'>
+
+                                            <div class='title'>Sortable data table with pagination</div>
+
+                                            <div class='actions'>
+
+                                                <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                                                </a>
+
+                                                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class='box-content box-no-padding'>
+
+                                            <div class='responsive-table'>
+
+                                                <div class='scrollable-area'>
+
+
+
+                                                    <table id="articletable" class='data-table table table-bordered table-striped  table-hover table-striped' style="width: 100%;">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th>序号</th>
+                                                                 <th>ID</th>
+                                                                <th>名称</th>
+                                                                <th>简标题</th>
+                                                                <th>作者</th>
+                                                                <th>关键字</th>
+                                                                <th>创建时间</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                    </table>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

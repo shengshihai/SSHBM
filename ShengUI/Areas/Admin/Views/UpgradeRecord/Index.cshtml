@@ -1,0 +1,371 @@
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+
+<div class="">
+    <div class="block">
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog"></i></a>
+            </div>
+            <h2>Inbox <strong>(5)</strong></h2>
+        </div>
+
+
+        <div class="block-section" id="tablebutton">
+            <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">反选</button>
+            <div style="float: right">
+                <button type="button" id="uncheck" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">待审核</button>
+                <button type="button" id="checked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核通过</button>
+                @*   <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>*@
+                @*   <button type="button" id="unpublish" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)" >未提交</button>*@
+
+            </div>
+        </div>
+
+
+
+        <div class="table-responsive">
+
+            <div>
+
+                <table id="productdatatable" class="display cell-border table table-vcenter table-striped table-condensed" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+
+                            <th style="width: 3%">ID</th>
+                            <th style="width: 13%">升级人</th>
+                            <th style="width: 13%">奖励人</th>
+                            <th style="width: 40%">备注</th>
+                            <th style="width: 8%">价格</th>
+                            <th style="width: 8%">状态</th>
+                            <th style="width: 13%">申请时间</th>
+                        </tr>
+                    </thead>
+                    @*             <tfoot>
+            <tr>
+               <th style="width: 3%">ID</th>
+                            <th style="width: 38%">产品名称</th>
+                            <th style="width: 29%">供应商名称</th>
+                            <th style="width: 8%">提交</th>
+                            <th style="width: 8%">审核</th>
+                            <th style="width: 13%">修改时间</th>
+            </tr>
+        </tfoot>*@
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+
+    <link href="~/Content/back/css/datatables/css/jquery.dataTables.css" rel="stylesheet" />
+
+}
+@section backScripts
+{
+    <script src="~/Scripts/back/js/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/back/js/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script type="text/javascript">
+        //相对路径
+        var rootPath = "@Url.Content("~/Admin/")";
+        var grid = $("#productdatatable");
+        var gridUrl = rootPath + 'UpgradeRecord/GetProductForGrid';
+        var toolbarOptions = [
+             //{ text: '高级搜索', id: 'Search', handler: toolbarBtnItemClick, iconCls: 'icon-search' }
+
+        ];
+        var ss = "";
+        LG.loadToolbar("tablebutton", toolbarBtnItemClick, toolbarOptions);
+        $(document).ready(function () {
+            App.datatables();
+            var dt = $("#productdatatable").dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ordering": true,
+                "order": [[6, "desc"]],
+                "ajax": {
+                    "url": rootPath + 'UpgradeRecord/GetProductForGrid',
+                    "type": "POST"
+
+                },
+                "columns": [
+                    { "data": "id", "name": "[Equal]{main}id", "orderable": false },
+                    { "data": "upgradename", "name": "[Contains]{main}upgradename", "orderable": "upgradename" },
+                    { "data": "getname", "name": "[Contains]{main}getname", "orderable": "getname" },
+                    { "data": "msg" },
+                    { "data": "price" },
+                    { "data": "status", "orderable": "status" },
+                    { "data": "createdate", "orderable": "createdate" }
+
+                ],
+                "columnDefs": [
+                      //{
+                      //    "targets": [2 ],
+                      //    "visible": false
+                      //},
+                 {
+                     "render": function (data, type, row) {
+                         return data.substring(0, data.indexOf("T"));
+                     },
+                     "targets": 6
+                 },
+                 //{
+                 //    "render": function (data, type, row) {
+                 //        if (data == 1)
+                 //            return '提交';
+                 //        else
+                 //            return '未提交';
+                 //    },
+                 //    "targets": 3
+                 //},
+                 {
+                     "render": function (data, type, row) {
+                         if (data == 1)
+                             return '<span class="label label-success">审核通过</span>';
+                         else if (data == 2)
+                             return '<span class="label label-danger">审核不通过</span>';
+                         else
+                             return '<span class="label label-warning">未审核</span>';
+                     },
+                     "targets": 5
+                 }
+                ]
+
+            });
+            $('#productdatatable tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+
+            });
+            //// Setup - add a text input to each footer cell
+            //$('#productdatatable tfoot th').each(function () {
+            //    var title = $('#productdatatable thead th').eq($(this).index()).text();
+            //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            //});
+
+            //// DataTable
+            //var table = $('#productdatatable').DataTable();
+
+            //// Apply the search
+            //table.columns().eq(0).each(function (colIdx) {
+            //    $('input', table.column(colIdx).footer()).on('keyup change', function () {
+            //        table
+            //            .column(colIdx)
+            //            .search(this.value)
+            //            .draw();
+            //    });
+            //});
+        });
+        function filterGlobal() {
+            $('#productdatatable').DataTable().ajax.params().where = "published=1&*&check=0";
+            var ss = ($('#productdatatable').DataTable().ajax.params());
+
+        }
+        //工具条事件
+        function toolbarBtnItemClick(item) {
+            var id = item.id;
+            if (item.id == undefined)
+                id = item.currentTarget.id;
+            var table = $('#productdatatable').DataTable();
+            switch (id) {
+                case "Add":
+                    window.parent.addTab('Product_0', '增加产品信息', rootPath + 'Product/Detail');
+                    break;
+                case "Detail":
+                    var selected = grid.datagrid('getSelected');
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+
+                    window.parent.addTab('Supplier_' + selected.Sid, '查看供应商信息', rootPath + 'Supplier/Detail?IsView=1&ID=' + selected.Sid);
+                    break;
+                case "Update":
+                    var selected = table.rows('.selected').data()[0];
+                    if (!selected) { window.parent.LG.tip('请选择行!'); return }
+                    $('#productdatatable tr').removeClass('selected');
+                    window.parent.addTab('Product_' + selected.Pid, '修改产品信息[' + selected.ProductName + ']', rootPath + 'Product/Detail?ID=' + selected.Pid);
+                    break;
+                case "Delete":
+
+                    if (confirm('确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?')) {
+                        f_delete();
+                        // 退出操作;
+                    }
+
+                    break;
+                case "RealDelete":
+                    $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
+                        if (r) {
+                            realdelete();
+                            // 退出操作;
+                        }
+                    });
+                    break;
+                case "ApprovedMore":
+                    ApprovedMore();
+                    break;
+                case "UnApprovedMore":
+                    UnApprovedMore();
+                    break;
+                case "Search":
+                    //AdvancedSearch();
+                    break;
+                case "uncheck":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).removeClass("active"); $(item).blur();
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]status": "0" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "checked":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]status": "1"});
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "unchecked":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]ischeck": "2", "[Equal]ispublish": "1" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+
+                    }
+                    break;
+                case "unpublish":
+                    if ($(item).hasClass("active")) {
+                        $('#productdatatable').DataTable().ajax.params({ where: "" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).blur();
+                        $(item).removeClass("active");
+                    }
+                    else {
+                        $('#productdatatable').DataTable().ajax.params({ "[Equal]ispublish": "0" });
+                        $('#productdatatable').DataTable().ajax.reload();
+                        $(item).parent().children().removeClass("active");
+                        $(item).addClass("active");
+                    }
+                    break;
+                case "selectall":
+                    $('#productdatatable  tr').toggleClass('selected');
+                    break;
+            }
+        }
+        function f_delete() {
+            var table = $('#productdatatable').DataTable();
+            var selected = table.rows('.selected').data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Product/Delete',
+                    loading: '正在删除中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('删除成功!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function ApprovedMore() {
+            var table = $('#productdatatable').DataTable();
+            var selected = table.rows('.selected').data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'UpgradeRecord/ApprovedMore',
+                    loading: '正在审核中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('审核成功通过!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function UnApprovedMore() {
+            var table = $('#productdatatable').DataTable();
+            var selected = table.rows('.selected').data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Product/UnApprovedMore',
+                    loading: '正在审核中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('审核成功!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function GetAllCheck() {
+            var table = $('#productdatatable').DataTable();
+            var Ids = "";
+            var rows = table.rows('.selected').data();
+            for (var i = 0, l = rows.length; i < l; i++) {
+
+                Ids += rows[i].id + ",";
+
+            }
+            return Ids;
+
+        }
+        //刷新数据
+        function reload() {
+            $('#productdatatable').DataTable().draw(false);
+        }
+    </script>
+
+}
+
+
+
+

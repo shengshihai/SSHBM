@@ -1,0 +1,265 @@
+﻿@model MODEL.ViewModel.ViewModelNote
+@{
+    ViewBag.Title = "通知";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+
+
+@section Scripts
+{
+
+
+}
+<div class="row">
+
+    <div class="col-sm-9 col-lg-10">
+        <div class="block">
+            <div class="block-title">
+
+                <h2>Compose <strong>Message</strong></h2>
+            </div>
+            <form id="form-titledetail" method="post" action="Add" class="form-horizontal form-bordered">
+                <div id="progress-first" class="step">
+                    <input type="hidden" name="nid" value="@Model.nid" />
+                    <div class="form-group">
+                        <label class="col-md-3 col-lg-2 control-label" for="compose-to">标题 <span class="text-danger">*</span></label>
+                        <div class="col-md-9 col-lg-10">
+                            <input type="text" id="title" name="title" class="form-control form-control-borderless" placeholder="Enter title.." value="@Model.title">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-3 col-lg-2 control-label" for="compose-to">供应商 <span class="text-danger">*</span></label>
+                        <div class="col-md-9 col-lg-10">
+                            <select id="objectids" name="objectids" class="select-chosen" data-placeholder="Choose a Company.." style="width: 250px; display: none" multiple="">
+                                <option></option>
+                                @foreach (var item in (ViewBag.SupplierList as List<MODEL.ViewModel.EasyUISelect>))
+                                {
+                                    if (item.value == Model.objectid)
+                                    {<option selected="selected" value="@item.value">@item.text</option> }
+                                    else
+                                    {
+                                    <option value="@item.value">@item.text</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 col-lg-2 control-label" for="compose-message">类型</label>
+                        <div class="col-md-9 col-lg-10">
+
+                            <select id="notetype" name="notetype" class="form-control" size="1">
+                                <option value="1">店铺通知</option>
+                                <option value="2">采购通知</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 col-lg-2 control-label" for="compose-message">内容</label>
+                        <div class="col-md-9 col-lg-10">
+                            <textarea cols="80" id="content" name="content" rows="10" class="" style="width: 95%; height: 450px">@Model.content</textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group form-actions">
+                    <div class="col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2">
+                        @if (ViewBag.CurrentID <= 0)
+                        {
+                            <button type="submit" class="btn btn-sm btn-primary" id="next3" data-loading-text="Loading..."><i class="fa fa-share"></i>保存</button>
+                        }
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+@section backScripts
+{
+    <script src="~/Scripts/back/js/jquery-form.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script src="~/Content/back/dropzone/dropzone.js"></script>
+    <script src="~/Content/back/tinymce/jscripts/tiny_mce/tiny_mce_src.js"></script>
+    <script type="text/javascript">
+
+        //当前ID
+        var currentID = "@ViewBag.CurrentID";
+        //是否新增状态
+        var isAddNew = currentID == "" || currentID == "0";
+        //是否查看状态
+        var isView = false;
+        //是否编辑状态
+        var isEdit = !isAddNew && !isView;
+
+        $(function () {
+            init();
+            //loadtingmce();
+            // dropzoneimg();
+            selectedCategory();
+        });
+
+
+
+        //<![CDATA[
+        function ajaxfilemanager(field_name, url, type, win) {
+            $(win.document.getElementById(field_name + "_file")).click();
+            return false;
+        }
+        function loadtingmce() {
+            tinyMCE.init({
+                // General options
+                mode: "exact",
+                elements: "myEditor",
+                theme: "advanced",
+                language: "@Language.Resource.textarea_lang",
+                plugins: "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,advlist,autosave",
+                theme_advanced_buttons1: "code,preview,|,undo,redo,fontselect,fontsizeselect,bold,italic,underline,forecolor,backcolor,removeformat,image,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,|,outdent,indent,sub,sup,|,charmap,link,unlink,fullscreen",
+                theme_advanced_toolbar_location: "top",
+                theme_advanced_toolbar_align: "left",
+                theme_advanced_statusbar_location: "bottom",
+                theme_advanced_resizing: true,
+                file_browser_callback: "ajaxfilemanager",
+                // plugins : "ankupload",   
+
+                // 上传附件的操作路径   
+                // plugin_ankupload_url:"/Content/ankupload_v1.2/upfile.htm",  
+
+
+                // Example content CSS (should be your site CSS)
+                content_css: "/Content/back/tinymce/examples/css/content.css",
+
+                // Drop lists for link/image/media/template dialogs
+                template_external_list_url: "/Content/back/tinymce/examples/lists/template_list.js",
+                external_link_list_url: "/Content/back/tinymce/examples/lists/link_list.js",
+                external_image_list_url: "/Content/back/tinymce/examples/lists/image_list.js",
+                media_external_list_url: "/Content/back/tinymce/examples/lists/media_list.js",
+
+                // Style formats
+                style_formats: [
+                    { title: 'Bold text', inline: 'b' },
+                    { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                    { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                    { title: 'Example 1', inline: 'span', classes: 'example1' },
+                    { title: 'Example 2', inline: 'span', classes: 'example2' },
+                    { title: 'Table styles' },
+                    { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                ],
+
+                // Replace values for the template plugin
+                template_replace_values: {
+                    username: "Some User",
+                    staffid: "991234"
+                }
+            });
+        }
+        //]]>
+
+        function Save() {
+            $("#submit").click(function () {
+                var form = $("#form-titledetail");
+                LG.submitForm(form, function () {
+                })
+            });
+        }
+        function init() {
+            $("#form-titledetail").formwizard({
+                disableUIStyles: !0,
+                validationEnabled: !0,
+                formPluginEnabled: !0,
+                loadingbtn: "next3",
+                inDuration: 0,
+                outDuration: 0,
+                formOptions: {
+                    url: '/Admin/Note/' + (isEdit ? 'Update' : 'Add'),
+                    success: function (data, n, r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+
+
+                            window.parent.LG.tipSuccess(data.Message);
+
+                        }
+                        else
+                            window.parent.LG.tipError(data.Message);
+                    }
+
+
+                },
+                validationOptions: {
+                    errorClass: "help-block animation-slideDown", errorElement: "div", errorPlacement: function (e, a) {
+                        a.parents(".form-group > div").append(e)
+                    }, highlight: function (e) {
+                        $(e).closest(".form-group").removeClass("has-success has-error").addClass("has-error"), $(e).closest(".help-block").remove()
+                    }, success: function (e) {
+                        e.closest(".form-group").removeClass("has-success has-error"), e.closest(".help-block").remove()
+                    }, rules: { title: { required: !0 }, objectids: { required: !0 }, content: { required: !0 } },
+                    messages: { title: { required: "请输入标题" }, objectids: { required: "请选择用户" }, content: { required: "请输入内容" } }
+                }
+            })
+        }
+        function selectedCategory() {
+
+
+            $(".nav li a").click(function () {
+                $(".nav li").removeClass("active");
+                $(this).parent().addClass("active");
+                $("#parentid").val($(this).attr("category"));
+            })
+            var parentid = $("#parentid").val();
+            if (parentid > 0)
+                $('[category="' + parentid + '"]').parent().addClass("active");
+        }
+        function dropzoneimg() {
+            var myDropzone = new Dropzone("#productimage", {
+                url: '/Admin/Article/UploadImgAttachment/',
+                addRemoveLinks: true,
+                acceptedFiles: 'image/*',
+                maxFilesize: 4,
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (file.url) {
+                            $(file.previewElement).find(".dz-details").append("<input type='hidden' name='aid' value='" + file.id + "'><input type='hidden' name='atype' value='" + file.FileType + "'><input type='hidden' name='filepath' value='" + file.url + "'><input type='hidden' name='isimage' value='true'><input type='hidden' name='filename'  value='" + file.name + "'>");
+                            $(file.previewElement).find(".dz-details").find("input[type=radio]").val(file.url);
+                            if (file.DefaultImage == 1 || file.DefaultImage == true)
+                                $(file.previewElement).find(".dz-details").find("input[type=radio]").attr("checked", "checked");
+                            file.previewElement.classList.add("dz-success");
+                        }
+                        $("#imgrequired").val('1');
+                        $("#imgrequired").blur();
+                    });
+                    this.on("removedfile", function (file) {
+                        if ($("#productimage").children().length == 1) { $("#imgrequired").val(''); }
+
+
+                    }),
+                    this.on("success", function (file, url) {
+                        // <input type="hidden" name="aid" value="338">
+                        //<input type="hidden" name="itemid" value="1210">
+                        //<input type="hidden" name="atype" value="0">
+                        //<input type="hidden" name="filepath" value="http://image.exportimes.com/UploadFile/Ckeditor/2014/11/24/201411240957061952.jpg">
+                        //<input type="hidden" name="isimage" value="true">
+                        //<input type="hidden" name="isdefault" value="true">
+                        //<input type="text" name="filename" style="width: 100px; font-size: 10px;" value="China, New Zealand announce upgrade of bilateral relations">     
+                        $(file.previewElement).find(".dz-details").append("<input type='hidden' name='aid' value='0'><input type='hidden' name='atype' value='image'><input type='hidden' name='filepath' value='" + url + "'><input type='hidden' name='isimage' value='true'><input type='hidden' name='filename'  value='" + file.name + "'>");
+                        $(file.previewElement).find(".dz-details").find("input[type=radio]").val(url);
+
+                    });
+
+                    // this._callbacks.addedfile[0](file);
+                },
+            });
+
+        }
+    </script>
+
+
+
+}
+
+
+

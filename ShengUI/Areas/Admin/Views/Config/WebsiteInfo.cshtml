@@ -1,0 +1,511 @@
+﻿@{
+    ViewBag.Title = "公司信息管理";
+    Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
+}
+<script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+<script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+@section backScripts
+{
+
+
+    <script type="text/javascript">
+        var configList = @(!string.IsNullOrEmpty(ViewBag.ConfigList) ? Html.Raw(ViewBag.ConfigList) : "{}");
+        $(document).ready(function () {
+
+            GetConfigList();
+           // init()
+        });
+        function GetConfigList()
+        {
+            for (var i = 0; i < configList.length; i++) {
+                $("#"+configList[i].REF_PARAM).val(configList[i].REF_VALUE);
+            }
+        }
+        function init() {
+            $("#companybasicform").validate({
+                submitHandler: function (form) {
+
+                    form.action ="Update";
+                    LG.submitForm(form, function (data, n, r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            window.parent.LG.tipSuccess("保存成功");
+                            
+                        }
+                        else {
+                            window.parent.LG.tipError("保存成功");
+                        }
+                    }, function () {
+
+                    });
+                }
+            });
+            $("#webbasicform").validate({
+                submitHandler: function (form) {
+
+                    form.action ="Update";
+                    LG.submitForm(form, function (data, n, r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            window.parent.LG.tipSuccess("保存成功");
+                            
+                        }
+                        else {
+                            window.parent.LG.tipError("保存成功");
+                        }
+                    }, function () {
+
+                    });
+                }
+            });
+            $("#emailbasicform").validate({
+                submitHandler: function (form) {
+
+                    form.action ="Update";
+                    LG.submitForm(form, function (data, n, r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            window.parent.LG.tipSuccess("保存成功");
+                            
+                        }
+                        else {
+                            window.parent.LG.tipError("保存成功");
+                        }
+                    }, function () {
+
+                    });
+                }
+            });
+            $("#statisticalform").validate({
+                submitHandler: function (form) {
+
+                    form.action ="Update";
+                    LG.submitForm(form, function (data, n, r) {
+                        if (!data.IsError)// 如果提交成功则隐藏进度条
+                        {
+                            window.parent.LG.tipSuccess("保存成功");
+                            
+                        }
+                        else {
+                            window.parent.LG.tipError("保存成功");
+                        }
+                    }, function () {
+
+                    });
+                }
+            });
+        }
+    </script>
+    <style type="text/css">
+    </style>
+}
+
+<div class='container-fluid'>
+
+    <div class='row-fluid' id='content-wrapper'>
+
+        <div class='span12'>
+
+            <div class='row-fluid'>
+
+                <div class='span12'>
+
+                    <div class='page-header'>
+                        <h1 class='pull-left'>
+                            <i class='icon-edit'></i>
+                            <span>网站设置</span>
+                        </h1>
+                        <div class='pull-right'>
+                            <ul class='breadcrumb'>
+                                <li>
+                                    <a href="index.html"><i class='icon-bar-chart'></i>
+                                    </a>
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li>Website
+
+                                </li>
+                                <li class='separator'>
+                                    <i class='icon-angle-right'></i>
+                                </li>
+                                <li class='active'>Form components</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class='row-fluid'>
+
+                    <div class='span12 box' style='margin-bottom: 0'>
+
+                        <div class='box-header purple-background'>
+
+                            <div class='title'>Tabs on top and bottom</div>
+
+                            <div class='actions'>
+
+                                <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                                </a>
+
+                                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class='box-content'>
+
+                            <div class='row-fluid'>
+
+                                <div class='span12'>
+
+                                    <div class='tabbable'>
+
+                                        <ul class='nav nav-tabs'>
+
+                                            <li class='active'>
+
+                                                <a data-toggle='tab' href='#tab1'>
+
+                                                    <i class='icon-indent-left'></i>
+
+                                                    公司信息
+
+                                                </a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <a data-toggle='tab' href='#tab2'>
+
+                                                    <i class='icon-edit text-red'></i>
+
+                                                    网站信息
+
+                                                </a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <a data-toggle='tab' href='#tab3'>
+
+                                                    <i class='icon-ambulance text-blue'></i>
+
+                                                    邮件参数
+
+                                                </a>
+
+                                            </li>
+                                            <li>
+
+                                                <a data-toggle='tab' href='#tab4'>
+
+                                                    <i class='icon-ambulance text-blue'></i>
+
+                                                    统计代码
+
+                                                </a>
+
+                                            </li>
+                                        </ul>
+
+                                        <div class='tab-content'>
+
+                                            <div class='tab-pane active' id='tab1'>
+
+                                                <div class='box-content box box-transparent box-nomargin'>
+                                                    @using (Ajax.BeginForm("", null, new AjaxOptions()
+                                                        {
+                                                            Url = "/Admin/Config/Save",
+                                                            HttpMethod = "post",
+                                                            OnSuccess = "Success",
+                                                            LoadingElementId = "divMsg",
+                                                            OnBegin = "OnBeginSubmit"
+
+                                                        }, new { id = "companybasicform", @class = "form-horizontal" }))
+                                                    {
+
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="CompanyName">公司名称</label>
+                                                            <div class="controls">
+                                                                <input type="text" id="CompanyName" name="CompanyName" class="form-control" placeholder="" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="TaxNo">税号</label>
+                                                            <div class="controls">
+                                                                <input type="text" id="TaxNo" name="TaxNo" class="form-control" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Industry">Industry</label>
+                                                            <div class="controls">
+                                                                <input name="Industry" type="text" id="Industry" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Address">Address</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="Address" name="Address" class="form-control"></textarea>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Postcode">Postcode</label>
+                                                            <div class="controls">
+                                                                <input name="Postcode" type="text" id="Postcode" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="City">City</label>
+                                                            <div class="controls">
+                                                                <input name="City" type="text" id="City" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Email">Email</label>
+                                                            <div class="controls">
+                                                                <input name="Email" type="text" id="Email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Phone">Phone</label>
+                                                            <div class="controls">
+                                                                <input name="Phone" type="text" id="Phone" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Fax">Fax</label>
+                                                            <div class="controls">
+                                                                <input name="Fax" type="text" id="Fax" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="MSN">MSN</label>
+                                                            <div class="controls">
+                                                                <input name="MSN" type="text" id="MSN" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="QQ">QQ</label>
+                                                            <div class="controls">
+                                                                <input name="QQ" type="text" id="QQ" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="MSN">WEB</label>
+                                                            <div class="controls">
+                                                                <input name="WEB" type="text" id="WEB" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group form-actions">
+                                                            <div class="col-md-9 col-md-offset-3">
+                                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Submit</button>
+                                                                <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i>Reset</button>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class='tab-pane' id='tab2'>
+
+                                                <div class='box-content box box-transparent box-nomargin'>
+                                                    @using (Ajax.BeginForm("", null, new AjaxOptions()
+                                                        {
+                                                            Url = "/Admin/Config/Save",
+                                                            HttpMethod = "post",
+                                                            OnSuccess = "Success",
+                                                            LoadingElementId = "divMsg"
+
+                                                        }, new { id = "webbasicform", @class = "form-horizontal" }))
+                                                    {
+
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="SiteName">名称</label>
+                                                            <div class="controls">
+                                                                <input type="text" id="SiteName" name="SiteName" class="form-control" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="SiteCode">发布路径</label>
+                                                            <div class="controls">
+                                                                <input type="text" id="SiteCode" name="SiteCode" class="form-control" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Url">网址</label>
+                                                            <div class="controls">
+                                                                <input name="Url" type="text" id="Url" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="SiteTitle">标题</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="SiteTitle" name="SiteTitle" class="form-control"></textarea>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Keywords">关键字</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="Keywords" name="Keywords" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Description">描述</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="Description" name="Description" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Copyright">版权信息</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="Copyright" name="Copyright" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Code">页脚信息</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="Code" name="Code" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group form-actions">
+                                                            <div class="col-md-9 col-md-offset-3">
+                                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Submit</button>
+                                                                <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i>Reset</button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+
+                                            <div class='tab-pane' id='tab3'>
+
+                                                <div class='box-content box box-transparent box-nomargin'>
+                                                    @using (Ajax.BeginForm("", null, new AjaxOptions()
+                                                        {
+                                                            Url = "/Admin/Config/Save",
+                                                            HttpMethod = "post",
+                                                            OnSuccess = "Success",
+                                                            LoadingElementId = "divMsg"
+
+                                                        }, new { id = "emailbasicform", @class = "form-horizontal" }))
+                                                    {
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="DisplayName">显示名称</label>
+                                                            <div class="controls">
+                                                                <input type="text" id="DisplayName" name="DisplayName" class="form-control" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="MailAddress">邮件地址	</label>
+                                                            <div class="controls">
+                                                                <input type="email" id="MailAddress" name="MailAddress" class="form-control" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="UserName">用户名</label>
+                                                            <div class="controls">
+                                                                <input name="UserName" type="text" id="UserName" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Password">密码</label>
+                                                            <div class="controls">
+
+                                                                <input name="Password" type="text" id="Password" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Smpt">SMPT</label>
+                                                            <div class="controls">
+                                                                <input name="Smpt" type="text" id="Smpt" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="Port">端口</label>
+                                                            <div class="controls">
+                                                                <input name="Port" type="text" id="Port" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="DefaultEmail">默认邮箱</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="DefaultEmail" name="DefaultEmail" class="form-control"></textarea>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group form-actions">
+                                                            <div class="col-md-9 col-md-offset-3">
+                                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Submit</button>
+                                                                <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i>Reset</button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div class='tab-pane' id='tab4'>
+
+                                                <div class='box-content box box-transparent box-nomargin'>
+                                                    @using (Ajax.BeginForm("", null, new AjaxOptions()
+                                                        {
+                                                            Url = "/Admin/Config/Save",
+                                                            HttpMethod = "post",
+                                                            OnSuccess = "Success",
+                                                            LoadingElementId = "divMsg"
+
+                                                        }, new { id = "statisticalform", @class = "form-horizontal" }))
+                                                    {
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="StatisticsCode">统计代码</label>
+                                                            <div class="controls">
+                                                                <textarea cols="100" rows="4" id="StatisticsCode" name="StatisticsCode" class="form-control"></textarea>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group form-actions">
+                                                            <div class="col-md-9 col-md-offset-3">
+                                                                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>Submit</button>
+                                                                <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i>Reset</button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

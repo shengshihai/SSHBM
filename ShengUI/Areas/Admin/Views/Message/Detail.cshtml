@@ -1,0 +1,138 @@
+﻿@model MODEL.ViewModel.ViewModelProduct
+@{
+    ViewBag.Title = "Suppliers";
+    Layout = "~/Areas/Admin/Views/Shared/_head.cshtml";
+}
+<link href="~/Content/back/dropzone/css/dropzone.css" rel="stylesheet" />
+
+ <div class="block">
+                    <div class="block-title">
+                        <div class="block-options pull-right">
+                            <div class="btn-group btn-group-sm">
+                                <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default dropdown-toggle enable-tooltip" data-toggle="dropdown" title="Status"><i class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                                    <li class="active">
+                                        <a href="javascript:void(0)"><i class="fa fa-check pull-right"></i>Online</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="fa fa-circle pull-right"></i>Away</a>
+                                        <a href="javascript:void(0)"><i class="fa fa-circle pull-right"></i>Busy</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="fa fa-power-off pull-right text-muted"></i>Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h2><i class="fa fa-pencil animation-pulse"></i><strong>Shirley</strong> Wells</h2>
+                    </div>
+                    <div class="chatui-container block-content-full">
+                        <div class="chatui-people themed-background-dark">
+                            <div class="chatui-people-scroll">
+                                <h2 class="chatui-header"><i class="fa fa-circle text-success pull-right"></i><strong>Online</strong></h2>
+                                <div class="list-group">
+                                    @foreach (var item in ViewBag.UserList)
+                                    {
+                                        <a href="javascript:void(0)" class="list-group-item">
+                                        <span class="badge">2</span>
+                                        <img src="@(string.IsNullOrEmpty(item.Portrait)?"/Content/center/images/mem-dimg.gif":item.Portrait)" alt="Avatar" class="img-circle">
+                                        <h5 class="list-group-item-heading"><strong>@item.FirstName</strong> @item.LastName</h5>
+                                    </a>
+                                    }
+                                   @* <a href="javascript:void(0)" class="list-group-item active">
+                                        <span class="badge">2</span>
+                                        <img src="img/placeholders/avatars/avatar6.jpg" alt="Avatar" class="img-circle">
+                                        <h5 class="list-group-item-heading"><strong>Shirley</strong> Wells</h5>
+                                    </a>
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <span class="badge">5</span>
+                                        <img src="img/placeholders/avatars/avatar9.jpg" alt="Avatar" class="img-circle">
+                                        <h5 class="list-group-item-heading"><strong>Craig</strong> West</h5>
+                                    </a>
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <span class="badge">1</span>
+                                        <img src="img/placeholders/avatars/avatar10.jpg" alt="Avatar" class="img-circle">
+                                        <h5 class="list-group-item-heading"><strong>Brenda</strong> Silva</h5>
+                                    </a>
+                                    <a href="javascript:void(0)" class="list-group-item">
+                                        <img src="img/placeholders/avatars/avatar15.jpg" alt="Avatar" class="img-circle">
+                                        <h5 class="list-group-item-heading"><strong>George</strong> Peterson</h5>
+                                    </a>*@
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="chatui-talk">
+                            <div class="chatui-talk-scroll">
+                                <ul>
+                                     @foreach (var item in ViewBag.ReplyList)
+                                     {
+                                           <li class="text-center"><small>  @item.replydate</small></li>
+                                            <li class="chatui-talk-msg">
+                                                <span>@item.fromname <img src="@(string.IsNullOrEmpty(item.fromportrait)?"/Content/center/images/mem-dimg.gif":item.fromportrait)" title="@item.fromname" alt="Avatar" class="img-circle chatui-talk-msg-avatar"><br /></span>
+                                                @Html.Raw(item.context)
+                                            </li>
+                                     }
+                                   @* <li class="text-center"><small>yesterday, 23:10</small></li>
+                                    <li class="chatui-talk-msg">
+                                        <img src="img/placeholders/avatars/avatar6.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+                                        Hey admin?
+                                    </li>
+                                    <li class="chatui-talk-msg">
+                                        <img src="img/placeholders/avatars/avatar6.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+                                        How are you?
+                                    </li>
+                                    <li class="text-center"><small>just now</small></li>
+                                    <li class="chatui-talk-msg chatui-talk-msg-highlight themed-border">
+                                        <img src="img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="img-circle chatui-talk-msg-avatar">
+                                        I'm fine, thanks!
+                                    </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="chatui-input">
+                            <form action="page_ready_chat.html" method="post" class="form-horizontal form-control-borderless remove-margin">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-angle-right"></i></span>
+                                    <input type="text" id="chatui-message" name="chatui-message" class="form-control input-lg" placeholder="Type a message and hit enter..">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+@section backScripts
+{
+     
+    <script src="~/Scripts/back/js/jquery-form.js"></script>
+    <script src="~/Scripts/back/js/app-3.0.js"></script>
+    <script src="~/Content/back/dropzone/dropzone.js"></script>
+    <script src="~/Content/back/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/back/js/pages/readyChat.js"></script>
+    <script id="productCategoryTemplate" type="text/x-jquery-tmpl">
+        <option value="${pcId}" isleaves="${isLeaves}" code="${code}">${categoryName}</option>
+    </script>
+
+    <script id="productMainParasTemplate" type="text/x-jquery-tmpl">
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="example-city">${key}</label>
+            <div class="validaddress col-md-3">
+                <input type="hidden" class="c_txt" name="categoryparakey" value="${keyEn}">
+                <input type="text" name="categoryparavalue" id="categorymainparavalue_${id}" class="form-control" placeholder="">
+                <input type="hidden" class="c_txt" name="parasType" value="1">
+                <input type="hidden" class="c_txt" name="keyId" value="${id}">
+                <input type="hidden" class="c_txt" name="valueId" value="0">
+            </div>
+        </div>
+    </script>
+
+       <script type="text/javascript">
+           $(function () { ReadyChat.init(); });
+
+       </script>
+
+
+    
+    
+}
