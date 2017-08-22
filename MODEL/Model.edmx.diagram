@@ -73,6 +73,15 @@
         <EntityTypeShape EntityType="MODEL.TG_order" Width="1.5" PointX="6.125" PointY="0.75" />
         <EntityTypeShape EntityType="MODEL.MST_CAR" Width="1.5" PointX="7.3071358144782188" PointY="30.66298890051571" />
         <AssociationConnector Association="MODEL.YX_weiUserMST_CAR" />
+        <EntityTypeShape EntityType="MODEL.FW_GEO_NODE" Width="1.5" PointX="2.7755674136688779" PointY="16.467347242155739" />
+        <EntityTypeShape EntityType="MODEL.FW_GEO_NODE_CUST" Width="1.5" PointX="6.6635887896006878" PointY="22.427932511283053" />
+        <EntityTypeShape EntityType="MODEL.FW_GEO_TREE" Width="1.5" PointX="10.747355203492267" PointY="6.6797000647893645" />
+        <EntityTypeShape EntityType="MODEL.FW_GEO_TREE_LEVEL" Width="1.5" PointX="7.9756936672961771" PointY="8.92851467846358" />
+        <EntityTypeShape EntityType="MODEL.FW_USER_ASSIGN" Width="1.5" PointX="7.2810730968048212" PointY="6.4976087689854243" />
+        <EntityTypeShape EntityType="MODEL.MST_MUSTSELL" Width="1.5" PointX="7.5905986426354382" PointY="3.2860224411292105" />
+        <EntityTypeShape EntityType="MODEL.MST_MUSTSELL_DTL" Width="1.5" PointX="0.1985037066966778" PointY="20.177797967650832" />
+        <EntityTypeShape EntityType="MODEL.MST_MUSTSELL_PRD" Width="1.5" PointX="8.7192245930057126" PointY="20.580905402349728" />
+        <EntityTypeShape EntityType="MODEL.SYS_USERLOGIN" Width="1.5" PointX="7.2335591610677348" PointY="1.3443412190975348" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

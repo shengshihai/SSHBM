@@ -212,6 +212,7 @@ namespace ShengUI
                     wechatuser.isfenxiao = 0;
                     wechatuser.userMoney = 0;
                     wechatuser.userYongJin = 0;
+                    wechatuser.TREE_NODE_ID = "144e42158f676695";
                     weiuserB.Add(wechatuser);
                 }
             }

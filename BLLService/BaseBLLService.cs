@@ -83,8 +83,19 @@ namespace BLLService
              idal.ModifyBy(model, whereLambda, modifiedProNames);
              return IDBSession.SaveChanges();
         }
- 
 
+        #region 7.0 执行sql语句 +int ExcuteSql(string strSql, params object[] paras)
+        /// <summary>
+        /// 7.0 执行sql语句 +int ExcuteSql(string strSql, params object[] paras)
+        /// </summary>
+        /// <param name="strSql"></param>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public virtual int ExcuteSql(string strSql, params object[] paras)
+        {
+            return idal.ExcuteSql(strSql, paras);
+        }
+        #endregion
         public List<T> GetListasNoTrackingBy(System.Linq.Expressions.Expression<Func<T, bool>> whereLambda)
         {
             return idal.GetListasNoTrackingBy(whereLambda);

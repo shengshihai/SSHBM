@@ -63,6 +63,18 @@
     <Compile Include="FW_AUDIT_RECORD.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="FW_GEO_NODE.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FW_GEO_NODE_CUST.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FW_GEO_TREE.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FW_GEO_TREE_LEVEL.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="FW_MODULE.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -82,6 +94,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="FW_USER.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FW_USER_ASSIGN.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="FW_USER_ROLE.cs">
@@ -132,6 +147,15 @@
     <Compile Include="MST_MEMBER.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="MST_MUSTSELL.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MST_MUSTSELL_DTL.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MST_MUSTSELL_PRD.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="MST_POSITION.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -171,6 +195,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="SYS_REF.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SYS_USERLOGIN.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="TG_Address.cs">
@@ -254,6 +281,18 @@
     <Compile Include="ViewModel\FW_AUDIT_RECORD.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\FW_GEO_NODE.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\FW_GEO_NODE_CUST.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\FW_GEO_TREE.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\FW_GEO_TREE_LEVEL.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\FW_MODULE.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -273,6 +312,9 @@
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\FW_USER.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\FW_USER_ASSIGN.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\FW_USER_ROLE.cs">
@@ -309,6 +351,15 @@
     <Compile Include="ViewModel\MST_MEMBER.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MST_MUSTSELL.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MST_MUSTSELL_DTL.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\MST_MUSTSELL_PRD.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MST_POSITION.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -340,6 +391,9 @@
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\SYS_REF.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\SYS_USERLOGIN.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\TG_Address.cs">

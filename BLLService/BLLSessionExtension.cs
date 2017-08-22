@@ -25,6 +25,66 @@ namespace BLLService
             }
         }
 
+		 IFW_GEO_NODE_MANAGER iFW_GEO_NODE_MANAGER;
+		public IFW_GEO_NODE_MANAGER IFW_GEO_NODE_MANAGER
+		 {
+            get
+            {
+               if( iFW_GEO_NODE_MANAGER==null)
+					iFW_GEO_NODE_MANAGER=new FW_GEO_NODE_MANAGER();
+			   	return iFW_GEO_NODE_MANAGER;
+            }
+            set
+            {
+               iFW_GEO_NODE_MANAGER=value;
+            }
+        }
+
+		 IFW_GEO_NODE_CUST_MANAGER iFW_GEO_NODE_CUST_MANAGER;
+		public IFW_GEO_NODE_CUST_MANAGER IFW_GEO_NODE_CUST_MANAGER
+		 {
+            get
+            {
+               if( iFW_GEO_NODE_CUST_MANAGER==null)
+					iFW_GEO_NODE_CUST_MANAGER=new FW_GEO_NODE_CUST_MANAGER();
+			   	return iFW_GEO_NODE_CUST_MANAGER;
+            }
+            set
+            {
+               iFW_GEO_NODE_CUST_MANAGER=value;
+            }
+        }
+
+		 IFW_GEO_TREE_MANAGER iFW_GEO_TREE_MANAGER;
+		public IFW_GEO_TREE_MANAGER IFW_GEO_TREE_MANAGER
+		 {
+            get
+            {
+               if( iFW_GEO_TREE_MANAGER==null)
+					iFW_GEO_TREE_MANAGER=new FW_GEO_TREE_MANAGER();
+			   	return iFW_GEO_TREE_MANAGER;
+            }
+            set
+            {
+               iFW_GEO_TREE_MANAGER=value;
+            }
+        }
+
+		 IFW_GEO_TREE_LEVEL_MANAGER iFW_GEO_TREE_LEVEL_MANAGER;
+		public IFW_GEO_TREE_LEVEL_MANAGER IFW_GEO_TREE_LEVEL_MANAGER
+		 {
+            get
+            {
+               if( iFW_GEO_TREE_LEVEL_MANAGER==null)
+					iFW_GEO_TREE_LEVEL_MANAGER=new FW_GEO_TREE_LEVEL_MANAGER();
+			   	return iFW_GEO_TREE_LEVEL_MANAGER;
+            }
+            set
+            {
+               iFW_GEO_TREE_LEVEL_MANAGER=value;
+            }
+        }
+
 		 IFW_MODULE_MANAGER iFW_MODULE_MANAGER;
 		public IFW_MODULE_MANAGER IFW_MODULE_MANAGER
 		 {
@@ -127,6 +187,21 @@ namespace BLLService
             set
             {
                iFW_USER_MANAGER=value;
+            }
+        }
+
+		 IFW_USER_ASSIGN_MANAGER iFW_USER_ASSIGN_MANAGER;
+		public IFW_USER_ASSIGN_MANAGER IFW_USER_ASSIGN_MANAGER
+		 {
+            get
+            {
+               if( iFW_USER_ASSIGN_MANAGER==null)
+					iFW_USER_ASSIGN_MANAGER=new FW_USER_ASSIGN_MANAGER();
+			   	return iFW_USER_ASSIGN_MANAGER;
+            }
+            set
+            {
+               iFW_USER_ASSIGN_MANAGER=value;
             }
         }
 
@@ -295,6 +370,51 @@ namespace BLLService
             }
         }
 
+		 IMST_MUSTSELL_MANAGER iMST_MUSTSELL_MANAGER;
+		public IMST_MUSTSELL_MANAGER IMST_MUSTSELL_MANAGER
+		 {
+            get
+            {
+               if( iMST_MUSTSELL_MANAGER==null)
+					iMST_MUSTSELL_MANAGER=new MST_MUSTSELL_MANAGER();
+			   	return iMST_MUSTSELL_MANAGER;
+            }
+            set
+            {
+               iMST_MUSTSELL_MANAGER=value;
+            }
+        }
+
+		 IMST_MUSTSELL_DTL_MANAGER iMST_MUSTSELL_DTL_MANAGER;
+		public IMST_MUSTSELL_DTL_MANAGER IMST_MUSTSELL_DTL_MANAGER
+		 {
+            get
+            {
+               if( iMST_MUSTSELL_DTL_MANAGER==null)
+					iMST_MUSTSELL_DTL_MANAGER=new MST_MUSTSELL_DTL_MANAGER();
+			   	return iMST_MUSTSELL_DTL_MANAGER;
+            }
+            set
+            {
+               iMST_MUSTSELL_DTL_MANAGER=value;
+            }
+        }
+
+		 IMST_MUSTSELL_PRD_MANAGER iMST_MUSTSELL_PRD_MANAGER;
+		public IMST_MUSTSELL_PRD_MANAGER IMST_MUSTSELL_PRD_MANAGER
+		 {
+            get
+            {
+               if( iMST_MUSTSELL_PRD_MANAGER==null)
+					iMST_MUSTSELL_PRD_MANAGER=new MST_MUSTSELL_PRD_MANAGER();
+			   	return iMST_MUSTSELL_PRD_MANAGER;
+            }
+            set
+            {
+               iMST_MUSTSELL_PRD_MANAGER=value;
+            }
+        }
+
 		 IMST_POSITION_MANAGER iMST_POSITION_MANAGER;
 		public IMST_POSITION_MANAGER IMST_POSITION_MANAGER
 		 {
@@ -457,6 +577,21 @@ namespace BLLService
             set
             {
                iSYS_REF_MANAGER=value;
+            }
+        }
+
+		 ISYS_USERLOGIN_MANAGER iSYS_USERLOGIN_MANAGER;
+		public ISYS_USERLOGIN_MANAGER ISYS_USERLOGIN_MANAGER
+		 {
+            get
+            {
+               if( iSYS_USERLOGIN_MANAGER==null)
+					iSYS_USERLOGIN_MANAGER=new SYS_USERLOGIN_MANAGER();
+			   	return iSYS_USERLOGIN_MANAGER;
+            }
+            set
+            {
+               iSYS_USERLOGIN_MANAGER=value;
             }
         }
 

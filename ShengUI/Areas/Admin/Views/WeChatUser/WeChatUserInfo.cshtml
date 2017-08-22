@@ -56,7 +56,10 @@
                        },
                       {
                           "render": function (data, type, row) {
-                              return '<img style="width:90px;height:90px" alt="' + row.nickname + '" src="' + data + '">';
+                              if(data==undefined)
+                                  return '<img style="width:90px;height:90px" alt="' + row.nickname + '" >';
+                              else 
+                                  return '<img style="width:90px;height:90px" alt="' + row.nickname + '" src="' + data + '">';
                           },
                           "targets": 4
                       },

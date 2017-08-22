@@ -5,6 +5,7 @@ using MODEL.ViewModel;
 using MODEL.ViewPage;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -38,6 +39,7 @@ namespace ShengUI.Helper
         const string Admin_Name = "username";
         const string Admin_PermissionKey = "apermission";
         const string Admin_PermissionKeyId = "apermissionid";
+        const string Admin_PermissionNodeID = "nodeid";
         const string Admin_TreeString = "aTreeString";
         const string Admin_LogicSessionKey = "BLLSession";
         const string Admin_CurrUserRole = "currUserRole";
@@ -154,6 +156,20 @@ namespace ShengUI.Helper
             set
             {
                 Session[Admin_Name] = value;
+            }
+        }
+        // <summary>
+        /// 当前用户对象
+        /// </summary>
+        public string UsrNodeID
+        {
+            get
+            {
+                return Session[Admin_PermissionNodeID].ToString();
+            }
+            set
+            {
+                Session[Admin_PermissionNodeID] = value;
             }
         }
         #endregion
@@ -290,6 +306,7 @@ namespace ShengUI.Helper
                     //2.1 保存 用户数据(Session or Cookie)
                     UsrId = usr.USER_ID;
                     UsrName = usr.USER_NAME;
+                    UsrNodeID = usr.TREENODE_ID;
                     //如果选择了复选框，则要使用cookie保存数据
                     if (usrPara.IsAlways)
                     {
@@ -306,6 +323,10 @@ namespace ShengUI.Helper
                     //2.2 查询当前用户的 权限，并将权限 存入 Session 中
                    // UsrPermission = GetUserPermission(usr.userId);
                     UsrPermissionId = GetUserPermissionId(usr.USER_ID);
+                    SqlParameter[] parameters = {   
+                             new SqlParameter("@USER_ID", usr.USER_ID)  
+                                     };
+                    int i =Current.BLLSession.IFW_USER_MANAGER.ExcuteSql("EXEC SET_SYS_USERLOGIN @USER_ID", parameters);
                     return true;
                 }
                 return false;

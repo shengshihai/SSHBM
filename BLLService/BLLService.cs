@@ -16,6 +16,38 @@ namespace BLLService
         }
     }
 
+	public partial class FW_GEO_NODE_MANAGER : BaseBLLService<MODEL.FW_GEO_NODE> ,IFW_GEO_NODE_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IFW_GEO_NODE_REPOSITORY;
+        }
+    }
+
+	public partial class FW_GEO_NODE_CUST_MANAGER : BaseBLLService<MODEL.FW_GEO_NODE_CUST> ,IFW_GEO_NODE_CUST_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IFW_GEO_NODE_CUST_REPOSITORY;
+        }
+    }
+
+	public partial class FW_GEO_TREE_MANAGER : BaseBLLService<MODEL.FW_GEO_TREE> ,IFW_GEO_TREE_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IFW_GEO_TREE_REPOSITORY;
+        }
+    }
+
+	public partial class FW_GEO_TREE_LEVEL_MANAGER : BaseBLLService<MODEL.FW_GEO_TREE_LEVEL> ,IFW_GEO_TREE_LEVEL_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IFW_GEO_TREE_LEVEL_REPOSITORY;
+        }
+    }
+
 	public partial class FW_MODULE_MANAGER : BaseBLLService<MODEL.FW_MODULE> ,IFW_MODULE_MANAGER
     {
 		public override void SetDALRespositry()
@@ -69,6 +101,14 @@ namespace BLLService
 		public override void SetDALRespositry()
         {
              idal = IDBSession.IFW_USER_REPOSITORY;
+        }
+    }
+
+	public partial class FW_USER_ASSIGN_MANAGER : BaseBLLService<MODEL.FW_USER_ASSIGN> ,IFW_USER_ASSIGN_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IFW_USER_ASSIGN_REPOSITORY;
         }
     }
 
@@ -160,6 +200,30 @@ namespace BLLService
         }
     }
 
+	public partial class MST_MUSTSELL_MANAGER : BaseBLLService<MODEL.MST_MUSTSELL> ,IMST_MUSTSELL_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IMST_MUSTSELL_REPOSITORY;
+        }
+    }
+
+	public partial class MST_MUSTSELL_DTL_MANAGER : BaseBLLService<MODEL.MST_MUSTSELL_DTL> ,IMST_MUSTSELL_DTL_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IMST_MUSTSELL_DTL_REPOSITORY;
+        }
+    }
+
+	public partial class MST_MUSTSELL_PRD_MANAGER : BaseBLLService<MODEL.MST_MUSTSELL_PRD> ,IMST_MUSTSELL_PRD_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IMST_MUSTSELL_PRD_REPOSITORY;
+        }
+    }
+
 	public partial class MST_POSITION_MANAGER : BaseBLLService<MODEL.MST_POSITION> ,IMST_POSITION_MANAGER
     {
 		public override void SetDALRespositry()
@@ -245,6 +309,14 @@ namespace BLLService
 		public override void SetDALRespositry()
         {
              idal = IDBSession.ISYS_REF_REPOSITORY;
+        }
+    }
+
+	public partial class SYS_USERLOGIN_MANAGER : BaseBLLService<MODEL.SYS_USERLOGIN> ,ISYS_USERLOGIN_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.ISYS_USERLOGIN_REPOSITORY;
         }
     }
 

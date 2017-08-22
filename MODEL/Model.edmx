@@ -7,6 +7,10 @@
     <Schema Namespace="MODEL.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="MODELStoreContainer">
           <EntitySet Name="FW_AUDIT_RECORD" EntityType="MODEL.Store.FW_AUDIT_RECORD" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FW_GEO_NODE" EntityType="MODEL.Store.FW_GEO_NODE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FW_GEO_NODE_CUST" EntityType="MODEL.Store.FW_GEO_NODE_CUST" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FW_GEO_TREE" EntityType="MODEL.Store.FW_GEO_TREE" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FW_GEO_TREE_LEVEL" EntityType="MODEL.Store.FW_GEO_TREE_LEVEL" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FW_MODULE" EntityType="MODEL.Store.FW_MODULE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FW_MODULEPERMISSION" EntityType="MODEL.Store.FW_MODULEPERMISSION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FW_OPERATELOG" EntityType="MODEL.Store.FW_OPERATELOG" store:Type="Tables" Schema="dbo" />
@@ -14,6 +18,7 @@
           <EntitySet Name="FW_ROLE" EntityType="MODEL.Store.FW_ROLE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FW_ROLEPERMISSION" EntityType="MODEL.Store.FW_ROLEPERMISSION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FW_USER" EntityType="MODEL.Store.FW_USER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FW_USER_ASSIGN" EntityType="MODEL.Store.FW_USER_ASSIGN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FW_USER_ROLE" EntityType="MODEL.Store.FW_USER_ROLE" store:Type="Tables" store:Schema="dbo" store:Name="FW_USER_ROLE">
             <DefiningQuery>SELECT 
       [FW_USER_ROLE].[USER_ID] AS [USER_ID], 
@@ -36,6 +41,9 @@
           <EntitySet Name="MST_COMPANY" EntityType="MODEL.Store.MST_COMPANY" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MST_COMPANY_MEM" EntityType="MODEL.Store.MST_COMPANY_MEM" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MST_MEMBER" EntityType="MODEL.Store.MST_MEMBER" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MST_MUSTSELL" EntityType="MODEL.Store.MST_MUSTSELL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MST_MUSTSELL_DTL" EntityType="MODEL.Store.MST_MUSTSELL_DTL" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MST_MUSTSELL_PRD" EntityType="MODEL.Store.MST_MUSTSELL_PRD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MST_POSITION" EntityType="MODEL.Store.MST_POSITION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MST_PRD" EntityType="MODEL.Store.MST_PRD" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MST_PRD_CATE" EntityType="MODEL.Store.MST_PRD_CATE" store:Type="Tables" Schema="dbo" />
@@ -47,6 +55,7 @@
           <EntitySet Name="SET_NAVIGATION_ITEM" EntityType="MODEL.Store.SET_NAVIGATION_ITEM" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SET_REGION" EntityType="MODEL.Store.SET_REGION" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SYS_REF" EntityType="MODEL.Store.SYS_REF" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SYS_USERLOGIN" EntityType="MODEL.Store.SYS_USERLOGIN" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TG_Address" EntityType="MODEL.Store.TG_Address" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TG_BankCrad" EntityType="MODEL.Store.TG_BankCrad" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TG_Car" EntityType="MODEL.Store.TG_Car" store:Type="Tables" Schema="dbo" />
@@ -95,6 +104,71 @@
           <Property Name="RESULT" Type="char" MaxLength="1" />
           <Property Name="USER_HOST_ADDRESS" Type="nvarchar" MaxLength="15" />
           <Property Name="USER_HOST_MAC" Type="nvarchar" MaxLength="17" />
+        </EntityType>
+        <EntityType Name="FW_GEO_NODE">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+            <PropertyRef Name="NODE_ID" />
+          </Key>
+          <Property Name="TREE_ID" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="NODE_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="NODE_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="LEVEL_NO" Type="int" Nullable="false" />
+          <Property Name="PNODE_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="NODE_DESC" Type="nvarchar" MaxLength="200" />
+          <Property Name="CREATE_DT" Type="datetime" />
+          <Property Name="CREATE_BY" Type="nvarchar" MaxLength="25" />
+          <Property Name="MODIFY_DT" Type="datetime" />
+          <Property Name="MODIFY_BY" Type="nvarchar" MaxLength="25" />
+          <Property Name="IND_CUST" Type="varchar" MaxLength="1" />
+          <Property Name="IND_ROUTE" Type="varchar" MaxLength="1" />
+          <Property Name="START_DT" Type="datetime" />
+          <Property Name="END_DT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FW_GEO_NODE_CUST">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+            <PropertyRef Name="NODE_ID" />
+            <PropertyRef Name="CUST_CD" />
+            <PropertyRef Name="EFF_START_DT" />
+          </Key>
+          <Property Name="TREE_ID" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="NODE_ID" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CUST_CD" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="EFF_START_DT" Type="datetime" Nullable="false" />
+          <Property Name="EFF_END_DT" Type="datetime" />
+          <Property Name="LEVEL_NO" Type="int" Nullable="false" />
+          <Property Name="PNODE_ID" Type="nvarchar" MaxLength="100" />
+          <Property Name="CREATE_DT" Type="datetime" />
+          <Property Name="CREATE_BY" Type="nvarchar" MaxLength="25" />
+          <Property Name="MODIFY_DT" Type="datetime" />
+          <Property Name="MODIFY_BY" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="FW_GEO_TREE">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+          </Key>
+          <Property Name="TREE_ID" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="TREE_DESC" Type="nvarchar" MaxLength="200" />
+          <Property Name="STATUS" Type="nvarchar" MaxLength="1" />
+          <Property Name="CREATE_DT" Type="datetime" />
+          <Property Name="CREATE_BY" Type="nvarchar" MaxLength="25" />
+          <Property Name="MODIFY_DT" Type="datetime" />
+          <Property Name="MODIFY_BY" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="FW_GEO_TREE_LEVEL">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+            <PropertyRef Name="LEVEL_NO" />
+          </Key>
+          <Property Name="TREE_ID" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="LEVEL_NO" Type="int" Nullable="false" />
+          <Property Name="LEVEL_DESC" Type="nvarchar" MaxLength="200" />
+          <Property Name="CREATE_DT" Type="datetime" />
+          <Property Name="CREATE_BY" Type="nvarchar" MaxLength="25" />
+          <Property Name="MODIFY_DT" Type="datetime" />
+          <Property Name="MODIFY_BY" Type="nvarchar" MaxLength="25" />
+          <Property Name="IS_SLS" Type="varchar" Nullable="false" MaxLength="1" />
         </EntityType>
         <EntityType Name="FW_MODULE">
           <Key>
@@ -247,8 +321,18 @@
           <Property Name="UI_GROUP_CD" Type="nvarchar" MaxLength="20" />
           <Property Name="TMP_PASSWD_DATE" Type="datetime" />
         </EntityType>
+        <EntityType Name="FW_USER_ASSIGN">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="HIER_TYPE" />
+            <PropertyRef Name="REF_CD" />
+          </Key>
+          <Property Name="USER_ID" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="HIER_TYPE" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="REF_CD" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
         <!--生成过程中发现错误:
-      警告 6002: 表/视图“qds163909364_db.dbo.FW_USER_ROLE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      警告 6002: 表/视图“AOSHACAR.dbo.FW_USER_ROLE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
       -->
         <EntityType Name="FW_USER_ROLE">
           <Key>
@@ -536,6 +620,46 @@
           <Property Name="SYNCVERSION" Type="datetime" StoreGeneratedPattern="Identity" />
           <Property Name="SYNCFLAG" Type="varchar" MaxLength="1" StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="MST_MUSTSELL">
+          <Key>
+            <PropertyRef Name="MUSTSELL_CD" />
+          </Key>
+          <Property Name="MUSTSELL_CD" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="MUSTSELL_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="STARTDAY" Type="datetime" />
+          <Property Name="ENDDAY" Type="datetime" />
+          <Property Name="VERSION" Type="numeric" Precision="8" />
+          <Property Name="SYNCOPERATION" Type="char" MaxLength="1" />
+          <Property Name="SYNCVERSION" Type="datetime" />
+          <Property Name="SYNCFLAG" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="MST_MUSTSELL_DTL">
+          <Key>
+            <PropertyRef Name="MUSTSELL_CD" />
+            <PropertyRef Name="TYPE" />
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="MUSTSELL_CD" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="TYPE" Type="char" Nullable="false" MaxLength="3" />
+          <Property Name="CODE" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="VERSION" Type="numeric" Precision="8" />
+          <Property Name="SYNCOPERATION" Type="char" MaxLength="1" />
+          <Property Name="SYNCVERSION" Type="datetime" />
+          <Property Name="SYNCFLAG" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="MST_MUSTSELL_PRD">
+          <Key>
+            <PropertyRef Name="MUSTSELL_CD" />
+            <PropertyRef Name="PRD_CD" />
+          </Key>
+          <Property Name="MUSTSELL_CD" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="PRD_CD" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="SEQ" Type="numeric" Precision="4" />
+          <Property Name="VERSION" Type="numeric" Precision="8" />
+          <Property Name="SYNCOPERATION" Type="char" MaxLength="1" />
+          <Property Name="SYNCVERSION" Type="datetime" />
+          <Property Name="SYNCFLAG" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityType Name="MST_POSITION">
           <Key>
             <PropertyRef Name="POSITION_CD" />
@@ -694,22 +818,23 @@
             <PropertyRef Name="SUPPLIER_ID" />
           </Key>
           <Property Name="SUPPLIER_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="SUPPLIER_NAME" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="ADDRESS" Type="varchar" MaxLength="200" />
-          <Property Name="ISCHECK" Type="varchar" Nullable="false" MaxLength="1" />
-          <Property Name="BANNER_IMG" Type="varchar" MaxLength="200" />
-          <Property Name="SUPPLIER_URL" Type="varchar" MaxLength="200" />
+          <Property Name="SUPPLIER_NAME" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="200" />
+          <Property Name="ISCHECK" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="BANNER_IMG" Type="nvarchar" MaxLength="200" />
+          <Property Name="SUPPLIER_URL" Type="nvarchar" MaxLength="200" />
           <Property Name="CONTACT_NUM" Type="int" />
           <Property Name="PRD_NUM" Type="int" />
-          <Property Name="FOOTER" Type="varchar(max)" />
-          <Property Name="SUPPLIER_DESC" Type="varchar(max)" />
-          <Property Name="SKYPE" Type="varchar" MaxLength="200" />
-          <Property Name="EMAIL" Type="varchar" MaxLength="200" />
-          <Property Name="TEL" Type="varchar" MaxLength="200" />
-          <Property Name="FAX" Type="varchar" MaxLength="200" />
-          <Property Name="PHONE" Type="varchar" MaxLength="200" />
+          <Property Name="FOOTER" Type="nvarchar(max)" />
+          <Property Name="SUPPLIER_DESC" Type="nvarchar(max)" />
+          <Property Name="SKYPE" Type="nvarchar" MaxLength="200" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="200" />
+          <Property Name="TEL" Type="nvarchar" MaxLength="200" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="200" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="200" />
           <Property Name="CN_NAME" Type="nvarchar" MaxLength="200" />
           <Property Name="STATUS" Type="char" MaxLength="1" />
+          <Property Name="TREE_NODE_ID" Type="nvarchar" MaxLength="200" />
           <Property Name="FLAT1" Type="int" />
           <Property Name="FLAT2" Type="int" />
           <Property Name="REMARK1" Type="nvarchar" MaxLength="500" />
@@ -773,6 +898,17 @@
           <Property Name="REF_PARAM" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="REF_VALUE" Type="nvarchar" MaxLength="50" />
           <Property Name="REF_SEQ" Type="numeric" Precision="4" />
+        </EntityType>
+        <EntityType Name="SYS_USERLOGIN">
+          <Key>
+            <PropertyRef Name="LOGIN_ID" />
+            <PropertyRef Name="SLSORG_CD" />
+            <PropertyRef Name="SLSORG_LEVEL" />
+          </Key>
+          <Property Name="LOGIN_ID" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="SLSORG_CD" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="SLSORG_LEVEL" Type="numeric" Nullable="false" Precision="4" />
+          <Property Name="SEQ_NO" Type="numeric" Precision="4" />
         </EntityType>
         <EntityType Name="TG_Address">
           <Key>
@@ -1574,6 +1710,7 @@
           <Property Name="flat8" Type="int" />
           <Property Name="RegTim1" Type="datetime" />
           <Property Name="RegTim2" Type="datetime" />
+          <Property Name="TREE_NODE_ID" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="YX_weiXinMenus">
           <Key>
@@ -1686,6 +1823,15 @@
             <End Role="YX_weiUser" EntitySet="YX_weiUser" />
             <End Role="MST_CAR" EntitySet="MST_CAR" />
           </AssociationSet>
+          <EntitySet Name="FW_GEO_NODE" EntityType="MODEL.FW_GEO_NODE" />
+          <EntitySet Name="FW_GEO_NODE_CUST" EntityType="MODEL.FW_GEO_NODE_CUST" />
+          <EntitySet Name="FW_GEO_TREE" EntityType="MODEL.FW_GEO_TREE" />
+          <EntitySet Name="FW_GEO_TREE_LEVEL" EntityType="MODEL.FW_GEO_TREE_LEVEL" />
+          <EntitySet Name="FW_USER_ASSIGN" EntityType="MODEL.FW_USER_ASSIGN" />
+          <EntitySet Name="MST_MUSTSELL" EntityType="MODEL.MST_MUSTSELL" />
+          <EntitySet Name="MST_MUSTSELL_DTL" EntityType="MODEL.MST_MUSTSELL_DTL" />
+          <EntitySet Name="MST_MUSTSELL_PRD" EntityType="MODEL.MST_MUSTSELL_PRD" />
+          <EntitySet Name="SYS_USERLOGIN" EntityType="MODEL.SYS_USERLOGIN" />
         </EntityContainer>
         <EntityType Name="FW_AUDIT_RECORD">
           <Key>
@@ -2033,20 +2179,20 @@
             <PropertyRef Name="SUPPLIER_ID" />
           </Key>
           <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="SUPPLIER_NAME" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="ADDRESS" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="ISCHECK" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
-          <Property Name="BANNER_IMG" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="SUPPLIER_URL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="SUPPLIER_NAME" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ISCHECK" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BANNER_IMG" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="SUPPLIER_URL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CONTACT_NUM" Type="Int32" />
           <Property Name="PRD_NUM" Type="Int32" />
-          <Property Name="FOOTER" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="SUPPLIER_DESC" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-          <Property Name="SKYPE" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="EMAIL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="TEL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="FAX" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
-          <Property Name="PHONE" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="FOOTER" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SUPPLIER_DESC" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SKYPE" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="TEL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="FAX" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="PHONE" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CN_NAME" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="STATUS" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <Property Name="VERSION" Type="Decimal" Precision="8" Scale="0" />
@@ -2063,6 +2209,7 @@
           <Property Type="String" Name="REMARK2" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="REMARK3" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="REMARK4" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TREE_NODE_ID" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SET_COUNTRY">
           <Key>
@@ -3133,6 +3280,7 @@
           <Property Type="DateTime" Name="RegTim1" Precision="3" />
           <Property Type="DateTime" Name="RegTim2" Precision="3" />
           <NavigationProperty Name="MST_CAR_LIST" Relationship="MODEL.YX_weiUserMST_CAR" FromRole="YX_weiUser" ToRole="MST_CAR" />
+          <Property Type="String" Name="TREE_NODE_ID" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="YX_weiXinMenus">
           <Key>
@@ -3271,6 +3419,132 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FW_GEO_NODE">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+            <PropertyRef Name="NODE_ID" />
+          </Key>
+          <Property Type="String" Name="TREE_ID" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NODE_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NODE_NAME" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="LEVEL_NO" Nullable="false" />
+          <Property Type="String" Name="PNODE_ID" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NODE_DESC" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CREATE_DT" Precision="3" />
+          <Property Type="String" Name="CREATE_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="MODIFY_DT" Precision="3" />
+          <Property Type="String" Name="MODIFY_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="IND_CUST" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IND_ROUTE" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="START_DT" Precision="3" />
+          <Property Type="DateTime" Name="END_DT" Precision="3" />
+        </EntityType>
+        <EntityType Name="FW_GEO_NODE_CUST">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+            <PropertyRef Name="NODE_ID" />
+            <PropertyRef Name="CUST_CD" />
+            <PropertyRef Name="EFF_START_DT" />
+          </Key>
+          <Property Type="String" Name="TREE_ID" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NODE_ID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CUST_CD" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="EFF_START_DT" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="EFF_END_DT" Precision="3" />
+          <Property Type="Int32" Name="LEVEL_NO" Nullable="false" />
+          <Property Type="String" Name="PNODE_ID" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CREATE_DT" Precision="3" />
+          <Property Type="String" Name="CREATE_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="MODIFY_DT" Precision="3" />
+          <Property Type="String" Name="MODIFY_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FW_GEO_TREE">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+          </Key>
+          <Property Type="String" Name="TREE_ID" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TREE_DESC" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="STATUS" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CREATE_DT" Precision="3" />
+          <Property Type="String" Name="CREATE_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="MODIFY_DT" Precision="3" />
+          <Property Type="String" Name="MODIFY_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FW_GEO_TREE_LEVEL">
+          <Key>
+            <PropertyRef Name="TREE_ID" />
+            <PropertyRef Name="LEVEL_NO" />
+          </Key>
+          <Property Type="String" Name="TREE_ID" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="LEVEL_NO" Nullable="false" />
+          <Property Type="String" Name="LEVEL_DESC" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CREATE_DT" Precision="3" />
+          <Property Type="String" Name="CREATE_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="MODIFY_DT" Precision="3" />
+          <Property Type="String" Name="MODIFY_BY" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="IS_SLS" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FW_USER_ASSIGN">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="HIER_TYPE" />
+            <PropertyRef Name="REF_CD" />
+          </Key>
+          <Property Type="String" Name="USER_ID" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HIER_TYPE" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="REF_CD" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MST_MUSTSELL">
+          <Key>
+            <PropertyRef Name="MUSTSELL_CD" />
+          </Key>
+          <Property Type="String" Name="MUSTSELL_CD" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MUSTSELL_NAME" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="STARTDAY" Precision="3" />
+          <Property Type="DateTime" Name="ENDDAY" Precision="3" />
+          <Property Type="Decimal" Name="VERSION" Precision="8" Scale="0" />
+          <Property Type="String" Name="SYNCOPERATION" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="SYNCVERSION" Precision="3" />
+          <Property Type="String" Name="SYNCFLAG" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MST_MUSTSELL_DTL">
+          <Key>
+            <PropertyRef Name="MUSTSELL_CD" />
+            <PropertyRef Name="TYPE" />
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Type="String" Name="MUSTSELL_CD" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TYPE" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="CODE" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="VERSION" Precision="8" Scale="0" />
+          <Property Type="String" Name="SYNCOPERATION" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="SYNCVERSION" Precision="3" />
+          <Property Type="String" Name="SYNCFLAG" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MST_MUSTSELL_PRD">
+          <Key>
+            <PropertyRef Name="MUSTSELL_CD" />
+            <PropertyRef Name="PRD_CD" />
+          </Key>
+          <Property Type="String" Name="MUSTSELL_CD" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PRD_CD" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="SEQ" Precision="4" Scale="0" />
+          <Property Type="Decimal" Name="VERSION" Precision="8" Scale="0" />
+          <Property Type="String" Name="SYNCOPERATION" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="DateTime" Name="SYNCVERSION" Precision="3" />
+          <Property Type="String" Name="SYNCFLAG" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SYS_USERLOGIN">
+          <Key>
+            <PropertyRef Name="LOGIN_ID" />
+            <PropertyRef Name="SLSORG_CD" />
+            <PropertyRef Name="SLSORG_LEVEL" />
+          </Key>
+          <Property Type="String" Name="LOGIN_ID" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SLSORG_CD" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="SLSORG_LEVEL" Nullable="false" Precision="4" Scale="0" />
+          <Property Type="Decimal" Name="SEQ_NO" Precision="4" Scale="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3627,6 +3901,7 @@
           <EntitySetMapping Name="MST_SUPPLIER">
             <EntityTypeMapping TypeName="MODEL.MST_SUPPLIER">
               <MappingFragment StoreEntitySet="MST_SUPPLIER">
+                <ScalarProperty Name="TREE_NODE_ID" ColumnName="TREE_NODE_ID" />
                 <ScalarProperty Name="REMARK4" ColumnName="REMARK4" />
                 <ScalarProperty Name="REMARK3" ColumnName="REMARK3" />
                 <ScalarProperty Name="REMARK2" ColumnName="REMARK2" />
@@ -4684,6 +4959,7 @@
           <EntitySetMapping Name="YX_weiUser">
             <EntityTypeMapping TypeName="MODEL.YX_weiUser">
               <MappingFragment StoreEntitySet="YX_weiUser">
+                <ScalarProperty Name="TREE_NODE_ID" ColumnName="TREE_NODE_ID" />
                 <ScalarProperty Name="RegTim2" ColumnName="RegTim2" />
                 <ScalarProperty Name="RegTim1" ColumnName="RegTim1" />
                 <ScalarProperty Name="flat8" ColumnName="flat8" />
@@ -4844,6 +5120,129 @@
                 <ScalarProperty Name="CAR_NUM" ColumnName="CAR_NUM" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="CAR_CD" ColumnName="CAR_CD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FW_GEO_NODE">
+            <EntityTypeMapping TypeName="MODEL.FW_GEO_NODE">
+              <MappingFragment StoreEntitySet="FW_GEO_NODE">
+                <ScalarProperty Name="END_DT" ColumnName="END_DT" />
+                <ScalarProperty Name="START_DT" ColumnName="START_DT" />
+                <ScalarProperty Name="IND_ROUTE" ColumnName="IND_ROUTE" />
+                <ScalarProperty Name="IND_CUST" ColumnName="IND_CUST" />
+                <ScalarProperty Name="MODIFY_BY" ColumnName="MODIFY_BY" />
+                <ScalarProperty Name="MODIFY_DT" ColumnName="MODIFY_DT" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+                <ScalarProperty Name="NODE_DESC" ColumnName="NODE_DESC" />
+                <ScalarProperty Name="PNODE_ID" ColumnName="PNODE_ID" />
+                <ScalarProperty Name="LEVEL_NO" ColumnName="LEVEL_NO" />
+                <ScalarProperty Name="NODE_NAME" ColumnName="NODE_NAME" />
+                <ScalarProperty Name="NODE_ID" ColumnName="NODE_ID" />
+                <ScalarProperty Name="TREE_ID" ColumnName="TREE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FW_GEO_NODE_CUST">
+            <EntityTypeMapping TypeName="MODEL.FW_GEO_NODE_CUST">
+              <MappingFragment StoreEntitySet="FW_GEO_NODE_CUST">
+                <ScalarProperty Name="MODIFY_BY" ColumnName="MODIFY_BY" />
+                <ScalarProperty Name="MODIFY_DT" ColumnName="MODIFY_DT" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+                <ScalarProperty Name="PNODE_ID" ColumnName="PNODE_ID" />
+                <ScalarProperty Name="LEVEL_NO" ColumnName="LEVEL_NO" />
+                <ScalarProperty Name="EFF_END_DT" ColumnName="EFF_END_DT" />
+                <ScalarProperty Name="EFF_START_DT" ColumnName="EFF_START_DT" />
+                <ScalarProperty Name="CUST_CD" ColumnName="CUST_CD" />
+                <ScalarProperty Name="NODE_ID" ColumnName="NODE_ID" />
+                <ScalarProperty Name="TREE_ID" ColumnName="TREE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FW_GEO_TREE">
+            <EntityTypeMapping TypeName="MODEL.FW_GEO_TREE">
+              <MappingFragment StoreEntitySet="FW_GEO_TREE">
+                <ScalarProperty Name="MODIFY_BY" ColumnName="MODIFY_BY" />
+                <ScalarProperty Name="MODIFY_DT" ColumnName="MODIFY_DT" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="TREE_DESC" ColumnName="TREE_DESC" />
+                <ScalarProperty Name="TREE_ID" ColumnName="TREE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FW_GEO_TREE_LEVEL">
+            <EntityTypeMapping TypeName="MODEL.FW_GEO_TREE_LEVEL">
+              <MappingFragment StoreEntitySet="FW_GEO_TREE_LEVEL">
+                <ScalarProperty Name="IS_SLS" ColumnName="IS_SLS" />
+                <ScalarProperty Name="MODIFY_BY" ColumnName="MODIFY_BY" />
+                <ScalarProperty Name="MODIFY_DT" ColumnName="MODIFY_DT" />
+                <ScalarProperty Name="CREATE_BY" ColumnName="CREATE_BY" />
+                <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+                <ScalarProperty Name="LEVEL_DESC" ColumnName="LEVEL_DESC" />
+                <ScalarProperty Name="LEVEL_NO" ColumnName="LEVEL_NO" />
+                <ScalarProperty Name="TREE_ID" ColumnName="TREE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FW_USER_ASSIGN">
+            <EntityTypeMapping TypeName="MODEL.FW_USER_ASSIGN">
+              <MappingFragment StoreEntitySet="FW_USER_ASSIGN">
+                <ScalarProperty Name="REF_CD" ColumnName="REF_CD" />
+                <ScalarProperty Name="HIER_TYPE" ColumnName="HIER_TYPE" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MST_MUSTSELL">
+            <EntityTypeMapping TypeName="MODEL.MST_MUSTSELL">
+              <MappingFragment StoreEntitySet="MST_MUSTSELL">
+                <ScalarProperty Name="SYNCFLAG" ColumnName="SYNCFLAG" />
+                <ScalarProperty Name="SYNCVERSION" ColumnName="SYNCVERSION" />
+                <ScalarProperty Name="SYNCOPERATION" ColumnName="SYNCOPERATION" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="ENDDAY" ColumnName="ENDDAY" />
+                <ScalarProperty Name="STARTDAY" ColumnName="STARTDAY" />
+                <ScalarProperty Name="MUSTSELL_NAME" ColumnName="MUSTSELL_NAME" />
+                <ScalarProperty Name="MUSTSELL_CD" ColumnName="MUSTSELL_CD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MST_MUSTSELL_DTL">
+            <EntityTypeMapping TypeName="MODEL.MST_MUSTSELL_DTL">
+              <MappingFragment StoreEntitySet="MST_MUSTSELL_DTL">
+                <ScalarProperty Name="SYNCFLAG" ColumnName="SYNCFLAG" />
+                <ScalarProperty Name="SYNCVERSION" ColumnName="SYNCVERSION" />
+                <ScalarProperty Name="SYNCOPERATION" ColumnName="SYNCOPERATION" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="MUSTSELL_CD" ColumnName="MUSTSELL_CD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MST_MUSTSELL_PRD">
+            <EntityTypeMapping TypeName="MODEL.MST_MUSTSELL_PRD">
+              <MappingFragment StoreEntitySet="MST_MUSTSELL_PRD">
+                <ScalarProperty Name="SYNCFLAG" ColumnName="SYNCFLAG" />
+                <ScalarProperty Name="SYNCVERSION" ColumnName="SYNCVERSION" />
+                <ScalarProperty Name="SYNCOPERATION" ColumnName="SYNCOPERATION" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="PRD_CD" ColumnName="PRD_CD" />
+                <ScalarProperty Name="MUSTSELL_CD" ColumnName="MUSTSELL_CD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_USERLOGIN">
+            <EntityTypeMapping TypeName="MODEL.SYS_USERLOGIN">
+              <MappingFragment StoreEntitySet="SYS_USERLOGIN">
+                <ScalarProperty Name="SEQ_NO" ColumnName="SEQ_NO" />
+                <ScalarProperty Name="SLSORG_LEVEL" ColumnName="SLSORG_LEVEL" />
+                <ScalarProperty Name="SLSORG_CD" ColumnName="SLSORG_CD" />
+                <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

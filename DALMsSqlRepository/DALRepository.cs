@@ -11,6 +11,22 @@ namespace DALMsSqlRepository
     {
     }
 
+	public partial class FW_GEO_NODE_REPOSITORY : BaseDALRepository<MODEL.FW_GEO_NODE>,IFW_GEO_NODE_REPOSITORY
+    {
+    }
+
+	public partial class FW_GEO_NODE_CUST_REPOSITORY : BaseDALRepository<MODEL.FW_GEO_NODE_CUST>,IFW_GEO_NODE_CUST_REPOSITORY
+    {
+    }
+
+	public partial class FW_GEO_TREE_REPOSITORY : BaseDALRepository<MODEL.FW_GEO_TREE>,IFW_GEO_TREE_REPOSITORY
+    {
+    }
+
+	public partial class FW_GEO_TREE_LEVEL_REPOSITORY : BaseDALRepository<MODEL.FW_GEO_TREE_LEVEL>,IFW_GEO_TREE_LEVEL_REPOSITORY
+    {
+    }
+
 	public partial class FW_MODULE_REPOSITORY : BaseDALRepository<MODEL.FW_MODULE>,IFW_MODULE_REPOSITORY
     {
     }
@@ -36,6 +52,10 @@ namespace DALMsSqlRepository
     }
 
 	public partial class FW_USER_REPOSITORY : BaseDALRepository<MODEL.FW_USER>,IFW_USER_REPOSITORY
+    {
+    }
+
+	public partial class FW_USER_ASSIGN_REPOSITORY : BaseDALRepository<MODEL.FW_USER_ASSIGN>,IFW_USER_ASSIGN_REPOSITORY
     {
     }
 
@@ -83,6 +103,18 @@ namespace DALMsSqlRepository
     {
     }
 
+	public partial class MST_MUSTSELL_REPOSITORY : BaseDALRepository<MODEL.MST_MUSTSELL>,IMST_MUSTSELL_REPOSITORY
+    {
+    }
+
+	public partial class MST_MUSTSELL_DTL_REPOSITORY : BaseDALRepository<MODEL.MST_MUSTSELL_DTL>,IMST_MUSTSELL_DTL_REPOSITORY
+    {
+    }
+
+	public partial class MST_MUSTSELL_PRD_REPOSITORY : BaseDALRepository<MODEL.MST_MUSTSELL_PRD>,IMST_MUSTSELL_PRD_REPOSITORY
+    {
+    }
+
 	public partial class MST_POSITION_REPOSITORY : BaseDALRepository<MODEL.MST_POSITION>,IMST_POSITION_REPOSITORY
     {
     }
@@ -124,6 +156,10 @@ namespace DALMsSqlRepository
     }
 
 	public partial class SYS_REF_REPOSITORY : BaseDALRepository<MODEL.SYS_REF>,ISYS_REF_REPOSITORY
+    {
+    }
+
+	public partial class SYS_USERLOGIN_REPOSITORY : BaseDALRepository<MODEL.SYS_USERLOGIN>,ISYS_USERLOGIN_REPOSITORY
     {
     }
 

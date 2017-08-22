@@ -11,6 +11,22 @@ namespace IDALRepository
     {
     }
 
+	public partial interface IFW_GEO_NODE_REPOSITORY: IBaseDALRepository<MODEL.FW_GEO_NODE>
+    {
+    }
+
+	public partial interface IFW_GEO_NODE_CUST_REPOSITORY: IBaseDALRepository<MODEL.FW_GEO_NODE_CUST>
+    {
+    }
+
+	public partial interface IFW_GEO_TREE_REPOSITORY: IBaseDALRepository<MODEL.FW_GEO_TREE>
+    {
+    }
+
+	public partial interface IFW_GEO_TREE_LEVEL_REPOSITORY: IBaseDALRepository<MODEL.FW_GEO_TREE_LEVEL>
+    {
+    }
+
 	public partial interface IFW_MODULE_REPOSITORY: IBaseDALRepository<MODEL.FW_MODULE>
     {
     }
@@ -36,6 +52,10 @@ namespace IDALRepository
     }
 
 	public partial interface IFW_USER_REPOSITORY: IBaseDALRepository<MODEL.FW_USER>
+    {
+    }
+
+	public partial interface IFW_USER_ASSIGN_REPOSITORY: IBaseDALRepository<MODEL.FW_USER_ASSIGN>
     {
     }
 
@@ -83,6 +103,18 @@ namespace IDALRepository
     {
     }
 
+	public partial interface IMST_MUSTSELL_REPOSITORY: IBaseDALRepository<MODEL.MST_MUSTSELL>
+    {
+    }
+
+	public partial interface IMST_MUSTSELL_DTL_REPOSITORY: IBaseDALRepository<MODEL.MST_MUSTSELL_DTL>
+    {
+    }
+
+	public partial interface IMST_MUSTSELL_PRD_REPOSITORY: IBaseDALRepository<MODEL.MST_MUSTSELL_PRD>
+    {
+    }
+
 	public partial interface IMST_POSITION_REPOSITORY: IBaseDALRepository<MODEL.MST_POSITION>
     {
     }
@@ -124,6 +156,10 @@ namespace IDALRepository
     }
 
 	public partial interface ISYS_REF_REPOSITORY: IBaseDALRepository<MODEL.SYS_REF>
+    {
+    }
+
+	public partial interface ISYS_USERLOGIN_REPOSITORY: IBaseDALRepository<MODEL.SYS_USERLOGIN>
     {
     }
 

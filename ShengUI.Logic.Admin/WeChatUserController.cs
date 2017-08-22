@@ -77,6 +77,7 @@ namespace ShengUI.Logic.Admin
             {
                 currUser.openid = currUser.userNum;
                 currUser.subscribe_time = DateTime.Now;
+                currUser.TREE_NODE_ID = OperateContext.Current.UsrNodeID;
                 wechatUserB.Add(currUser);
                 status = true;
             }

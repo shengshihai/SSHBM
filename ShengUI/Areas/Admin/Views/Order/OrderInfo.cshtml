@@ -49,10 +49,17 @@
                       //},
                       {
                           "render": function (data, type, row) {
-                              return data;
+                              return '<a onclick="toolbarBtnItemClick(this)" id="JumpWechatUsr" UserId="' + row.UserId + '">' + data + '</a>';
+
                           },
-                          "targets": 4
+                          "targets": 2
                       },
+                        {
+                            "render": function (data, type, row) {
+                                return data;
+                            },
+                            "targets": 4
+                        },
                        {
                            "render": function (data, type, row) {
                                if (data == 0)
@@ -82,6 +89,9 @@
             if (item.id == undefined)
                 id = item.currentTarget.id;
             switch (id) {
+                case "JumpWechatUsr":
+                    Jump("/admin/WeChatUser/WeChatDetail?userNum=" + $(item).attr("UserId"));
+                    break;
                 case "Add":
                     Jump("/admin/Order/OrderDetail")
                     break;

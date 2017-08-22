@@ -11,6 +11,22 @@ namespace IBLLService
     {
     }
 
+	public partial interface IFW_GEO_NODE_MANAGER : IBaseBLLService<MODEL.FW_GEO_NODE>
+    {
+    }
+
+	public partial interface IFW_GEO_NODE_CUST_MANAGER : IBaseBLLService<MODEL.FW_GEO_NODE_CUST>
+    {
+    }
+
+	public partial interface IFW_GEO_TREE_MANAGER : IBaseBLLService<MODEL.FW_GEO_TREE>
+    {
+    }
+
+	public partial interface IFW_GEO_TREE_LEVEL_MANAGER : IBaseBLLService<MODEL.FW_GEO_TREE_LEVEL>
+    {
+    }
+
 	public partial interface IFW_MODULE_MANAGER : IBaseBLLService<MODEL.FW_MODULE>
     {
     }
@@ -36,6 +52,10 @@ namespace IBLLService
     }
 
 	public partial interface IFW_USER_MANAGER : IBaseBLLService<MODEL.FW_USER>
+    {
+    }
+
+	public partial interface IFW_USER_ASSIGN_MANAGER : IBaseBLLService<MODEL.FW_USER_ASSIGN>
     {
     }
 
@@ -83,6 +103,18 @@ namespace IBLLService
     {
     }
 
+	public partial interface IMST_MUSTSELL_MANAGER : IBaseBLLService<MODEL.MST_MUSTSELL>
+    {
+    }
+
+	public partial interface IMST_MUSTSELL_DTL_MANAGER : IBaseBLLService<MODEL.MST_MUSTSELL_DTL>
+    {
+    }
+
+	public partial interface IMST_MUSTSELL_PRD_MANAGER : IBaseBLLService<MODEL.MST_MUSTSELL_PRD>
+    {
+    }
+
 	public partial interface IMST_POSITION_MANAGER : IBaseBLLService<MODEL.MST_POSITION>
     {
     }
@@ -124,6 +156,10 @@ namespace IBLLService
     }
 
 	public partial interface ISYS_REF_MANAGER : IBaseBLLService<MODEL.SYS_REF>
+    {
+    }
+
+	public partial interface ISYS_USERLOGIN_MANAGER : IBaseBLLService<MODEL.SYS_USERLOGIN>
     {
     }
 

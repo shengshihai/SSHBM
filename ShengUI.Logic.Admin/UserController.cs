@@ -42,7 +42,7 @@ namespace ShengUI.Logic.Admin
         [Description("[用户管理]获取用户信息(主页必须)")]
         public ActionResult GetUserForGrid(QueryModel model)
         {
-            DataTableRequest requestGrid = new DataTableRequest(HttpContext);
+            DataTableRequest requestGrid = new DataTableRequest(HttpContext, model);
             return this.JsonFormat(UserInfoManager.GetAllUsers(requestGrid));
         }
         [ViewPage]
@@ -54,6 +54,7 @@ namespace ShengUI.Logic.Admin
             ViewBag.IsView = page.IsView;
             ViewBag.CurrentID = id;
             ViewBag.TYPE = "Update";
+            ViewBag.ReturnUrl = Request["returnurl"];
             var model =UserInfoManager.Get(u => u.USER_ID == id);
             if (model == null)
             {
@@ -79,6 +80,8 @@ namespace ShengUI.Logic.Admin
             bool status = false;
             try
             {
+                currUser.CREATE_BY = OperateContext.Current.UsrId;
+                currUser.CREATE_DT = DateTime.Now;
                 UserInfoManager.Add(currUser);
                 status = true;
             }
@@ -98,7 +101,9 @@ namespace ShengUI.Logic.Admin
             try
             {
                 model.LAST_UPDATED_DT = DateTime.Now;
-                UserInfoManager.Modify(model, "USER_NAME", "EMAIL", "ENG_NAME", "PHONE", "LAST_UPDATED_DT");
+                model.MODIFY_DT = DateTime.Now;
+                model.MODIFY_BY = OperateContext.Current.UsrId;
+                UserInfoManager.Modify(model, "USER_NAME", "EMAIL", "ENG_NAME", "PHONE", "LAST_UPDATED_DT", "MODIFY_BY", "MODIFY_DT");
                 status = true;
             }
             catch (Exception e)
@@ -106,7 +111,7 @@ namespace ShengUI.Logic.Admin
                 return this.JsonFormat(status, status, SysOperate.Update);
 
             }
-            return this.JsonFormat(status, status, SysOperate.Update);
+            return this.JsonFormat("/Admin/User/UserInfo", status, SysOperate.Update.ToMessage(status), status);
         }
 
         [ActionDesc("删除", "Y")]

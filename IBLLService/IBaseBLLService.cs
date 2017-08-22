@@ -67,7 +67,7 @@ namespace IBLLService
         int ModifyBy(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames);
         #endregion
 
-    
+        int ExcuteSql(string strSql, params object[] paras);
 
         #region 5.3 根据条件查询 +List<T> GetListasNoTrackingBy(Expression<Func<T,bool>> whereLambda,)
         /// <summary>

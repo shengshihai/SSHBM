@@ -25,6 +25,66 @@ namespace DALMsSqlRepository
             }
         }
 
+		 IFW_GEO_NODE_REPOSITORY iFW_GEO_NODE_REPOSITORY;
+		public IFW_GEO_NODE_REPOSITORY IFW_GEO_NODE_REPOSITORY
+		 {
+            get
+            {
+               if( iFW_GEO_NODE_REPOSITORY==null)
+					iFW_GEO_NODE_REPOSITORY=new FW_GEO_NODE_REPOSITORY();
+			   	return iFW_GEO_NODE_REPOSITORY;
+            }
+            set
+            {
+               iFW_GEO_NODE_REPOSITORY=value;
+            }
+        }
+
+		 IFW_GEO_NODE_CUST_REPOSITORY iFW_GEO_NODE_CUST_REPOSITORY;
+		public IFW_GEO_NODE_CUST_REPOSITORY IFW_GEO_NODE_CUST_REPOSITORY
+		 {
+            get
+            {
+               if( iFW_GEO_NODE_CUST_REPOSITORY==null)
+					iFW_GEO_NODE_CUST_REPOSITORY=new FW_GEO_NODE_CUST_REPOSITORY();
+			   	return iFW_GEO_NODE_CUST_REPOSITORY;
+            }
+            set
+            {
+               iFW_GEO_NODE_CUST_REPOSITORY=value;
+            }
+        }
+
+		 IFW_GEO_TREE_REPOSITORY iFW_GEO_TREE_REPOSITORY;
+		public IFW_GEO_TREE_REPOSITORY IFW_GEO_TREE_REPOSITORY
+		 {
+            get
+            {
+               if( iFW_GEO_TREE_REPOSITORY==null)
+					iFW_GEO_TREE_REPOSITORY=new FW_GEO_TREE_REPOSITORY();
+			   	return iFW_GEO_TREE_REPOSITORY;
+            }
+            set
+            {
+               iFW_GEO_TREE_REPOSITORY=value;
+            }
+        }
+
+		 IFW_GEO_TREE_LEVEL_REPOSITORY iFW_GEO_TREE_LEVEL_REPOSITORY;
+		public IFW_GEO_TREE_LEVEL_REPOSITORY IFW_GEO_TREE_LEVEL_REPOSITORY
+		 {
+            get
+            {
+               if( iFW_GEO_TREE_LEVEL_REPOSITORY==null)
+					iFW_GEO_TREE_LEVEL_REPOSITORY=new FW_GEO_TREE_LEVEL_REPOSITORY();
+			   	return iFW_GEO_TREE_LEVEL_REPOSITORY;
+            }
+            set
+            {
+               iFW_GEO_TREE_LEVEL_REPOSITORY=value;
+            }
+        }
+
 		 IFW_MODULE_REPOSITORY iFW_MODULE_REPOSITORY;
 		public IFW_MODULE_REPOSITORY IFW_MODULE_REPOSITORY
 		 {
@@ -127,6 +187,21 @@ namespace DALMsSqlRepository
             set
             {
                iFW_USER_REPOSITORY=value;
+            }
+        }
+
+		 IFW_USER_ASSIGN_REPOSITORY iFW_USER_ASSIGN_REPOSITORY;
+		public IFW_USER_ASSIGN_REPOSITORY IFW_USER_ASSIGN_REPOSITORY
+		 {
+            get
+            {
+               if( iFW_USER_ASSIGN_REPOSITORY==null)
+					iFW_USER_ASSIGN_REPOSITORY=new FW_USER_ASSIGN_REPOSITORY();
+			   	return iFW_USER_ASSIGN_REPOSITORY;
+            }
+            set
+            {
+               iFW_USER_ASSIGN_REPOSITORY=value;
             }
         }
 
@@ -295,6 +370,51 @@ namespace DALMsSqlRepository
             }
         }
 
+		 IMST_MUSTSELL_REPOSITORY iMST_MUSTSELL_REPOSITORY;
+		public IMST_MUSTSELL_REPOSITORY IMST_MUSTSELL_REPOSITORY
+		 {
+            get
+            {
+               if( iMST_MUSTSELL_REPOSITORY==null)
+					iMST_MUSTSELL_REPOSITORY=new MST_MUSTSELL_REPOSITORY();
+			   	return iMST_MUSTSELL_REPOSITORY;
+            }
+            set
+            {
+               iMST_MUSTSELL_REPOSITORY=value;
+            }
+        }
+
+		 IMST_MUSTSELL_DTL_REPOSITORY iMST_MUSTSELL_DTL_REPOSITORY;
+		public IMST_MUSTSELL_DTL_REPOSITORY IMST_MUSTSELL_DTL_REPOSITORY
+		 {
+            get
+            {
+               if( iMST_MUSTSELL_DTL_REPOSITORY==null)
+					iMST_MUSTSELL_DTL_REPOSITORY=new MST_MUSTSELL_DTL_REPOSITORY();
+			   	return iMST_MUSTSELL_DTL_REPOSITORY;
+            }
+            set
+            {
+               iMST_MUSTSELL_DTL_REPOSITORY=value;
+            }
+        }
+
+		 IMST_MUSTSELL_PRD_REPOSITORY iMST_MUSTSELL_PRD_REPOSITORY;
+		public IMST_MUSTSELL_PRD_REPOSITORY IMST_MUSTSELL_PRD_REPOSITORY
+		 {
+            get
+            {
+               if( iMST_MUSTSELL_PRD_REPOSITORY==null)
+					iMST_MUSTSELL_PRD_REPOSITORY=new MST_MUSTSELL_PRD_REPOSITORY();
+			   	return iMST_MUSTSELL_PRD_REPOSITORY;
+            }
+            set
+            {
+               iMST_MUSTSELL_PRD_REPOSITORY=value;
+            }
+        }
+
 		 IMST_POSITION_REPOSITORY iMST_POSITION_REPOSITORY;
 		public IMST_POSITION_REPOSITORY IMST_POSITION_REPOSITORY
 		 {
@@ -457,6 +577,21 @@ namespace DALMsSqlRepository
             set
             {
                iSYS_REF_REPOSITORY=value;
+            }
+        }
+
+		 ISYS_USERLOGIN_REPOSITORY iSYS_USERLOGIN_REPOSITORY;
+		public ISYS_USERLOGIN_REPOSITORY ISYS_USERLOGIN_REPOSITORY
+		 {
+            get
+            {
+               if( iSYS_USERLOGIN_REPOSITORY==null)
+					iSYS_USERLOGIN_REPOSITORY=new SYS_USERLOGIN_REPOSITORY();
+			   	return iSYS_USERLOGIN_REPOSITORY;
+            }
+            set
+            {
+               iSYS_USERLOGIN_REPOSITORY=value;
             }
         }
 

@@ -26,6 +26,8 @@ namespace ShengUI.Logic.Admin
     {
         IMST_CAR_MANAGER carB = OperateContext.Current.BLLSession.IMST_CAR_MANAGER;
         IYX_weiUser_MANAGER userB = OperateContext.Current.BLLSession.IYX_weiUser_MANAGER;
+        ISYS_USERLOGIN_MANAGER sys_UsurLogin = OperateContext.Current.BLLSession.ISYS_USERLOGIN_MANAGER;
+
 
         [DefaultPage]
         [ActionParent]
@@ -65,6 +67,7 @@ namespace ShengUI.Logic.Admin
             {
                 car.UserId = usernum;
             }
+            //var list = IDBSession.ISYS_USERLOGIN_REPOSITORY.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
             ViewBag.MEMBERS = DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u=>true,u=>u.userRelname)));
             ViewBag.ReturnUrl = Request["returnurl"];
             ViewDetailPage page = new ViewDetailPage(HttpContext);

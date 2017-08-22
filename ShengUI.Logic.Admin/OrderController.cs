@@ -30,6 +30,7 @@ namespace ShengUI.Logic.Admin
         ITG_Thing_MANAGER thingB = OperateContext.Current.BLLSession.ITG_Thing_MANAGER;
         ITG_order_MANAGER orderB = OperateContext.Current.BLLSession.ITG_order_MANAGER;
         ITG_transactionLog_MANAGER transactionlogB = OperateContext.Current.BLLSession.ITG_transactionLog_MANAGER;
+        ISYS_USERLOGIN_MANAGER sys_userlogin = OperateContext.Current.BLLSession.ISYS_USERLOGIN_MANAGER;
 
         [DefaultPage]
         [ActionParent]
@@ -51,8 +52,9 @@ namespace ShengUI.Logic.Admin
             if (string.IsNullOrEmpty(ordernum))
             {
                 ViewBag.TYPE = "Add";
-                ViewBag.MEMBERS = DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u => true, u => u.userRelname)));
-                ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => true, u => u.SUPPLIER_ID)));
+                var list = sys_userlogin.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
+                ViewBag.MEMBERS = DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u =>list.Contains(u.TREE_NODE_ID), u => u.userRelname)));
+                ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => list.Contains(u.TREE_NODE_ID), u => u.SUPPLIER_ID)));
             }
             var model = orderB.Get(o => o.orderNum == ordernum);
             if (model != null)

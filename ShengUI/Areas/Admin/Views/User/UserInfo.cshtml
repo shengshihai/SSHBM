@@ -3,7 +3,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
 }
 <input type="hidden" id="MenuNo" value="UserInfo" />
-@Scripts.Render("~/datatables")
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.js' type='text/javascript'></script>
+<script src='/Scripts/Back/plugins/datatables/jquery.dataTables.columnFilter.js' type='text/javascript'></script>
+<script src='/Scripts/Back/tables.js' type='text/javascript'></script>
 @section backScripts
 {
 
@@ -27,7 +29,7 @@
                     "type": "POST"
                 },
                 "columns": [
-                    { "data": "USER_ID", "name": "[Contains]{main}USER_NAME", "orderable": "USER_ID" },
+                    { "data": "USER_ID", "name": "[Contains]{main}USER_ID", "orderable": "USER_ID" },
                     { "data": "USER_NAME", "name": "[Contains]{main}USER_NAME", "orderable": "USER_NAME" },
                     { "data": "ENG_NAME", "name": "[Contains]{main}ENG_NAME", "orderable": "ENG_NAME" },
                     { "data": "PHONE" },
@@ -112,7 +114,7 @@
                     <div class='page-header'>
                         <h1 class='pull-left'>
                             <i class='icon-edit'></i>
-                            <span>菜单管理</span>
+                            <span>系统用户管理</span>
                         </h1>
                         <div class='pull-right'>
                             <ul class='breadcrumb'>
@@ -143,13 +145,6 @@
                             <div class='row-fluid'>
                                 <div class="box-content Lgloading" id="tablebutton">
                                     <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">反选</button>
-                                    <div style="float: right">
-                                        <button type="button" id="uncheck" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">待审核</button>
-                                        <button type="button" id="checked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核通过</button>
-                                        @*   <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>*@
-                                        @*   <button type="button" id="unpublish" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)" >未提交</button>*@
-
-                                    </div>
                                 </div>
                             </div>
                             <hr class="hr-normal">
@@ -186,7 +181,6 @@
                                                 <table id="usertable" class='data-table table table-bordered table-striped  table-hover table-striped' style="width: 100%;">
                                                     <thead>
                                                         <tr>
-
                                                             <th>UserID</th>
                                                             <th>用户名</th>
                                                             <th>英文名</th>
@@ -219,4 +213,5 @@
             </div>
         </div>
 
-    </div>    </div>
+    </div>
+</div>
