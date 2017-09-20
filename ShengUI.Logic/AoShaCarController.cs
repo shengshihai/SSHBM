@@ -165,7 +165,7 @@ namespace ShengUI.Logic
         public ActionResult CompanyList()
         {
             ViewBag.PageFlag = "CompanyList";
-            ViewBag.SupplierList = VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(s => true));
+            ViewBag.SupplierList = VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(s => s.SYNCOPERATION!="D"));
             return View();
         }
         public ActionResult OrderList()

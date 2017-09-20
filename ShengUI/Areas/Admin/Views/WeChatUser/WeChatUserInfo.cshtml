@@ -31,22 +31,19 @@
                 "columns": [
                     { "data": "userNum", "name": "[Contains]{main}userNum", "orderable": "userNum" },
                     { "data": "nickname", "name": "[Contains]{main}nickname", "orderable": "nickname" },
-                      { "data": "userRelname", "name": "[Contains]{main}userRelname", "orderable": "userRelname" },
+                    { "data": "userRelname", "name": "[Contains]{main}userRelname", "orderable": "userRelname" },
                     { "data": "userSex", "orderable": false },
                     { "data": "headimgurl", "orderable": false },
                     { "data": "isfenxiao", "orderable": "isfenxiao" },
-                     { "data": "userYongJin", "orderable": "userYongJin" },
-                        { "data": "userMoney", "orderable": "userMoney" },
-                           { "data": "userMoney", "orderable": "userMoney" },
+                    { "data": "userYongJin", "orderable": "userYongJin" },
+                    { "data": "userMoney", "orderable": "userMoney" },
+                    { "data": "userMoney", "orderable": "userMoney" },
                     { "data": "subscribe_time", "orderable": "subscribe_time" }
+                    ,{ "data": "userTel", "name": "[Contains]{main}userTel", "orderable": "userTel" ,"visible":false}
 
                 ],
                 "columnDefs": [
-                      {
-                          "targets": [1],
-                          "visible": false
-                      },
-                       {
+                   {
                            "render": function (data, type, row) {
                                if (data == null || data == "")
                                    return row.nickname;
@@ -56,9 +53,9 @@
                        },
                       {
                           "render": function (data, type, row) {
-                              if(data==undefined)
+                              if (data == undefined)
                                   return '<img style="width:90px;height:90px" alt="' + row.nickname + '" >';
-                              else 
+                              else
                                   return '<img style="width:90px;height:90px" alt="' + row.nickname + '" src="' + data + '">';
                           },
                           "targets": 4
@@ -98,6 +95,7 @@
                               },
                               "targets": 8
                           }
+
                 ]
 
             });
@@ -154,7 +152,7 @@
                         window.parent.LG.tip('请选择行!');
                         return
                     }
-                    Jump("/admin/car/CarInfo?userNum=" + selected.userNum )
+                    Jump("/admin/car/CarInfo?userNum=" + selected.userNum)
                     break;
                 case "c_member":
                     if ($(item).hasClass("active")) {
@@ -260,8 +258,8 @@
                                     <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">反选</button>
                                     <div style="float: right">
                                         <button type="button" data="1" id="c_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">C级会员</button>
-                                             <button type="button" data="2" id="e_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">E级会员</button>
-                                         <button type="button" data="3" id="s_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">S级会员</button>
+                                        <button type="button" data="2" id="e_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">E级会员</button>
+                                        <button type="button" data="3" id="s_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">S级会员</button>
                                         <button type="button" data="4" id="ds_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">Double-S级会员</button>
 
                                         @*   <button type="button" id="unchecked" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">审核未通过</button>*@
@@ -277,7 +275,7 @@
 
                                     <div class='box-header orange-background'>
 
-                                        <div class='title'>Sortable data table with pagination</div>
+                                        <div class='title'></div>
 
                                         <div class='actions'>
 
@@ -317,7 +315,7 @@
                                                             <th>会员类型</th>
                                                             <th>当前可用</th>
                                                             <th>已使用</th>
-                                                            <th>总计</th>
+                                                            <th>总计</th>   
                                                         </tr>
                                                     </thead>
 

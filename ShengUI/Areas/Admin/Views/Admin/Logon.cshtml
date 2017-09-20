@@ -20,10 +20,8 @@
     <![endif]-->
 
 
-    <link href="~/Content/Back/css/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/Back/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="~/Content/Back/css/light-theme.css" rel="stylesheet" />
-      <link href="~/Content/Back/css/plugins/jgrowl/jquery.jgrowl.css" rel="stylesheet" />
+    @Styles.Render("~/Content/Back/base/css")
+    <link href="~/Content/Back/css/jquery.loadmask.css" rel="stylesheet" />
     <style type="text/css">
         .field-validation-error {
             color: #b94a48;
@@ -33,267 +31,137 @@
             margin-bottom: 10px;
         }
 
-        .input-validation-error{
-            border-color: #b94a48 !important; 
+        .input-validation-error {
+            border-color: #b94a48 !important;
         }
     </style>
-    @Scripts.Render("~/mvcAjax")
-    @*<script src="~/Scripts/Back/bootstrap/bootstrap.min.js"></script>
-  
-    <script src="~/Scripts/Back/Common/LG.js"></script>
-    <script src="~/Scripts/Back/plugins/jgrowl/jquery.jgrowl.min.js"></script>*@
+
+    <script src="~/Scripts/Back/Common/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/Back/Common/jquery.unobtrusive-ajax.js"></script>
+    <script src='/Scripts/Back/Common/common.js' type='text/javascript'></script>
+    <script src='/Scripts/Back/Common/LG.js' type='text/javascript'></script>
+
+    <!-- / bootstrap -->
+    <script src='/Scripts/Back/bootstrap/bootstrap.min.js' type='text/javascript'></script>
+    <!-- / validate -->
+    <script src='/Scripts/Back/plugins/validate/jquery.validate.js' type='text/javascript'></script>
+    <script src="~/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/Back/Common/jquery.loadmask.js"></script>
+
 
     <script type="text/javascript">
-        function Success(jsonData, statusMsg,GeneralMsgObj) {
+        function loginCheck(obj) {
+            var $button = $(obj)
+            var $form = $button.closest('form');
+            if ($form.valid())
+                loadingmask();
+        }
+        function Success(jsonData, statusMsg, GeneralMsgObj) {
             $("#Login").button("loading");
             if (!jsonData.IsError)// 如果提交成功则隐藏进度条
             {
-                if (jsonData.IsLink)
-                {
+                if (jsonData.IsLink) {
                     window.location = jsonData.Message;
                 }
-                else
-                    alert(jsonData.Message)
+                else {
+                    alert(jsonData.Message);
+                    $("#Login").button('reset');
+                    loadingunmask();
+                }
             }
             else {
                 LG.tipError(jsonData.Message);
+                $("#Login").button('reset');
+                loadingunmask();
             }
-            $("#Login").button('reset');
-        }
-        function fn()
-        {
 
         }
-    </script>
-    <script type="text/javascript">
+        function fn() {
 
-        if (window != top)
-            top.location.href = location.href;
-
-        function keyDown(evt) { evt = evt ? evt : (window.event ? window.event : null); if (evt.keyCode == 13 || evt.charCode == 13) { document.getElementById("Login").click(); } }
-
-        function showyear() {
-            var dateTime = new Date();
-            document.getElementById("yy").innerHTML = dateTime.getFullYear();
         }
-
-        /**teng add 2013-05-14 start**/
-        //设置登录cookie
-        function setLoginCookie() {
-            setCookie("login_name", document.getElementById("UserName").value, 30);
-        }
-
-        //页面加载
-        $(document).ready(function () {
-            initPage();
+        $(function () {
+            loadcss();
         });
+    </script>
 
-        function initPage() {
-            var txtObj = document.getElementById("UserName");
-            txtObj.value = getCookie("login_name");//读取cookie
-            txtObj.focus();//设置焦点
-            setTimeout(hideDiv, 5000);
-        }
-        function getCookie(name) {
-            return "";
-        }
-        //隐藏div
-        function hideDiv() {
-            $("#dhk").fadeOut();
-        }
-
-        //登录验证
-        function loginCheck() {
-
-            //var objUserName = document.getElementById("UserName");
-            //var objPassword = document.getElementById("Password");
-            //if (objUserName.value == "" || objUserName.value == "请输入用户名") {
-            //    showMsg("请输入用户名", "error");
-            //    return false;
-            //}
-            //if (objPassword.value == "" || objPassword.value == "请输入登录密码") {
-            //    showMsg("请输入登录密码", "error");
-            //    return false;
-            //}
-
-            //window.location = "/Admin/Home/index";
-            return true;
-        }
-
-        //调用提示信息的方法--txtMsg：提示内容，to：信息显示时间，s：滑动速度，t：提示类型，src：跳转路径
-        function showMsg(txtMsg, t) {
-            $("#login_top").msgTips({
-                src: "",
-                msg: txtMsg,			//显示的消息
-                type: t			//提示类型（1、success 2、error 3、warning）
-            });
-        }
-        /**teng add 2013-05-14 end**/
-
-        /****teng 文本框样式&特效 2013-01-29 start****/
-
-        //页面加载后执行
-        function getFocus() {
-            document.getElementById("UserName").focus();
-        }
-
-        //用户名文本框获得焦点时的样式和内容
-        function userNameFocus(o) {
-            if (o.value == "请输入登录邮箱") {
-                o.className = "login_txt_focus";
-                setCaret(o, 0);
-            } else {
-                o.className = "login_txt_focus_input";
+    <script>
+        function styleOnload(node, callback) {
+            // for IE6-9 and Opera
+            if (node.attachEvent) {
+                node.attachEvent('onload', callback);
+                // NOTICE:
+                // 1. "onload" will be fired in IE6-9 when the file is 404, but in
+                // this situation, Opera does nothing, so fallback to timeout.
+                // 2. "onerror" doesn't fire in any browsers!
+            }
+                // polling for Firefox, Chrome, Safari
+            else {
+                setTimeout(function () {
+                    poll(node, callback);
+                }, 0); // for cache
             }
         }
-
-        //用户名文本框失去焦点时的样式和内容
-        function userNameBlur(o) {
-            if (o.value == "请输入登录邮箱" || o.value == "") {
-                o.value = "请输入登录邮箱";
-                o.className = "login_txt";
-            } else {
-                o.className = "login_txt_input";
-            }
-        }
-
-        //鼠标经过用户名文本框时的样式和内容
-        function userNameOver(o) {
-            if (o.value == "请输入登录邮箱") {
-                o.className = "login_txt_over";
-            } else {
-                o.className = "login_txt_over_input";
-            }
-        }
-
-        //鼠标离开用户名文本框时的样式和内容
-        function userNameOut(o) {
-            if (document.activeElement.id == o.id)
-                return;
-            if (o.value == "请输入登录邮箱" || o.value == "") {
-                o.value = "请输入登录邮箱";
-                o.className = "login_txt";
-            } else {
-                o.className = "login_txt_input";
-            }
-        }
-
-        //用户名文本框按下按键时
-        function userNameKeyDown(o) {
-            o.className = "login_txt_focus_input";
-            if (o.value == "请输入登录邮箱") {
-                o.value = "";
-            }
-        }
-
-        //用户名文本框按下并抬起按键时
-        function userNameKeyUp(o) {
-            if (o.value == "") {
-                o.value = "请输入登录邮箱";
-                o.className = "login_txt_focus";
-                setCaret(o, 0);
-            }
-        }
-
-        //密码文本框获得焦点时的样式
-        function passwordFocus(o) {
-            if (o.value == "请输入登录密码") {
-                o.className = "login_txt_focus";
-                setCaret(o, 0);
-            } else {
-                o.className = "login_txt_focus_input";
-            }
-        }
-
-        //密码文本框失去焦点时的样式
-        function passwordBlur(o) {
-            if (o.value == "请输入登录密码" || o.value == "") {
-                o.value = "请输入登录密码";
-                o.className = "login_txt";
-            } else {
-                o.className = "login_txt_input";
-            }
-        }
-
-        //鼠标经过密码文本框时的样式
-        function passwordOver(o) {
-            o.className = "login_txt_over";
-        }
-
-        //鼠标离开密码文本框时的样式
-        function passwordOut(o) {
-            if (document.activeElement.id == o.id)
-                return;
-            if (o.value == "请输入登录密码" || o.value == "") {
-                o.value = "请输入登录密码";
-                o.className = "login_txt";
-            } else {
-                o.className = "login_txt_input";
-            }
-        }
-
-        //密码文本框按下按键时
-        function passwordKeyDown(o) {
-            o.className = "login_txt_focus_input";
-            if (o.value == "请输入登录密码") {
-                o.value = "";
-            }
-        }
-
-        //密码文本框抬起按键时
-        function passwordKeyUp(o) {
-            if (o.value == "") {
-                o.value = "请输入登录密码";
-                o.className = "login_txt_focus";
-                setCaret(o, 0);
-            }
-        }
-
-        //设置光标的位置
-        function setCaret(o, pos) {
-            if (o.setSelectionRange) {//非IE
-                o.setSelectionRange(0, 0);
-                o.focus();
-            } else if (o.createTextRange) {//IE
-                var r = o.createTextRange();
-                r.collapse(true);
-                r.moveStart("character", pos);
-                r.select();
-            } else {
+        function poll(node, callback) {
+            if (callback.isCalled) {
                 return;
             }
-        }
-
-        //阻止浏览器的默认行为 
-        function stopDefault(e) {
-            if (e && e.preventDefault)//W3C标准
-                e.preventDefault();
-            else//IE
-                window.event.returnValue = false;
-        }
-
-        /****teng 文本框样式&特效 2013-01-29 end****/
-        function changeAuthCode() {
-            document.getElementById("imgautocode").src = "/admin/admin/ValidateCode/?rnd=" + Math.random();
-        }
-
-        function check_return_field(data, id, type) {
-            var flag = true;
-            $.each(data, function (n, value) {
-                if (value.Errors.length > 0) {
-                    var obj = document.getElementById(n);
-                    if (type) {
-                        $(obj).focus();
-                        alert(value.Errors[0].ErrorMessage); return;
-                    }
-                    //  $("#" + id).validate().showLabel(obj, value.Errors[0].ErrorMessage);
-                    //$(obj).addClass("p-f-errorinput"); $("#" + id).find("[for='" + n + "']").show();
-                    //if (flag) {
-                    //    $(obj).focus();
-                    //    flag = false;
-                    //}
+            var isLoaded = false;
+            if (/webkit/i.test(navigator.userAgent)) {//webkit
+                if (node['sheet']) {
+                    isLoaded = true;
                 }
+            }
+                // for Firefox
+            else if (node['sheet']) {
+                try {
+                    if (node['sheet'].cssRules) {
+                        isLoaded = true;
+                    }
+                } catch (ex) {
+                    // NS_ERROR_DOM_SECURITY_ERR
+                    if (ex.code === 1000) {
+                        isLoaded = true;
+                    }
+                }
+            }
+            if (isLoaded) {
+                // give time to render.
+                setTimeout(function () {
+                    callback();
+                }, 1);
+            }
+            else {
+                setTimeout(function () {
+                    poll(node, callback);
+                }, 1);
+            }
+        }
+        // 我的动态创建LINK函数
+        function createLink(cssURL, lnkId, charset, media) {
+            var head = document.getElementsByTagName('head')[0],
+                linkTag = null;
+            if (!cssURL) {
+                return false;
+            }
+            linkTag = document.createElement('link');
+            linkTag.setAttribute('id', (lnkId || 'dynamic-style'));
+            linkTag.setAttribute('rel', 'stylesheet');
+            linkTag.setAttribute('charset', (charset || 'utf-8'));
+            linkTag.setAttribute('media', (media || 'all'));
+            linkTag.setAttribute('type', 'text/css');
+            linkTag.href = cssURL;
+            head.appendChild(linkTag);
+            return linkTag;
+        }
+        function getLink(i) {
 
+            var link = document.getElementsByTagName('link')[i];
+            return link;
+        }
+        function loadcss() {
+            var styleNode = getLink(0);
+            styleOnload(styleNode, function () {
+                loadingunmask();
             });
         }
     </script>
@@ -302,11 +170,11 @@
 <body class='contrast-fb sign-in contrast-background'>
     @using (Ajax.BeginForm(new AjaxOptions()
              {
-                 Url="Login",
+                 Url = "Login",
                  HttpMethod = "post",
                  OnSuccess = "Success",
                  LoadingElementId = "divMsg"
-                 
+
              }))
     {
         <div id='wrapper'>
@@ -318,7 +186,7 @@
                     <a href="sign_in.html">
                         <div class='icon-heart'></div>
 
-                     @*   <span>傲鲨汽车生活馆管理系统</span>*@
+                        @*   <span>傲鲨汽车生活馆管理系统</span>*@
 
                     </a>
 
@@ -332,7 +200,7 @@
 
                 <div class='form-wrapper'>
 
-                    <h1 class='text-center'>傲鲨汽车生活馆管理系统</h1>
+                    <h1 class='text-center'>傲鲨汽车生活馆测试系统</h1>
 
                     <div style="margin: 0; padding: 0; display: inline">
                         <input name="utf8" type="hidden" value="&#x2713;" />
@@ -341,7 +209,7 @@
                     <div class='row-fluid'>
 
                         <div class='span12 icon-over-input'>
-                            @Html.TextBoxFor(u => u.UserName, new { Value = "", @class = "span12", @placeholder = "UserName" })
+                            @Html.TextBoxFor(u => u.UserName, new { Value = "", @class = "span12", @placeholder = "用户名" })
 
                             <i class='icon-user muted'></i>
                             @Html.ValidationMessageFor(model => model.UserName)
@@ -352,7 +220,7 @@
                     <div class='row-fluid'>
 
                         <div class='span12 icon-over-input'>
-                            @Html.PasswordFor(u => u.Password, new { Value = "", @class = "span12", @placeholder = "Password" })
+                            @Html.PasswordFor(u => u.Password, new { Value = "", @class = "span12", @placeholder = "密码" })
                             <i class='icon-lock muted'></i>
                             @Html.ValidationMessageFor(model => model.Password)
                         </div>
@@ -365,7 +233,7 @@
                         记住我
 
                     </label>
-                    <input type="submit" id="Login" class="btn btn-block" value="登录" onclick="loginCheck()" />
+                    <input type="submit" id="Login" class="btn btn-block" value="登录" data-loading-text="Loading..." onclick="loginCheck(this)" />
 
 
                     <div class='text-center'>

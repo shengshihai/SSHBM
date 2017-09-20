@@ -28,6 +28,8 @@ namespace ShengUI.Logic.Admin
         IFW_ROLE_MANAGER RoleManager = OperateContext.Current.BLLSession.IFW_ROLE_MANAGER;
         IYX_weiUser_MANAGER wechatUserB = OperateContext.Current.BLLSession.IYX_weiUser_MANAGER;
         ITG_transactionLog_MANAGER transactionlogB = OperateContext.Current.BLLSession.ITG_transactionLog_MANAGER;
+        ISYS_USERLOGIN_MANAGER sys_userlogin = OperateContext.Current.BLLSession.ISYS_USERLOGIN_MANAGER;
+        IMST_SUPPLIER_MANAGER supplierB = OperateContext.Current.BLLSession.IMST_SUPPLIER_MANAGER;
 
         [DefaultPage]
         [ActionParent]
@@ -56,6 +58,9 @@ namespace ShengUI.Logic.Admin
             ViewBag.IsView = page.IsView;
             //ViewBag.CurrentID = id;
             ViewBag.TYPE = "Update";
+            var list = sys_userlogin.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
+            ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => list.Contains(u.TREE_NODE_ID), u => u.SUPPLIER_ID)), true);
+      
             var model = wechatUserB.Get(u => u.userNum == userNum);
             if (model == null)
             {
@@ -77,7 +82,7 @@ namespace ShengUI.Logic.Admin
             {
                 currUser.openid = currUser.userNum;
                 currUser.subscribe_time = DateTime.Now;
-                currUser.TREE_NODE_ID = OperateContext.Current.UsrNodeID;
+                currUser.TREE_NODE_ID = currUser.TREE_NODE_ID;
                 wechatUserB.Add(currUser);
                 status = true;
             }
@@ -127,7 +132,7 @@ namespace ShengUI.Logic.Admin
                 }
                 else
                 {
-                    wechatUserB.Modify(VIEW_YX_weiUser.ToEntity(user), "userRelname", "userTel", "userWXnum", "userQQ", "remark1","remark2", "RegTim1", "isfenxiao");
+                    wechatUserB.Modify(VIEW_YX_weiUser.ToEntity(user), "userRelname", "userTel", "userWXnum", "userQQ", "remark1", "remark2", "RegTim1", "isfenxiao", "TREE_NODE_ID");
 
                 }
                 status = true;

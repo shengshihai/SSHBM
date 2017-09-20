@@ -332,7 +332,7 @@
           <Property Name="REF_CD" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <!--生成过程中发现错误:
-      警告 6002: 表/视图“AOSHACAR.dbo.FW_USER_ROLE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      警告 6002: 表/视图“AOSHACAR_UAT.dbo.FW_USER_ROLE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
       -->
         <EntityType Name="FW_USER_ROLE">
           <Key>
@@ -1064,7 +1064,7 @@
           <Property Name="months" Type="int" />
           <Property Name="remark1" Type="nvarchar" MaxLength="500" />
           <Property Name="remark2" Type="nvarchar" MaxLength="500" />
-          <Property Name="remark3" Type="ntext" />
+          <Property Name="remark3" Type="nvarchar" MaxLength="20" />
           <Property Name="flat1" Type="int" />
           <Property Name="flat2" Type="int" />
           <Property Name="remark4" Type="nvarchar" MaxLength="50" />
@@ -3356,7 +3356,7 @@
           <Property Type="Int32" Name="months" />
           <Property Type="String" Name="remark1" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="remark2" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="remark3" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remark3" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="flat1" />
           <Property Type="Int32" Name="flat2" />
           <Property Type="String" Name="remark4" MaxLength="50" FixedLength="false" Unicode="true" />

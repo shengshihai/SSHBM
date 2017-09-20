@@ -272,6 +272,8 @@
                                 </div>
 
                             </div>
+                             if (ViewBag.IsUpdate == "Y")
+                             {
                             <div class='control-group'>
 
                                 <label class='control-label' for='validation_date'>车主</label>
@@ -297,7 +299,7 @@
                                 </div>
 
                             </div>
-                            
+                             }
                             <div class='control-group'>
 
                                 <label class='control-label' for='validation_name'>车牌号 </label>
@@ -351,7 +353,7 @@
 
                                 <div class='controls'>
 
-                                    @Html.TextBoxFor(m => m.CAR_DATE, new {  @placeholder = "上牌时间YYYY-MM-DD", @class = "input-validation-error" ,@data_mask="9999-99-99"})
+                                    @Html.TextBoxFor(m => m.CAR_DATE, new { @placeholder = "上牌时间YYYY-MM-DD", @class = "input-validation-error", @data_mask = "9999-99-99" })
                                     @Html.ValidationMessageFor(m => m.CAR_DATE)
 
                                 </div>
@@ -380,6 +382,8 @@
                                     返回
 
                                 </button>
+                                @if (ViewBag.IsUpdate == "Y")
+                                {
                                 <button class='btn btn-primary ' type='submit'>
 
                                     <i class='icon-save '></i>
@@ -387,7 +391,7 @@
                                     保存
 
                                 </button>
-
+                                }
                             </div>
 
                         }

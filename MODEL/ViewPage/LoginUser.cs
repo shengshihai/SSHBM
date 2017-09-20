@@ -12,9 +12,9 @@ namespace MODEL.ViewPage
     public class LoginUser
     {
         
-        [Required]
+        [Required(ErrorMessage="请输入用户名")]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "请输入密码")]
         public string Password { get; set; }
         public bool IsAlways { get; set; }
     }

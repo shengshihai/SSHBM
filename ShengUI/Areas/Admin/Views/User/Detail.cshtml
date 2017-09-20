@@ -5,6 +5,8 @@
 }
 @section backScripts
 {
+    <script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+    <script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
     <script src="~/Scripts/Back/plugins/fileinput/bootstrap-fileinput.js"></script>
     <script type="text/javascript"> 
         var rootPath='@Url.Content("~/Admin/")';
@@ -106,7 +108,7 @@
                             <br />
                             <input type="file" name="file" style="width: 200px; height: 20px;" onchange="PreviewImage(this)" id="upload" />
                         </div>
-                        <input  name="file" id="filedata" value="" type="hidden"/>
+                        <input name="file" id="filedata" value="" type="hidden" />
                     </div>
                     <div class='span9 box' id="divMsg">
 
@@ -176,7 +178,7 @@
 
                                     <hr class='hr-normal' />
 
-                                    <div class='control-group'>
+                                   @* <div class='control-group'>
 
                                         <div class='controls'>
 
@@ -190,17 +192,18 @@
 
                                         </div>
 
-                                    </div>
+                                    </div>*@
 
-                                    <div class='collapse' id='change-password'>
+                                    <div class='collapse1' id='change-password'>
 
                                         <div class='control-group'>
 
                                             <label class='control-label'>Password</label>
 
                                             <div class='controls'>
+                                                @Html.PasswordFor(u => u.PASSWD, new { @placeholder = "密码", @class = "span12 input-validation-error" })
+                                                @Html.ValidationMessageFor(u => u.PASSWD)
 
-                                                <input class='span12' id='password' placeholder='Password' type='password' />
 
                                             </div>
 
@@ -212,8 +215,8 @@
 
                                             <div class='controls'>
 
-                                                <input class='span12' id='password-confirmation' placeholder='Password confirmation' type='password' />
-
+                                                @Html.PasswordFor(u => u.REPASSWD, new { @placeholder = "确认密码", @class = "span12 input-validation-error" })
+                                                @Html.ValidationMessageFor(u => u.REPASSWD)
                                             </div>
 
                                         </div>
@@ -311,13 +314,11 @@
                                             <select class='select2 input-block-level' multiple="" placeholder='Try typing some USA country name'>
 
 
-                                                <option value='AOSHASale' >
-                                                傲鲨销售管理员
-                                                    </option>
-                                                 <option value='Admin'>
-                                                系统管理员
-                                                 </option>
-                            
+                                                <option value='AOSHASale'>傲鲨销售管理员
+                                                </option>
+                                                <option value='Admin'>系统管理员
+                                                </option>
+
 
                                             </select>
 
@@ -325,7 +326,7 @@
 
                                     </div>
 
-                                   
+
 
                                     <hr />
 
@@ -335,18 +336,18 @@
 
                                         <div class='controls'>
 
-                                          <div id="tree3">
-                            <ul id='tree3-treeData'>
+                                            <div id="tree3">
+                                                <ul id='tree3-treeData'>
 
-                                <li id='tree3id1' title='Look, a tool tip!'>item1 with key and tooltip
+                                                    <li id='tree3id1' title='Look, a tool tip!'>item1 with key and tooltip
 
-                                </li>
+                                                    </li>
 
-                                <li id='tree3id2'>item2
+                                                    <li id='tree3id2'>item2
 
-                                </li>
+                                                    </li>
 
-                                <li class='folder' id='tree3id3'>Folder with some children
+                                                    <li class='folder' id='tree3id3'>Folder with some children
 
                     <ul>
 
@@ -384,9 +385,9 @@
 
                     </ul>
 
-                                </li>
+                                                    </li>
 
-                                <li class='expanded' id='tree3id4'>Document with some children (expanded on init)
+                                                    <li class='expanded' id='tree3id4'>Document with some children (expanded on init)
 
                     <ul>
 
@@ -424,11 +425,11 @@
 
                     </ul>
 
-                                </li>
+                                                    </li>
 
-                            </ul>
+                                                </ul>
 
-                        </div>
+                                            </div>
 
                                         </div>
 

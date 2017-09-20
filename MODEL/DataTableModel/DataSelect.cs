@@ -253,12 +253,33 @@ namespace MODEL.ViewModel
             item.Text =  supplier.SUPPLIER_NAME;
             return item;
         }
+        public static SelectListItem ToEntity_TreeNode(VIEW_MST_SUPPLIER supplier)
+        {
+            SelectListItem item = new SelectListItem();
+            item.Value = supplier.TREE_NODE_ID.ToString();
+            item.Text = supplier.SUPPLIER_NAME;
+            return item;
+        }
         public static List<SelectListItem> ToListViewModel(IEnumerable<VIEW_MST_SUPPLIER> listsupplier)
         {
             List<SelectListItem> list = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = "请选择" } };
             foreach (VIEW_MST_SUPPLIER supplier in listsupplier)
             {
                 list.Add(ToEntity(supplier));
+
+            }
+            return list;
+
+        }
+        public static List<SelectListItem> ToListViewModel(IEnumerable<VIEW_MST_SUPPLIER> listsupplier,bool isTreeNode)
+        {
+            List<SelectListItem> list = new List<SelectListItem>() { new SelectListItem() { Value = "", Text = "请选择" } };
+            foreach (VIEW_MST_SUPPLIER supplier in listsupplier)
+            {
+                if(isTreeNode)
+                    list.Add(ToEntity_TreeNode(supplier));
+                else
+                    list.Add(ToEntity(supplier));
 
             }
             return list;

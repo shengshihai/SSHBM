@@ -155,7 +155,23 @@ function Jump(url)
     } 
   
     if (obj.get(0) != undefined && obj.get(0).tagName == "SECTION") {
-        loadingmask();
+       
+        //$(obj).children().hide();
+        //alert($(obj).children("#" + url.replace(/\//g,"-")).length);
+        //if ($(obj).children("#" + url.replace(/\//g,"-")).length > 0)
+        //{
+        //    $(obj).children("#" + url.replace(/\//g,"-")).show();
+        //}
+        //else
+        //{
+        //    loadingmask();
+        //    var frame = document.createElement("iframe");
+        //    //var oDiv = document.createElement('div');
+        //    frame.id = url.replace(/\//g, "-");
+        //    frame.src = url;
+        //    $(obj).append(frame);
+        //    $(frame).load(loadurl);
+        //}
         $(obj).load(loadurl);
         $(obj).attr("url",url);
     }

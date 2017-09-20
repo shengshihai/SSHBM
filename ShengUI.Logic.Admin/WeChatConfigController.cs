@@ -145,7 +145,7 @@ namespace ShengUI.Logic.Admin
             var data = false;
             try
             {
-
+                Yx_Menus_Manager.Add(VIEW_YX_weiXinMenus.ToEntity(model));
                 data = true;
                 return this.JsonFormat("/admin/WeChatConfig/WeChatMenus", data, SysOperate.Add.ToMessage(data), data);
             }

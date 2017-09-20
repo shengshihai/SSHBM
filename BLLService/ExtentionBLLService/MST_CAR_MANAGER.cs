@@ -3,6 +3,7 @@ using IBLLService;
 using IDALRepository;
 using MODEL;
 using MODEL.ViewModel;
+using ShengUI.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace BLLService
 
                 int total = 0;
                 predicate = predicate.And(p => p.SYNCOPERATION != "D");
-
+                var list = IDBSession.ISYS_USERLOGIN_REPOSITORY.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
                 var data = base.LoadPagedList(request.PageNumber, request.PageSize, ref total, predicate, request.Model, p => true, request.SortOrder, request.SortName).Select(p => new VIEW_MST_CAR()
                 {
                     CAR_CD = p.CAR_CD,
@@ -36,11 +37,11 @@ namespace BLLService
                     CAR_COLOR = p.CAR_COLOR,
                     CAR_NUM = p.CAR_NUM,
                     CAR_REMARK = p.CAR_REMARK,
-                    UserId=p.UserId,
+                    UserId = list.Contains(p.YX_weiUser.TREE_NODE_ID)?p.UserId:"",
                     CAR_DATE = p.CAR_DATE,
-                    USERNAME=p.YX_weiUser.userRelname,
-                    USERTYPE=p.YX_weiUser.isfenxiao,
-                    USERTEL=p.YX_weiUser.userTel
+                    USERNAME=list.Contains(p.YX_weiUser.TREE_NODE_ID)?p.YX_weiUser.userRelname:"",
+                    USERTYPE=list.Contains(p.YX_weiUser.TREE_NODE_ID)?p.YX_weiUser.isfenxiao:-1,
+                    USERTEL = list.Contains(p.YX_weiUser.TREE_NODE_ID) ? p.YX_weiUser.userTel : ""
                 });
                 //var list = ViewModelProduct.ToListViewModel(data);
                 return new MODEL.DataTableModel.DataTableGrid()

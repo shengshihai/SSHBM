@@ -114,6 +114,15 @@
                           },
                           "targets": 4
                       },
+                         {
+                             "render": function (data, type, row) {
+                                 if (row.UserId != "")
+                                     return '<a href="javascript:void(0)" onclick="Jump(\'/admin/WeChatUser/WeChatDetail?userNum=' + row.UserId + '\');\">' + data + '</a>';
+                                 else
+                                     return data;
+                             },
+                             "targets": 5
+                         },
                        {
                            "render": function (data, type, row) {
                                if (data == 0)
@@ -127,7 +136,7 @@
                                else if (data == 4)
                                    return "Double-5级会员"
                                else
-                                   return "游客";
+                                   return "";
                            },
                            "targets": 6
                        },
@@ -279,7 +288,7 @@
 
                                     <div class='box-header orange-background'>
 
-                                        <div class='title'>Sortable data table with pagination</div>
+                                        <div class='title'></div>
 
                                         <div class='actions'>
 

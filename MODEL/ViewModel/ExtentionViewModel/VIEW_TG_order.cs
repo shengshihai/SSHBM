@@ -31,6 +31,7 @@ namespace MODEL.ViewModel
         public string[] productName { get; set; }
           [Required(ErrorMessage = "请选择消费项目数量")]
         public string[] productCount { get; set; }
+          public bool IsNotice { get; set; }
         public decimal[] productPrice { get; set; }
         public decimal[] productMoney { get; set; }
         public List<VIEW_TG_Thing> Thinglist { get; set; }

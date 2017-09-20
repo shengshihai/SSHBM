@@ -67,19 +67,23 @@ namespace ShengUI.Logic.Admin
             {
                 car.UserId = usernum;
             }
-            //var list = IDBSession.ISYS_USERLOGIN_REPOSITORY.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
-            ViewBag.MEMBERS = DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u=>true,u=>u.userRelname)));
+            var list = sys_UsurLogin.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
+           var memberlist= DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u => list.Contains(u.TREE_NODE_ID), u => u.userRelname)));
+           ViewBag.MEMBERS = memberlist;
             ViewBag.ReturnUrl = Request["returnurl"];
             ViewDetailPage page = new ViewDetailPage(HttpContext);
             ViewBag.IsView = page.IsView;
             //ViewBag.CurrentID = id;
+             ViewBag.IsUpdate = "N";
             ViewBag.TYPE = "Update";
             var model = carB.Get(u => u.CAR_CD == car_cd);
             if (model == null)
             {
-                ViewBag.TYPE = "Add";
+                ViewBag.TYPE = "Add"; ViewBag.IsUpdate = "Y";
                 return View(car);
             }
+            if (memberlist.Select(m => m.Value).Contains(model.UserId))
+                ViewBag.IsUpdate = "Y";
             return View(VIEW_MST_CAR.ToViewModel(model));
 
         }

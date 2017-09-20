@@ -82,6 +82,8 @@ namespace ShengUI.Logic.Admin
             {
                 currUser.CREATE_BY = OperateContext.Current.UsrId;
                 currUser.CREATE_DT = DateTime.Now;
+                currUser.PASSWD = Common.MD5Provider.Hash(user.PASSWD);
+                currUser.ACTIVE = "Y";
                 UserInfoManager.Add(currUser);
                 status = true;
             }
@@ -98,12 +100,15 @@ namespace ShengUI.Logic.Admin
         {
             var model = VIEW_FW_USER.ToEntity(user);
             bool status = false;
+            if (!ModelState.IsValid)
+                return this.JsonFormat(ModelState, status, "ERROR");
             try
             {
+                model.PASSWD = Common.MD5Provider.Hash(user.PASSWD);
                 model.LAST_UPDATED_DT = DateTime.Now;
                 model.MODIFY_DT = DateTime.Now;
                 model.MODIFY_BY = OperateContext.Current.UsrId;
-                UserInfoManager.Modify(model, "USER_NAME", "EMAIL", "ENG_NAME", "PHONE", "LAST_UPDATED_DT", "MODIFY_BY", "MODIFY_DT");
+                UserInfoManager.Modify(model, "USER_NAME", "EMAIL", "ENG_NAME", "PHONE", "LAST_UPDATED_DT", "MODIFY_BY", "MODIFY_DT", "PASSWD");
                 status = true;
             }
             catch (Exception e)
@@ -111,7 +116,7 @@ namespace ShengUI.Logic.Admin
                 return this.JsonFormat(status, status, SysOperate.Update);
 
             }
-            return this.JsonFormat("/Admin/User/UserInfo", status, SysOperate.Update.ToMessage(status), status);
+            return this.JsonFormat("/Admin/User/UserInfo", status, SysOperate.Update.ToMessage(status), !status);
         }
 
         [ActionDesc("删除", "Y")]

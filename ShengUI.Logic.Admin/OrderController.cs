@@ -38,6 +38,8 @@ namespace ShengUI.Logic.Admin
         [Description("[订单管理]订单管理首页列表信息")]
         public ActionResult OrderInfo()
         {
+            var list = sys_userlogin.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
+            ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => list.Contains(u.TREE_NODE_ID)&&u.SYNCOPERATION!="D", u => u.SUPPLIER_ID)));
             return View();
         }
 
@@ -53,8 +55,8 @@ namespace ShengUI.Logic.Admin
             {
                 ViewBag.TYPE = "Add";
                 var list = sys_userlogin.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
-                ViewBag.MEMBERS = DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u =>list.Contains(u.TREE_NODE_ID), u => u.userRelname)));
-                ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => list.Contains(u.TREE_NODE_ID), u => u.SUPPLIER_ID)));
+                ViewBag.MEMBERS = DataSelect.ToListViewModel(VIEW_YX_weiUser.ToListViewModel(userB.GetListBy(u =>list.Contains(u.TREE_NODE_ID)&&u.isfenxiao!=0, u => u.userRelname)));
+                ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => list.Contains(u.TREE_NODE_ID) && u.SYNCOPERATION != "D", u => u.SUPPLIER_ID)));
             }
             var model = orderB.Get(o => o.orderNum == ordernum);
             if (model != null)
@@ -197,7 +199,8 @@ namespace ShengUI.Logic.Admin
                         transactionlog.remark4 = "1003";
                         transactionlog.AddTime = DateTime.Now;
                         transactionlogB.Add(transactionlog);
-                        Common.Tools.GetPage("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + WeChatConfig.IsExistAccess_Token2(), WeChatConfig.GetSubcribePostData(user.openid, transactionlog.tranContent));
+                        if(model.IsNotice)
+                            Common.Tools.GetPage("https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + WeChatConfig.IsExistAccess_Token2(), WeChatConfig.GetSubcribePostData(user.openid, transactionlog.tranContent));
                         status = true;
                     }
                     else

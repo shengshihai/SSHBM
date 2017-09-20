@@ -91,17 +91,20 @@
                 "processing": true,
                 "serverSide": true,
                 "ordering": true,
-                "order": [[1, "desc"]],
+                "order": [[1, "asc"]],
                 "ajax": {
                     "url": gridUrl,
                     "type": "POST"
                 },
                 "columns": [
-                        { "data": "PRD_CD", "orderable": false },
+                     { "data": "PRD_CD", "orderable": false },
+                      { "data": "SEQ_NO", "orderable": "SEQ_NO" },
+                     { "data": "PRD_CD", "name": "[Contains]{main}PRD_CD", "orderable": false },
                     { "data": "PRD_NAME", "name": "[Contains]{main}PRD_NAME", "orderable": "PRD_NAME" },
                     { "data": "PRICE" },
                     { "data": "CATEGORY_NAME", "name": "[Contains]{main}MST_CATEGORY.CATEGORY_NAME", "orderable": "MST_CATEGORY.CATEGORY_NAME" },
-                    { "data": "PRD_CD" }
+                    { "data": "PRD_CD" },
+                     { "data": "SEQ_NO", "orderable": "SEQ_NO", "visible": false },
 
                 ],
                 "columnDefs": [
@@ -115,13 +118,13 @@
                           "render": function (data, type, row) {
                               return data + ' <input name="price" type="hidden" value="' + data + '" >';
                           },
-                          "targets": 2
+                          "targets": 4
                       },
                          {
                              "render": function (data, type, row) {
                                  return ' <input name="prd_qty" class="' + data + '_qty" type="text" value="1" style="width:20px">';
                              },
-                             "targets": 4
+                             "targets": 6
                          },
                 ]
 
@@ -408,6 +411,7 @@
 
                                             <h2 id="totalSalary" class="subtotal contrast">(应付: ￥@Model.total_fee)</h2>
                                         </div>
+                                           
                                         <div class="controls">
                                             <div class="input-prepend input-append">
                                                 <span class="add-on">实付：￥</span>
@@ -435,7 +439,7 @@
                                         <div class='text-left'>
                                             <div class="controls">
 
-                                              @Html.TextBoxFor(o => o.remark6, new { @placeholder = "备注信息",@class = "span12" })
+                                                @Html.TextBoxFor(o => o.remark6, new { @placeholder = "备注信息", @class = "span12" })
                                             </div>
                                         </div>
                                         <div class='text-right'>
@@ -647,7 +651,7 @@
 
 
                                         </div>
-
+                                
                                         <div class="controls">
 
                                             <div class="input-prepend input-append">
@@ -673,15 +677,16 @@
                                 <div class='span12'>
 
                                     <div class='well comment'>
-                                          @if (Model.ispay < 3)
-                                            {
-                                        <div class="controls">
+                                        @if (Model.ispay < 3)
+                                        {
+                                            <div class="controls">
 
-   @Html.TextBoxFor(o => o.remark6, new { @placeholder = "备注信息",@class = "span12" })
-                                        </div>
+                                                @Html.TextBoxFor(o => o.remark6, new { @placeholder = "备注信息", @class = "span12" })
+                                            </div>
                                         
-                                        <div class='text-right'>
-                                          
+                                            <div class='text-right'>
+                                                 <input id="IsNotice" name="IsNotice" type='checkbox' value='true' />
+                                                是否通知客户
                                                 <button class='btn btn-primary btn-large' name="ONLINE" type="submit">
 
                                                     <i class='icon-save '></i>
@@ -690,10 +695,12 @@
 
                                                 </button>
 
-                                        </div>
-                                        }else{
-                                          @Model.remark6
-                                          }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            @Model.remark6
+                                        }
                                     </div>
 
                                 </div>
@@ -720,6 +727,8 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
+                                                <th>序号</th>
+                                                <th>商品ID</th>
                                                 <th>商品名称</th>
                                                 <th>单价</th>
                                                 <th>所属分类</th>
@@ -735,9 +744,9 @@
 
                             <div class='modal-footer'>
 
-                                <button id="prdclose" class='btn' data-dismiss='modal'>Close</button>
+                                <button id="prdclose" class='btn' data-dismiss='modal'>关闭</button>
 
-                                <button id="prdsave" class='btn btn-primary'>Save changes</button>
+                                <button id="prdsave" class='btn btn-primary'>加入订单</button>
 
                             </div>
 
