@@ -144,6 +144,7 @@ function check_return_field(data, url,type) {
 //页面跳转
 function Jump(url)
 {
+
     var obj = $("#content");
     var returnurl = $(obj).attr("url"); 
     var loadurl = "";
@@ -164,7 +165,7 @@ function Jump(url)
         //}
         //else
         //{
-        //    loadingmask();
+            loadingmask();
         //    var frame = document.createElement("iframe");
         //    //var oDiv = document.createElement('div');
         //    frame.id = url.replace(/\//g, "-");
@@ -172,7 +173,15 @@ function Jump(url)
         //    $(obj).append(frame);
         //    $(frame).load(loadurl);
         //}
-        $(obj).load(loadurl);
+            $(obj).load(loadurl, null, function (responseText) {
+                if(responseText.substr(0,1)=="{"){
+                    var data = JSON.parse(responseText);
+                    if (data.Statu == 'nologin') {
+                        alert(data.Msg);
+                        parent.window.location = data.BackUrl;
+                    }
+                }
+            });
         $(obj).attr("url",url);
     }
     else {

@@ -19,6 +19,8 @@ using Common.EfSearchModel.Model;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
+    [Description("企业门户")]
     public class ArticleController : Controller
     {
         public IMST_ARTICLE_MANAGER ArticleManager = OperateContext.Current.BLLSession.IMST_ARTICLE_MANAGER;

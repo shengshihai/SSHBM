@@ -15,6 +15,7 @@ using System.Web.Mvc;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
     public class WeChatConfigController : Controller
     {
         public ISYS_REF_MANAGER SYSREF = OperateContext.Current.BLLSession.ISYS_REF_MANAGER;

@@ -19,20 +19,20 @@
         //是否编辑状态
         var isEdit = !isAddNew && !isView;
 
-        var ss=$("#tree3").dynatree({
-            dnd: {
-                preventVoidMoves: true,
-                onDragStart: function (node) {
-                    return true;
-                },
-                onDragEnter: function (node, sourceNode) {
-                    return ["before", "after"];
-                },
-                onDrop: function (node, sourceNode, hitMode, ui, draggable) {
-                    return sourceNode.move(node, hitMode);
-                }
-            }
-        });
+        //var ss=$("#tree3").dynatree({
+        //    dnd: {
+        //        preventVoidMoves: true,
+        //        onDragStart: function (node) {
+        //            return true;
+        //        },
+        //        onDragEnter: function (node, sourceNode) {
+        //            return ["before", "after"];
+        //        },
+        //        onDrop: function (node, sourceNode, hitMode, ui, draggable) {
+        //            return sourceNode.move(node, hitMode);
+        //        }
+        //    }
+        //});
         $(function(){
             $(".select2").select2({
                 //data:data,

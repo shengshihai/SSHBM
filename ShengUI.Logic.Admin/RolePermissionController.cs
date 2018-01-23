@@ -17,6 +17,7 @@ using MODEL.DataTableModel;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
     public class RolePermissionController : Controller
     {
         IFW_ROLEPERMISSION_MANAGER RolePermissionManager = OperateContext.Current.BLLSession.IFW_ROLEPERMISSION_MANAGER;

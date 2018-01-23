@@ -186,7 +186,8 @@ namespace ShengUI
                  "~/Scripts/Back/demo/jquery.mockjax.js",
                  "~/Scripts/Back/demo/inplace_editing.js",
                  "~/Scripts/Back/demo/charts.js",
-                 "~/Scripts/Back/demo/demo.js"
+                 "~/Scripts/Back/demo/demo.js",
+                 "~/Scripts/Back/Common/jquery.loadmask.js"
                 ));
             bundles.Add(new ScriptBundle("~/datatables").Include(
                "~/Scripts/Back/plugins/datatables/jquery.dataTables.js",

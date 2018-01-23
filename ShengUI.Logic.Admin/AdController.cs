@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
      [Description("广告管理")]
     public class AdController : Controller
     {

@@ -1,6 +1,7 @@
 ﻿using Common.EfSearchModel.Binders;
 using Common.EfSearchModel.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,6 +27,20 @@ namespace ShengUI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ModelBinders.Binders.Add(typeof(QueryModel), new SearchModelBinder());
+        }
+        protected void Session_End(object sender, EventArgs e)
+        {
+            Hashtable hOnline = (Hashtable)Application["Online"];
+            if (hOnline != null)
+            {
+                if (hOnline[Session.SessionID] != null)
+                {
+                    hOnline.Remove(Session.SessionID);
+                    Application.Lock();
+                    Application["Online"] = hOnline;
+                    Application.UnLock();
+                }
+            }
         }
     }
 }

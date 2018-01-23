@@ -18,6 +18,7 @@ using Common.EfSearchModel.Model;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
     [Description("角色管理")]
     public class RoleController : Controller
     {

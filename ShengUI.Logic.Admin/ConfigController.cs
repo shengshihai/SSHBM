@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
     public class ConfigController : Controller
     {
         public ISYS_REF_MANAGER ConfigManager = OperateContext.Current.BLLSession.ISYS_REF_MANAGER;

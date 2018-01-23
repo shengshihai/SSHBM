@@ -17,6 +17,7 @@ using System.Web.Mvc;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
     [Description("菜单管理")]
     public class MenusController : Controller
     {

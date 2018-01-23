@@ -92,6 +92,7 @@ namespace ShengUI.Logic.Admin
         /// 按钮信息加载
         /// </summary>
         /// <returns></returns>
+         [AjaxRequestAttribute]
         [ActionDesc("获取按钮")]
         [Description("[系统管理首页]获取按钮信息")]
         public ActionResult GetMyButton()

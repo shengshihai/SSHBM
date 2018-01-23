@@ -4,6 +4,7 @@ using IBLLService;
 using MODEL.ViewModel;
 using MODEL.ViewPage;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -307,6 +308,7 @@ namespace ShengUI.Helper
                     UsrId = usr.USER_ID;
                     UsrName = usr.USER_NAME;
                     UsrNodeID = usr.TREENODE_ID;
+                    GetOnline(UsrId);
                     //如果选择了复选框，则要使用cookie保存数据
                     if (usrPara.IsAlways)
                     {
@@ -337,6 +339,34 @@ namespace ShengUI.Helper
                 throw;
             }
         }
+
+        private void GetOnline(string Name)
+        {
+            Hashtable SingleOnline = (Hashtable)System.Web.HttpContext.Current.Application["Online"];
+
+            if (SingleOnline != null)
+            {
+                IDictionaryEnumerator enumerator = SingleOnline.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    if (enumerator.Value != null && enumerator.Value.ToString().Equals(UsrId))
+                    {
+                        SingleOnline[enumerator.Key.ToString()] = "_offline_";
+                        break;
+                    }
+                }
+
+            }
+
+            else
+            {
+                SingleOnline = new Hashtable();
+            }
+            SingleOnline.Add(Session.SessionID, Name);
+            System.Web.HttpContext.Current.Application.Lock();
+            System.Web.HttpContext.Current.Application["Online"] = SingleOnline;
+            System.Web.HttpContext.Current.Application.UnLock();
+        }
         #endregion
 
         #region 2.2 判断当前用户是否登陆 +bool IsLogin()
@@ -344,14 +374,16 @@ namespace ShengUI.Helper
         /// 判断当前用户是否登陆 而且
         /// </summary>
         /// <returns></returns>
-        public bool IsLogin()
+        public bool IsLogin(out string  msg)
         {
            // UserInfoManager = (ISample_UserInfoManager)cxt.GetObject("Manager.UserInfo");
             //1.验证用户是否登陆(Session && Cookie)
-            if (UsrId=="")
+            if (UsrId == "")
             {
+                msg = "登陆超时";
                 if (Request.Cookies[Admin_InfoKey] == null)
                 {
+                    //msg = "登陆超时";
                     return false;
                 }
                 else//如果有cookie则从cookie中获取用户id并查询相关数据存入 Session
@@ -364,6 +396,21 @@ namespace ShengUI.Helper
                     UsrPermissionId = OperateContext.Current.GetUserPermissionId(usr.USER_ID);
                 }
             }
+            else
+            {
+                Hashtable singleOnline = (Hashtable)System.Web.HttpContext.Current.Application["Online"];
+                // 判断当前SessionID是否存在
+                if (singleOnline != null && singleOnline.ContainsKey(Session.SessionID))
+                {
+                    if (singleOnline[Session.SessionID].Equals("_offline_") || !singleOnline[Session.SessionID].Equals(UsrId))
+                    {
+                        Session.Abandon();
+                        msg = "您从当前系统中退出，因为在另一台计算机上正在使用相同的帐户";
+                        return false;
+                    }
+                }
+            }
+            msg = "";
             return true;
         }
         #endregion
@@ -450,6 +497,20 @@ namespace ShengUI.Helper
             {
 
                 return RedirectAjax("nologin", "您没有登陆或没有权限访问此页面~~", null, url);
+            }
+            else//如果 超链接或表单 没有权限访问，则返回 302重定向命令
+            {
+                return new RedirectResult(url);
+            }
+        }
+        public ActionResult Redirect(string url, ActionDescriptor action,string msg)
+        {
+            //如果Ajax请求没有权限，就返回 Json消息
+            if (action.IsDefined(typeof(AjaxRequestAttribute), false)
+            || action.ControllerDescriptor.IsDefined(typeof(AjaxRequestAttribute), false))
+            {
+
+                return RedirectAjax("nologin", msg, null, url);
             }
             else//如果 超链接或表单 没有权限访问，则返回 302重定向命令
             {

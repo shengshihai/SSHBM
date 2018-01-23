@@ -14,6 +14,8 @@ using MODEL.DataTableModel;
 
 namespace ShengUI.Logic.Admin
 {
+    [AjaxRequestAttribute]
+    [Description("企业分类")]
     public class CatalogController : Controller
     {
         public IMST_CATALOG_MANAGER CatalogManager = OperateContext.Current.BLLSession.IMST_CATALOG_MANAGER;

@@ -14,7 +14,7 @@ using Common.Attributes;
 
 namespace ShengUI.Logic.Admin
 {
-  
+    [AjaxRequestAttribute]
     [Description("日志管理")]
     public class OperateLogController :Controller
     {

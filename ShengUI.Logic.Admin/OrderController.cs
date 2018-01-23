@@ -21,7 +21,7 @@ using MODEL.DataTableModel;
 
 namespace ShengUI.Logic.Admin
 {
-
+    [AjaxRequestAttribute]
     [Description("订单管理")]
     public class OrderController : Controller
     {

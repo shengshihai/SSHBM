@@ -20,7 +20,7 @@ using Common.EfSearchModel.Model;
 
 namespace ShengUI.Logic.Admin
 {
-
+    [AjaxRequestAttribute]
     [Description("用户管理")]
     public class UserController : Controller
     {

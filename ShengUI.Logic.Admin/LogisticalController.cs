@@ -20,7 +20,7 @@ using Common.EfSearchModel.Model;
 
 namespace ShengUI.Logic.Admin
 {
-
+    [AjaxRequestAttribute]
     [Description("物流管理")]
     public class LogisticalController : Controller
     {

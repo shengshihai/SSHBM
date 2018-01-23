@@ -20,7 +20,7 @@ using Common.EfSearchModel.Model;
 
 namespace ShengUI.Logic.Admin
 {
-
+    [AjaxRequestAttribute]
     [Description("微信用户管理")]
     public class WeChatUserController : Controller
     {

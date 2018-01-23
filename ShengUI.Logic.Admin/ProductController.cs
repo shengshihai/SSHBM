@@ -22,7 +22,7 @@ using MODEL.ViewPage;
 
 namespace ShengUI.Logic.Admin
 {
-
+    [AjaxRequestAttribute]
     [Description("产品管理")]
     public class ProductController : Controller
     {

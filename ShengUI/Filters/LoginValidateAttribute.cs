@@ -44,11 +44,12 @@ namespace ShengUI.Filters
                     {
                         #region 1.验证用户是否登陆(Session && Cookie)
                         //1.验证用户是否登陆(Session && Cookie)
-                        isLogin = OperateContext.Current.IsLogin();
+                        string msg = "";
+                        isLogin = OperateContext.Current.IsLogin(out msg);
                        
                         if (!isLogin)
                         {
-                            filterContext.Result = OperateContext.Current.Redirect("/admin/admin/logon", filterContext.ActionDescriptor);
+                            filterContext.Result = OperateContext.Current.Redirect("/admin/admin/logon", filterContext.ActionDescriptor,msg);
                         }
                         #endregion
                     }

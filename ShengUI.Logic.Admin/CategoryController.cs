@@ -15,7 +15,8 @@ using MODEL.DataTableModel;
 
 namespace ShengUI.Logic.Admin
 {
-       [Description("产品分类管理")]
+    [AjaxRequestAttribute]
+    [Description("产品分类管理")]
     public class CategoryController : Controller
     {
 

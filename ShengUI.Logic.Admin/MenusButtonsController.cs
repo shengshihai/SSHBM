@@ -16,7 +16,7 @@ using MODEL.DataTableModel;
 
 namespace ShengUI.Logic.Admin
 {
-
+    [AjaxRequestAttribute]
     public class MenusButtonsController : Controller
     {
 
