@@ -12,7 +12,7 @@ namespace MODEL.ViewModel
         public new string PRD_CD { get; set; }
         [Required]
         public new string CATE_ID { get; set; }
-        [Required]
+       
         public new string REMARK1 { get; set; }
 
         [Required]

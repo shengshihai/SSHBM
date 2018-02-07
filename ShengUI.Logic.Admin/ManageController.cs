@@ -20,6 +20,9 @@ namespace ShengUI.Logic.Admin
 
         IFW_USER_MANAGER FW_USER_MANAGER = OperateContext.Current.BLLSession.IFW_USER_MANAGER;
         IFW_MODULE_MANAGER MODULE_MANAGER = OperateContext.Current.BLLSession.IFW_MODULE_MANAGER;
+        IMST_PRD_MANAGER prd_MANAGER = OperateContext.Current.BLLSession.IMST_PRD_MANAGER;
+        IMST_CATEGORY_MANAGER categroyB = OperateContext.Current.BLLSession.IMST_CATEGORY_MANAGER;
+
         [DefaultPage]
         [ActionParent]
         [ActionDesc("系统管理首页")]
@@ -36,7 +39,10 @@ namespace ShengUI.Logic.Admin
         [Description("[系统管理首页]欢迎页面")]
         public ActionResult WelCome()
         {
-
+            ViewBag.UserID = OperateContext.Current.UsrId;
+            ViewBag.UserName = OperateContext.Current.UsrName;
+            ViewBag.PrdList = VIEW_MST_PRD.ToListViewModel(prd_MANAGER.GetListBy(s =>true));
+            ViewBag.CategoryList = VIEW_MST_CATEGORY.ToListViewModel(categroyB.GetListBy(s => s.SYNCOPERATION != "D"));
             return View();
         }
         [ActionDesc("左菜单页")]

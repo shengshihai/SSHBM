@@ -23,7 +23,7 @@ namespace BLLService
             //GetPermission(request, out count);
             List<VIEW_MST_CATEGORY> listCategory= new List<VIEW_MST_CATEGORY>();
             //查找所有的一级权限
-            var ParentCatalog = data.Where(con => con.PARENT_CD == "MAIN" && con.SYNCOPERATION != "D");
+            var ParentCatalog = data.Where(con =>  con.SYNCOPERATION != "D");
             foreach (var parent in ParentCatalog)
             {
                 //实体转化 

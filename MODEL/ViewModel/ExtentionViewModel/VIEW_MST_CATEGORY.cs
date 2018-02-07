@@ -14,5 +14,7 @@ namespace MODEL.ViewModel
         public new string CATE_CD { get; set; }
         [Required(ErrorMessage="分类名称不能为空")]
         public new string CATEGORY_NAME { get; set; }
+        [Required(ErrorMessage = "父分类不能为空")]
+        public new string PARENT_CD { get; set; }
     }
 }

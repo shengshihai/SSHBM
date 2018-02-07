@@ -75,7 +75,9 @@ namespace ShengUI.Logic.Admin
             {
                 //UserOperateLog.WriteOperateLog("[" + user.UserName + "成功登录]" + SysOperate.Operate.ToMessage(true));
                // return this.JsonFormat("", true, "/admin/Manage/index", true);
-                return this.JsonFormat("", true, "/admin/Admin/Select", true);
+                if(user.UserName=="Administrator"||user.UserName=="Admin")
+                    return this.JsonFormat("", true, "/admin/Manage/index", true);
+                 return this.JsonFormat("", true, "/admin/Manage/WelCome", true);
             }
             else
             {

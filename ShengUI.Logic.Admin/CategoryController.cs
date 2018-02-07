@@ -37,6 +37,7 @@ namespace ShengUI.Logic.Admin
         public ActionResult PrdCateDetail(string cd)
         {
             ViewBag.TYPE = "Add";
+            ViewBag.CATE_IDS = DataSelect.ToListViewModel(VIEW_MST_CATEGORY.ToListViewModel(CategoryB.GetListBy(m =>  m.ACTIVE == true)));
             var model = CategoryB.Get(m => m.CATE_CD == cd);
             if (model == null)
             {
@@ -69,7 +70,7 @@ namespace ShengUI.Logic.Admin
                  return this.JsonFormat(ModelState, status, "ERROR");
              try
              {
-                 model.PARENT_CD = "MAIN";
+                 //model.PARENT_CD = "MAIN";
                  model.CREATE_DT = DateTime.Now;
                  model.VERSION = 1;
                  model.MODIFY_DT = DateTime.Now;
