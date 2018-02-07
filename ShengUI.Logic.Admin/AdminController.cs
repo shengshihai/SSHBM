@@ -29,8 +29,18 @@ namespace ShengUI.Logic.Admin
             return View();
         }
          
-        #endregion
+        
+        [HttpGet]
+        
+        public ActionResult Select()
+        {
+            
+         
 
+            return View();
+        }
+         
+        #endregion
         #region 退出系统
         /// <summary>
         /// 退出系统
@@ -64,7 +74,8 @@ namespace ShengUI.Logic.Admin
             if (OperateContext.Current.LoginAdmin(user))
             {
                 //UserOperateLog.WriteOperateLog("[" + user.UserName + "成功登录]" + SysOperate.Operate.ToMessage(true));
-                return this.JsonFormat("", true, "/admin/Manage/index", true);
+               // return this.JsonFormat("", true, "/admin/Manage/index", true);
+                return this.JsonFormat("", true, "/admin/Admin/Select", true);
             }
             else
             {
