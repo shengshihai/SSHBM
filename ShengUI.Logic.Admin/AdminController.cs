@@ -15,7 +15,7 @@ namespace ShengUI.Logic.Admin
        
         #region 获取登录视图
         /// <summary>
-        /// 获取登录视图
+        /// 获取登录视图1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
