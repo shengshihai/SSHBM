@@ -1,0 +1,683 @@
+﻿@model MODEL.ViewPage.LoginUser
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Sheng - Flat administration</title>
+
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+
+    <!--[if lt IE 9]>
+
+        <script src="~/Scripts/Back/Common/html5shiv.js"></script>
+
+    <![endif]-->
+
+
+    @Styles.Render("~/Content/Back/base/css")
+    <link href="~/Content/Back/css/jquery.loadmask.css" rel="stylesheet" />
+    <style type="text/css">
+        .field-validation-error {
+            color: #b94a48;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin-top: 10px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-validation-error {
+            border-color: #b94a48 !important;
+        }
+    </style>
+
+    <script src="~/Scripts/Back/Common/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/Back/Common/jquery.unobtrusive-ajax.js"></script>
+    <script src='/Scripts/Back/Common/common.js' type='text/javascript'></script>
+    <script src='/Scripts/Back/Common/LG.js' type='text/javascript'></script>
+
+    <!-- / bootstrap -->
+    <script src='/Scripts/Back/bootstrap/bootstrap.min.js' type='text/javascript'></script>
+    <!-- / validate -->
+    <script src='/Scripts/Back/plugins/validate/jquery.validate.js' type='text/javascript'></script>
+    <script src="~/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/Back/Common/jquery.loadmask.js"></script>
+
+
+    <script type="text/javascript">
+        function loginCheck(obj) {
+            var $button = $(obj)
+            var $form = $button.closest('form');
+            if ($form.valid())
+                loadingmask();
+        }
+        function Success(jsonData, statusMsg, GeneralMsgObj) {
+            $("#Login").button("loading");
+            if (!jsonData.IsError)// 如果提交成功则隐藏进度条
+            {
+                if (jsonData.IsLink) {
+                    window.location = jsonData.Message;
+                }
+                else {
+                    alert(jsonData.Message);
+                    $("#Login").button('reset');
+                    loadingunmask();
+                }
+            }
+            else {
+                LG.tipError(jsonData.Message);
+                $("#Login").button('reset');
+                loadingunmask();
+            }
+
+        }
+        function fn() {
+
+        }
+        $(function () {
+            loadcss();
+        });
+    </script>
+
+    <script>
+        function styleOnload(node, callback) {
+            // for IE6-9 and Opera
+            if (node.attachEvent) {
+                node.attachEvent('onload', callback);
+                // NOTICE:
+                // 1. "onload" will be fired in IE6-9 when the file is 404, but in
+                // this situation, Opera does nothing, so fallback to timeout.
+                // 2. "onerror" doesn't fire in any browsers!
+            }
+                // polling for Firefox, Chrome, Safari
+            else {
+                setTimeout(function () {
+                    poll(node, callback);
+                }, 0); // for cache
+            }
+        }
+        function poll(node, callback) {
+            if (callback.isCalled) {
+                return;
+            }
+            var isLoaded = false;
+            if (/webkit/i.test(navigator.userAgent)) {//webkit
+                if (node['sheet']) {
+                    isLoaded = true;
+                }
+            }
+                // for Firefox
+            else if (node['sheet']) {
+                try {
+                    if (node['sheet'].cssRules) {
+                        isLoaded = true;
+                    }
+                } catch (ex) {
+                    // NS_ERROR_DOM_SECURITY_ERR
+                    if (ex.code === 1000) {
+                        isLoaded = true;
+                    }
+                }
+            }
+            if (isLoaded) {
+                // give time to render.
+                setTimeout(function () {
+                    callback();
+                }, 1);
+            }
+            else {
+                setTimeout(function () {
+                    poll(node, callback);
+                }, 1);
+            }
+        }
+        // 我的动态创建LINK函数
+        function createLink(cssURL, lnkId, charset, media) {
+            var head = document.getElementsByTagName('head')[0],
+                linkTag = null;
+            if (!cssURL) {
+                return false;
+            }
+            linkTag = document.createElement('link');
+            linkTag.setAttribute('id', (lnkId || 'dynamic-style'));
+            linkTag.setAttribute('rel', 'stylesheet');
+            linkTag.setAttribute('charset', (charset || 'utf-8'));
+            linkTag.setAttribute('media', (media || 'all'));
+            linkTag.setAttribute('type', 'text/css');
+            linkTag.href = cssURL;
+            head.appendChild(linkTag);
+            return linkTag;
+        }
+        function getLink(i) {
+
+            var link = document.getElementsByTagName('link')[i];
+            return link;
+        }
+        function loadcss() {
+            var styleNode = getLink(0);
+            styleOnload(styleNode, function () {
+                loadingunmask();
+            });
+        }
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body class='contrast-red '>
+   <div id='wrapper'>
+
+<section id='content'>
+
+<div class='container-fluid'>
+
+<div class='row-fluid' id='content-wrapper'>
+
+<div class='span12'>
+
+
+<div class='group-header'>
+
+    <div class='row-fluid'>
+
+        <div class='span6 '>
+
+            <div class='text-center'>
+
+                <h2>玖久科技</h2>
+
+                <small class='muted'></small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class='row-fluid'>
+
+    <div class='span10 box'>
+
+        <div class='box-header'>
+
+            <div class='title'>时时彩</div>
+
+            <div class='actions'>
+
+                <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                </a>
+
+                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class='box-content'>
+
+
+            <div class='text-left'>
+
+               <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>北京时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>北京时时彩</a>
+                <a class='btn btn-danger btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+
+            </div>
+
+            
+
+            <div class='modal hide fade' id='modal-example2' role='dialog' tabindex='-1'>
+
+                <div class='modal-header'>
+
+                    <button class='close' data-dismiss='modal' type='button'>&times;</button>
+
+                    <h3>方案</h3>
+
+                </div>
+
+                <div class='modal-body'>
+
+                    <form class='form' style='margin-bottom: 0;' >
+
+                        <div class='control-group'>
+
+                            <div class="text-left">
+
+               <a class="btn  " data-toggle="modal" href="#modal-example2" role="button">方案1</a>
+                <a class="btn  " data-toggle="modal" href="#modal-example2" role="button">方案1</a>
+                <a class="btn  " data-toggle="modal" href="#modal-example2" role="button">方案1</a>
+                <a class="btn btn-danger " data-toggle="modal" href="#modal-example2" role="button">方案1</a>
+                <a class="btn  " data-toggle="modal" href="#modal-example2" role="button">方案1</a>
+
+            </div>
+
+                        </div>
+
+                        
+
+                        
+
+                        
+
+                    </form>
+
+                </div>
+
+                <div class='modal-footer'>
+
+                    <button class='btn' data-dismiss='modal'>关闭</button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+<div class='row-fluid'>
+
+    <div class='span10 box'>
+
+        <div class='box-header'>
+
+            <div class='title'>11选5</div>
+
+            <div class='actions'>
+
+                <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                </a>
+
+                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class='box-content'>
+
+
+            <div class='text-left'>
+
+               <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>北京时时彩</a>
+                <a class='btn btn-danger btn-large' data-toggle='modal' href='#modal-example2' role='button'>北京时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+
+            </div>
+
+            <div class='modal hide fade' id='Div1' role='dialog' tabindex='-1'>
+
+                <div class='modal-header'>
+
+                    <button class='close' data-dismiss='modal' type='button'>&times;</button>
+
+                    <h3>Modal Heading</h3>
+
+                </div>
+
+                <div class='modal-body'>
+
+                    <h4>Text in a modal</h4>
+
+                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
+
+                    <!--  -->
+
+                    <h4>Overflowing text to show optional scrollbar</h4>
+
+                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+                </div>
+
+                <div class='modal-footer'>
+
+                    <button class='btn' data-dismiss='modal'>Close</button>
+
+                    <button class='btn btn-primary'>Save changes</button>
+
+                </div>
+
+            </div>
+
+            <div class='modal hide fade' id='Div2' role='dialog' tabindex='-1'>
+
+                <div class='modal-header'>
+
+                    <button class='close' data-dismiss='modal' type='button'>&times;</button>
+
+                    <h3>Form in modal</h3>
+
+                </div>
+
+                <div class='modal-body'>
+
+                    <form class='form' style='margin-bottom: 0;' >
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>Full name</label>
+
+                            <div class='controls'>
+
+                                <input class='span12' id='Text1' type='text' />
+
+                                <p class='help-block' />
+
+                            </div>
+
+                        </div>
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>Street</label>
+
+                            <div class='controls'>
+
+                                <input class='span12' id='Text2' placeholder='Street placeholder' type='text' />
+
+                                <small class='muted'>Description for street field</small>
+
+                            </div>
+
+                        </div>
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>City</label>
+
+                            <div class='controls'>
+
+                                <input class='span12' id='Text3' placeholder='City placeholder' type='text' />
+
+                                <p class='help-block' />
+
+                            </div>
+
+                        </div>
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>Company</label>
+
+                            <div class='controls'>
+
+                                <div class='input-append'>
+
+                                    <input class='span6' id='Text4' type='text' />
+
+                                    <button class='btn' type='button'>
+
+                                        <i class='icon-building'></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class='modal-footer'>
+
+                    <button class='btn' data-dismiss='modal'>Close</button>
+
+                    <button class='btn btn-primary'>Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+<div class='row-fluid'>
+
+    <div class='span10 box'>
+
+        <div class='box-header'>
+
+            <div class='title'>时时彩</div>
+
+            <div class='actions'>
+
+                <a href="#" class="btn box-remove btn-mini btn-link"><i class='icon-remove'></i>
+
+                </a>
+
+                <a href="#" class="btn box-collapse btn-mini btn-link"><i></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class='box-content'>
+
+
+            <div class='text-left'>
+
+               <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>北京时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>北京时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+                <a class='btn  btn-large' data-toggle='modal' href='#modal-example2' role='button'>广州时时彩</a>
+
+            </div>
+
+            <div class='modal hide fade' id='Div3' role='dialog' tabindex='-1'>
+
+                <div class='modal-header'>
+
+                    <button class='close' data-dismiss='modal' type='button'>&times;</button>
+
+                    <h3>Modal Heading</h3>
+
+                </div>
+
+                <div class='modal-body'>
+
+                    <h4>Text in a modal</h4>
+
+                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
+
+                    <!--  -->
+
+                    <h4>Overflowing text to show optional scrollbar</h4>
+
+                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+
+                </div>
+
+                <div class='modal-footer'>
+
+                    <button class='btn' data-dismiss='modal'>Close</button>
+
+                    <button class='btn btn-primary'>Save changes</button>
+
+                </div>
+
+            </div>
+
+            <div class='modal hide fade' id='Div4' role='dialog' tabindex='-1'>
+
+                <div class='modal-header'>
+
+                    <button class='close' data-dismiss='modal' type='button'>&times;</button>
+
+                    <h3>Form in modal</h3>
+
+                </div>
+
+                <div class='modal-body'>
+
+                    <form class='form' style='margin-bottom: 0;' >
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>Full name</label>
+
+                            <div class='controls'>
+
+                                <input class='span12' id='Text5' type='text' />
+
+                                <p class='help-block' />
+
+                            </div>
+
+                        </div>
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>Street</label>
+
+                            <div class='controls'>
+
+                                <input class='span12' id='Text6' placeholder='Street placeholder' type='text' />
+
+                                <small class='muted'>Description for street field</small>
+
+                            </div>
+
+                        </div>
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>City</label>
+
+                            <div class='controls'>
+
+                                <input class='span12' id='Text7' placeholder='City placeholder' type='text' />
+
+                                <p class='help-block' />
+
+                            </div>
+
+                        </div>
+
+                        <div class='control-group'>
+
+                            <label class='control-label'>Company</label>
+
+                            <div class='controls'>
+
+                                <div class='input-append'>
+
+                                    <input class='span6' id='Text8' type='text' />
+
+                                    <button class='btn' type='button'>
+
+                                        <i class='icon-building'></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class='modal-footer'>
+
+                    <button class='btn' data-dismiss='modal'>Close</button>
+
+                    <button class='btn btn-primary'>Save changes</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+</body>
+
+</html>

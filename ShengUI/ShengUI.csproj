@@ -479,6 +479,7 @@
     <Content Include="Areas\Admin\Views\Order\ReservationOrderDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Order\OrderDetail1.cshtml" />
     <Content Include="Areas\Admin\Views\Order\OrderDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Select.cshtml" />
     <None Include="Content\AoShaCar\AmazeUI-2.3.0\fonts\fontawesome-webfont.woff" />
     <None Include="Properties\PublishProfiles\ssh.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
