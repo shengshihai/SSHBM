@@ -13,6 +13,7 @@ namespace IBLLService
 
 
         DataTableGrid GetProductsForGrid(MODEL.DataTableModel.DataTableRequest request);
+        DataTableGrid GetProductsForHot();
 
     }
 }

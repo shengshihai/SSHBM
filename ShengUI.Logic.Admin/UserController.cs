@@ -51,6 +51,7 @@ namespace ShengUI.Logic.Admin
         public ActionResult Detail(string id)
         {
             ViewDetailPage page = new ViewDetailPage(HttpContext);
+            ViewBag.TreeNodeID = UserInfoManager.Get(u => u.USER_ID == OperateContext.Current.UsrId).TREENODE_ID;
             ViewBag.IsView = page.IsView;
             ViewBag.CurrentID = id;
             ViewBag.TYPE = "Update";
@@ -59,7 +60,7 @@ namespace ShengUI.Logic.Admin
             if (model == null)
             {
                 ViewBag.TYPE = "Add";
-                return View(new VIEW_FW_USER());
+                return View(new VIEW_FW_USER() { TREENODE_ID = ViewBag.TreeNodeID });
             }
             return View(VIEW_FW_USER.ToViewModel(model));
 
@@ -92,7 +93,7 @@ namespace ShengUI.Logic.Admin
                 return this.JsonFormat(status, status, SysOperate.Add);
 
             }
-            return this.JsonFormat(status, status, SysOperate.Add);
+            return this.JsonFormat("/Admin/User/UserInfo", status, SysOperate.Add.ToMessage(status), status);
         }
         [Description("[用户管理]更新用户")]
         [ActionDesc("编辑", "Y")]
@@ -116,7 +117,7 @@ namespace ShengUI.Logic.Admin
                 return this.JsonFormat(status, status, SysOperate.Update);
 
             }
-            return this.JsonFormat("/Admin/User/UserInfo", status, SysOperate.Update.ToMessage(status), !status);
+            return this.JsonFormat("/Admin/User/UserInfo", status, SysOperate.Update.ToMessage(status), status);
         }
 
         [ActionDesc("删除", "Y")]

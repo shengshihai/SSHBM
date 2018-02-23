@@ -56,5 +56,38 @@ namespace BLLService
                 throw;
             }
         }
+        public MODEL.DataTableModel.DataTableGrid GetProductsForHot()
+        {
+            try
+            {
+
+                var predicate = PredicateBuilder.True<MST_PRD>();
+
+                DateTime time = TypeParser.ToDateTime("1975-1-1");
+
+                int total = 0;
+                predicate = predicate.And(p => p.ISCHECK == true&&p.ISHOT==true);
+
+                var data = base.LoadListBy(predicate).Select(p => new VIEW_MST_PRD()
+                {
+                    SEQ_NO = p.SEQ_NO,
+                    PRD_CD = p.PRD_CD,
+                    PRD_SHORT_DESC = p.PRD_SHORT_DESC,
+                  CATE_ID=p.CATE_ID
+                });
+                //var list = ViewModelProduct.ToListViewModel(data);
+                return new MODEL.DataTableModel.DataTableGrid()
+                {
+                    draw = "",
+                    data = data,
+                    total = total
+                };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

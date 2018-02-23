@@ -8,10 +8,10 @@ namespace MODEL.ViewModel
 {
     public partial class VIEW_FW_USER
     {
-
+        [Required]
+        public new string USER_ID { get; set; }
         [Required]
         public new string USER_NAME { get; set; }
-        [Required]
         public new string EMAIL { get; set; }
         [Required]
         public new string PASSWD { get; set; }

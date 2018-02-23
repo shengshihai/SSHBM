@@ -178,7 +178,7 @@
 
                                     <hr class='hr-normal' />
 
-                                   @* <div class='control-group'>
+                                    @* <div class='control-group'>
 
                                         <div class='controls'>
 
@@ -270,10 +270,21 @@
                                         </div>
 
                                     </div>
+                                    <div class='control-group' >
 
+                                        <label class='control-label'>TREENODE_ID</label>
+
+                                        <div class='controls'>
+                                              @Html.TextBoxFor(m => m.TREENODE_ID, new { @placeholder = "TREENODE_ID", @disabled = "", @class = "span12 input-validation-error" })
+                                                @Html.HiddenFor(m => m.TREENODE_ID)
+                       
+
+                                        </div>
+
+                                    </div>
                                     <hr />
 
-                                    <div class='control-group'>
+                                    <div class='control-group' style="display:none">
 
                                         <label class='control-label'>Bio</label>
 
@@ -288,7 +299,7 @@
                                 </div>
 
                             </fieldset>
-                            <fieldset>
+                            <fieldset style="display:none">
 
                                 <div class='span4 box'>
 
@@ -330,7 +341,7 @@
 
                                     <hr />
 
-                                    <div class='control-group'>
+                                    <div class='control-group' style="display:none">
 
                                         <label class='control-label'>Bio</label>
 

@@ -31,11 +31,43 @@
     <script src='/Scripts/Back/Common/LG.js' type='text/javascript'></script>
 
     <script type="text/javascript">
+        var iCount;
         $(function () {
             //loadingmask();
             loadcss();
-            window.parent.LG.tipSuccess('欢迎登陆系统');
+            //window.parent.LG.tipSuccess('欢迎登陆系统');
+             iCount=  setInterval("show()", 10000);
         });
+        function show()
+        {
+            LG.ajax({
+                async: false,
+                url: '/Admin/Manage/ReturnHot',
+                dataType: 'json',
+                type: 'post',
+                success: function (result) {
+                    if (result.Statu == 'nologin') {
+                        clearInterval(iCount);
+                        alert(result.Msg);
+                        parent.window.location = result.BackUrl;
+                    } else {
+                        $(".btn-danger").removeClass("btn-danger");
+                        if (result.data.length > 0) {
+                            window.parent.LG.tipSuccess('有新的产品亮灯，请及时查看');
+                        }
+                        else {
+
+                        }
+                        for (var i = 0; i < result.data.length; i++) {
+                            $("#CATE_" + result.data[i].CATE_ID).addClass("btn-danger");
+                            $("#" + result.data[i].PRD_CD).addClass("btn-danger");
+                            $("#msg_" + result.data[i].PRD_CD).val(result.data[i].PRD_SHORT_DESC);
+                        }
+                    }
+                }
+            });
+           
+        }
         function copyMsg(obj) {
             var Url2 = document.getElementById(obj);
             Url2.select(); // 选择对象
@@ -142,7 +174,7 @@
 
                         <i class='icon-heart-empty'></i>
 
-                        <span class='hidden-phone'>玖久科技</span>
+                        <span class='hidden-phone'>久玖科技</span>
 
                     </a>
 
@@ -372,7 +404,7 @@
 
                                     <div class='text-center'>
 
-                                        <h2>玖久科技</h2>
+                                        <h2>久玖科技</h2>
 
                                         <small class='muted'></small>
 
@@ -413,7 +445,7 @@
                                         <div class='text-left'>
                                             @foreach (var itemchild in (ViewBag.CategoryList as List<MODEL.ViewModel.VIEW_MST_CATEGORY>).Where(c => c.PARENT_CD == item.CATE_CD).ToList())
                                             {
-                                                <a class='btn btn-danger btn-large' data-toggle='modal' href='#@itemchild.CATE_CD' role='button'>@itemchild.CATEGORY_NAME</a>
+                                                <a id="CATE_@itemchild.CATE_CD" class='btn @(itemchild.ISHOT?"btn-danger":"")  btn-large' data-toggle='modal' href='#@itemchild.CATE_CD' role='button'>@itemchild.CATEGORY_NAME</a>
                                             }
 
                                         </div>
@@ -440,8 +472,8 @@
                                                             <div class="text-left">
                                                                 @foreach (var itemchildprd in (ViewBag.PrdList as List<MODEL.ViewModel.VIEW_MST_PRD>).Where(c => c.CATE_ID == itemchild.CATE_CD).ToList())
                                                                 {
-                                                                     <textarea cols="20" rows="10" id="@itemchildprd.PRD_CD" class="select2-hidden-accessible">用户定义的代码区域</textarea>
-                                                                    <a class="btn btn-danger " data-toggle="modal" href="#@itemchild.CATE_CD" role="button" content="sdfsdfsdfsdfd" onclick="copyMsg('@itemchildprd.PRD_CD')">@itemchildprd.PRD_NAME</a>
+                                                                     <textarea cols="20" rows="10" id="msg_@itemchildprd.PRD_CD" class="select2-hidden-accessible">@itemchildprd.PRD_SHORT_DESC</textarea>
+                                                                    <a id="@itemchildprd.PRD_CD" class="btn @(itemchildprd.ISHOT?"btn-danger":"") " data-toggle="modal" href="#@itemchild.CATE_CD" role="button"  onclick="copyMsg('msg_@itemchildprd.PRD_CD')">@itemchildprd.PRD_NAME</a>
                                                                 }
 
                                                             </div>

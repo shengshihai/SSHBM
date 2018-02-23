@@ -34,6 +34,9 @@ namespace BLLService
                 DateTime time = TypeParser.ToDateTime("1975-1-1");
 
                 int total = 0;
+                var list = IDBSession.ISYS_USERLOGIN_REPOSITORY.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
+
+                predicate = predicate.And(p => list.Contains(p.TREENODE_ID)&&p.USER_ID!=OperateContext.Current.UsrId);
                 //predicate = predicate.And(p => p.isdelete != 1);
 
                 var data = base.LoadPagedList(request.PageNumber, request.PageSize, ref total, predicate, request.Model, p => true, request.SortOrder, request.SortName).Select(u => new VIEW_FW_USER()

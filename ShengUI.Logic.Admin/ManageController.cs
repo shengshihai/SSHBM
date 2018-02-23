@@ -41,9 +41,14 @@ namespace ShengUI.Logic.Admin
         {
             ViewBag.UserID = OperateContext.Current.UsrId;
             ViewBag.UserName = OperateContext.Current.UsrName;
-            ViewBag.PrdList = VIEW_MST_PRD.ToListViewModel(prd_MANAGER.GetListBy(s =>true));
+            ViewBag.PrdList = VIEW_MST_PRD.ToListViewModel(prd_MANAGER.GetListBy(s =>true,s=>s.SEQ_NO));
             ViewBag.CategoryList = VIEW_MST_CATEGORY.ToListViewModel(categroyB.GetListBy(s => s.SYNCOPERATION != "D"));
             return View();
+        }
+        [AjaxRequestAttribute]
+        public ActionResult ReturnHot()
+        {
+            return this.JsonFormat(prd_MANAGER.GetProductsForHot());
         }
         [ActionDesc("左菜单页")]
         [Description("[系统管理首页]左菜单导航页面")] 

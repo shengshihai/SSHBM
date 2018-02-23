@@ -145,6 +145,22 @@
                     }
 
                     break;
+                case "SetHot":
+
+                    if (confirm('确定要将选中得亮灯吗?')) {
+                        sethot();
+                        // 退出操作;
+                    }
+
+                    break;
+                case "CanceHot":
+
+                    if (confirm('确定要取消全部亮灯吗?')) {
+                        cancehot();
+                        // 退出操作;
+                    }
+
+                    break;
                 case "RealDelete":
                     $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
                         if (r) {
@@ -186,6 +202,54 @@
                     success: function () {
                         reload();
                         window.parent.LG.tipSuccess('删除成功!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function sethot() {
+            // var table = $(table).DataTable();
+            var selected = $(table).DataTable().rows('.' + tablerowclass).data();
+            if (selected.length > 0) {
+
+                var data = {};
+                data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Product/SetHot',
+                    loading: '正在设置中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('设置成功!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            }
+            else {
+                window.parent.LG.tip('请选择行!');
+            }
+        }
+        function cancehot() {
+            // var table = $(table).DataTable();
+            var selected = $(table).DataTable().rows('.' + tablerowclass).data();
+            if (true) {
+
+                var data = {};
+              //  data.Ids = GetAllCheck();
+                LG.ajax({
+                    url: rootPath + 'Product/CanceHot',
+                    loading: '正在设置中...',
+                    data: data,
+                    success: function () {
+                        reload();
+                        window.parent.LG.tipSuccess('取消成功!');
                     },
                     error: function (message) {
                         window.parent.LG.tipError(message);

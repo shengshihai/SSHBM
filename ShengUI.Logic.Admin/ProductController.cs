@@ -142,6 +142,46 @@ namespace ShengUI.Logic.Admin
                 return this.JsonFormat(data, data, SysOperate.Delete);
             }
         }
+        [ActionDesc("亮灯", "Y")]
+        [Description("[产品管理]设置热门")]
+        public ActionResult SetHot()
+        {
+            var ids = HttpContext.Request["Ids"].Split(',').ToList();
+            var data = false;
+            try
+            {
+                MODEL.MST_PRD prd = new MODEL.MST_PRD() { ISHOT = true, SYNCOPERATION = "U" };
+                if (prdB.ModifyBy(prd, p => ids.Contains(p.PRD_CD), "ISHOT", "SYNCOPERATION") > 0)
+                {
+                    data = true;
+                }
+                return this.JsonFormat(data, data, SysOperate.Update);
+            }
+            catch (Exception)
+            {
+                return this.JsonFormat(data, data, SysOperate.Update);
+            }
+        }
+        [ActionDesc("取消亮灯", "Y")]
+        [Description("[产品管理]取消热门")]
+        public ActionResult CanceHot()
+        {
+            //var ids = HttpContext.Request["Ids"].Split(',').ToList();
+            var data = false;
+            try
+            {
+                MODEL.MST_PRD prd = new MODEL.MST_PRD() { ISHOT = false, SYNCOPERATION = "U" };
+                if (prdB.ExcuteSql("update MST_PRD set ishot=0") > 0)
+                {
+                    data = true;
+                }
+                return this.JsonFormat(data, data, SysOperate.Update);
+            }
+            catch (Exception)
+            {
+                return this.JsonFormat(data, data, SysOperate.Update);
+            }
+        }
         [ActionDesc("永久删除", "Y")]
         [Description("[产品管理]永久删除动作")]
         public ActionResult RealDelete()
