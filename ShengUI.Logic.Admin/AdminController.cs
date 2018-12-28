@@ -22,8 +22,8 @@ namespace ShengUI.Logic.Admin
         [Common.Attributes.Skip]
         public ActionResult Logon()
         {
-            
-         
+
+            ViewBag.SiteName = ConfigSettings.GetSysConfigValue("WebSiteSYS", "SiteName");
             if(!string.IsNullOrEmpty(OperateContext.Current.UsrId))
                 return new RedirectResult("/admin/Manage/index");
             return View();
@@ -75,9 +75,9 @@ namespace ShengUI.Logic.Admin
             {
                 //UserOperateLog.WriteOperateLog("[" + user.UserName + "成功登录]" + SysOperate.Operate.ToMessage(true));
                // return this.JsonFormat("", true, "/admin/Manage/index", true);
-                if(user.UserName=="Administrator"||user.UserName=="Admin")
-                    return this.JsonFormat("", true, "/admin/Manage/index", true);
-                 return this.JsonFormat("", true, "/admin/Manage/WelCome", true);
+                //if(user.UserName=="Administrator"||user.UserName=="Admin")
+                //    return this.JsonFormat("", true, "/admin/Manage/index", true);
+                return this.JsonFormat("", true, "/admin/Manage/index", true);
             }
             else
             {

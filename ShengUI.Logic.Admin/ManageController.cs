@@ -29,8 +29,8 @@ namespace ShengUI.Logic.Admin
         [Description("[系统管理首页]系统管理")]
         public ActionResult Index()
         {
-            ViewBag.UserType = DataSelect.ToListViewModel(ConfigSettings.GetSysConfigList("")); 
-
+            ViewBag.UserType = DataSelect.ToListViewModel(ConfigSettings.GetSysConfigList(""));
+            ViewBag.SiteName = ConfigSettings.GetSysConfigValue("WebSiteSYS", "SiteName");
             ViewBag.UserID = OperateContext.Current.UsrId;
             ViewBag.UserName = OperateContext.Current.UsrName;
             return View();
