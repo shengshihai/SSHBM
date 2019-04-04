@@ -102,6 +102,7 @@
     <Compile Include="FW_USER_ROLE.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="HelperModel\USStockInfoJson.cs" />
     <Compile Include="JF_Order.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -465,6 +466,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ViewModel\MyButton.cs" />
+    <Compile Include="ViewModel\VIEW_WeChatUser.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\YX_Event.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -510,6 +514,10 @@
     <Compile Include="ViewPage\ViewDetailPage.cs" />
     <Compile Include="ViewPage\ViewSelectParamPage.cs" />
     <Compile Include="ViewPage\ResumeInfo.cs" />
+    <Compile Include="ViewPage\StockSale.cs" />
+    <Compile Include="VIEW_WeChatUser.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="WeChat\WeChatMenus.cs" />
     <Compile Include="WeChat\WeiXinLocation.cs" />
     <Compile Include="YX_Event.cs">

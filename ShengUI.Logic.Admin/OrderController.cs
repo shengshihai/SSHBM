@@ -158,22 +158,32 @@ namespace ShengUI.Logic.Admin
         [Description("[订单管理]动作")]
         public ActionResult FinishOrder(VIEW_TG_order model)
         {
-            var order = orderB.GetModelWithOutTrace(o => o.orderNum == model.orderNum);
             bool status = false;
+            if (model.flat2 == null || model.flat2 <= 0)
+                return this.JsonFormat("SYSERROR", status, "实际成交数量不正确");
+            if (model.yunPrice == null || model.yunPrice <= 0)
+                return this.JsonFormat("SYSERROR", status, "实际成交金额不正确");
+            if ( model.total_fee <= 0)
+                return this.JsonFormat("SYSERROR", status, "手续费不正确");
+            var order = orderB.GetModelWithOutTrace(o => o.orderNum == model.orderNum);
+            
             try
             {
                 var user = userB.GetModelWithOutTrace(u => u.userNum == order.UserId);
                 if(Request["ONLINE"]!=null&&order!=null&&user!=null)
                 {
-                    if (model.total_fee<=0)
-                        return this.JsonFormat("SYSERROR", status, "订单的金额不正确");
-
-                    
-                    if (user.userYongJin < model.total_fee)
+                    if (order.flat1 < model.flat2)
                     {
-                        return this.JsonFormat("SYSERROR", status, "用户的余额不足");
-                      
+                        return this.JsonFormat("SYSERROR", status, "卖出股票数量超出了设定值");
                     }
+                    if (TypeParser.ToDecimal(order.remark1 )>model.yunPrice)
+                    {
+                        return this.JsonFormat("SYSERROR", status, "成交单价必须大于起始价格");
+                    }
+                    //if (user.flat2 ==null||user.flat2 < model.flat2)
+                    //{
+                    //    return this.JsonFormat("SYSERROR", status, "客户的股票数量不足");  
+                    //}
                     else if (order.ispay < 3)
                     {
                       
@@ -182,19 +192,25 @@ namespace ShengUI.Logic.Admin
                         order.ispay = 3;
                         order.ssh_status = 3;
                         order.payTime = DateTime.Now;
-                        order.remark5 = model.remark5;
+                        order.flat2 = model.flat2;
                         order.remark6 = model.remark6;
-                        orderB.Modify(order, "total_fee", "yunPrice", "ispay", "ssh_status", "payTime", "remark5", "remark6");
-                        user.userYongJin = user.userYongJin - order.total_fee;
-                        userB.Modify(user, "userYongJin");
+                        orderB.Modify(order, "total_fee", "yunPrice", "ispay", "ssh_status", "payTime", "flat2", "remark6");
+                        YX_weiUser currUser = new YX_weiUser();
+                        currUser.userNum = user.userNum;
+                        currUser.userYongJin = user.userYongJin + (model.flat2 * model.yunPrice) - model.total_fee;
+                        currUser.flat2 = user.flat2 - model.flat2;
+                        userB.Modify(currUser, "userYongJin", "flat2");
                         //添加交易记录
                         TG_transactionLog transactionlog = new TG_transactionLog();
                         transactionlog.userId = user.userNum;
                         transactionlog.openid = user.openid;
                         transactionlog.tranCate = 0;
-                        transactionlog.CateName = "到店消费";
-                        transactionlog.tranMoney = order.total_fee;
-                        transactionlog.tranContent = "到店消费(订单号:" + order.orderNum + ")消费:" + order.total_fee + " 元";
+                        transactionlog.CateName = "完成交易";
+                        transactionlog.flat1 = order.flat2;
+                        transactionlog.tranMoney = order.flat2*order.yunPrice - model.total_fee;
+                        transactionlog.remark1 = order.yunPrice.ToString();
+                        transactionlog.remark2 = order.total_fee.ToString();
+                        transactionlog.tranContent = "卖出股票(订单号:" + order.orderNum + ")挂单数量:" + order.flat1 + " ,卖出数量:" + order.flat2 + ",挂单区间：" + order.remark1 + " ~ " + order.remark2 + ",成交金额：" + order.yunPrice + "  ,手续费：" + order.total_fee + "  。";
                         transactionlog.orderNum = order.orderNum;
                         transactionlog.remark4 = "1003";
                         transactionlog.AddTime = DateTime.Now;

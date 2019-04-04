@@ -247,6 +247,10 @@ namespace IBLLService
     {
     }
 
+	public partial interface IVIEW_WeChatUser_MANAGER : IBaseBLLService<MODEL.VIEW_WeChatUser>
+    {
+    }
+
 	public partial interface IYX_Event_MANAGER : IBaseBLLService<MODEL.YX_Event>
     {
     }

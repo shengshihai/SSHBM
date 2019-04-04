@@ -23,20 +23,21 @@
                 "processing": true,
                 "serverSide": true,
                 "ordering": true,
-                "order": [[8, "desc"]],
+                "order": [[7, "desc"]],
                 "ajax": {
                     "url": gridUrl,
                     "type": "POST",
-                    "data": { "[Equal]trade_type": "JSAPI" }
+                    "data": { "[Equal]ssh_status":0 }
                 },
                 "columns": [
                     { "data": "orderNum", "name": "[Contains]{main}orderNum", "orderable": "orderNum" },
-                    { "data": "yunPrice", "orderable": false },
+                    { "data": "remark1", "orderable": false },
+                    { "data": "flat1", "orderable": false },
+                    { "data": "UserId", "name": "[Contains]{main}UserId", "orderable": "UserId" },
                     { "data": "userName", "name": "[Contains]{main}userName", "orderable": "userName" },
                     { "data": "UserTel", "name": "[Contains]{main}UserTel", "orderable": "UserTel" },
-                    { "data": "remark1", "name": "[Contains]{main}remark1", "orderable": "remark1" },
-                    { "data": "remark2", "name": "[Contains]{main}remark2", "orderable": "remark2" },
-                    { "data": "remark4", "orderable": false },
+                    //{ "data": "remark1", "name": "[Contains]{main}remark1", "orderable": "remark1" },
+                    //{ "data": "remark2", "name": "[Contains]{main}remark2", "orderable": "remark2" },
                     { "data": "ssh_status", "orderable": false },
                     { "data": "orderTime", "orderable": "orderTime" }
 
@@ -48,9 +49,9 @@
                       //},
                          {
                              "render": function (data, type, row) {
-                                 return '<span class="label label-success">￥ ' + data + '</span>';
+                                 return '<span class="label label-success"> ' + data + '</span>';
                              },
-                             "targets": 1
+                             "targets": 2
                          },
                       {
                           "render": function (data, type, row) {
@@ -60,23 +61,23 @@
                       },
                         {
                             "render": function (data, type, row) {
-                                return data + " " + row.remark5;
+                                return data + "  ~ " + row.remark2;
                             },
-                            "targets": 6
+                            "targets": 1
                         },
                          {
                              "render": function (data, type, row) {
                                  if(data==0)
-                                     return '<span class="label label-warning">待支付</span>';
+                                     return '<span class="label label-warning">挂单中</span>';
                                  else if (data == 2)
-                                     return '<span class="label label-important">作废</span>';
+                                     return '<span class="label label-important">已撤单</span>';
                                  else if (data == 3)
-                                     return '<span class="label label-success">已支付</span>';
+                                     return '<span class="label label-success">交易完成</span>';
                                  else if (data == 6)
-                                     return '<span class="label label-success">已完成</span>';
+                                     return '<span class="label label-success">交易完成</span>';
 
                              },
-                             "targets": 7
+                             "targets": 6
                          },
                 ]
 
@@ -94,7 +95,7 @@
                 id = item.currentTarget.id;
             switch (id) {
                 case "Add":
-                    Jump("/admin/Order/ReservationOrderDetail")
+                    Jump("/admin/Order/OrderDetail")
                     break;
                 case "ReservationOrderUpdate":
                     var selected = $(table).DataTable().rows('.info').data()[0];
@@ -102,7 +103,7 @@
                         window.parent.LG.tip('请选择行!');
                         return
                     }
-                    Jump("/admin/Order/ReservationOrderDetail?ordernum=" + selected.orderNum)
+                    Jump("/admin/Order/OrderDetail?ordernum=" + selected.orderNum)
                     break;
                 case "Delete":
 
@@ -142,7 +143,7 @@
                     <div class='page-header'>
                         <h1 class='pull-left'>
                             <i class='icon-edit'></i>
-                            <span>预约订单管理</span>
+                            <span>委托订单管理</span>
                         </h1>
                         <div class='pull-right'>
                             <ul class='breadcrumb'>
@@ -218,13 +219,12 @@
                                                         <tr>
 
                                                             <th>订单号</th>
-                                                            <th>订单金额</th>
+                                                            <th>价格区间</th>
+                                                            <th>委托数量</th>
+                                                            <th>下单人编号</th>
                                                             <th>下单人</th>
                                                             <th>联系电话</th>
-                                                            <th>预约项目</th>
-                                                             <th>预约门店</th>
-                                                            <th>预约时间</th>
-                                                            <th>订单状态</th>
+                                                            <th>委托状态</th>
                                                             <th>下单时间</th>
                                                         </tr>
                                                     </thead>

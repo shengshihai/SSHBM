@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<head>
+	<title>交易</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<!--忽略将页面中的数字识别为电话号码-->
+	<meta name="format-detection" content="telephone=no" />
+	<!--忽略Android平台中对邮箱地址的识别-->
+	<meta name="format-detection" content="email=no" />
+	<!--当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari-->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="msapplication-tap-highlight" content="no">
+	<!--css-->
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/common.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<!--js-->
+
+	<script src="js/jquery.1.9.1.js">
+	</script>
+		<script type="text/javascript">
+        function clk(){
+        	var ck=$("#myModal")
+        	ck.css("display","block")
+        }
+        function cle(){
+        	var ck=$("#myModal")
+        	ck.css("display","none")
+        }
+        
+
+	</script>
+</head>
+
+<body>
+	<div id="wrapper">
+		<header class="header_br">
+			<a href="#" class="logo"><img src="images/leftarrows.png" /></a>
+			<div class="desc">交易</div>
+		</header>
+		<section>
+			<div class="nav">
+				<ul class="us-tab-list clearfix">
+					<li class="active"><a href="transaction.html">持仓</a></li>
+					<li><a href="transaction_ delegate.html">当日委托</a></li>
+					<li><a href="transaction_bid_history.html">成交记录</a></li>
+					<p class="hint"><span>&diams;&nbsp横华国际&nbsp</span>|&nbsp美金&nbsp|&nbsp现金账户：180960766</p>
+				</ul>
+					
+				<div class="us-tab-con">
+					<div class="t_position">
+						
+						<p class="total_assets">总资产($)</p>
+						<h3>30,000.00</h3>
+						<div class="sale header_br clearfix">
+							<div class="sale_sub">
+								<p>365.00</p><small>账面结余</small>
+							</div>
+							<div class="sale_sub leftline">
+								<p>355.00</p><small>可用购买力</small>
+							</div>
+							<div class="sale_sub">
+								<p>6.00</p><small>总货值</small>
+							</div>
+							<p class="arrows"><img src="images/bottonarrows.png" /></p>
+							<button class="transaction_btn"><a href="transaction_sale.html">卖&nbsp&nbsp出</a></button>
+						</div>
+						<div class="t_position_main">
+							<p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
+							<table border="0" cellspacing="20" cellpadding="10">
+								<tr>
+									<th>名称</th>
+									<th>当前价/成本价</th>
+									<th>持仓/可用</th>
+									<th>市值/盈亏</th>
+								</tr>
+								<tr>
+									<td>能发伟业
+										<samll>BIMI.US</samll>
+									</td>
+									<td>15.00
+										<samll>15.80</samll>
+									</td>
+									<td>2,251
+										<samll>2,251</samll>
+									</td>
+									<td>52,151.5
+										<samll><span class="green">-2,151.5</span></samll>
+									</td>
+								</tr>
+
+							</table>
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+</body>
+
+
+
+</html>

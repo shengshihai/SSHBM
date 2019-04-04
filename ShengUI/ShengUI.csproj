@@ -233,6 +233,36 @@
     <Content Include="Content\Back\images\sec_fir.GIF" />
     <Content Include="Content\Back\images\sec_sec.GIF" />
     <Content Include="Content\Back\images\third.gif" />
+    <Content Include="Content\BIMI\css\base.css" />
+    <Content Include="Content\BIMI\css\common.css" />
+    <Content Include="Content\BIMI\css\import.css" />
+    <Content Include="Content\BIMI\css\style.css" />
+    <Content Include="Content\BIMI\images\bottonarrows.png" />
+    <Content Include="Content\BIMI\images\icon.jpg" />
+    <Content Include="Content\BIMI\images\icon01.png" />
+    <Content Include="Content\BIMI\images\icon02.png" />
+    <Content Include="Content\BIMI\images\icon03.png" />
+    <Content Include="Content\BIMI\images\icon04.png" />
+    <Content Include="Content\BIMI\images\icon05.png" />
+    <Content Include="Content\BIMI\images\icon_logo.png" />
+    <Content Include="Content\BIMI\images\leftarrows.png" />
+    <Content Include="Content\BIMI\images\password32.png" />
+    <Content Include="Content\BIMI\images\SMS32.png" />
+    <Content Include="Content\BIMI\images\TEL32.png" />
+    <Content Include="Content\BIMI\index.html" />
+    <Content Include="Content\BIMI\js\common.js" />
+    <Content Include="Content\BIMI\js\jquery-1.11.1.min.js" />
+    <Content Include="Content\BIMI\js\jquery.1.9.1.js" />
+    <Content Include="Content\BIMI\js\loginExamine.js" />
+    <Content Include="Content\BIMI\js\modal.js" />
+    <Content Include="Content\BIMI\js\RegisterExamine.js" />
+    <Content Include="Content\BIMI\js\transction.js" />
+    <Content Include="Content\BIMI\login.html" />
+    <Content Include="Content\BIMI\register.html" />
+    <Content Include="Content\BIMI\transaction.html" />
+    <Content Include="Content\BIMI\transaction_ delegate.html" />
+    <Content Include="Content\BIMI\transaction_bid_history.html" />
+    <Content Include="Content\BIMI\transaction_sale.html" />
     <Content Include="Content\html5uploader.css" />
     <Content Include="Content\images\btnbg.png" />
     <Content Include="Content\images\jdt.png" />
@@ -630,6 +660,10 @@
     <Content Include="Views\AoShaCar\ReservationList.cshtml" />
     <Content Include="Views\AoShaCar\ROrderDetail.cshtml" />
     <Content Include="Views\AoShaCar\Consumption.cshtml" />
+    <Content Include="Views\BIMI\UserMain.cshtml" />
+    <Content Include="Views\BIMI\OrderList.cshtml" />
+    <Content Include="Views\BIMI\DelegateList.cshtml" />
+    <Content Include="Views\BIMI\Transaction_Sale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

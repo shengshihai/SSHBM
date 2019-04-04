@@ -488,6 +488,14 @@ namespace BLLService
         }
     }
 
+	public partial class VIEW_WeChatUser_MANAGER : BaseBLLService<MODEL.VIEW_WeChatUser> ,IVIEW_WeChatUser_MANAGER
+    {
+		public override void SetDALRespositry()
+        {
+             idal = IDBSession.IVIEW_WeChatUser_REPOSITORY;
+        }
+    }
+
 	public partial class YX_Event_MANAGER : BaseBLLService<MODEL.YX_Event> ,IYX_Event_MANAGER
     {
 		public override void SetDALRespositry()

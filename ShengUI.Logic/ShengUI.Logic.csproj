@@ -56,6 +56,7 @@
     <Compile Include="HelpController.cs" />
     <Compile Include="KeYanBaoController.cs" />
     <Compile Include="AoShaCarController.cs" />
+    <Compile Include="BIMIController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

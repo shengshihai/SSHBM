@@ -89,6 +89,55 @@
           <EntitySet Name="YX_voice" EntityType="MODEL.Store.YX_voice" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="YX_weiUser" EntityType="MODEL.Store.YX_weiUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="YX_weiXinMenus" EntityType="MODEL.Store.YX_weiXinMenus" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VIEW_WeChatUser" EntityType="MODEL.Store.VIEW_WeChatUser" store:Type="Views" store:Schema="dbo" store:Name="VIEW_WeChatUser">
+            <DefiningQuery>SELECT 
+      [VIEW_WeChatUser].[Id] AS [Id], 
+      [VIEW_WeChatUser].[subscribe] AS [subscribe], 
+      [VIEW_WeChatUser].[openid] AS [openid], 
+      [VIEW_WeChatUser].[nickname] AS [nickname], 
+      [VIEW_WeChatUser].[sex] AS [sex], 
+      [VIEW_WeChatUser].[city] AS [city], 
+      [VIEW_WeChatUser].[province] AS [province], 
+      [VIEW_WeChatUser].[country] AS [country], 
+      [VIEW_WeChatUser].[U_language] AS [U_language], 
+      [VIEW_WeChatUser].[headimgurl] AS [headimgurl], 
+      [VIEW_WeChatUser].[subscribe_time] AS [subscribe_time], 
+      [VIEW_WeChatUser].[lastAddTime] AS [lastAddTime], 
+      [VIEW_WeChatUser].[subscribe_value] AS [subscribe_value], 
+      [VIEW_WeChatUser].[userNum] AS [userNum], 
+      [VIEW_WeChatUser].[subscribeState] AS [subscribeState], 
+      [VIEW_WeChatUser].[userTel] AS [userTel], 
+      [VIEW_WeChatUser].[RelName] AS [RelName], 
+      [VIEW_WeChatUser].[userWXnum] AS [userWXnum], 
+      [VIEW_WeChatUser].[F_id] AS [F_id], 
+      [VIEW_WeChatUser].[F_idList] AS [F_idList], 
+      [VIEW_WeChatUser].[AddTime] AS [AddTime], 
+      [VIEW_WeChatUser].[isfenxiao] AS [isfenxiao], 
+      [VIEW_WeChatUser].[jifen] AS [jifen], 
+      [VIEW_WeChatUser].[userMoney] AS [userMoney], 
+      [VIEW_WeChatUser].[userYongJin] AS [userYongJin], 
+      [VIEW_WeChatUser].[StoreName] AS [StoreName], 
+      [VIEW_WeChatUser].[StoreDescription] AS [StoreDescription], 
+      [VIEW_WeChatUser].[LogoUrl] AS [LogoUrl], 
+      [VIEW_WeChatUser].[userQQ] AS [userQQ], 
+      [VIEW_WeChatUser].[userRelname] AS [userRelname], 
+      [VIEW_WeChatUser].[userSex] AS [userSex], 
+      [VIEW_WeChatUser].[userEmail] AS [userEmail], 
+      [VIEW_WeChatUser].[remark1] AS [remark1], 
+      [VIEW_WeChatUser].[remark2] AS [remark2], 
+      [VIEW_WeChatUser].[remark3] AS [remark3], 
+      [VIEW_WeChatUser].[flat1] AS [flat1], 
+      [VIEW_WeChatUser].[flat2] AS [flat2], 
+      [VIEW_WeChatUser].[remark4] AS [remark4], 
+      [VIEW_WeChatUser].[remark5] AS [remark5], 
+      [VIEW_WeChatUser].[remark6] AS [remark6], 
+      [VIEW_WeChatUser].[flat7] AS [flat7], 
+      [VIEW_WeChatUser].[flat8] AS [flat8], 
+      [VIEW_WeChatUser].[RegTim1] AS [RegTim1], 
+      [VIEW_WeChatUser].[RegTim2] AS [RegTim2], 
+      [VIEW_WeChatUser].[TREE_NODE_ID] AS [TREE_NODE_ID]
+      FROM [dbo].[VIEW_WeChatUser] AS [VIEW_WeChatUser]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
         <EntityType Name="FW_AUDIT_RECORD">
           <Key>
@@ -332,7 +381,7 @@
           <Property Name="REF_CD" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <!--生成过程中发现错误:
-      警告 6002: 表/视图“AOSHACAR_UAT.dbo.FW_USER_ROLE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      警告 6002: 表/视图“SSHMB.dbo.FW_USER_ROLE”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
       -->
         <EntityType Name="FW_USER_ROLE">
           <Key>
@@ -820,7 +869,7 @@
           <Property Name="SUPPLIER_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SUPPLIER_NAME" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="ADDRESS" Type="nvarchar" MaxLength="200" />
-          <Property Name="ISCHECK" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ISCHECK" Type="nvarchar" Nullable="false" MaxLength="1" />
           <Property Name="BANNER_IMG" Type="nvarchar" MaxLength="200" />
           <Property Name="SUPPLIER_URL" Type="nvarchar" MaxLength="200" />
           <Property Name="CONTACT_NUM" Type="int" />
@@ -828,13 +877,12 @@
           <Property Name="FOOTER" Type="nvarchar(max)" />
           <Property Name="SUPPLIER_DESC" Type="nvarchar(max)" />
           <Property Name="SKYPE" Type="nvarchar" MaxLength="200" />
-          <Property Name="EMAIL" Type="nvarchar" MaxLength="200" />
-          <Property Name="TEL" Type="nvarchar" MaxLength="200" />
-          <Property Name="FAX" Type="nvarchar" MaxLength="200" />
-          <Property Name="PHONE" Type="nvarchar" MaxLength="200" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="200" />
+          <Property Name="TEL" Type="varchar" MaxLength="200" />
+          <Property Name="FAX" Type="varchar" MaxLength="200" />
+          <Property Name="PHONE" Type="varchar" MaxLength="200" />
           <Property Name="CN_NAME" Type="nvarchar" MaxLength="200" />
           <Property Name="STATUS" Type="char" MaxLength="1" />
-          <Property Name="TREE_NODE_ID" Type="nvarchar" MaxLength="200" />
           <Property Name="FLAT1" Type="int" />
           <Property Name="FLAT2" Type="int" />
           <Property Name="REMARK1" Type="nvarchar" MaxLength="500" />
@@ -849,6 +897,7 @@
           <Property Name="CREATE_BY" Type="nvarchar" MaxLength="20" />
           <Property Name="MODIFY_DT" Type="datetime" />
           <Property Name="MODIFY_BY" Type="nvarchar" MaxLength="20" />
+          <Property Name="TREE_NODE_ID" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="SET_COUNTRY">
           <Key>
@@ -1735,6 +1784,62 @@
           <Property Name="RegTim1" Type="datetime" />
           <Property Name="RegTim2" Type="datetime" />
         </EntityType>
+        <!--生成过程中发现错误:
+      警告 6002: 表/视图“SSHMB.dbo.VIEW_WeChatUser”未定义主键。已推断出该键，并将定义创建为只读的表/视图。
+      -->
+        <EntityType Name="VIEW_WeChatUser">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="openid" />
+            <PropertyRef Name="userNum" />
+            <PropertyRef Name="isfenxiao" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="subscribe" Type="int" />
+          <Property Name="openid" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="50" />
+          <Property Name="sex" Type="int" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="province" Type="nvarchar" MaxLength="50" />
+          <Property Name="country" Type="nvarchar" MaxLength="50" />
+          <Property Name="U_language" Type="varchar" MaxLength="50" />
+          <Property Name="headimgurl" Type="varchar" MaxLength="300" />
+          <Property Name="subscribe_time" Type="datetime" />
+          <Property Name="lastAddTime" Type="datetime" />
+          <Property Name="subscribe_value" Type="int" />
+          <Property Name="userNum" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="subscribeState" Type="int" />
+          <Property Name="userTel" Type="varchar" MaxLength="20" />
+          <Property Name="RelName" Type="nvarchar" MaxLength="20" />
+          <Property Name="userWXnum" Type="varchar" MaxLength="20" />
+          <Property Name="F_id" Type="int" />
+          <Property Name="F_idList" Type="varchar" />
+          <Property Name="AddTime" Type="datetime" />
+          <Property Name="isfenxiao" Type="int" Nullable="false" />
+          <Property Name="jifen" Type="int" />
+          <Property Name="userMoney" Type="numeric" />
+          <Property Name="userYongJin" Type="numeric" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="LogoUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="userQQ" Type="varchar" MaxLength="20" />
+          <Property Name="userRelname" Type="nvarchar" MaxLength="50" />
+          <Property Name="userSex" Type="nvarchar" MaxLength="2" />
+          <Property Name="userEmail" Type="varchar" MaxLength="50" />
+          <Property Name="remark1" Type="nvarchar" MaxLength="500" />
+          <Property Name="remark2" Type="nvarchar" MaxLength="500" />
+          <Property Name="remark3" Type="ntext" />
+          <Property Name="flat1" Type="int" />
+          <Property Name="flat2" Type="int" />
+          <Property Name="remark4" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark5" Type="nvarchar" MaxLength="50" />
+          <Property Name="remark6" Type="ntext" />
+          <Property Name="flat7" Type="int" />
+          <Property Name="flat8" Type="int" />
+          <Property Name="RegTim1" Type="datetime" />
+          <Property Name="RegTim2" Type="datetime" />
+          <Property Name="TREE_NODE_ID" Type="nvarchar" MaxLength="50" />
+        </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1832,6 +1937,7 @@
           <EntitySet Name="MST_MUSTSELL_DTL" EntityType="MODEL.MST_MUSTSELL_DTL" />
           <EntitySet Name="MST_MUSTSELL_PRD" EntityType="MODEL.MST_MUSTSELL_PRD" />
           <EntitySet Name="SYS_USERLOGIN" EntityType="MODEL.SYS_USERLOGIN" />
+          <EntitySet Name="VIEW_WeChatUser" EntityType="MODEL.VIEW_WeChatUser" />
         </EntityContainer>
         <EntityType Name="FW_AUDIT_RECORD">
           <Key>
@@ -2181,7 +2287,7 @@
           <Property Name="SUPPLIER_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="SUPPLIER_NAME" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="ADDRESS" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="ISCHECK" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ISCHECK" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="false" />
           <Property Name="BANNER_IMG" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="SUPPLIER_URL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="CONTACT_NUM" Type="Int32" />
@@ -2189,10 +2295,10 @@
           <Property Name="FOOTER" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="SUPPLIER_DESC" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="SKYPE" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="EMAIL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="TEL" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="FAX" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="PHONE" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="TEL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="FAX" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="PHONE" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="CN_NAME" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="STATUS" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
           <Property Name="VERSION" Type="Decimal" Precision="8" Scale="0" />
@@ -3544,6 +3650,59 @@
           <Property Type="String" Name="SLSORG_CD" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Decimal" Name="SLSORG_LEVEL" Nullable="false" Precision="4" Scale="0" />
           <Property Type="Decimal" Name="SEQ_NO" Precision="4" Scale="0" />
+        </EntityType>
+        <EntityType Name="VIEW_WeChatUser">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="openid" />
+            <PropertyRef Name="userNum" />
+            <PropertyRef Name="isfenxiao" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="subscribe" />
+          <Property Type="String" Name="openid" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="nickname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="sex" />
+          <Property Type="String" Name="city" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="province" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="country" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="U_language" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="headimgurl" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="subscribe_time" Precision="3" />
+          <Property Type="DateTime" Name="lastAddTime" Precision="3" />
+          <Property Type="Int32" Name="subscribe_value" />
+          <Property Type="String" Name="userNum" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="subscribeState" />
+          <Property Type="String" Name="userTel" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RelName" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="userWXnum" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="F_id" />
+          <Property Type="String" Name="F_idList" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="AddTime" Precision="3" />
+          <Property Type="Int32" Name="isfenxiao" Nullable="false" />
+          <Property Type="Int32" Name="jifen" />
+          <Property Type="Decimal" Name="userMoney" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="userYongJin" Precision="18" Scale="0" />
+          <Property Type="String" Name="StoreName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StoreDescription" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LogoUrl" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="userQQ" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="userRelname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="userSex" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="userEmail" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="remark1" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remark2" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remark3" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="flat1" />
+          <Property Type="Int32" Name="flat2" />
+          <Property Type="String" Name="remark4" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remark5" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="remark6" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="flat7" />
+          <Property Type="Int32" Name="flat8" />
+          <Property Type="DateTime" Name="RegTim1" Precision="3" />
+          <Property Type="DateTime" Name="RegTim2" Precision="3" />
+          <Property Type="String" Name="TREE_NODE_ID" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5243,6 +5402,57 @@
                 <ScalarProperty Name="SLSORG_LEVEL" ColumnName="SLSORG_LEVEL" />
                 <ScalarProperty Name="SLSORG_CD" ColumnName="SLSORG_CD" />
                 <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VIEW_WeChatUser">
+            <EntityTypeMapping TypeName="MODEL.VIEW_WeChatUser">
+              <MappingFragment StoreEntitySet="VIEW_WeChatUser">
+                <ScalarProperty Name="TREE_NODE_ID" ColumnName="TREE_NODE_ID" />
+                <ScalarProperty Name="RegTim2" ColumnName="RegTim2" />
+                <ScalarProperty Name="RegTim1" ColumnName="RegTim1" />
+                <ScalarProperty Name="flat8" ColumnName="flat8" />
+                <ScalarProperty Name="flat7" ColumnName="flat7" />
+                <ScalarProperty Name="remark6" ColumnName="remark6" />
+                <ScalarProperty Name="remark5" ColumnName="remark5" />
+                <ScalarProperty Name="remark4" ColumnName="remark4" />
+                <ScalarProperty Name="flat2" ColumnName="flat2" />
+                <ScalarProperty Name="flat1" ColumnName="flat1" />
+                <ScalarProperty Name="remark3" ColumnName="remark3" />
+                <ScalarProperty Name="remark2" ColumnName="remark2" />
+                <ScalarProperty Name="remark1" ColumnName="remark1" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="userSex" ColumnName="userSex" />
+                <ScalarProperty Name="userRelname" ColumnName="userRelname" />
+                <ScalarProperty Name="userQQ" ColumnName="userQQ" />
+                <ScalarProperty Name="LogoUrl" ColumnName="LogoUrl" />
+                <ScalarProperty Name="StoreDescription" ColumnName="StoreDescription" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="userYongJin" ColumnName="userYongJin" />
+                <ScalarProperty Name="userMoney" ColumnName="userMoney" />
+                <ScalarProperty Name="jifen" ColumnName="jifen" />
+                <ScalarProperty Name="isfenxiao" ColumnName="isfenxiao" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="F_idList" ColumnName="F_idList" />
+                <ScalarProperty Name="F_id" ColumnName="F_id" />
+                <ScalarProperty Name="userWXnum" ColumnName="userWXnum" />
+                <ScalarProperty Name="RelName" ColumnName="RelName" />
+                <ScalarProperty Name="userTel" ColumnName="userTel" />
+                <ScalarProperty Name="subscribeState" ColumnName="subscribeState" />
+                <ScalarProperty Name="userNum" ColumnName="userNum" />
+                <ScalarProperty Name="subscribe_value" ColumnName="subscribe_value" />
+                <ScalarProperty Name="lastAddTime" ColumnName="lastAddTime" />
+                <ScalarProperty Name="subscribe_time" ColumnName="subscribe_time" />
+                <ScalarProperty Name="headimgurl" ColumnName="headimgurl" />
+                <ScalarProperty Name="U_language" ColumnName="U_language" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="openid" ColumnName="openid" />
+                <ScalarProperty Name="subscribe" ColumnName="subscribe" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

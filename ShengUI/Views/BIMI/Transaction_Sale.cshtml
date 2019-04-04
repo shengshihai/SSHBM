@@ -1,0 +1,135 @@
+﻿@model MODEL.ViewPage.StockSale
+@{
+    ViewBag.Title = "OrderList";
+    Layout = null;
+}
+<html>
+<head>
+    <title>交易</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <!--忽略将页面中的数字识别为电话号码-->
+    <meta name="format-detection" content="telephone=no" />
+    <!--忽略Android平台中对邮箱地址的识别-->
+    <meta name="format-detection" content="email=no" />
+    <!--当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--css-->
+    <link href="~/Content/Back/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Back/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/base.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/common.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Back/css/plugins/jgrowl/jquery.jgrowl.css" rel="stylesheet" />
+    <!--js-->
+
+    <script src="~/Scripts/Back/Common/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/Back/Common/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Content/BIMI/js/common.js"></script>
+    <script src='/Scripts/Back/Common/LG.js' type='text/javascript'></script>    
+    <script src='/Scripts/Back/bootstrap/bootstrap.min.js' type='text/javascript'></script>
+<script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+<script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+        <script src='/Scripts/Back/plugins/jgrowl/jquery.jgrowl.js' type='text/javascript'></script>
+<script src="~/Scripts/Back/plugins/bootbox/bootbox.min.js"  type='text/javascript'></script>
+    <script type="text/javascript">
+        function clk(obj) {
+            var ck = $("#myModal")
+
+            $("#orderNum").html(($(obj).find("[class='orderNum']").val()));
+            $("#yunPrice").html(($(obj).find("[class='yunPrice']").val()));
+            $("#flat2").html(($(obj).find("[class='flat2']").val()));
+            $("#total_fee").html(($(obj).find("[class='total_fee']").val()));
+            $("#orderTime").html(($(obj).find("[class='orderTime']").val()));
+            $("#payTime").html(($(obj).find("[class='payTime']").val()));
+            ck.css("display", "block")
+        }
+        function cle() {
+            var ck = $("#myModal")
+            ck.css("display", "none")
+        }
+
+
+    </script>
+</head>
+<body>
+
+    <div id="wrapper">
+        <header class="header_br">
+            <div class="desc">交易</div>
+        </header>
+        <section>
+            <div class="nav">
+                <ul class="us-tab-list clearfix">
+                    <li class="active" style="line-height: 40px;"><a href="/BIMI/UserMain">持仓</a></li>
+                    <li  style="line-height: 40px;"><a href="/BIMI/DelegateList">当日委托</a></li>
+                    <li  style="line-height: 40px;"><a href="/BIMI/OrderList">成交记录</a></li>
+                    <p class="hint"><span>&diams;&nbsp横华国际&nbsp</span>|&nbsp美金&nbsp|&nbsp现金账户：@ViewBag.userNum</p>
+                </ul>
+
+                <div class="sale_table mt20">
+                    @using (Ajax.BeginForm("", null, new AjaxOptions()
+                        {
+                            Url = "/BIMI/SubmitOrder",
+                            HttpMethod = "post",
+                            OnSuccess = "Success",
+                            LoadingElementId = "divMsg"
+
+                        }, new { id = "prdForm", @class = "form form-horizontal" }))
+                    {
+  
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr class="th">
+                                <th>价格区间</th>
+                                <th>股票数量</th>
+                            </tr>
+                            <tr>
+                                <td class="left_br">
+                                   
+                                    @Html.TextBoxFor(p => p.startPrice, new { @placeholder = "起始价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50" })~ @Html.TextBoxFor(p => p.endPrice, new { @placeholder = "结束价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50" })</td>
+                                <td>
+                                 
+                                    @Html.TextBoxFor(p => p.Count, new { @placeholder = "数量", @min = "0", @step = "1",@style="width: 55%;height: 50" })</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p class=" text-error">
+                                        @Html.ValidationMessageFor(m => m.startPrice)
+                                    </p>
+                                    <p class=" text-error">
+                                        @Html.ValidationMessageFor(m => m.endPrice)
+                                    </p>
+                                    <p class=" text-error">
+                                        @Html.ValidationMessageFor(m => m.Count)
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                       
+                                          
+                        <button class="transaction_btn" type='submit'>卖&nbsp&nbsp出</button>
+                    }
+                    <div class="line_item">
+                        <p class="muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+                        <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p class="text-error">Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p class="text-info">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>
+                        <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                    </div>
+                </div>
+        </section>
+
+    </div>
+    <script src="~/Content/BIMI/js/transction.js"></script>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+</body>
+<div style="display: none;"></div>
+</html>
+

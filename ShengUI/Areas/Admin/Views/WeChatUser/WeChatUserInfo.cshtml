@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "微信用户管理";
+    ViewBag.Title = "会员管理";
     Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
 }
 <input type="hidden" id="MenuNo" value="WeChatUser" />
@@ -32,12 +32,12 @@
                     { "data": "userNum", "name": "[Contains]{main}userNum", "orderable": "userNum" },
                     { "data": "nickname", "name": "[Contains]{main}nickname", "orderable": "nickname" },
                     { "data": "userRelname", "name": "[Contains]{main}userRelname", "orderable": "userRelname" },
-                    { "data": "userSex", "orderable": false },
                     { "data": "headimgurl", "orderable": false },
-                    { "data": "isfenxiao", "orderable": "isfenxiao" },
                     { "data": "userYongJin", "orderable": "userYongJin" },
-                    { "data": "userMoney", "orderable": "userMoney" },
-                    { "data": "userMoney", "orderable": "userMoney" },
+                    { "data": "flat7", "orderable": "flat7" },
+                    { "data": "flat2", "orderable": "flat2" },
+                    { "data": "flat1", "orderable": "flat1" },
+                    { "data": "flat1", "orderable": "flat1" },
                     { "data": "subscribe_time", "orderable": "subscribe_time" }
                     ,{ "data": "userTel", "name": "[Contains]{main}userTel", "orderable": "userTel" ,"visible":false}
 
@@ -58,40 +58,36 @@
                               else
                                   return '<img style="width:90px;height:90px" alt="' + row.nickname + '" src="' + data + '">';
                           },
-                          "targets": 4
+                          "targets": 3
                       },
-                       {
-                           "render": function (data, type, row) {
-                               if (data == 0)
-                                   return "游客"
-                               else if (data == 1)
-                                   return "C级会员"
-                               else if (data == 2)
-                                   return "E级会员"
-                               else if (data == 3)
-                                   return "S级会员"
-                               else if (data == 4)
-                                   return "Double-S级会员"
-                               else
-                                   return "游客";
-                           },
-                           "targets": 5
-                       },
+                      
                         {
                             "render": function (data, type, row) {
-                                return '<span class="label label-success">￥ ' + data + '.00</span>';
+                                return '<span class="label label-success">$ ' + data + '</span>';
                             },
-                            "targets": 6
+                            "targets":4
                         },
                          {
                              "render": function (data, type, row) {
-                                 return '<span class="label label-success">￥ ' + (data - row.userYongJin) + '.00</span>';
+                                 return '<span class="label label-success"> ' + (data) + '</span>';
                              },
-                             "targets": 7
+                             "targets": 5
                          },
                           {
                               "render": function (data, type, row) {
-                                  return '<span class="label label-success">￥ ' + data + '.00</span>';
+                                  return '<span class="label label-success"> ' + data + '</span>';
+                              },
+                              "targets": 6
+                          },
+                          {
+                              "render": function (data, type, row) {
+                                  return '<span class="label label-success"> ' + data + '</span>';
+                              },
+                              "targets": 7
+                          },
+                          {
+                              "render": function (data, type, row) {
+                                  return '<span class="label label-success">≈$ ' + data + '</span>';
                               },
                               "targets": 8
                           }
@@ -225,7 +221,7 @@
                     <div class='page-header'>
                         <h1 class='pull-left'>
                             <i class='icon-edit'></i>
-                            <span>微用户管理</span>
+                            <span>@ViewBag.Title</span>
                         </h1>
                         <div class='pull-right'>
                             <ul class='breadcrumb'>
@@ -256,7 +252,7 @@
                             <div class='row-fluid'>
                                 <div class="box-content Lgloading" id="tablebutton">
                                     <button type="button" id="selectall" class="btn btn-alt btn-sm btn-default " onclick="toolbarBtnItemClick(this)">反选</button>
-                                    <div style="float: right">
+                                    <div style="float: right;display:none">
                                         <button type="button" data="1" id="c_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">C级会员</button>
                                         <button type="button" data="2" id="e_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">E级会员</button>
                                         <button type="button" data="3" id="s_member" class="btn btn-alt btn-sm btn-default" onclick="toolbarBtnItemClick(this)">S级会员</button>
@@ -302,20 +298,20 @@
                                                 <table id="usertable" class='data-table table table-bordered table-striped  table-hover table-striped' style="width: 100%;">
                                                     <thead>
                                                         <tr>
-                                                            <th colspan="6">会员信息</th>
-                                                            <th colspan="3">支付金额</th>
+                                                            <th colspan="4">会员信息</th>
+                                                            <th colspan="5">支付金额</th>
                                                             <th rowspan="2">关注时间</th>
                                                         </tr>
                                                         <tr>
                                                             <th>会员卡号</th>
                                                             <th>微信名</th>
                                                             <th>真实姓名</th>
-                                                            <th>性别</th>
-                                                            <th>头像</th>
-                                                            <th>会员类型</th>
-                                                            <th>当前可用</th>
-                                                            <th>已使用</th>
-                                                            <th>总计</th>   
+                                                            <th>头像</th> 
+                                                            <th>账户余额</th>
+                                                            <th>可用股数</th>
+                                                            <th>冻结股数</th>
+                                                            <th>总股数</th>
+                                                            <th>总资产</th>   
                                                         </tr>
                                                     </thead>
 

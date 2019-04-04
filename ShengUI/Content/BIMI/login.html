@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+	<title>登录</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<!--忽略将页面中的数字识别为电话号码-->
+	<meta name="format-detection" content="telephone=no" />
+	<!--忽略Android平台中对邮箱地址的识别-->
+	<meta name="format-detection" content="email=no" />
+	<!--当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari-->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="msapplication-tap-highlight" content="no">
+	<!--css-->
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/common.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<!--js-->
+
+	<script src="js/jquery.1.9.1.js"></script>
+
+</head>
+<script type="text/javascript">
+	$(function() {
+		$(".prompt").hide();
+		$("input").focus(function() {
+		$(".prompt").show()
+		})
+	})
+</script>
+
+<body>
+	<div id="wrapper">
+		<header>
+			<a href="#" class="logo" style="padding-top: 15px;">&Chi;</a>
+			<div class="desc">登录</div>
+		</header>
+		<section>
+			<form action="">
+				<div class="prompt">
+					<p>请输入正确内容</p>
+					<span class="triangle"></span>
+				</div>
+				<div class="register-box">
+					<label for="username" class="username_label tel">						
+    				<input type="text" placeholder="输入手机号码">    			
+   					</label>
+
+				</div>
+
+				<div class="register-box">
+					<label for="username" class="other_label pw">
+    				<input type="password" placeholder="登录密码">
+   					</label>
+
+				</div>
+
+				<div class="submit_btn">
+					<button type="submit" id="submit_btn">确定</button>
+					<a href="register.html" class="left pt10">注册</a>
+					<a href="javascript:;" class="right pt10">忘记密码</a>
+				</div>
+
+	</div>
+
+	</form>
+	</section>
+</body>
+
+</html>

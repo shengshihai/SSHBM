@@ -247,6 +247,10 @@ namespace DALMsSqlRepository
     {
     }
 
+	public partial class VIEW_WeChatUser_REPOSITORY : BaseDALRepository<MODEL.VIEW_WeChatUser>,IVIEW_WeChatUser_REPOSITORY
+    {
+    }
+
 	public partial class YX_Event_REPOSITORY : BaseDALRepository<MODEL.YX_Event>,IYX_Event_REPOSITORY
     {
     }

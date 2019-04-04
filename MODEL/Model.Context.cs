@@ -97,5 +97,6 @@ namespace MODEL
         public DbSet<MST_MUSTSELL_DTL> MST_MUSTSELL_DTL { get; set; }
         public DbSet<MST_MUSTSELL_PRD> MST_MUSTSELL_PRD { get; set; }
         public DbSet<SYS_USERLOGIN> SYS_USERLOGIN { get; set; }
+        public DbSet<VIEW_WeChatUser> VIEW_WeChatUser { get; set; }
     }
 }

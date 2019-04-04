@@ -127,7 +127,7 @@ namespace ShengUI
             string signature = HttpContext.Current.Request.QueryString["signature"];
             string timestamp = HttpContext.Current.Request.QueryString["timestamp"];
             string nonce = HttpContext.Current.Request.QueryString["nonce"];
-
+            LogHelper.WriteLog(signature);
             if (CheckSignature(token, signature, timestamp, nonce))
             {
                 if (!string.IsNullOrEmpty(echoString))
@@ -158,10 +158,10 @@ namespace ShengUI
             if (!string.IsNullOrEmpty(EventName) && EventName.Trim().ToLower() == "subscribe")//关注 - 事件类型
             {
                 //发送图文
-                string newsTitle2 = "欢迎加入傲鲨汽车生活馆";
-                string newsDescription2 = "“欢迎加入傲鲨汽车生活馆“ ";
-                string newsPicUrl2 = "http://mmbiz.qpic.cn/mmbiz_jpg/x2FJcrdnw52ibeuGbIOJpiadG3ZjERJZDVewfKaklpxlnMOeM8gdcIKzvtWQXdiaDMibxfibkLWmvBJeicgRdhuwaPOw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1";
-                string newsUrl2 = "http://mp.weixin.qq.com/s/LbQOK2MbaY3pM6eUQfW_sQ";
+                string newsTitle2 = "欢迎加入博琪惠信";
+                string newsDescription2 = "“欢迎加入博琪惠信“ ";
+                string newsPicUrl2 = "http://www.boqixinhai.com/";
+                string newsUrl2 = "http://www.boqixinhai.com/";
                 Senparc.Weixin.MP.Entities.Article arc2 = new Senparc.Weixin.MP.Entities.Article();
                 arc2.Title = newsTitle2;
                 arc2.Description = newsDescription2;
@@ -212,6 +212,7 @@ namespace ShengUI
                     wechatuser.isfenxiao = 0;
                     wechatuser.userMoney = 0;
                     wechatuser.userYongJin = 0;
+                    wechatuser.flat1 = 0;
                     wechatuser.TREE_NODE_ID = "144e42158f676695";
                     weiuserB.Add(wechatuser);
                 }

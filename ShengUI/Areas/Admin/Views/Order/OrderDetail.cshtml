@@ -268,7 +268,7 @@
                                     <div class="pull-right">
                                         @if (Model.ispay == 0)
                                         {
-                                            <a class="btn btn-warning" href="#">待支付</a>
+                                            <a class="btn btn-warning" href="#">挂单中</a>
                                         }
                                         else if (Model.ispay == 1)
                                         {
@@ -276,11 +276,11 @@
                                         }
                                         else if (Model.ispay == 2)
                                         {
-                                            <a class="btn btn-danger" href="#">作废</a>
+                                            <a class="btn btn-danger" href="#">撤单</a>
                                         }
                                         else if (Model.ispay == 3)
                                         {
-                                            <a class="btn btn-success" href="#">已支付</a>
+                                            <a class="btn btn-success" href="#">完成订单</a>
                                         }
                                     </div>
                                 </div>
@@ -481,7 +481,13 @@
                                     <i class='icon-globe'></i>
 
                                     <address>
+                                        <strong>
 
+                                            @Model.UserId
+
+                                        </strong>
+
+                                        <br />
                                         <strong>
 
                                             @Model.userName
@@ -499,7 +505,7 @@
 
                                 <div class='span4 buyer'>
 
-                                    <div class='lead text-contrast'>公司</div>
+                                    <div class='lead text-contrast'>价格区间</div>
 
                                     <i class='icon-globe'></i>
 
@@ -507,15 +513,14 @@
 
                                         <strong>
 
-                                            @Model.remark2
+                                           @Model.remark1   ~   @Model.remark2
 
                                         </strong>
 
                                         <br />
 
                                         <br />
-                                        <small>
-                                            @Model.UserAddress  </small>
+                                        
 
                                         <br />
                                     </address>
@@ -564,14 +569,12 @@
                                                             <div class='text-center'>数量</div>
                                                         </th>
                                                         <th>
-                                                            <div class='text-right'>预付</div>
+                                                            <div class='text-right'>起始价格</div>
                                                         </th>
                                                         <th>
-                                                            <div class='text-right'>单价</div>
+                                                            <div class='text-right'>结束价格</div>
                                                         </th>
-                                                        <th>
-                                                            <div class='text-right'>总价格</div>
-                                                        </th>
+                                                      
 
                                                     </tr>
 
@@ -595,20 +598,16 @@
 
                                                             <td>
 
-                                                                <div class='text-right'>￥@item.productPrice</div>
+                                                                <div class='text-right'>$@Model.remark1 </div>
 
                                                             </td>
 
                                                             <td>
 
-                                                                <div class='text-right'>￥@item.productPrice</div>
+                                                                <div class='text-right'>$@Model.remark2 </div>
 
                                                             </td>
-                                                            <td>
-
-                                                                <div class='text-right'>￥@item.productMoney</div>
-
-                                                            </td>
+                                                            
                                                         </tr>
                                                     }
 
@@ -647,7 +646,7 @@
                                         <div class='text-right text-contrast subtotal'>
 
 
-                                            <h2 id="totalSalary2" class="subtotal contrast">(应付: ￥@(Model.total_fee + Model.yunPrice)  优惠：@Model.yunPrice )</h2>
+                                         @*   <h2 id="totalSalary2" class="subtotal contrast">(应付: ￥@(Model.total_fee + Model.yunPrice)  优惠：@Model.yunPrice )</h2>*@
 
 
                                         </div>
@@ -656,16 +655,29 @@
 
                                             <div class="input-prepend input-append">
 
-                                                <span class="add-on">实付：￥</span>
-                                                <input type="number"  id="total_fee2" name="total_fee" @(Model.ispay == 3 ? "disabled" : "")  onblur="calcprice2()"   style="min-height:30px;"  class="span6 text-right" value="@Model.total_fee.ToString("#0")" min="0"  />
+                                                <span class="add-on">成交数量</span>
+                                                <input type="number"  id="flat2" name="flat2" @(Model.ispay == 3 ? "disabled" : "")     style="min-height:30px;"  class="span6 text-right" value="@Model.flat2" min="0"  />
 
-                                                <span class="add-on">.00</span>
-                                                <input type="hidden" name="yunPrice" id="yunPrice2" value="@Model.yunPrice" />
-                                                @Html.HiddenFor(o => o.remark5)
                                             </div>
                                         </div>
+                                        <div class="controls">
 
+                                            <div class="input-prepend input-append">
 
+                                                <span class="add-on">成交单价</span>
+                                                <input type="number"  id="yunPrice" name="yunPrice" @(Model.ispay == 3 ? "disabled" : "")  style="min-height:30px;"  class="span6 text-right" value="@Model.yunPrice" min="0.00"  step="0.01"/>
+                                                
+                                            </div>
+                                        </div>
+                                         <div class="controls">
+
+                                            <div class="input-prepend input-append">
+
+                                                <span class="add-on">手续费</span>
+                                                <input type="number"  id="total_fee1" name="total_fee" @(Model.ispay == 3 ? "disabled" : "")    style="min-height:30px;"  class="span6 text-right" value="@Model.total_fee" min="0.00" step="0.01" />
+                                           
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -691,7 +703,7 @@
 
                                                     <i class='icon-save '></i>
 
-                                                    支付
+                                                    完成订单
 
                                                 </button>
 

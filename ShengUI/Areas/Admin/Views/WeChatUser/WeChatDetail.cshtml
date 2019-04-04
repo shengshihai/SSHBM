@@ -1,4 +1,4 @@
-﻿@model MODEL.ViewModel.VIEW_YX_weiUser
+﻿@model MODEL.ViewModel.VIEW_VIEW_WeChatUser
 @{
     ViewBag.Title = "微信用户明细";
     Layout = "~/Areas/Admin/Views/Shared/_right.cshtml";
@@ -202,7 +202,7 @@
                                         </div>
 
                                     </div>
-                                       <div class='control-group'>
+                                       <div class='control-group' style="display:none">
 
                                         <label class='control-label'>选择门店</label>
 
@@ -251,7 +251,7 @@
                                         </div>
 
                                     </div>
-                                    <div class='control-group'>
+                                    <div class='control-group' style="display:none">
 
                                         <label class='control-label'>车辆信息备注</label>
 
@@ -285,7 +285,7 @@
 
                                 <div class='span7 offset1'>
 
-                                    <div class='control-group'>
+                                    <div class='control-group' style="display:none">
 
                                         <label class='control-label'>会员类型</label>
 
@@ -299,14 +299,31 @@
                                     </div>
                                     <div class='control-group'>
 
-                                        <label class='control-label'>会员余额</label>
+                                        <label class='control-label'>账户资金</label>
 
                                         <div class="controls">
 
                                             <div class="input-prepend input-append">
 
-                                                <span class="add-on">￥</span>
+                                                <span class="add-on">$</span>
                                                 <input type="number" disabled class="span6 text-right" value="@Model.userYongJin" min="0" style="min-height:30px;"  />
+
+                                                <span class="add-on">.00</span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                     <div class='control-group'>
+
+                                        <label class='control-label'>可用股数</label>
+
+                                        <div class="controls">
+
+                                            <div class="input-prepend input-append">
+
+                                                <span class="add-on">股数</span>
+                                                <input type="number" disabled class="span6 text-right" value="@Model.flat7" min="0" style="min-height:30px;"  />
 
                                                 <span class="add-on">.00</span>
 
@@ -337,7 +354,7 @@
 
                                         <div class="control-group" style="margin-left: 1px;">
 
-                                            <label class="control-label">充值金额</label>
+                                            <label class="control-label">充值股票数量</label>
 
                                             <div class="controls">
 

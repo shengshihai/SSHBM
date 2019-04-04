@@ -910,6 +910,21 @@ namespace BLLService
             }
         }
 
+		 IVIEW_WeChatUser_MANAGER iVIEW_WeChatUser_MANAGER;
+		public IVIEW_WeChatUser_MANAGER IVIEW_WeChatUser_MANAGER
+		 {
+            get
+            {
+               if( iVIEW_WeChatUser_MANAGER==null)
+					iVIEW_WeChatUser_MANAGER=new VIEW_WeChatUser_MANAGER();
+			   	return iVIEW_WeChatUser_MANAGER;
+            }
+            set
+            {
+               iVIEW_WeChatUser_MANAGER=value;
+            }
+        }
+
 		 IYX_Event_MANAGER iYX_Event_MANAGER;
 		public IYX_Event_MANAGER IYX_Event_MANAGER
 		 {

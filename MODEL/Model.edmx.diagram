@@ -82,6 +82,7 @@
         <EntityTypeShape EntityType="MODEL.MST_MUSTSELL_DTL" Width="1.5" PointX="0.1985037066966778" PointY="20.177797967650832" />
         <EntityTypeShape EntityType="MODEL.MST_MUSTSELL_PRD" Width="1.5" PointX="8.7192245930057126" PointY="20.580905402349728" />
         <EntityTypeShape EntityType="MODEL.SYS_USERLOGIN" Width="1.5" PointX="7.2335591610677348" PointY="1.3443412190975348" />
+        <EntityTypeShape EntityType="MODEL.VIEW_WeChatUser" Width="1.5" PointX="4.9191025648820688" PointY="11.995426988227026" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

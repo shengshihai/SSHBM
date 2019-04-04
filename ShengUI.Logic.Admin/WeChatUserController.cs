@@ -16,6 +16,7 @@ using ShengUI.Helper;
 using MODEL.DataTableModel;
 using MODEL.ViewPage;
 using Common.EfSearchModel.Model;
+using MODEL;
 
 
 namespace ShengUI.Logic.Admin
@@ -27,6 +28,7 @@ namespace ShengUI.Logic.Admin
         IFW_USER_MANAGER UserInfoManager = OperateContext.Current.BLLSession.IFW_USER_MANAGER;
         IFW_ROLE_MANAGER RoleManager = OperateContext.Current.BLLSession.IFW_ROLE_MANAGER;
         IYX_weiUser_MANAGER wechatUserB = OperateContext.Current.BLLSession.IYX_weiUser_MANAGER;
+        IVIEW_WeChatUser_MANAGER wechatUserA = OperateContext.Current.BLLSession.IVIEW_WeChatUser_MANAGER;
         ITG_transactionLog_MANAGER transactionlogB = OperateContext.Current.BLLSession.ITG_transactionLog_MANAGER;
         ISYS_USERLOGIN_MANAGER sys_userlogin = OperateContext.Current.BLLSession.ISYS_USERLOGIN_MANAGER;
         IMST_SUPPLIER_MANAGER supplierB = OperateContext.Current.BLLSession.IMST_SUPPLIER_MANAGER;
@@ -45,7 +47,7 @@ namespace ShengUI.Logic.Admin
         public ActionResult GetWeChatUserForGrid(QueryModel model)
         {
             DataTableRequest requestGrid = new DataTableRequest(HttpContext, model);
-            return this.JsonFormat(wechatUserB.GetWeChatUserForGrid(requestGrid));
+            return this.JsonFormat(wechatUserA.GetWeChatUserForGrid(requestGrid));
         }
         [ViewPage]
         [ActionDesc("获取微信用户信息")]
@@ -60,14 +62,14 @@ namespace ShengUI.Logic.Admin
             ViewBag.TYPE = "Update";
             var list = sys_userlogin.LoadListBy(su => su.LOGIN_ID == OperateContext.Current.UsrId).Select(su => su.SLSORG_CD);
             ViewBag.COMPANYS = DataSelect.ToListViewModel(VIEW_MST_SUPPLIER.ToListViewModel(supplierB.GetListBy(u => list.Contains(u.TREE_NODE_ID), u => u.SUPPLIER_ID)), true);
-      
-            var model = wechatUserB.Get(u => u.userNum == userNum);
+
+            var model = wechatUserA.Get(u => u.userNum == userNum);
             if (model == null)
             {
                 ViewBag.TYPE = "Add";
-                return View(new VIEW_YX_weiUser() { });
+                return View(new VIEW_VIEW_WeChatUser() { });
             }
-            return View(VIEW_YX_weiUser.ToViewModel(model));
+            return View(VIEW_VIEW_WeChatUser.ToViewModel(model));
 
         }
         [Description("[微信用户管理]新建非微信用户")]
@@ -113,18 +115,18 @@ namespace ShengUI.Logic.Admin
                         log.openid = model.openid;
                         log.tranCate = 1;
                         log.remark4 = "1000";
-                        log.CateName = "会员充值";
+                        log.CateName = "会员充值股票";
                         log.tranMoney = user.ReChargeMoney;
-                        log.tranContent = "会员充值(会员充值金额：" + user.ReChargeMoney + ";充值前金额为：" + model.userYongJin + ";充值后金额为：" + (model.userYongJin + user.ReChargeMoney) + ")";
+                        log.tranContent = "会员充值(会员充值股票数量：" + user.ReChargeMoney + ";充值前金额为：" + model.flat1 + ";充值后金额为：" + (model.flat1 + user.ReChargeMoney) + ")";
                         log.orderNum = "UserReCharge";
-                        log.AddTime = DateTime.Now; model.userMoney = model.userMoney + user.ReChargeMoney;
-                         model.userYongJin = model.userYongJin + user.ReChargeMoney;
-                    
-                        wechatUserB.ChargeMoney(log,model, "userMoney", "userYongJin", "RegTim1");
+                        log.AddTime = DateTime.Now; model.flat1 = model.flat1 + user.ReChargeMoney;
+                       // model.userYongJin = model.userYongJin + user.ReChargeMoney;
+
+                        wechatUserB.ChargeMoney(log, model, "flat1", "RegTim1");
                     }
                     else
                     {
-                        ModelState.AddModelError("ReChargeMoney_Msg", "金额必须大于0元");
+                        ModelState.AddModelError("ReChargeMoney_Msg", "股票数量必须大于0");
                         return this.JsonFormat(ModelState, status, "ERROR");
                     }
                 

@@ -1,0 +1,112 @@
+﻿@model MODEL.ViewModel.VIEW_VIEW_WeChatUser
+@{
+    ViewBag.Title = "userMain";
+    Layout = null;
+}
+<html>
+<head>
+   	<title>交易</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<!--忽略将页面中的数字识别为电话号码-->
+	<meta name="format-detection" content="telephone=no" />
+	<!--忽略Android平台中对邮箱地址的识别-->
+	<meta name="format-detection" content="email=no" />
+	<!--当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari-->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="msapplication-tap-highlight" content="no">
+	<!--css-->
+    <link href="~/Content/BIMI/css/base.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/common.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/style.css" rel="stylesheet" />
+
+	<!--js-->
+    <script src="~/Content/BIMI/js/jquery.1.9.1.js"></script>
+
+    	<script type="text/javascript">
+    	    function clk() {
+    	        var ck = $("#myModal")
+    	        ck.css("display", "block")
+    	    }
+    	    function cle() {
+    	        var ck = $("#myModal")
+    	        ck.css("display", "none")
+    	    }
+
+
+	</script>
+</head>
+<body class="">
+<div id="wrapper">
+		<header class="header_br">
+			
+			<div class="desc">交易</div>
+		</header>
+		<section>
+			<div class="nav">
+				<ul class="us-tab-list clearfix">
+					<li class="active"><a href="/BIMI/UserMain">持仓</a></li>
+					<li><a href="/BIMI/DelegateList">当日委托</a></li>
+					<li><a href="/BIMI/OrderList">成交记录</a></li>
+					<p class="hint"><span>&diams;&nbsp横华国际&nbsp</span>|&nbsp美金&nbsp|&nbsp现金账户：@Model.userNum</p>
+				</ul>
+					
+				<div class="us-tab-con">
+					<div class="t_position">
+						
+						<p class="total_assets">总资产($)</p>
+						<h3>@((Model.flat7+Model.flat2)*Common.TypeParser.ToDouble(ViewBag.Price)+Common.TypeParser.ToDouble(Model.userYongJin.Value))</h3>
+						<div class="sale header_br clearfix">
+							<div class="sale_sub">
+								<p>@Model.userYongJin.Value.ToString("#0.00")</p><small>账面结余</small>
+							</div>
+							<div class="sale_sub leftline">
+								<p>@Model.flat7</p><small>可卖股数</small>
+							</div>
+							<div class="sale_sub">
+								<p>@((Model.flat7+Model.flat2)*Common.TypeParser.ToDouble(ViewBag.Price))</p><small>总货值</small>
+							</div>
+							<p class="arrows"><img src="~/Content/BIMI/images/bottonarrows.png" /></p>
+							<button class="transaction_btn"><a href="/BIMI/Transaction_Sale">卖&nbsp&nbsp出</a></button>
+						</div>
+						<div class="t_position_main">
+							<p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
+							<table border="0" cellspacing="20" cellpadding="10">
+								<tr>
+									<th>名称</th>
+									<th>当前价</th>
+									<th>持仓</th>
+									<th>市值/盈亏</th>
+								</tr>
+								<tr>
+									<td>能发伟业
+										<samll>BIMI.US</samll>
+									</td>
+									<td>@ViewBag.Price
+										<samll></samll>
+									</td>
+									<td>@(Model.flat7+Model.flat2)
+										<samll></samll>
+									</td>
+									<td>@((Model.flat7+Model.flat2)*Common.TypeParser.ToDouble(ViewBag.Price))
+										<samll><span class="green"></span></samll>
+									</td>
+								</tr>
+
+							</table>
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+
+    
+    
+
+    </div>
+</body>
+</html>
+

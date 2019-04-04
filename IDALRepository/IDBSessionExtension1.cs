@@ -130,6 +130,8 @@ namespace IDALRepository
 
 		ITokenConfig_REPOSITORY ITokenConfig_REPOSITORY {get;set;}
 
+		IVIEW_WeChatUser_REPOSITORY IVIEW_WeChatUser_REPOSITORY {get;set;}
+
 		IYX_Event_REPOSITORY IYX_Event_REPOSITORY {get;set;}
 
 		IYX_image_REPOSITORY IYX_image_REPOSITORY {get;set;}

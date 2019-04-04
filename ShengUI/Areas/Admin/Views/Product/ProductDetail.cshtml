@@ -355,7 +355,7 @@
 
                             </div>
                          
-                            <div class='control-group' style="display:none">
+                            <div class='control-group' style="display:">
 
                                 <label class='control-label' for='validation_email'>产品详细描述</label>
 
@@ -419,24 +419,7 @@
                                 </div>
 
                             </div>
-                            <div class='control-group' >
-
-                                <div class="control-label">
-
-                                    <label for="validation_url">原价</label>
-
-                                    <small class="muted"></small>
-
-                                </div>
-
-                                <div class='controls'>
-                                    @Html.TextBoxFor(m => m.ARKETPRICE, new { @placeholder = "原价" })
-                                    @Html.ValidationMessageFor(m => m.ARKETPRICE)
-
-                                </div>
-
-                            </div>
-                            <div class='control-group' >
+                            <div class='control-group'  style="display:none">
 
                                 <div class="control-label">
 
@@ -453,18 +436,35 @@
                                 </div>
 
                             </div>
-                            <div class='control-group'>
+                            <div class='control-group' >
 
                                 <div class="control-label">
 
-                                    <label for="validation_url">预付价</label>
+                                    <label for="validation_url">起始价格</label>
 
                                     <small class="muted"></small>
 
                                 </div>
 
                                 <div class='controls'>
-                                    @Html.TextBoxFor(m => m.FRONTPRICE, new { @placeholder = "预付价" })
+                                    @Html.TextBoxFor(m => m.ARKETPRICE, new { @placeholder = "起始价格" })
+                                    @Html.ValidationMessageFor(m => m.ARKETPRICE)
+
+                                </div>
+
+                            </div>
+                            <div class='control-group'>
+
+                                <div class="control-label">
+
+                                    <label for="validation_url">结束价格</label>
+
+                                    <small class="muted"></small>
+
+                                </div>
+
+                                <div class='controls'>
+                                    @Html.TextBoxFor(m => m.FRONTPRICE, new { @placeholder = "结束价格" })
                                     @Html.ValidationMessageFor(m => m.FRONTPRICE)
 
                                 </div>

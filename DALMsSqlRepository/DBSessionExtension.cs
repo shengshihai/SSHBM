@@ -910,6 +910,21 @@ namespace DALMsSqlRepository
             }
         }
 
+		 IVIEW_WeChatUser_REPOSITORY iVIEW_WeChatUser_REPOSITORY;
+		public IVIEW_WeChatUser_REPOSITORY IVIEW_WeChatUser_REPOSITORY
+		 {
+            get
+            {
+               if( iVIEW_WeChatUser_REPOSITORY==null)
+					iVIEW_WeChatUser_REPOSITORY=new VIEW_WeChatUser_REPOSITORY();
+			   	return iVIEW_WeChatUser_REPOSITORY;
+            }
+            set
+            {
+               iVIEW_WeChatUser_REPOSITORY=value;
+            }
+        }
+
 		 IYX_Event_REPOSITORY iYX_Event_REPOSITORY;
 		public IYX_Event_REPOSITORY IYX_Event_REPOSITORY
 		 {

@@ -1,0 +1,290 @@
+﻿@model MODEL.ViewModel.VIEW_VIEW_WeChatUser
+@{
+    ViewBag.Title = "OrderList";
+    Layout = null;
+}
+<html>
+<head>
+   	<title>交易</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<!--忽略将页面中的数字识别为电话号码-->
+	<meta name="format-detection" content="telephone=no" />
+	<!--忽略Android平台中对邮箱地址的识别-->
+	<meta name="format-detection" content="email=no" />
+	<!--当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari-->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="msapplication-tap-highlight" content="no">
+	<!--css-->
+    <link href="~/Content/BIMI/css/base.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/common.css" rel="stylesheet" />
+    <link href="~/Content/BIMI/css/style.css" rel="stylesheet" />
+
+	<!--js-->
+    <script src="~/Content/BIMI/js/jquery.1.9.1.js"></script>
+
+    	<script type="text/javascript">
+    	    function clk(obj) {
+    	        var ck = $("#myModal")
+                
+    	        $("#orderNum").html(($(obj).find("[class='orderNum']").val()));
+    	        $("#yunPrice").html(($(obj).find("[class='yunPrice']").val()));
+    	        $("#flat2").html(($(obj).find("[class='flat2']").val()));
+    	        $("#total_fee").html(($(obj).find("[class='total_fee']").val()));
+    	        $("#orderTime").html(($(obj).find("[class='orderTime']").val()));
+    	        $("#payTime").html(($(obj).find("[class='payTime']").val()));
+    	        ck.css("display", "block")
+    	    }
+    	    function cle() {
+    	        var ck = $("#myModal")
+    	        ck.css("display", "none")
+    	    }
+
+
+	</script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <header class="header_br">
+            <div class="desc">交易</div>
+        </header>
+        <section>
+            <div class="nav">
+                <ul class="us-tab-list clearfix">
+					<li ><a href="/BIMI/UserMain">持仓</a></li>
+					<li><a href="/BIMI/DelegateList">当日委托</a></li>
+					<li class="active"><a href="/BIMI/OrderList">成交记录</a></li>
+					<p class="hint"><span>&diams;&nbsp横华国际&nbsp</span>|&nbsp美金&nbsp|&nbsp现金账户：@Model.userNum</p>
+				</ul>
+
+                <div class="us-tab-con">
+                    <div class="t_history">
+                        <div class="t_history_main">
+                            <h4>今日成交记录</h4>
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <tr class="tr_title">
+                                    <th>名称</th>
+                                    <th>价格/操作</th>
+                                    <th>成交量/成交时间</th>
+
+                                </tr>
+                                @foreach (var item in ViewBag.OrderList)
+                                {
+                                    <tr class="br01" id="" onclick="clk(this)">
+                                    <td>能发伟业
+										<samll>BIMI.US</samll>
+                                    </td>
+                                    <td>@item.yunPrice
+										<samll>卖出</samll>
+                                    </td>
+                                    <td>@item.flat2
+										<samll>@item.payTime</samll>
+                                        <input type="hidden" class="orderNum" value="@item.orderNum" />
+                                       <input type="hidden" class="yunPrice" value="@item.yunPrice" />
+                                          <input type="hidden" class="flat2" value="@item.flat2" />
+                                        <input type="hidden" class="total_fee" value="@item.total_fee" />
+                                            <input type="hidden" class="orderTime" value="@item.orderTime" />
+                                        <input type="hidden" class="payTime" value="@item.payTime" />
+                                    </td>
+
+                                </tr>
+                                }
+                                
+                                <!-- 模态框 -->
+                                <div id="myModal" class="modal">
+
+                                    <!-- Modal content -->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="close" onclick="cle()">x</span>
+                                            <h2>订单详情</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="clearfix"><span>客户编码</span><span>:</span><span>@Model.userNum</span></p>
+                                            <p class="clearfix"><span>委托编码</span><span>:</span><span id="orderNum">353540</span></p>
+                                            <p class="clearfix"><span>证券名称</span><span>:</span><span>能发伟业</span></p>
+                                            <p class="clearfix"><span>证券代码</span><span>:</span><span>BIMI</span></p>
+
+                                            <p class="clearfix"><span>成交均价</span><span>:</span><span class="red_t" id="yunPrice">7.05</span></p>
+                                            <p class="clearfix"><span>成交数量</span><span>:</span><span class="red_t" id="flat2">100</span></p>
+                                            <p class="clearfix"><span>市场</span><span>:</span><span>美股</span></p>
+                                            <p class="clearfix"><span>证券操作</span><span>:</span><span class="red_t">卖出</span></p>
+                                            <p class="clearfix"><span>手续费</span><span>:</span><span id="total_fee">1.00%</span></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <h3>委托时间<span class="right" id="orderTime">2019/03/28|23:12:00</span></h3>
+                                            <h3>完成时间<span class="right" id="payTime">2019/03/28|23:19:00</span></h3>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- 模态框 -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+    </div>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/Content/AoShaCar/AmazeUI-2.3.0/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
+</body>
+<div style="display: none;"></div>
+</html>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    var weixintitle = '';
+    var weixindesc = 'AOSHA';
+    var weixinlink = 'http://vip.kemeimei.cn/vip/?a=lbs_list&m=order_shopindex&vip=Mw%3D%3D';
+    var weixinimgUrl = 'http://img4.wsb100.com/kemeimei/vip/3/images/2015/06/05/5571041d13bdb.png';
+    //
+    function updateC(ac) {
+
+        //   var url = 'http://vip.kemeimei.cn/vip/?a=visit_count&m=order_baseindex&vip=Mw%3D%3D&click=' + ac;
+        //$.get(url, function (data) {
+
+
+        //    //alert(1);
+        //});
+
+    }
+
+
+
+    wx.config({
+        //debug: true,
+        appId: 'wx227c2c5bd14dd47d',
+        timestamp: 1478689324,
+        nonceStr: '21108qOBwAw53uYs',
+        signature: '236b33bd5af08a2a7dc8fa2c7e325dad0f406301',
+        jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo'
+        ]
+    });
+    wx.ready(function (res) {
+
+        // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+        wx.checkJsApi({
+            jsApiList: [
+              'onMenuShareAppMessage'
+            ],
+            success: function (res) {
+                //alert(JSON.stringify(res));
+                if (res.checkResult.onMenuShareAppMessage != true) {
+                    alert('亲！您的微信版本过低了！请升级吧！');
+                }
+            }
+        });
+
+        // 2. 分享接口
+        // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareAppMessage({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('点击发送给朋友');
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('sfriend');
+            },
+            cancel: function (res) {
+                // alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+
+        // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareTimeline({
+            title: weixintitle,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到朋友圈');
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('scfriend');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+        // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareQQ({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到QQ');
+            },
+            complete: function (res) {
+                //alert(JSON.stringify(res));
+            },
+            success: function (res) {
+                //alert('已分享');
+                updateC('sqq');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+        // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+        wx.onMenuShareWeibo({
+            title: weixintitle,
+            desc: weixindesc,
+            link: weixinlink,
+            imgUrl: weixinimgUrl,
+            trigger: function (res) {
+                //alert('用户点击分享到微博');
+            },
+            complete: function (res) {
+                //alert(JSON.stringify(res));
+            },
+            success: function (res) {
+                //alert('已分享');
+            },
+            cancel: function (res) {
+                //alert('已取消');
+            },
+            fail: function (res) {
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+
+    });
+
+    wx.error(function (res) {
+        //alert('分享发生错误：'+res.errMsg);
+    });
+
+</script>

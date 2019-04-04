@@ -61,6 +61,7 @@
     <Compile Include="ExtentionIBLLService\IYX_news_MANAGER.cs" />
     <Compile Include="ExtentionIBLLService\IMST_CATEGORY_MANAGER.cs" />
     <Compile Include="ExtentionIBLLService\IMST_CAR_MANAGER.cs" />
+    <Compile Include="ExtentionIBLLService\IVIEW_WeChatUser_MANAGER.cs" />
     <Compile Include="IBaseBLLService.cs" />
     <Compile Include="IBLLService.cs">
       <AutoGen>True</AutoGen>

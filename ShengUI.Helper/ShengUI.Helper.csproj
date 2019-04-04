@@ -66,6 +66,7 @@
     <Compile Include="payCls\ResponseHandler.cs" />
     <Compile Include="payCls\TenpayUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockApi.cs" />
     <Compile Include="SysAction.cs" />
     <Compile Include="WeChatConfig.cs" />
   </ItemGroup>

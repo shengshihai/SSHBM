@@ -130,6 +130,8 @@ namespace IBLLService
 
 		ITokenConfig_MANAGER ITokenConfig_MANAGER {get;set;}
 
+		IVIEW_WeChatUser_MANAGER IVIEW_WeChatUser_MANAGER {get;set;}
+
 		IYX_Event_MANAGER IYX_Event_MANAGER {get;set;}
 
 		IYX_image_MANAGER IYX_image_MANAGER {get;set;}

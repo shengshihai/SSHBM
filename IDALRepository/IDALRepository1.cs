@@ -247,6 +247,10 @@ namespace IDALRepository
     {
     }
 
+	public partial interface IVIEW_WeChatUser_REPOSITORY: IBaseDALRepository<MODEL.VIEW_WeChatUser>
+    {
+    }
+
 	public partial interface IYX_Event_REPOSITORY: IBaseDALRepository<MODEL.YX_Event>
     {
     }
