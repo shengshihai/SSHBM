@@ -382,6 +382,7 @@
     <Compile Include="ViewModel\MST_SUPPLIER.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\OrderForCSV.cs" />
     <Compile Include="ViewModel\SET_COUNTRY.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>

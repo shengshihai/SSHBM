@@ -48,9 +48,9 @@ namespace ShengUI
             //                new MultiLangRouteHandler()//这个类主要是通过GetHttpHandler来取得当前Lang的值
             //            ));
             routes.MapRoute(
-                   "AoShaCar",
-                   "AoShaCar/{action}.aspx/{id}",
-                   new { controller = "AoShaCar", action = "Index", id = 0, pageindex = 1 },
+                   "BIMI",
+                   "BIMI/{action}.aspx/{id}",
+                   new { controller = "BIMI", action = "userMain", id = 0, pageindex = 1 },
                 // new { id = @"[\d]{0,11}" },//new { id = @"[\d]*" }//*表示任意长度
                    new string[1] { "ShengUI.Logic" }
                );
@@ -123,7 +123,7 @@ namespace ShengUI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "home", action = "login", id = UrlParameter.Optional },
+                defaults: new { controller = "BIMI", action = "userMain", id = UrlParameter.Optional },
                 namespaces: new string[1] { "ShengUI.Logic" }
             );
         

@@ -50,15 +50,34 @@
             ck.css("display", "none")
         }
 
+        function onlyNumber(obj) {
+
+            //得到第一个字符是否为负号    
+            var t = obj.value.charAt(0);
+            //先把非数字的都替换掉，除了数字和.和-号    
+            obj.value = obj.value.replace(/[^\d\.\-]/g, '');
+            //前两位不能是0加数字      
+            obj.value = obj.value.replace(/^0\d[0-9]*/g, '');
+            //必须保证第一个为数字而不是.       
+            obj.value = obj.value.replace(/^\./g, '');
+            //保证只有出现一个.而没有多个.       
+            obj.value = obj.value.replace(/\.{2,}/g, '.');
+            //保证.只出现一次，而不能出现两次以上       
+            obj.value = obj.value.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.');
+            //如果第一位是负号，则允许添加    
+            obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+            if (t == '-') { return; }
+
+        }
 
     </script>
 </head>
 <body>
 
     <div id="wrapper">
-        <header class="header_br">
+      @*  <header class="header_br">
             <div class="desc">交易</div>
-        </header>
+        </header>*@
         <section>
             <div class="nav">
                 <ul class="us-tab-list clearfix">
@@ -87,10 +106,10 @@
                             <tr>
                                 <td class="left_br">
                                    
-                                    @Html.TextBoxFor(p => p.startPrice, new { @placeholder = "起始价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50" })~ @Html.TextBoxFor(p => p.endPrice, new { @placeholder = "结束价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50" })</td>
+                                    @Html.TextBoxFor(p => p.startPrice, new { @placeholder = "起始价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50",@type="number" })~ @Html.TextBoxFor(p => p.endPrice, new { @placeholder = "结束价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50",@type="number" })</td>
                                 <td>
                                  
-                                    @Html.TextBoxFor(p => p.Count, new { @placeholder = "数量", @min = "0", @step = "1",@style="width: 55%;height: 50" })</td>
+                                    @Html.TextBoxFor(p => p.Count, new { @placeholder = "数量", @min = "0", @step = "1",@style="width: 55%;height: 50" ,@pattern="[0-9]*" })</td>
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -111,11 +130,11 @@
                         <button class="transaction_btn" type='submit'>卖&nbsp&nbsp出</button>
                     }
                     <div class="line_item">
-                        <p class="muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
-                        <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
-                        <p class="text-error">Donec ullamcorper nulla non metus auctor fringilla.</p>
-                        <p class="text-info">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>
-                        <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                        <p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
+                        <p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
+                        <p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
+                        <p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
+                        <p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
                     </div>
                 </div>
         </section>

@@ -111,6 +111,7 @@
     <Compile Include="ToolsHelper\Base64Provider.cs" />
     <Compile Include="ToolsHelper\ConvertHelper.cs" />
     <Compile Include="ToolsHelper\ConvertHtmlPage.cs" />
+    <Compile Include="ToolsHelper\DataTableToCsv.cs" />
     <Compile Include="ToolsHelper\DESProvider.cs" />
     <Compile Include="ToolsHelper\LogHelper.cs" />
     <Compile Include="ToolsHelper\MD5Provider.cs" />

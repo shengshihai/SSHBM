@@ -35,7 +35,7 @@ namespace ShengUI.Logic
         public string shareInfo = "";
         public string timestamp = "";
 
-        public string openid = "oXZjm1LcHQuCl8eWWuwnnPI-QOtY";
+        public string openid = "";
         public string userid = "";
 
         //支付参数
@@ -46,44 +46,45 @@ namespace ShengUI.Logic
         public string isok = "NO";
         public ActionResult UserMain()
         {
+            
             ViewBag.PageFlag = "UserMain";
             ViewBag.isok = "OK";
-            //ViewBag.Appid = WeChatConfig.GetKeyValue("appid");
-            //ViewBag.Uri = WeChatConfig.GetKeyValue("shareurl");
+            ViewBag.Appid = WeChatConfig.GetKeyValue("appid");
+            ViewBag.Uri = WeChatConfig.GetKeyValue("shareurl");
 
-            //noncestr = CommonMethod.GetCode(16);
-
-            //string jsapi_ticket = Js_sdk_Signature.IsExistjsapi_ticket(token.IsExistAccess_Token());
-            //timestamp = DateTime.Now.Ticks.ToString().Substring(0, 10); ;
-            //string url = Request.Url.ToString().Replace("#", "");
-            //JssdkSignature = Js_sdk_Signature.GetjsSDK_Signature(noncestr, jsapi_ticket, timestamp, url);
-            //ViewBag.noncestr = noncestr;
-            //ViewBag.jsapi_ticket = jsapi_ticket;
-            //ViewBag.timestamp = timestamp;
-            //openid = CommonMethod.getCookie("openid");
-            //userid = CommonMethod.getCookie("userid");
-            //if (string.IsNullOrEmpty(openid))
-            //{
-
-            //    //根据授权 获取openid //根据授权  获取用户的openid
-            //    string code = Request.QueryString["code"];//获取授权code
-            //    LogHelper.WriteLog("//////////////////////////////////////////////////////////////////////////////////");
-            //    LogHelper.WriteLog("code：" + code);
-            //    if (string.IsNullOrEmpty(code))
-            //    {
-            //        string codeurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx242aa47391c159f6&redirect_uri=http://www.boqixinhuiwang.com/BIMI/userMain&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
-            //        Response.Redirect(codeurl);
-            //    }
-            //    else
-            //    {
-            //        string openIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WeChatConfig.GetKeyValue("appid") + "&secret=" + WeChatConfig.GetKeyValue("appsecret") + "&code=" + code + "&grant_type=authorization_code";
-            //        string content = Tools.GetPage(openIdUrl, "");
-            //        openid = Tools.GetJsonValue(content, "openid");//根据授权  获取当前人的openid
-            //    }
-            //}
+            noncestr = CommonMethod.GetCode(16);
+         
+            string jsapi_ticket = Js_sdk_Signature.IsExistjsapi_ticket(token.IsExistAccess_Token()); 
+            timestamp = DateTime.Now.Ticks.ToString().Substring(0, 10); ;
+            string url = Request.Url.ToString().Replace("#", ""); 
+            JssdkSignature = Js_sdk_Signature.GetjsSDK_Signature(noncestr, jsapi_ticket, timestamp, url); 
+            ViewBag.noncestr = noncestr;
+            ViewBag.jsapi_ticket = jsapi_ticket;
+            ViewBag.timestamp = timestamp;
+            openid = CommonMethod.getCookie("openid");
+            userid = CommonMethod.getCookie("userid");
+            if (string.IsNullOrEmpty(openid))
+            {
+               
+                //根据授权 获取openid //根据授权  获取用户的openid
+                string code = Request.QueryString["code"];//获取授权code
+                LogHelper.WriteLog("//////////////////////////////////////////////////////////////////////////////////");
+                LogHelper.WriteLog("code：" + code);
+                if (string.IsNullOrEmpty(code))
+                {
+                    string codeurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx242aa47391c159f6&redirect_uri=http://www.boqixinhuiwang.com/BIMI/userMain&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
+                    Response.Redirect(codeurl);
+                }
+                else
+                {
+                    string openIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WeChatConfig.GetKeyValue("appid") + "&secret=" + WeChatConfig.GetKeyValue("appsecret") + "&code=" + code + "&grant_type=authorization_code";
+                    string content = Tools.GetPage(openIdUrl, "");
+                    openid = Tools.GetJsonValue(content, "openid");//根据授权  获取当前人的openid
+                }
+            }
            // var model = VIEW_YX_weiUser.ToViewModel(weiUserM.GetModelWithOutTrace(u => u.openid == openid));
            ViewBag.Price= StockApi.getStockPrice("BIMI");
-            var model = VIEW_VIEW_WeChatUser.ToViewModel(weiUserA.GetModelWithOutTrace(u => u.openid == openid));
+            var model = weiUserA.GetModelWithOutTrace(u => u.openid == openid);
             if (model != null)
             {
                 CommonMethod.delCookie("openid");
@@ -92,18 +93,18 @@ namespace ShengUI.Logic
                 CommonMethod.setCookie("userid", model.userNum, 1);
                 ViewBag.nickname = model.nickname;
                 ViewBag.headimgurl = model.headimgurl;
-                
             }
             else
             {
                 Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson dic = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(token.IsExistAccess_Token(), openid);
+                LogHelper.WriteLog("XXXXXXXXXXX：" + openid);
                 //LogHelper.WriteLog("XXXXXXXXXXX：" + openid);
                 if (dic != null)
                 {
                     ViewBag.nickname = dic.nickname;
                     ViewBag.headimgurl = dic.headimgurl;
                 }
-                model = new MODEL.ViewModel.VIEW_VIEW_WeChatUser();
+                model = new MODEL.VIEW_WeChatUser();
                 model.subscribe = dic.subscribe;
                 model.openid = dic.openid;
                 model.nickname = dic.nickname;
@@ -120,11 +121,15 @@ namespace ShengUI.Logic
                 model.isfenxiao = 0;
                 model.userMoney = 0;
                 model.userYongJin = 0;
-                weiUserM.Add(VIEW_YX_weiUser.ToEntity(model));
+                model.flat1 = 0;
+                model.flat2= 0;
+                model.flat7 = 0;
+                model.TREE_NODE_ID = "144e42158f676695";
+               weiUserM.Add(VIEW_YX_weiUser.ToEntity(VIEW_VIEW_WeChatUser.ToViewModel(model)));
 
             }
            ViewBag.UserType= ConfigSettings.GetSysConfigValue("USERTYPE", model.isfenxiao.ToString());
-            return View(model);
+           return View(VIEW_VIEW_WeChatUser.ToViewModel(model));
         }
         public ActionResult Index()
         {
@@ -177,7 +182,7 @@ namespace ShengUI.Logic
         public ActionResult Transaction_Sale()
         {
             ViewBag.PageFlag = "OrderList";
-            var status = false;
+           // var status = false;
             var userid = CommonMethod.getCookie("userid");
             var openid = CommonMethod.getCookie("openid");
             if (string.IsNullOrEmpty(userid) || string.IsNullOrEmpty(openid))
@@ -209,7 +214,7 @@ namespace ShengUI.Logic
         public ActionResult DelegateList()
         {
             ViewBag.PageFlag = "DelegateList";
-            var status = false;
+           // var status = false;
             var userid = CommonMethod.getCookie("userid");
             var openid = CommonMethod.getCookie("openid");
             if (string.IsNullOrEmpty(userid) || string.IsNullOrEmpty(openid))
@@ -314,6 +319,21 @@ namespace ShengUI.Logic
           
             if (!ModelState.IsValid)
                 return this.JsonFormat(ModelState, status, "ERROR");
+
+            var currdate = DateTime.Now.Hour;
+            if (currdate>18)
+            {
+               // return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
+               // return this.JsonFormat(status, status, SysOperate.Add);
+                return this.JsonFormat("SYSERROR", status, "当前时间不可交易");
+            }
+            var orderCount=orderB.GetListBy(s => s.UserId == userid && s.userOpenId == openid && s.ssh_status == 0 && s.trade_type == "ONLINE" && s.SYNCOPERATION != "D", o => o.orderTime, false).Count;
+            if (orderCount >0)
+            {
+                // return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
+                // return this.JsonFormat(status, status, SysOperate.Add);
+                return this.JsonFormat("SYSERROR", status, "请先在当日委托撤单，再重新下单");
+            }
             var user = weiUserA.GetModelWithOutTrace(u => u.openid == openid);
             if (model.Count>user.flat7)
             {
@@ -321,10 +341,7 @@ namespace ShengUI.Logic
                // return this.JsonFormat(status, status, SysOperate.Add);
                 return this.JsonFormat("SYSERROR", status, "当前可用股票数量为："+user.flat7);
             }
-          
-
-          
-
+            
             string orderNum = CommonMethod.GetOrderNum();//订单号
             string ThingNum =CommonMethod.GetCode(18);//流水号;
            // string thingName = Request.Form["thingName"];
@@ -382,7 +399,23 @@ namespace ShengUI.Logic
 
             return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
         }
-   
+        public ActionResult CanceOrder()
+        {
+            bool status = false;
+            var openid = CommonMethod.getCookie("openid");
+            var userid = CommonMethod.getCookie("userid");
+            if (string.IsNullOrEmpty(userid) || string.IsNullOrEmpty(openid))
+            {
+
+                return this.JsonFormat(status, status, "对不起，请登陆系统！");
+            }
+            TG_order order=new TG_order();
+            order.ssh_status=2;
+            order.ispay = 2;
+            order.SYNCVERSION=DateTime.Now;
+            orderB.ModifyBy(order, s => s.UserId == userid && s.userOpenId == openid && s.ssh_status == 0 && s.trade_type == "ONLINE" && s.SYNCOPERATION != "D", "ssh_status", "ispay", "SYNCVERSION");
+            return Redirect("/BIMI/DelegateList"); 
+        }
         public ActionResult OrderDetail(string orderid)
         {
             //-----

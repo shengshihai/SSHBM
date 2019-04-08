@@ -113,6 +113,12 @@
                     }
 
                     break;
+                case "ReservationOrderToCSV":
+                    if (confirm('确定导出CSV吗?')) {
+                        toCsv();
+                    }
+
+                    break;
                 case "RealDelete":
                     $.messager.confirm('删除', '确定删除吗(该删除操作将会永久删除,一旦删除将无法挽回)?', function (r) {
                         if (r) {
@@ -125,6 +131,22 @@
                     $(table + '  tr').toggleClass('info');
                     break;
             }
+        }
+        function toCsv() {
+
+                LG.ajax({
+                    url: rootPath + 'Order/ToCSV',
+                    loading: '正在导出中...',
+                    success: function (message) {
+                        // reload();
+                        window.location = message.Data;
+                        window.parent.LG.tipSuccess('导出成功!');
+                    },
+                    error: function (message) {
+                        window.parent.LG.tipError(message);
+                    }
+                });
+            
         }
 
     </script>

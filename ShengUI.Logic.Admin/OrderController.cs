@@ -17,6 +17,7 @@ using MODEL;
 
 using Common.EfSearchModel.Model;
 using MODEL.DataTableModel;
+using Common.ToolsHelper;
 
 
 namespace ShengUI.Logic.Admin
@@ -339,6 +340,28 @@ namespace ShengUI.Logic.Admin
             }
             return this.JsonFormat(status, status, SysOperate.Update);
         }
+        [ActionDesc("导出CSV", "Y")]
+        [Description("[订单管理]导出CSV")]
+        public ActionResult ToCSV()
+        {
+            bool status = false;
+            var name = DateTime.Now.ToString("yyyy-MM-dd");
+            try
+            {
+                var daytime = TypeParser.ToDateTime(name);
+                var orderlist = orderB.GetListBy(o => o.ssh_status==0&&o.orderTime>=daytime, o => (o.orderTime), false).OrderBy(o => o.remark1).ToList();
+                var list = OrderForCSV.ToListViewModel(orderlist).ToList();
+                DataTableToCsv.ListToCsv<OrderForCSV>(list, name);
+                name = "/csv/" + name + ".csv";
+                status = true;
+            }
+            catch (Exception e)
+            {
 
+                return this.JsonFormat(status, status, SysOperate.Operate);
+            }
+
+            return this.JsonFormat(name, status, SysOperate.Operate);
+        }
     }
 }

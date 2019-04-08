@@ -41,15 +41,23 @@
     	        ck.css("display", "none")
     	    }
 
-
+    	    function disp_confirm() {
+    	        var r = confirm("确认要撤销当前委托？")
+    	        if (r == true) {
+    	            window.location = "/BIMI/CanceOrder";
+    	        }
+    	        else {
+    	            //document.write("You pressed Cancel!")
+    	        }
+    	    }
 	</script>
 </head>
 <body>
     
     <div id="wrapper">
-        <header class="header_br">
+      @*  <header class="header_br">
             <div class="desc">交易</div>
-        </header>
+        </header>*@
         <section>
             <div class="nav">
                 <ul class="us-tab-list clearfix">
@@ -64,15 +72,14 @@
 					<div class="t_delegate">
 						<div class="t_delegate_main">
 							
-							<h4>交易订单中</h4>
-					
+							<h4>交易订单中<button class="right revoke_btn" onclick="disp_confirm()">撤&nbsp;单</button></h4>
 							<!-- 模态框 -->
 							<div id="myModal" class="modal">
 
 								<!-- Modal content -->
 								<div class="modal-content">
 									<div class="modal-header">
-										<span class="close" onclick="cle()">x</span>
+										<span class="close" onclick="cle()">X</span>
 										<h2>订单详情</h2>
 									</div>
 									<div class="modal-body">
@@ -97,7 +104,7 @@
                             @foreach (var item in ViewBag.OrderList)
                                 {
 							<div class="t_record mt05" onclick="clk(this)">
-								<h5><span class="icon_green">撤单</span>能发伟业 &nbspBIMI.US <span class="right">@item.orderTime.ToString("HH:mm:ss")</span></h5>
+								<h5><span class="icon_green">交易中</span>能发伟业 &nbspBIMI.US <span class="right">@item.orderTime.ToString("HH:mm:ss")</span></h5>
 								<p>委托价格 <span class="right">@item.remark1 - @item.remark2</span></p>
 								<p>卖出数量 <span class="right">卖出 @item.flat1 股</span></p>
                                     <input type="hidden" class="orderNum" value="@item.orderNum" />
