@@ -13,10 +13,11 @@ namespace MODEL.ViewModel
         public string UserId { get; set; }
        // public string userName { get; set; }
         public string UserTel { get; set; }
-        public System.DateTime orderTime { get; set; }
+    
         public decimal startPrice { get; set; }
         public decimal endPrice { get; set; }
         public Nullable<int> Count { get; set; }
+        public System.DateTime orderTime { get; set; }
         //public Nullable<int> flat2 { get; set; }
 
         public static OrderForCSV ToViewModel(TG_order model)

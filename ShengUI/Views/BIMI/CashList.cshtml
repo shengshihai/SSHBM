@@ -62,9 +62,9 @@
             <div class="nav">
                 <ul class="us-tab-list clearfix">
 					<li ><a href="/BIMI/UserMain">持仓</a></li>
-					<li class="active"><a href="/BIMI/DelegateList">当日委托</a></li>
+					<li><a href="/BIMI/DelegateList">当日委托</a></li>
 					<li><a href="/BIMI/OrderList">成交记录</a></li>
-					<li><a href="/BIMI/CashList">提现记录</a></li>
+					<li class="active"><a href="/BIMI/CashList">提现记录</a></li>
 				<p class="hint">&nbsp;@Model.userRelname&nbsp;|&nbsp美金&nbsp|&nbsp现金账户：@Model.userNum&nbsp;<a href="/BIMI/UpdatePwd" ><span>修改密码</span></a>&nbsp;</p>
 				</ul>
 
@@ -73,7 +73,7 @@
 					<div class="t_delegate">
 						<div class="t_delegate_main">
 							
-							<h4>交易订单中<button class="right revoke_btn" onclick="disp_confirm()">撤&nbsp;单</button></h4>
+							<h4>提现记录</h4>
 							<!-- 模态框 -->
 							<div id="myModal" class="modal">
 
@@ -102,7 +102,7 @@
 
 							</div>
 							<!-- 模态框 -->
-                            @foreach (var item in ViewBag.OrderList)
+                            @*@foreach (var item in ViewBag.OrderList)
                                 {
 							<div class="t_record mt05" onclick="clk(this)">
 								<h5><span class="icon_green">交易中</span>能发伟业 &nbspBIMI.US <span class="right">@item.orderTime.ToString("HH:mm:ss")</span></h5>
@@ -115,7 +115,7 @@
                                             <input type="hidden" class="orderTime" value="@item.orderTime" />
                                         <input type="hidden" class="payTime" value="@item.payTime" />
 							</div>
-                            }
+                            }*@
 						
 							
                          @*   <h4>撤单订单</h4>

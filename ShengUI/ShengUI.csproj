@@ -235,9 +235,11 @@
     <Content Include="Content\Back\images\third.gif" />
     <Content Include="Content\BIMI\css\base.css" />
     <Content Include="Content\BIMI\css\common.css" />
+    <Content Include="Content\BIMI\css\demo.css" />
     <Content Include="Content\BIMI\css\import.css" />
     <Content Include="Content\BIMI\css\style.css" />
     <Content Include="Content\BIMI\images\bottonarrows.png" />
+    <Content Include="Content\BIMI\images\error.png" />
     <Content Include="Content\BIMI\images\icon.jpg" />
     <Content Include="Content\BIMI\images\icon01.png" />
     <Content Include="Content\BIMI\images\icon02.png" />
@@ -664,6 +666,9 @@
     <Content Include="Views\BIMI\OrderList.cshtml" />
     <Content Include="Views\BIMI\DelegateList.cshtml" />
     <Content Include="Views\BIMI\Transaction_Sale.cshtml" />
+    <Content Include="Views\BIMI\Login.cshtml" />
+    <Content Include="Views\BIMI\UpdatePwd.cshtml" />
+    <Content Include="Views\BIMI\CashList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

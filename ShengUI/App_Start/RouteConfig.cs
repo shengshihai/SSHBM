@@ -123,7 +123,7 @@ namespace ShengUI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "BIMI", action = "userMain", id = UrlParameter.Optional },
+                defaults: new { controller = "BIMI", action = "Login", id = UrlParameter.Optional },
                 namespaces: new string[1] { "ShengUI.Logic" }
             );
         

@@ -134,8 +134,14 @@ namespace ShengUI.Logic.Admin
                 }
                 else
                 {
+                    if (user.userTel != "" && wechatUserB.LoadListBy(w => w.userTel == user.userTel && w.userNum != user.userNum).Count() > 0)
+                    {
+                        ModelState.AddModelError("userTel", "手机号码已经存在,请确认后再输入");
+                        return this.JsonFormat(ModelState, status, "ERROR");
+                    }
+                    if (string.IsNullOrEmpty(user.remark1)&&!string.IsNullOrEmpty(user.userTel))
+                        user.remark1 = user.userTel.Substring(user.userTel.Length-6); 
                     wechatUserB.Modify(VIEW_YX_weiUser.ToEntity(user), "userRelname", "userTel", "userWXnum", "userQQ", "remark1", "remark2", "RegTim1", "isfenxiao", "TREE_NODE_ID");
-
                 }
                 status = true;
             }

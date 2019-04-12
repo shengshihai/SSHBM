@@ -1,4 +1,4 @@
-﻿@model MODEL.ViewPage.StockSale
+﻿@model MODEL.ViewPage.ChangePassWord
 @{
     ViewBag.Title = "OrderList";
     Layout = null;
@@ -27,12 +27,12 @@
     <script src="~/Scripts/Back/Common/jquery-1.7.1.js"></script>
     <script src="~/Scripts/Back/Common/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Content/BIMI/js/common.js"></script>
-    <script src='/Scripts/Back/Common/LG.js' type='text/javascript'></script>    
+    <script src='/Scripts/Back/Common/LG.js' type='text/javascript'></script>
     <script src='/Scripts/Back/bootstrap/bootstrap.min.js' type='text/javascript'></script>
-<script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
-<script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
-        <script src='/Scripts/Back/plugins/jgrowl/jquery.jgrowl.js' type='text/javascript'></script>
-<script src="~/Scripts/Back/plugins/bootbox/bootbox.min.js"  type='text/javascript'></script>
+    <script src="~/Scripts/Back/plugins/validate/jquery.validate.js"></script>
+    <script src='/Scripts/Back/plugins/validate/jquery.validate.unobtrusive.js' type='text/javascript'></script>
+    <script src='/Scripts/Back/plugins/jgrowl/jquery.jgrowl.js' type='text/javascript'></script>
+    <script src="~/Scripts/Back/plugins/bootbox/bootbox.min.js" type='text/javascript'></script>
     <script type="text/javascript">
         function clk(obj) {
             var ck = $("#myModal")
@@ -70,73 +70,76 @@
 
         }
 
-    </script>
+    </script><style type="text/css">
+        .field-validation-error {
+            color: #b94a48;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin-top: 10px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-validation-error {
+            border-color: #b94a48 !important;
+        }
+    </style>
 </head>
 <body>
 
     <div id="wrapper">
-      @*  <header class="header_br">
+        @*  <header class="header_br">
             <div class="desc">交易</div>
         </header>*@
         <section>
             <div class="nav">
                 <ul class="us-tab-list clearfix">
                     <li class="active" style="line-height: 40px;"><a href="/BIMI/UserMain">持仓</a></li>
-                    <li  style="line-height: 40px;"><a href="/BIMI/DelegateList">当日委托</a></li>
+                    <li style="line-height: 40px;"><a href="/BIMI/DelegateList">当日委托</a></li>
                     <li  style="line-height: 40px;"><a href="/BIMI/OrderList">成交记录</a></li>
 					<li  style="line-height: 40px;"><a href="/BIMI/CashList">提现记录</a></li>
-                    <p class="hint">&nbsp;@ViewBag.userRelname&nbsp;|&nbsp美金&nbsp|&nbsp现金账户：@ViewBag.userNum&nbsp;<a href="/BIMI/UpdatePwd" ><span>修改密码</span></a>&nbsp;</p>
+                    <p class="hint">&nbsp;@ViewBag.userRelname&nbsp;|&nbsp美金&nbsp|&nbsp现金账户：@ViewBag.userNum&nbsp;<a href="/BIMI/UpdatePwd"><span>修改密码</span></a>&nbsp;</p>
                 </ul>
 
                 <div class="sale_table mt20">
                     @using (Ajax.BeginForm("", null, new AjaxOptions()
-                        {
-                            Url = "/BIMI/SubmitOrder",
-                            HttpMethod = "post",
-                            OnSuccess = "Success",
-                            LoadingElementId = "divMsg"
+                    {
+                        Url = "/BIMI/SubmitPwd",
+                        HttpMethod = "post",
+                        OnSuccess = "Success",
+                        LoadingElementId = "divMsg"
 
-                        }, new { id = "prdForm", @class = "form form-horizontal" }))
+                    }, new { id = "prdForm", @class = "form form-horizontal" }))
                     {
   
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr class="th">
-                                <th>价格区间</th>
-                                <th>股票数量</th>
-                            </tr>
-                            <tr>
-                                <td class="left_br">
-                                   
-                                    @Html.TextBoxFor(p => p.startPrice, new { @placeholder = "起始价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50",@type="number" })~ @Html.TextBoxFor(p => p.endPrice, new { @placeholder = "结束价格", @min = "0.00", @step = "0.01",@style="width: 35%;height: 50",@type="number" })</td>
-                                <td>
-                                 
-                                    @Html.TextBoxFor(p => p.Count, new { @placeholder = "数量", @min = "0", @step = "1",@style="width: 55%;height: 50" ,@type="number" ,@pattern="[0-9]*" })</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <p class=" text-error">
-                                        @Html.ValidationMessageFor(m => m.startPrice)
-                                    </p>
-                                    <p class=" text-error">
-                                        @Html.ValidationMessageFor(m => m.endPrice)
-                                    </p>
-                                    <p class=" text-error">
-                                        @Html.ValidationMessageFor(m => m.Count)
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                       
-                                          
-                        <button class="transaction_btn" type='submit'>卖&nbsp&nbsp出</button>
+                        <div class="register-box">
+                            <label for="username" class="other_label pw">
+                                @Html.PasswordFor(u => u.OldPassword, new { Value = "", @class = "span12", @placeholder = "原密码" })
+                                @Html.ValidationMessageFor(model => model.OldPassword)
+                            </label>
+
+                        </div>
+
+                        <div class="register-box">
+                            <label for="username" class="other_label pw">
+                                @Html.PasswordFor(u => u.Password, new { Value = "", @class = "span12", @placeholder = "新密码" })
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </label>
+
+                        </div>
+                        <div class="register-box">
+                            <label for="username" class="other_label pw">
+                                @Html.PasswordFor(u => u.NewPassword, new { Value = "", @class = "span12", @placeholder = "确认密码" })
+                                @Html.ValidationMessageFor(model => model.NewPassword)
+                            </label>
+
+                        </div>
+                        <div class="submit_btn">
+                            <button type="submit" id="submit_btn">修改密码</button>
+                            @*					<a href="register.html" class="left pt10">注册</a>
+					<a href="javascript:;" class="right pt10">忘记密码</a>*@
+                        </div>
                     }
-                    <div class="line_item">
-                        <p class="notice">交易时间为早9:30点---晚17:00点</p>
-                        <p class="notice">同一价格按照各用户委托时间先后顺序进行撮合交易</p>
-                        <p class="notice">按照美国证监会征费标准，每笔手续费$16.00</p>
-                        <p class="notice">美元兑人民币汇率按当日中国人民银行公布结算价格汇兑</p>
-                        <p class="notice">美国节假日休市</p>
-                    </div>
+
                 </div>
         </section>
 

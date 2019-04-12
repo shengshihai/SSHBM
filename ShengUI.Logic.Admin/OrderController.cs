@@ -211,7 +211,7 @@ namespace ShengUI.Logic.Admin
                         transactionlog.tranMoney = order.flat2*order.yunPrice - model.total_fee;
                         transactionlog.remark1 = order.yunPrice.ToString();
                         transactionlog.remark2 = order.total_fee.ToString();
-                        transactionlog.tranContent = "卖出股票(订单号:" + order.orderNum + ")挂单数量:" + order.flat1 + " ,卖出数量:" + order.flat2 + ",挂单区间：" + order.remark1 + " ~ " + order.remark2 + ",成交金额：" + order.yunPrice + "  ,手续费：" + order.total_fee + "  。";
+                        transactionlog.tranContent = "卖出股票(订单号:" + order.orderNum + ")挂单数量:" + order.flat1 + " ,卖出数量:" + order.flat2 + ",挂单区间：" + order.remark1 + " ~ " + order.remark2 + ",成交单价：" + order.yunPrice + "  ,手续费：" + order.total_fee + " ,成交总金额：" + transactionlog.tranMoney+"  。";
                         transactionlog.orderNum = order.orderNum;
                         transactionlog.remark4 = "1003";
                         transactionlog.AddTime = DateTime.Now;
