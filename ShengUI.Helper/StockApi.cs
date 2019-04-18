@@ -17,6 +17,9 @@ namespace ShengUI.Helper
 
         public static string  getStockPrice(string gid)
         {
+            var price = CacheHelper.GetCache("price");
+            if (price != null)
+                return price.ToString();
             //3.美国股市
             string url3 = "http://web.juhe.cn:8080/finance/stock/usa";
 
@@ -35,6 +38,7 @@ namespace ShengUI.Helper
                 LogHelper.WriteLog("成功");
                //
                // LogHelper.WriteLog(newObj3);
+                CacheHelper.SetCache("price", newObj3["result"][0]["data"]["lastestpri"].ToString(), TimeSpan.FromHours(10));
                 return newObj3["result"][0]["data"]["lastestpri"].ToString();
             }
             else

@@ -78,6 +78,7 @@
     <Compile Include="ExtentionBLLService\YX_text_MANAGER.cs" />
     <Compile Include="ExtentionBLLService\MST_CAR_MANAGER.cs" />
     <Compile Include="ExtentionBLLService\VIEW_WeChatUser_MANAGER.cs" />
+    <Compile Include="ExtentionBLLService\TG_TXmoney_MANAGER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

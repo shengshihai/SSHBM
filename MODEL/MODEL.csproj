@@ -279,6 +279,7 @@
     <Compile Include="ViewModel\ExtentionViewModel\VIEW_TG_order.cs" />
     <Compile Include="ViewModel\ExtentionViewModel\VIEW_YX_weiUser.cs" />
     <Compile Include="ViewModel\ExtentionViewModel\VIEW_MST_CAR.cs" />
+    <Compile Include="ViewModel\ExtentionViewModel\VIEW_TG_TXmoney.cs" />
     <Compile Include="ViewModel\FW_AUDIT_RECORD.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>

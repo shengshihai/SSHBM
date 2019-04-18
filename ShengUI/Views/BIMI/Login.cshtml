@@ -74,7 +74,7 @@
                     {
 				<div class="register-box">
 					<label for="username" class="username_label tel">			
-                          @Html.TextBoxFor(u => u.UserName, new { Value = "", @class = "span12", @placeholder = "输入手机号码" })			
+                          @Html.TextBoxFor(u => u.UserName, new { Value = "", @class = "span12", @placeholder = "输入手机号码",type="number" ,@pattern="[0-9]*" })			
                         @Html.ValidationMessageFor(model => model.UserName)
    					</label>
                     

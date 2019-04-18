@@ -30,6 +30,7 @@ namespace ShengUI.Logic
         ITG_order_MANAGER orderB = OperateContext.Current.BLLSession.ITG_order_MANAGER;
         ITG_transactionLog_MANAGER transactionlogB = OperateContext.Current.BLLSession.ITG_transactionLog_MANAGER;
         ITG_Thing_MANAGER thingB = OperateContext.Current.BLLSession.ITG_Thing_MANAGER;
+        ITG_TXmoney_MANAGER txmoneyB = OperateContext.Current.BLLSession.ITG_TXmoney_MANAGER;
         public string JssdkSignature = "";
         public string noncestr = "";
         public string shareInfo = "";
@@ -199,7 +200,58 @@ namespace ShengUI.Logic
                 return this.JsonFormat("SYSERROR", status, "原密码错误，请重新输入");
             }
         }
+        public ActionResult Cash(MODEL.ViewModel.VIEW_TG_TXmoney money)
+        {
+            var userid = SessionHelper.Get("usernum");
+            var openid = CommonMethod.getCookie("openid");
+            if (string.IsNullOrEmpty(userid))
+            {
+                return Redirect("/BIMI/Login");
+
+            }
+            var model = weiUserA.GetModelWithOutTrace(u => u.userNum == userid);
+            bool status = false;
+            if (!ModelState.IsValid)
+            {
+                return this.JsonFormat(ModelState, !false, "ERROR");
+                // return OperateContext.Current.RedirectAjax("err", "没有权限!", null, "");
+            }
+
+            if (model.userYongJin < money.TXmoney)
+            {
+                return this.JsonFormat("SYSERROR", status, "请输入正确的提现金额");
+            }
+            TG_TXmoney currmoney = new TG_TXmoney();
+            currmoney.userId = userid;
+            currmoney.openid = model.openid;
+            currmoney.Utel = model.userTel;
+            currmoney.Addtime = DateTime.Now;
+            currmoney.bankInfo = money.bankInfo;
+            currmoney.bankUserInfo = money.bankUserInfo;
+            currmoney.remark1 = money.remark1;
+            currmoney.TXmoney = money.TXmoney;
+            currmoney.TXstate = 0;
+            txmoneyB.Add(currmoney);
+            status = true;
+             return this.JsonFormat("/BIMI/CashList", status, "修改成功", status);
+        }
         public ActionResult UpdatePwd()
+        {
+
+            var userid = SessionHelper.Get("usernum");
+            var openid = CommonMethod.getCookie("openid");
+            if (string.IsNullOrEmpty(userid))
+            {
+                return Redirect("/BIMI/Login");
+
+            }
+            var model = VIEW_VIEW_WeChatUser.ToViewModel(weiUserA.GetModelWithOutTrace(u => u.userNum == userid));
+            ViewBag.userNum = userid;
+            ViewBag.userRelname = model.userRelname;
+            return View();
+        }
+    
+        public ActionResult CashMoney()
         {
 
             var userid = SessionHelper.Get("usernum");
@@ -257,7 +309,7 @@ namespace ShengUI.Logic
 
             }
             var model = VIEW_VIEW_WeChatUser.ToViewModel(weiUserA.GetModelWithOutTrace(u => u.userNum == userid));
-            ViewBag.OrderList = VIEW_TG_order.ToListViewModel(orderB.GetListBy(s => s.UserId == userid && s.trade_type == "ONLINE" && s.SYNCOPERATION != "D" && s.ssh_status == 3, o => o.orderTime, false));
+            ViewBag.CashList = VIEW_TG_TXmoney.ToListViewModel(txmoneyB.GetListBy(s => s.userId == userid, o => o.Addtime, false));
             return View(model);
         }
         public ActionResult DelegateList()
@@ -289,7 +341,8 @@ namespace ShengUI.Logic
                 return this.JsonFormat(ModelState, status, "ERROR");
 
             var currdate = DateTime.Now.Hour;
-            if (currdate>18)
+            var currMin = DateTime.Now.Minute;
+            if ((currdate <=9&&currMin<30) || currdate > 17)
             {
                // return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
                // return this.JsonFormat(status, status, SysOperate.Add);

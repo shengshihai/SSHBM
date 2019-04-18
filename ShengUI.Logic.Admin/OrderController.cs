@@ -30,6 +30,7 @@ namespace ShengUI.Logic.Admin
         IMST_SUPPLIER_MANAGER supplierB = OperateContext.Current.BLLSession.IMST_SUPPLIER_MANAGER;
         ITG_Thing_MANAGER thingB = OperateContext.Current.BLLSession.ITG_Thing_MANAGER;
         ITG_order_MANAGER orderB = OperateContext.Current.BLLSession.ITG_order_MANAGER;
+        ITG_TXmoney_MANAGER cashB = OperateContext.Current.BLLSession.ITG_TXmoney_MANAGER;
         ITG_transactionLog_MANAGER transactionlogB = OperateContext.Current.BLLSession.ITG_transactionLog_MANAGER;
         ISYS_USERLOGIN_MANAGER sys_userlogin = OperateContext.Current.BLLSession.ISYS_USERLOGIN_MANAGER;
 
@@ -279,6 +280,49 @@ namespace ShengUI.Logic.Admin
             }
             
         }
+        [ActionDesc("提现审核", "Y")]
+        [Description("[订单管理]提现审核")]
+        public ActionResult CashOrderComfim()
+        {
+            var ids = HttpContext.Request["Ids"].Split(',').ToList().Select(x =>x!=""?int.Parse(x):0).ToList();
+            var data = false;
+            try
+            {
+                MODEL.TG_TXmoney money = new MODEL.TG_TXmoney() { TXstate =1 };
+                if (cashB.ModifyBy(money, o => ids.Contains(o.Id), "TXstate") > 0)
+                {
+                    data = true;
+                }
+                return this.JsonFormat(data, data, SysOperate.Operate);
+            }
+            catch (Exception)
+            {
+                return this.JsonFormat(data, data, SysOperate.Operate);
+            }
+            
+        }
+         [ActionDesc("提现作废", "Y")]
+         [Description("[订单管理]提现作废")]
+        public ActionResult CashOrderCancel()
+        {
+            var ids = HttpContext.Request["Ids"].Split(',').ToList().Select(x =>x!=""?int.Parse(x):0).ToList();
+            var data = false;
+            try
+            {
+                MODEL.TG_TXmoney money = new MODEL.TG_TXmoney() { TXstate =2 };
+                if (cashB.ModifyBy(money, o => ids.Contains(o.Id), "TXstate") > 0)
+                {
+                    data = true;
+                }
+                return this.JsonFormat(data, data, SysOperate.Operate);
+            }
+            catch (Exception)
+            {
+                return this.JsonFormat(data, data, SysOperate.Operate);
+            }
+            
+        }
+
         [ActionDesc("永久删除", "Y")]
         [Description("[订单管理]永久删除动作")]
         public ActionResult RealDelete()
@@ -304,6 +348,23 @@ namespace ShengUI.Logic.Admin
             return View();
 
         }
+        [ActionDesc("提现订单管理")]
+        [Description("[订单管理]提现订单管理列表信息")]
+        public ActionResult CashOrderInfo()
+        {
+
+            return View();
+
+        }
+        [ActionDesc("获取提现信息列表")]
+        [Description("[订单管理]获取提现信息列表(主页必须)")]
+        public ActionResult GetCashForGrid(QueryModel model)
+        {
+
+            DataTableRequest request = new DataTableRequest(HttpContext, model);
+            return this.JsonFormat(cashB.GetCashForGrid(request));
+        }
+
         [ActionDesc("预约订单详细信息")]
         [Description("[订单管理]预约订单详细信息(add,Update,Detail必备)")]
         public ActionResult ReservationOrderDetail(string ordernum)

@@ -512,6 +512,7 @@
     <Content Include="Areas\Admin\Views\Order\OrderDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Select.cshtml" />
     <Content Include="Areas\Admin\Views\Manage\WelCome.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\CashOrderInfo.cshtml" />
     <None Include="Content\AoShaCar\AmazeUI-2.3.0\fonts\fontawesome-webfont.woff" />
     <None Include="Properties\PublishProfiles\jjkj.pubxml" />
     <None Include="Properties\PublishProfiles\ssh.pubxml" />
@@ -669,6 +670,7 @@
     <Content Include="Views\BIMI\Login.cshtml" />
     <Content Include="Views\BIMI\UpdatePwd.cshtml" />
     <Content Include="Views\BIMI\CashList.cshtml" />
+    <Content Include="Views\BIMI\CashMoney.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

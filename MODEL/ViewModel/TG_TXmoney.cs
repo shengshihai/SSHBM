@@ -15,7 +15,7 @@ namespace MODEL.ViewModel
     public partial class VIEW_TG_TXmoney_P
     {
         public int Id { get; set; }
-        public Nullable<int> userId { get; set; }
+        public string userId { get; set; }
         public string openid { get; set; }
         public string Utel { get; set; }
         public Nullable<decimal> TXmoney { get; set; }
