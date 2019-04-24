@@ -202,6 +202,43 @@
                                         </div>
 
                                     </div>
+                                     <div class='control-group'>
+
+                                        <label class='control-label'>银行账号</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.remark3, new { @placeholder = "银行账号", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.remark3)
+
+                                        </div>
+
+                                    </div>
+                                     <div class='control-group'>
+
+                                        <label class='control-label'>银行开户行信息</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.remark4, new { @placeholder = "银行开户行信息", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.remark4)
+
+                                        </div>
+
+                                    </div>
+                                     <div class='control-group'>
+
+                                        <label class='control-label'>银行开户人</label>
+
+                                        <div class='controls'>
+
+                                            @Html.TextBoxFor(u => u.remark5, new { @placeholder = "银行开户人", @class = "span12 input-validation-error" })
+                                            @Html.ValidationMessageFor(u => u.remark5)
+
+                                        </div>
+
+                                    </div>
+
                                        <div class='control-group' style="display:none">
 
                                         <label class='control-label'>选择门店</label>

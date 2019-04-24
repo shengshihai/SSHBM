@@ -549,9 +549,9 @@ form {
 	color: #585858;
 	display: block;
 	background: url(../images/icon_logo.png) no-repeat 16px 0;
-	padding-left: 55px;
+	padding:8px 0 8px 55px;
 	height: 45px;
-	line-height: 45px;
+	line-height: 16px;
 }
 
 .t_position_main table {

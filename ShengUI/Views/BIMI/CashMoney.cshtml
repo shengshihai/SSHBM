@@ -113,28 +113,28 @@
   
                         <div class="register-box">
                             <label for="username" class="other_label note">
-                                @Html.TextBoxFor(u => u.bankInfo, new { Value = "", @class = "span12", @placeholder = "银行账户" })
+                                @Html.TextBoxFor(u => u.bankInfo, new { @class = "span12", @placeholder = "银行账户" })
                                 @Html.ValidationMessageFor(model => model.bankInfo)
                             </label>
 
                         </div>
                           <div class="register-box">
                             <label for="username" class="other_label note">
-                                @Html.TextBoxFor(u => u.remark1, new { Value = "", @class = "span12", @placeholder = "开户行信息" })
+                                @Html.TextBoxFor(u => u.remark1, new {  @class = "span12", @placeholder = "开户行信息" })
                                 @Html.ValidationMessageFor(model => model.remark1)
                             </label>
 
                         </div>
                         <div class="register-box">
                             <label for="username" class="other_label note">
-                                @Html.TextBoxFor(u => u.bankUserInfo, new { Value = "", @class = "span12", @placeholder = "开户人姓名" })
+                                @Html.TextBoxFor(u => u.bankUserInfo, new { @class = "span12", @placeholder = "开户人姓名"  })
                                 @Html.ValidationMessageFor(model => model.bankUserInfo)
                             </label>
 
                         </div>
                         <div class="register-box">
                             <label for="username" class="other_label note">
-                                @Html.TextBoxFor(u => u.TXmoney, new { Value = "", @class = "span12", @placeholder = "提现金额" })
+                                @Html.TextBoxFor(u => u.TXmoney, new { @class = "span12", @placeholder = "提现金额"  })
                                 @Html.ValidationMessageFor(model => model.TXmoney)
                             </label>
 

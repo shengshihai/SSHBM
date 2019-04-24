@@ -33,7 +33,10 @@
     	        ck.css("display", "none")
     	    }
 
-
+    	    function sale()
+    	    {
+    	        window.location = '/BIMI/Transaction_Sale';
+    	    }
 	</script>
 </head>
 <body class="">
@@ -70,7 +73,7 @@
 								<p>@((Model.flat7+Model.flat2)*Common.TypeParser.ToDouble(ViewBag.Price))</p><small>总市值</small>
 							</div>
 							<p class="arrows"><img src="~/Content/BIMI/images/bottonarrows.png" /></p>
-							<button class="transaction_btn"><a href="/BIMI/Transaction_Sale">卖&nbsp&nbsp出</a></button>
+							<button class="transaction_btn" onclick="sale();"><a href="/BIMI/Transaction_Sale">卖&nbsp&nbsp出</a></button>
 						</div>
 						<div class="t_position_main">
 							<p class="notice">Powered by Tele-Trend Konson|美股行情至少延迟15分钟</p>
@@ -82,7 +85,7 @@
 									<th>市值</th>
 								</tr>
 								<tr>
-									<td>能发伟业
+									<td>博琪医药
 										<samll>BIMI.US</samll>
 									</td>
 									<td>@ViewBag.Price

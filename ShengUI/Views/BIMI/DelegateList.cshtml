@@ -42,13 +42,20 @@
     	    }
 
     	    function disp_confirm() {
-    	        var r = confirm("确认要撤销当前委托？")
-    	        if (r == true) {
-    	            window.location = "/BIMI/CanceOrder";
-    	        }
-    	        else {
-    	            //document.write("You pressed Cancel!")
-    	        }
+    	        var myDate = new Date();
+    	    
+    	        var hour = myDate.getHours();
+                if (hour < 12 || hour > 18)
+                    alert("当前时间不可撤单交易")
+                else {
+                    var r = confirm("确认要撤销当前委托？")
+                    if (r == true) {
+                        window.location = "/BIMI/CanceOrder";
+                    }
+                    else {
+                        //document.write("You pressed Cancel!")
+                    }
+                }
     	    }
 	</script>
 </head>
@@ -86,7 +93,7 @@
 									<div class="modal-body">
 										<p class="clearfix"><span>客户编码</span><span>:</span><span>@Model.userNum</span></p>
 										<p class="clearfix"><span>委托编码</span><span>:</span><span  id="orderNum">353540</span></p>	
-										<p class="clearfix"><span>证券名称</span><span>:</span><span>能发伟业</span></p>
+										<p class="clearfix"><span>证券名称</span><span>:</span><span>博琪医药</span></p>
 										<p class="clearfix"><span>证券代码</span><span>:</span><span>BIMI</span></p>
 										<p class="clearfix"><span>交易类型</span><span>:</span><span>限价盘</span></p>
 										<p class="clearfix"><span>委托价格</span><span>:</span><span class="red_t" id="qujian">7.30~7.05</span></p>
@@ -105,7 +112,7 @@
                             @foreach (var item in ViewBag.OrderList)
                                 {
 							<div class="t_record mt05" onclick="clk(this)">
-								<h5><span class="icon_green">交易中</span>能发伟业 &nbspBIMI.US <span class="right">@item.orderTime.ToString("HH:mm:ss")</span></h5>
+								<h5><span class="icon_green">交易中</span>博琪医药 &nbspBIMI.US <span class="right">@item.orderTime.ToString("HH:mm:ss")</span></h5>
 								<p>委托价格 <span class="right">@item.remark1 - @item.remark2</span></p>
 								<p>卖出数量 <span class="right">卖出 @item.flat1 股</span></p>
                                     <input type="hidden" class="orderNum" value="@item.orderNum" />

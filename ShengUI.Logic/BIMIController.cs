@@ -216,7 +216,10 @@ namespace ShengUI.Logic
                 return this.JsonFormat(ModelState, !false, "ERROR");
                 // return OperateContext.Current.RedirectAjax("err", "没有权限!", null, "");
             }
-
+            if ((model.flat2 + model.flat7) < model.flat1)
+            {
+                return this.JsonFormat("SYSERROR", status, "请卖出全部股票后才可提现");
+            }
             if (model.userYongJin < money.TXmoney)
             {
                 return this.JsonFormat("SYSERROR", status, "请输入正确的提现金额");
@@ -264,7 +267,12 @@ namespace ShengUI.Logic
             var model = VIEW_VIEW_WeChatUser.ToViewModel(weiUserA.GetModelWithOutTrace(u => u.userNum == userid));
             ViewBag.userNum = userid;
             ViewBag.userRelname = model.userRelname;
-            return View();
+            VIEW_TG_TXmoney money = new VIEW_TG_TXmoney();
+            money.bankInfo = model.remark3;
+            money.remark1 = model.remark4;
+            money.bankUserInfo = model.remark5;
+            money.TXmoney = model.userYongJin;
+            return View(money);
         }
         public ActionResult Transaction_Sale()
         {
@@ -342,7 +350,7 @@ namespace ShengUI.Logic
 
             var currdate = DateTime.Now.Hour;
             var currMin = DateTime.Now.Minute;
-            if ((currdate <=9&&currMin<30) || currdate > 17)
+            if ((currdate <11) || currdate > 18)
             {
                // return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
                // return this.JsonFormat(status, status, SysOperate.Add);
@@ -355,7 +363,7 @@ namespace ShengUI.Logic
                 // return this.JsonFormat(status, status, SysOperate.Add);
                 return this.JsonFormat("SYSERROR", status, "请先在当日委托撤单，再重新下单");
             }
-            var user = weiUserA.GetModelWithOutTrace(u => u.openid == openid);
+            var user = weiUserA.GetModelWithOutTrace(u => u.userNum == userid);
             if (model.Count>user.flat7)
             {
                // return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
@@ -429,6 +437,14 @@ namespace ShengUI.Logic
             {
                 return Redirect("/BIMI/Login");
 
+            }
+            var currdate = DateTime.Now.Hour;
+            var currMin = DateTime.Now.Minute;
+            if ((currdate < 11) || currdate > 18)
+            {
+                // return this.JsonFormat("/BIMI/DelegateList", status, SysOperate.Add.ToMessage(status), status);
+                // return this.JsonFormat(status, status, SysOperate.Add);
+                return this.JsonFormat("SYSERROR", status, "当前时间不可交易");
             }
             TG_order order=new TG_order();
             order.ssh_status=2;

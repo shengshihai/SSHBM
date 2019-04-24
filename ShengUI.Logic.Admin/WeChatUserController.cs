@@ -140,8 +140,8 @@ namespace ShengUI.Logic.Admin
                         return this.JsonFormat(ModelState, status, "ERROR");
                     }
                     if (string.IsNullOrEmpty(user.remark1)&&!string.IsNullOrEmpty(user.userTel))
-                        user.remark1 = user.userTel.Substring(user.userTel.Length-6); 
-                    wechatUserB.Modify(VIEW_YX_weiUser.ToEntity(user), "userRelname", "userTel", "userWXnum", "userQQ", "remark1", "remark2", "RegTim1", "isfenxiao", "TREE_NODE_ID");
+                        user.remark1 = user.userTel.Substring(user.userTel.Length-6);
+                    wechatUserB.Modify(VIEW_YX_weiUser.ToEntity(user), "userRelname", "userTel", "userWXnum", "userQQ", "remark1", "remark2", "remark3", "remark4", "remark5", "RegTim1", "isfenxiao", "TREE_NODE_ID");
                 }
                 status = true;
             }
