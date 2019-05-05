@@ -158,9 +158,14 @@ namespace ShengUI.Logic
                 return this.JsonFormat(ModelState, !false, "ERROR");
                 // return OperateContext.Current.RedirectAjax("err", "没有权限!", null, "");
             }
+            var ISHOT = prdB.Get(p => p.PRD_CD == "PRD22440853").ISHOT;
             var model = weiUserA.GetModelWithOutTrace(u => u.userTel == user.UserName&&u.remark1==user.Password);
             if (model != null)
             {
+                if (!ISHOT)
+                {
+                    return this.JsonFormat("SYSERROR", status, "美国节假日休息");
+                }
                 status = true;
                 SessionHelper.Add("usernum", model.userNum);
               
