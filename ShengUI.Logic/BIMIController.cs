@@ -221,11 +221,11 @@ namespace ShengUI.Logic
                 return this.JsonFormat(ModelState, !false, "ERROR");
                 // return OperateContext.Current.RedirectAjax("err", "没有权限!", null, "");
             }
-            if ((model.flat2 + model.flat7) < model.flat1)
+            if ((model.flat2 + model.flat7) <= model.flat1)
             {
                 return this.JsonFormat("SYSERROR", status, "请卖出全部股票后才可提现");
             }
-            if (model.userYongJin < money.TXmoney)
+            if (model.userYongJin>0&&model.userYongJin < money.TXmoney)
             {
                 return this.JsonFormat("SYSERROR", status, "请输入正确的提现金额");
             }
@@ -394,8 +394,8 @@ namespace ShengUI.Logic
             order.ThingNum = ThingNum;
             order.remark1 = model.startPrice.ToString();
             order.remark2 = model.endPrice.ToString();
-            order.userOpenId = openid;
-            order.UserId = userid;
+            order.userOpenId = user.openid;
+            order.UserId = user.userNum;
             order.userName = user.userRelname;
             order.UserTel = user.userTel;
             order.UserAddress = "";
