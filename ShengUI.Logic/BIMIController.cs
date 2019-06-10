@@ -221,7 +221,7 @@ namespace ShengUI.Logic
                 return this.JsonFormat(ModelState, !false, "ERROR");
                 // return OperateContext.Current.RedirectAjax("err", "没有权限!", null, "");
             }
-            if ((model.flat2 + model.flat7) <= model.flat1)
+            if ((model.flat2 + model.flat7) >0)
             {
                 return this.JsonFormat("SYSERROR", status, "请卖出全部股票后才可提现");
             }
