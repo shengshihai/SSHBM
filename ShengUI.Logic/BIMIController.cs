@@ -225,7 +225,7 @@ namespace ShengUI.Logic
             {
                 return this.JsonFormat("SYSERROR", status, "请卖出全部股票后才可提现");
             }
-            if (model.userYongJin>0&&model.userYongJin < money.TXmoney)
+            if ((model.userYongJin > 0 && model.userYongJin < money.TXmoney) || money.TXmoney <= 0)
             {
                 return this.JsonFormat("SYSERROR", status, "请输入正确的提现金额");
             }
